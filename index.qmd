@@ -9,6 +9,8 @@
 
 遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.
 
-这本书是由quarto生成的,可以在[quarto.org](https://quarto.org)上了解更多.
 
 王师傅强烈推荐 [r graph gallery](https://r-graph-gallery.com/index.html) 的数据可视化思路:![data2viz](./image/data2viz.png)
+
+
+这本书是由quarto生成的,可以在[quarto.org](https://quarto.org)上了解更多.

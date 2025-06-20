@@ -8,8 +8,12 @@ book:
   date: "6/24/2025"
   chapters:
     - index.qmd
-    - 快速入门.qmd
-    - 箱线图.qmd
+    - quick_start.qmd
+
+    - part: Distribution
+      chapters:
+        - boxplot.qmd
+        - ridgeline.qmd
     - summary.qmd
     - references.qmd
 

@@ -4,119 +4,157 @@
     "href": "index.html",
     "title": "数据可视化探索(从入门到放弃)",
     "section": "",
-    "text": "Preface\n数据可视化,对王师傅来说是很复杂的东西\n所以王师傅特地写了这个笔记,来记录学习过程和心得体会。\n看似简单,其实一点也不难.\n遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.\n这本书是由quarto生成的,可以在quarto.org上了解更多.\n王师傅强烈推荐 r graph gallery 的数据可视化思路:",
+    "text": "Preface\n数据可视化,对王师傅来说是很复杂的东西\n所以王师傅特地写了这个笔记,来记录学习过程和心得体会。\n看似简单,其实一点也不难.\n遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.\n王师傅强烈推荐 r graph gallery 的数据可视化思路:\n这本书是由quarto生成的,可以在quarto.org上了解更多.",
     "crumbs": [
       "Preface"
     ]
   },
   {
-    "objectID": "快速入门.html",
-    "href": "快速入门.html",
-    "title": "1  快速入门",
+    "objectID": "quick_start.html",
+    "href": "quick_start.html",
+    "title": "1  Quick start",
     "section": "",
     "text": "1.1 基本概念\n现在有下面这张表格，记录了钻石相关的一些信息：\nShow/Hide Code\nlibrary(tidyverse)\ndiamonds &lt;- diamonds |&gt; filter(carat &lt; 3)\nknitr::kable(head(diamonds))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ncarat\ncut\ncolor\nclarity\ndepth\ntable\nprice\nx\ny\nz\n\n\n\n\n0.23\nIdeal\nE\nSI2\n61.5\n55\n326\n3.95\n3.98\n2.43\n\n\n0.21\nPremium\nE\nSI1\n59.8\n61\n326\n3.89\n3.84\n2.31\n\n\n0.23\nGood\nE\nVS1\n56.9\n65\n327\n4.05\n4.07\n2.31\n\n\n0.29\nPremium\nI\nVS2\n62.4\n58\n334\n4.20\n4.23\n2.63\n\n\n0.31\nGood\nJ\nSI2\n63.3\n58\n335\n4.34\n4.35\n2.75\n\n\n0.24\nVery Good\nJ\nVVS2\n62.8\n57\n336\n3.94\n3.96\n2.48\n其中:\n这是数据分析的整体流程:",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>快速入门</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Quick start</span>"
     ]
   },
   {
-    "objectID": "快速入门.html#基本概念",
-    "href": "快速入门.html#基本概念",
-    "title": "1  快速入门",
+    "objectID": "quick_start.html#基本概念",
+    "href": "quick_start.html#基本概念",
+    "title": "1  Quick start",
     "section": "",
     "text": "变量（Variable）：列, carat、cut、color、clarity、depth、table、price、x、y、z\n\n连续变量（Continuous Variable）：carat、depth、table、price、x、y、z\n离散变量（Discrete Variable）：cut、color、clarity\n分类变量（Categorical Variable）：cut、color、clarity\n\n观测（Observation）：行, 每个钻石的记录\n值（Value）：单元格, 如某个钻石的carat为1.5\n数据框（Data Frame）：整个表格\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nwhich part of the data analysis process is the most interesting? Which part is the most boring?",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>快速入门</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Quick start</span>"
     ]
   },
   {
-    "objectID": "快速入门.html#单变量univariate-variable",
-    "href": "快速入门.html#单变量univariate-variable",
-    "title": "1  快速入门",
+    "objectID": "quick_start.html#单变量univariate-variable",
+    "href": "quick_start.html#单变量univariate-variable",
+    "title": "1  Quick start",
     "section": "1.2 单变量(Univariate Variable)",
     "text": "1.2 单变量(Univariate Variable)\n\n1.2.1 分类变量(Categorical Variable)\n对于分类变量，我们主要展示其比例构成。\n\n1.2.1.1 饼图(Pie)\n不得不说，饼图是最常见的单个分类变量可视化方式，那么直接，又那么简单。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  coord_polar(theta = \"y\") + \n  theme_void()\n\n\n\n\n\n\n\n\n\n\n\n1.2.1.2 甜甜圈图(Donut)\n甜甜圈图是饼图的变种，去掉了中间的空心部分，形成一个甜甜圈形状。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 2, fill = cut)) + \n  geom_bar(color = \"white\") +\n  xlim(0.5, 2.5) +  # 这里设置中心空白洞的大小\n  coord_polar(theta = \"y\") + \n  theme_void()\n\n\n\n\n\n\n\n\n\n\n\n1.2.1.3 堆叠条形图(Barstack)\n堆叠条形图是另一种常见的单个分类变量可视化方式(我不喜欢,我觉得它不直观)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n1.2.2 连续性变量（Continuous Variable）\n对于连续变量, 我们主要关注其变化、分布、趋势、典型值、异常值\n\n1.2.2.1 直方图(Histogram)\n下图是 53900 个钻石的克拉数分布，X轴是克拉数，Y轴是频数。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.5) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat do you notice from the histogram?\n\n\n让我们改变一下 binwidth 的大小，看看会有什么不同。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1) \n\n\n\n\n\n\n\n\n\n好像有些不一样了，继续改变 binwidth 的大小：\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.01) \n\n\n\n\n\n\n\n\n\nAmazing!\n\n\n\n\n\n\n思考题\n\n\n\nWhy are there more diamonds at whole carats and common fractions of carats?\nWhy are there more diamonds slightly to the right of each peak than there are slightly to the left of each peak?\n\n\n\n\n1.2.2.2 密度曲线图(Density)\n密度曲线图可以帮助我们更好地理解数据的分布情况。下图是钻石克拉数的密度曲线图，X轴是克拉数，Y轴是分布密度,\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the density?\nWhat is the relationship between the density curve and the histogram above?\n\n\n\n\n1.2.2.3 箱线图(Boxplot)\n箱线图是用来展示数据分布的图形，主要用于显示数据的中位数、四分位数、异常值等信息。 \n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this boxplot?\n\n\n\n\n1.2.2.4 小提琴图(Violin)\n箱线图很好,但仅展示了四分位数等,而小提琴图则显示了数据的分布密度,可以更好地展示数据的分布情况。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() \n\n\n\n\n\n\n\n\n\n小提琴图显示分布密度\n\n\n\n\n\n\n思考题\n\n\n\nwhat is the difference in the three plots(boxplot, density plot, histogram)?\n\n\n下图很地解释了直方图、密度曲线图和箱线图这三者之前的关系\n\n\nShow/Hide Code\nlibrary(patchwork)\n## Left\np_left &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1)\n\n## Middle\np_middle &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n## Right\np_right &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_boxplot()\n\np_left + p_middle + p_right\n\n\n\n\n\n\n\n\n\n\n\n1.2.2.5 小提琴图(Violin) + 箱线图(Boxplot)\n还有一种把小提琴图和箱线图结合的方式，近年来在科研界比较流行。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1, fill = \"white\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this plot?",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>快速入门</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Quick start</span>"
     ]
   },
   {
-    "objectID": "快速入门.html#双变量bivariate-variable",
-    "href": "快速入门.html#双变量bivariate-variable",
-    "title": "1  快速入门",
+    "objectID": "quick_start.html#双变量bivariate-variable",
+    "href": "quick_start.html#双变量bivariate-variable",
+    "title": "1  Quick start",
     "section": "1.3 双变量(Bivariate Variable)",
     "text": "1.3 双变量(Bivariate Variable)\n\n1.3.1 分类-数值变量(A categorical and a numerical variable)\n\n1.3.1.1 折线图(Line)\n下面是不同切割质量的钻石的价格情况的折线图\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n不好看!\n\n\n\n\n\n\n思考题\n\n\n\nWhy is this plot ugly?\n\n\n\n\n1.3.1.2 密度曲线图(Density)\n当各组数据差得较多时,纵轴用count不太合适,会造成摩天大厦+小平层,不如把纵轴改为density:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, y = after_stat(density), color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n好多了吧 ●‘◡’● (好吧,还是有点丑)\n分面(facet)会好一点吗?\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, fill = cut)) + \n  geom_density() + \n  facet_wrap(~ cut, nrow = 1) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n1.3.1.3 山脊图(Ridge)\n近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。\n\n\nShow/Hide Code\nlibrary(ggridges)\nggplot(diamonds, aes(x = price, y = cut, fill = cut)) + \n  geom_density_ridges(alpha = 0.5) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n1.3.1.4 并排箱线图(Boxplot)\n箱线图也是一种直观的可视化方式\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\n或许还可以上点颜色, 让它显得花里胡哨:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price, fill = cut)) +\n  geom_boxplot(outlier.shape = NA) +\n  theme(legend.position = \"none\") + \n  coord_cartesian(ylim = c(0, 15000))\n\n\n\n\n\n\n\n\n\n等等,这不对吧,cut越好的钻石价格应该越高才对啊!!!怎么回事?\n\n\n\n\n\n\n思考题\n\n\n\nWhy does the boxplot show that the price of diamonds with “Fair” cut is higher than those with “Ideal” cut?\n\n\n\n\n1.3.1.5 折线图(Line)\n还有一种策略,是算出数值的平均数(或其他特征),然后绘制折线图:\n\n\nShow/Hide Code\ndiamonds |&gt;\n  group_by(cut) |&gt;\n  summarise(price = mean(price)) |&gt;\n  ggplot(aes(x = cut, y = price, color = cut)) +\n  geom_point() +\n  geom_line(group = 1) +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n\n1.3.2 两个分类变量(Two categorical variables)\n虽然听起来有点离谱,但有时候确实需要可视化两个分类变量之间的关系.\n\n1.3.2.1 点图(Dot)\n下图是一个点图，展示了钻石的切割质量和颜色之间的关系。点的大小表示组合的数量\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = color)) +\n  geom_count()\n\n\n\n\n\n\n\n\n\n好看吗? 好像还行。\n\n\n1.3.2.2 色块图(Tile)\n让我们再来换一种表达形式——色块图,色块的颜色表示组合的数量.\n\n\nShow/Hide Code\ndiamonds |&gt; \n  count(color, cut) |&gt;  \n  ggplot(aes(x = color, y = cut)) +\n  geom_tile(aes(fill = n))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhich one do you prefer, the dot plot or the tile plot? Why?\n\n\n\n\n1.3.2.3 堆叠条形图(Barstack)\n又到了我不喜欢的堆叠条形图了. 下面两个图是钻石的颜色和切割质量的堆叠条形图，分别展示了每种颜色的钻石在不同切割质量下的数量分布。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar(position = \"fill\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the difference between the two stacked bar charts?\n\n\n\n\n1.3.2.4 分面面包圈图(Facet Donut)\n其实就是多个面包圈图组合在一起,用ppt也能做.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = color)) +\n  geom_bar(color = \"white\") + \n  xlim(-0.5, 1.5) + \n  coord_polar(theta = \"y\") + \n  theme_void() + \n  facet_wrap(~ cut, scales=\"free_y\", nrow = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n1.3.3 两个数值变量(Two numerical variables)\n\n1.3.3.1 散点图(Scatter)\n下图是钻石的克拉数和价格之间的散点图，X轴是克拉数，Y轴是价格。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n黑色一大片,简直丑死了! 来调整一下点的透明度吧\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.02)\n\n\n\n\n\n\n\n\n\n稍微好一点,但是还有一些更好的策略.\n\n\n1.3.3.2 分格散点图(bin)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex()\n\n\n\n\n\n\n\n\n\n\n\n1.3.3.3 排序箱线图(Order Boxplot)\n把其中一个变量分成若干个区间,然后在每个区间内绘制箱线图,可以更好地展示数据的分布情况.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) + \n  geom_boxplot(aes(group = cut_width(carat, 0.1)))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhen do you think a Order Boxplot Plot is useful?\n\n\n\n\n1.3.3.4 散点图(Scatter) + 线性回归(Linear Regression)\n换一个数据较少的例子,这是一个散点图，展示了汽车的发动机排量和高速公路油耗之间的关系。红色的点表示2座跑车。\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    color = \"red\"\n  ) +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    shape = \"circle open\", size = 3, color = \"red\"\n  )\n\n\n\n\n\n\n\n\n\n我们还可以在散点图上添加线性回归线,来展示两者之间的关系.\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the curve? What is the shadow around it?",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>快速入门</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Quick start</span>"
     ]
   },
   {
-    "objectID": "快速入门.html#三变量",
-    "href": "快速入门.html#三变量",
-    "title": "1  快速入门",
+    "objectID": "quick_start.html#三变量",
+    "href": "quick_start.html#三变量",
+    "title": "1  Quick start",
     "section": "1.4 三变量",
     "text": "1.4 三变量\nThe author will update this section if he remembers it…",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>快速入门</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Quick start</span>"
     ]
   },
   {
-    "objectID": "箱线图.html",
-    "href": "箱线图.html",
-    "title": "2  箱线图",
+    "objectID": "boxplot.html",
+    "href": "boxplot.html",
+    "title": "2  Boxplot",
     "section": "",
     "text": "2.1 箱线图陷阱\n箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。\n这是说明箱线图构成的示意图：\n但是，这种信息的总结也有个大问题——无法显示数据的分布情况。例如：正态分布可能看起来与双峰分布完全相同。因此，考虑用小提琴图或脊线图。\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(hrbrthemes) # hrbrthemes 提供了更适合排版的主题\nlibrary(viridis) # viridis 提供了好看的色盲友好型颜色\n\n# 创建数据集\ndata1 &lt;- data.frame(\n  name = c(\n    rep(\"A\", 500),\n    rep(\"B\", 250),\n    rep(\"B\", 250),\n    rep(\"C\", 20),\n    rep('D', 100)\n  ),\n  value = c(\n    rnorm(500, 10, 5),\n    rnorm(250, 13, 1),\n    rnorm(250, 18, 1),\n    rnorm(20, 25, 4),\n    rnorm(100, 12, 1)\n  )\n)\n\ndata1 |&gt; \n  ggplot(aes(x = name, y = value, fill = name)) +\n  geom_boxplot() +\n  scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量\n  theme_ipsum() + # 更适合排版的主题\n  theme(legend.position = \"none\") + \n  labs(x = \"\") + \n  ggtitle(\"A somewhat misleading boxplot\")",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>箱线图</span>"
+      "Distribution",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Boxplot</span>"
     ]
   },
   {
-    "objectID": "箱线图.html#改进",
-    "href": "箱线图.html#改进",
-    "title": "2  箱线图",
+    "objectID": "boxplot.html#改进",
+    "href": "boxplot.html#改进",
+    "title": "2  Boxplot",
     "section": "2.2 改进",
     "text": "2.2 改进\n\n2.2.1 添加抖动(Jitter)\n适合数据量不太大的情况\n\n\nShow/Hide Code\ndata1 |&gt; \n  ggplot( aes(x=name, y=value, fill=name)) +\n    geom_boxplot() +\n    scale_fill_viridis(discrete = TRUE) +  # 好看的色盲友好型颜色,离散变量\n    geom_jitter(color=\"grey\", size=0.5, alpha=0.5) +\n    theme_ipsum() + # 更适合排版的主题\n    theme(legend.position=\"none\") +\n    labs(x = \"\") + \n    ggtitle(\"A boxplot with jitter\")\n\n\n\n\n\n添加抖动(jitter)的箱线图\n\n\n\n\n发现:\n\n组 C 样本量小。在得出组 C 的值高于其他组的结论之前，要考虑样本量.\n组 B 呈现出双峰分布(y = 18 和 y = 13),但是箱线图中看起来和组 A 并无区别.\n\n\n\n2.2.2 小提琴图(Violin)\n\n\nShow/Hide Code\n# 显示样本量\nsample_size = data1 |&gt; group_by(name) |&gt; summarize(num = n())\n\ndata1  |&gt;\n  left_join(sample_size) |&gt;\n  mutate(myaxis = paste0(name, \"\\n\", \"n=\", num)) |&gt;\n  ggplot(aes(x = myaxis, y = value, fill = name)) +\n  geom_violin(width = 1.4) +\n  geom_boxplot(width = 0.1, color = \"grey\", alpha = 0.2) +\n  scale_fill_viridis(discrete = TRUE) +\n  theme_ipsum() +\n  theme(legend.position = \"none\") +\n  labs(x = \"\") + \n  ggtitle(\"A violin plot\")\n\n\n\n\n\n\n\n\n\n\n\n2.2.3 云雨图(Raincloud)\n看了就知道,云(半小提琴)+雨(散点)的组合。\n\n\nShow/Hide Code\nlibrary(ggdist) # ggdist 提供了半小提琴图和云雨图\nlibrary(hrbrthemes) # hrbrthemes 提供了更适合排版的主题\nlibrary(viridis) # viridis 提供了好看的色盲友好型颜色\n\ndata1 |&gt;\n    ggplot(aes(x = factor(name), y = value, fill = factor(name))) +\n\n    # 添加半小提琴图（显示分布）\n    stat_halfeye(\n        adjust = 0.5,\n        justification = -0.1,\n        .width = 0,\n        point_colour = NA\n    ) +\n\n    # 添加散点（显示原始数据点）\n    stat_dots(\n        side = \"left\",\n        justification = 1.1,\n        binwidth = 0.25\n    ) +\n\n    # 设置色盲友好型配色\n    scale_fill_viridis(discrete = TRUE) +\n    theme_ipsum() +\n    theme(legend.position = \"none\") + \n    labs(x = \"\") +\n    ggtitle(\"A raincloud plot example\") \n\n\n\n\n\n\n\n\n\n把头顺时针旋转90度(或交换R代码X轴和Y轴)，就更像云雨了\n甚至还可以再加上箱线图\n\n\nShow/Hide Code\nlibrary(ggdist) # ggdist 提供了半小提琴图和云雨图\nlibrary(hrbrthemes) # hrbrthemes 提供了更适合排版的主题\nlibrary(viridis) # viridis 提供了好看的色盲友好型颜色\n\ndata1 |&gt;\n    ggplot(aes(x = factor(name), y = value, fill = factor(name))) +\n\n    # 添加半小提琴图（显示分布）\n    stat_halfeye(\n        adjust = 0.5,\n        justification = -0.2,\n        .width = 0,\n        point_colour = NA\n    ) +\n\n    # 添加箱线图\n    geom_boxplot(\n        width = 0.12,\n        outlier.color = NA,\n        alpha = 0.5\n    ) +\n\n    # 添加散点（显示原始数据点）\n    stat_dots(\n        side = \"left\",\n        justification = 1.1,\n        binwidth = 0.25\n    ) +\n\n    # 设置色盲友好型配色\n    scale_fill_viridis(discrete = TRUE) +\n    theme_ipsum() +\n    theme(legend.position = \"none\") + \n    labs(x = \"\") +\n    ggtitle(\"A raincloud plot example\")",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>箱线图</span>"
+      "Distribution",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Boxplot</span>"
     ]
   },
   {
-    "objectID": "箱线图.html#ggplot2",
-    "href": "箱线图.html#ggplot2",
-    "title": "2  箱线图",
+    "objectID": "boxplot.html#ggplot2",
+    "href": "boxplot.html#ggplot2",
+    "title": "2  Boxplot",
     "section": "2.3 ggplot2",
     "text": "2.3 ggplot2\n主要是geom_boxplot()函数.\n\n\nShow/Hide Code\nggplot(mpg, aes(x = class, y = hwy)) + \n    geom_boxplot()\n\n\n\n\n\n最基础的箱线图\n\n\n\n\n\n\nShow/Hide Code\nggplot(mpg, aes(x=class, y=hwy)) + \n  geom_boxplot(\n    color=\"blue\",         # 箱线图边框颜色为蓝色\n    fill=\"blue\",          # 箱体填充颜色为蓝色\n    alpha=0.2,            # 箱体透明度为0.2，便于观察重叠部分\n    \n    notch=TRUE,           # 显示缺口，用于比较中位数是否有显著差异\n    notchwidth = 0.8,     # 缺口的宽度\n    \n    outlier.colour=\"red\", # 异常值点的边框颜色为红色\n    outlier.fill=\"red\",   # 异常值点的填充颜色为红色\n    outlier.size=1        # 异常值点的大小为3\n  )\n\n\n\n\n\n有细腰的箱线图\n\n\n\n\n\n\nShow/Hide Code\nmpg |&gt;\n  # fct_reorder() 函数排序\n  ggplot( aes(x=fct_reorder(class, hwy, .fun='median'), y=hwy)) + \n    geom_boxplot()\n\n\n\n\n\n用均值排序箱线图\n\n\n\n\n\n\nShow/Hide Code\nlibrary(patchwork)\n \np1 &lt;- ggplot(mpg, aes(x=class, y=hwy)) + \n    geom_boxplot(color=\"red\", fill=\"orange\", alpha=0.2)\n \np2 &lt;- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + \n    geom_boxplot(alpha=0.3) +\n    theme(legend.position=\"none\")\n\np3 &lt;- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + \n    geom_boxplot(alpha=0.3) +\n    theme(legend.position=\"none\") +\n    scale_fill_brewer(palette=\"BuPu\") # 调色板\n \np4 &lt;- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + \n    geom_boxplot(alpha=0.3) +\n    theme(legend.position=\"none\") +\n    scale_fill_brewer(palette=\"Dark2\") # 调色板\n\np1 + p2 + p3 + p4\n\n\n\n\n\n改变颜色\n\n\n\n\n\n\nShow/Hide Code\nlibrary(hrbrthemes)\n\nmpg |&gt; \n  # 添加一列 'type'，用于标记是否高亮某个组\n  mutate(type = ifelse(class == \"subcompact\", \"Highlighted\", \"Normal\")) |&gt;\n  \n  ggplot(aes(x = class, y = hwy, fill = type, alpha = type)) + \n    geom_boxplot() + \n    scale_fill_manual(values = c(\"#69b3a2\", \"grey\")) + # 手动设置填充色，高亮组为绿色，其余为灰色\n    scale_alpha_manual(values = c(1, 0.1)) + # 手动设置透明度，高亮组为不透明，其余为半透明\n    theme_ipsum() + # 使用 hrbrthemes 包的排版主题\n    theme(legend.position = \"none\") + # 不显示图例\n    xlab(\"\") # 去除 x 轴标签\n\n\n\n\n\n高亮某个组\n\n\n\n\n\n\nShow/Hide Code\nlibrary(patchwork)\n#| fig-cap: 分组箱线图与分面箱线图\n# 构造数据\nvariety = rep(LETTERS[1:7], each = 40) # 7种品种，每种40个观测\ntreatment = rep(c(\"high\", \"low\"), each = 20) # 处理分为high和low，每组20个观测\nnote = seq(1:280) + sample(1:150, 280, replace = TRUE) # 生成note变量，添加一定随机性\ndata2 = data.frame(variety, treatment, note) # 组合成数据框\n\n# 分组箱线图\nggplot(data2, aes(x = variety, y = note, fill = treatment)) + \n  geom_boxplot()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\n# 少分面箱线图\nggplot(data2, aes(x=variety, y=note, fill=treatment)) + \n    geom_boxplot() +\n    facet_wrap(~treatment)\n\n\n\n\n\n\n\n\n\nShow/Hide Code\n# 多分面箱线图\nggplot(data2, aes(x=variety, y=note, fill=treatment)) + \n    geom_boxplot() +\n    facet_wrap(~variety, scale=\"free\") # 自由y轴\n\n\n\n\n\n\n\n\n\n\n\nShow/Hide Code\n# 转换为因子类型\nmpg$drv &lt;- as.factor(mpg$drv) \n# 创建x轴标签，包含每个drv水平的名称及其对应的样本量\nn_xlab &lt;- str_glue(\"{levels(mpg$drv)}\\n(N={table(mpg$drv)})\")\n\nggplot(mpg, aes(x = drv, y = hwy, fill = drv)) + \n    geom_boxplot(varwidth = TRUE, alpha = 0.2) + # varwidth = TRUE 不等宽\n    scale_x_discrete(labels = n_xlab) + \n    theme(legend.position = \"none\")\n\n\n\n\n\n不等宽箱线图(宽带是样本量)\n\n\n\n\n\n\nShow/Hide Code\ndiamonds |&gt;\n  mutate(bin = cut_width(carat, width = 0.5, boundary = 0)) |&gt;\n  ggplot(aes(x = bin, y = price)) +\n  geom_boxplot() \n\n\n\n\n\n连续变量箱线图\n\n\n\n\n\n\nShow/Hide Code\nggplot(mpg, aes(x=drv, y=hwy, fill=drv)) +\n    geom_boxplot(alpha=0.7) +\n    stat_summary(fun.y=mean, geom=\"point\", shape=1, size=2, color = 'red') +\n    theme(legend.position=\"none\") \n\n\n\n\n\n添加均值点\n\n\n\n\n\n\nShow/Hide Code\n# data1 是之前创建的数据集\ndata1 |&gt; \n  ggplot( aes(x=name, y=value, fill=name)) +\n    geom_boxplot() +\n    scale_fill_viridis(discrete = TRUE) +  # 好看的色盲友好型颜色,离散变量\n    geom_jitter(color=\"grey\", size=0.5, alpha=0.5) +\n    theme_ipsum() + # 更适合排版的主题\n    theme(legend.position=\"none\") +\n    labs(x = \"\") + \n    ggtitle(\"A boxplot with jitter\")\n\n\n\n\n\n带抖动的箱线图\n\n\n\n\n可以library(ggExtra)来实现更复杂（花哨）的图形，在ggplot2散点图的基础上再叠加箱线图、密度曲线等。\n\n\nShow/Hide Code\nlibrary(ggExtra)\n# 创建ggplot散点图\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg, color = cyl, size = cyl)) +\n  geom_point() +\n  theme(legend.position = \"none\")\n\nggMarginal(p, type = \"histogram\")\n\n\n\n\n\nggMarginal散点图叠加直方图\n\n\n\n\n\n\nShow/Hide Code\nggMarginal(p, type = \"density\")\n\n\n\n\n\nggMarginal散点图叠加密度图\n\n\n\n\n\n\nShow/Hide Code\nggMarginal(p, type = \"boxplot\")\n\n\n\n\n\nggMarginal散点图叠加箱线图\n\n\n\n\n还可以定制化样式：\n\n\nShow/Hide Code\n# 设置边际直方图的尺寸大小为10\nggMarginal(p, type = \"histogram\", size = 10)\n\n\n\n\n\nggMarginal定制化样式-尺寸大小\n\n\n\n\n\n\nShow/Hide Code\n# 设置边际直方图的填充颜色为slateblue，x轴直方图分箱数为10\nggMarginal(p, type = \"histogram\", fill = \"slateblue\", xparams = list(bins = 10))\n\n\n\n\n\nggMarginal定制化样式-颜色和分箱\n\n\n\n\n\n\nShow/Hide Code\n# 只在x轴添加边际图，边际图颜色为紫色，尺寸为4\nggMarginal(p, margins = 'x', color = \"purple\", size = 4)\n\n\n\n\n\nggMarginal定制化样式-颜色和尺寸",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>箱线图</span>"
+      "Distribution",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Boxplot</span>"
     ]
   },
   {
-    "objectID": "箱线图.html#base-r",
-    "href": "箱线图.html#base-r",
-    "title": "2  箱线图",
+    "objectID": "boxplot.html#base-r",
+    "href": "boxplot.html#base-r",
+    "title": "2  Boxplot",
     "section": "2.4 Base R",
     "text": "2.4 Base R\n主要是通过boxplot()函数.\n但是 base R 多看一秒都是浪费时间,直接ggplot2吧.\n如果实在想学,可以看 r-graph-gallery 的文档。",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>箱线图</span>"
+      "Distribution",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Boxplot</span>"
     ]
   },
   {
-    "objectID": "箱线图.html#pearl",
-    "href": "箱线图.html#pearl",
-    "title": "2  箱线图",
+    "objectID": "boxplot.html#pearl",
+    "href": "boxplot.html#pearl",
+    "title": "2  Boxplot",
     "section": "2.5 Pearl",
     "text": "2.5 Pearl\n\n\nShow/Hide Code\npalmerpenguins::penguins |&gt;\n  drop_na() |&gt;\n  ggstatsplot::ggbetweenstats(x = species, y = flipper_length_mm, 1)\n\n\n\n\n\n带有统计的小提琴箱线图\n\n\n\n\n在 ggstatsplot 可以看到进一步美化。\n或者\n在 tidyplots 有另一种风格的统计箱线图。",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>箱线图</span>"
+      "Distribution",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Boxplot</span>"
+    ]
+  },
+  {
+    "objectID": "ridgeline.html",
+    "href": "ridgeline.html",
+    "title": "3  Ridgeline",
+    "section": "",
+    "text": "3.1 基础山脊图\n主要借助强大且美观的ggridges包来绘制山脊图。山脊图可以更好地展示多个分布的情况。\n山脊图（ridgeline chart）本质上是一组密度图（density plots），建议先学习密度图的绘制方法。\nShow/Hide Code\nlibrary(ggridges)\nlibrary(tidyverse)\n\nggplot(diamonds, aes(x = price, y = cut, fill = cut)) +\n  geom_density_ridges(alpha = 0.5) +\n  theme_ridges() + # 适合ridge图的主题\n  theme(legend.position = \"none\")\n\n\n\n\n\n基础山脊图",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Ridgeline</span>"
+    ]
+  },
+  {
+    "objectID": "ridgeline.html#带颜色",
+    "href": "ridgeline.html#带颜色",
+    "title": "3  Ridgeline",
+    "section": "4.1 带颜色",
+    "text": "4.1 带颜色\n\n\nShow/Hide Code\n# 加载 ggridges 包，用于创建山峦图 (Ridgeline Plot)\nlibrary(ggridges)\n# 加载 ggplot2 包，这是 R 中用于数据可视化的核心包\nlibrary(ggplot2)\n# 加载 viridis 包，提供对色盲友好的美观调色板\nlibrary(viridis)\n# 加载 hrbrthemes 包，提供一套简洁、专业外观的 ggplot2 主题\nlibrary(hrbrthemes)\n\nggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x..)) +\n\n  # 添加一个“渐变密度山峦图”几何对象层\n  # - geom_density_ridges_gradient() 是 ggridges 包的核心函数\n  # - `fill = ..x..` 的美学映射在这里生效，使得每个山峦的填充色根据其 x 轴数值（温度）进行渐变\n  geom_density_ridges_gradient(\n    # scale = 3: 控制山峦之间重叠的程度。数值越大，重叠越多，图形越紧凑\n    scale = 3,\n    # rel_min_height = 0.01: 裁剪每个密度曲线的尾部，移除高度低于最大高度1%的部分，使图形更整洁\n    rel_min_height = 0.01\n  ) +\n\n  # 使用 viridis 调色板来应用填充色\n  scale_fill_viridis(\n    # name = \"Temp. [F]\": 设置颜色图例的标题（尽管后面图例被隐藏了）\n    name = \"Temp. [F]\",\n    # option = \"C\": 选择 viridis 调色板中的 \"C\" 方案 (也称为 \"plasma\")\n    option = \"C\"\n  ) +\n\n  # 设置图表的标签\n  labs(title = 'Temperatures in Lincoln NE in 2016') + # 设置主标题\n\n  # 应用 hrbrthemes 包中的 ipsum 主题，这是一个简洁、美观的预设主题\n  theme_ipsum() +\n\n  # 对主题进行微调\n  theme(\n    # legend.position=\"none\": 隐藏图例。因为颜色已经直观地反映在x轴上，所以图例不是必需的\n    legend.position=\"none\",\n    # panel.spacing: 调整不同面板（即每个月份的图）之间的垂直间距，使其更紧凑\n    panel.spacing = unit(0.1, \"lines\"),\n    # strip.text.x: 调整分面标题在X轴方向的文本属性。\n    strip.text.y = element_text(size = 8)\n  )\n\n\n\n\n\n带X轴颜色的山峦图",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Ridgeline</span>"
+    ]
+  },
+  {
+    "objectID": "ridgeline.html#pearl",
+    "href": "ridgeline.html#pearl",
+    "title": "3  Ridgeline",
+    "section": "4.2 Pearl",
+    "text": "4.2 Pearl\nQuarto渲染效果不好，用R直接渲染会好看一点。\n\n\nShow/Hide Code\n# 设置工作目录，指向包含数据文件的桌面子文件夹\nsetwd(\"C:\\\\Users\\\\Administrator\\\\Desktop\\\\visbook\")\n\n# 加载所需的R包\nlibrary(tidyverse)    # 数据整理和可视化的核心包集合，包括 ggplot2, dplyr, readr 等\nlibrary(ggtext)       # 增强ggplot2的文本渲染能力，支持Markdown和HTML\nlibrary(ggdist)       # 提供高级的分布可视化图层，如 stat_halfeye\nlibrary(glue)         # 方便地将变量嵌入到字符串中\nlibrary(patchwork)    # 用于组合和排列多个ggplot图表\n\n# 读取数据文件\nrent = read_csv(\"data/rent.csv\") # 包含原始租金信息的CSV文件\nrent_title_words = read_csv(\"data/rent_title_words.csv\") # 包含从标题中提取的词语和对应租金的数据\ndf_plot = read_csv(\"data/df_plot.csv\") # 专门为绘图准备的聚合数据\n\n# --- 数据预处理 ---\n\n# 按平均价格降序排列数据框\ndf_plot &lt;- df_plot |&gt; arrange(desc(mean_price))\n# 将 'word' 列转换为因子类型，并指定其顺序（levels），确保在图表中的显示顺序与排列后的一致\ndf_plot$word &lt;- factor(df_plot$word, levels = unique(df_plot$word))\n\n# 计算一些将在图表中使用的全局统计量\nmean_price &lt;- mean(rent$price, na.rm = TRUE)       # 所有房源的平均租金\nmedian_price &lt;- median(rent$price, na.rm = TRUE)   # 所有房源的租金中位数\nn_rental_posts &lt;- nrow(subset(rent, !is.na(title))) # 有效（标题不为空）的出租帖子总数\n\n# --- 图表美学设置 ---\n\n# 定义图表的背景颜色和字体\nbg_color &lt;- \"grey97\"\nfont_family &lt;- \"Fira Sans\"\n\n# 使用 glue 包创建一个动态的副标题字符串\n# 它会自动将 n_rental_posts 变量的值格式化后插入到文本中\nplot_subtitle = glue(\"在旧金山湾区Craigslist租房帖子标题中，用于描述房屋和公寓的形容词，\n以及它们与租金价格的关系。数据来源于 {scales::number(n_rental_posts, big.mark = ',')} 条\n在2000年至2018年间的Craigslist租房帖子。\n图中显示了出现频率最高的15个形容词。\n\")\n\n\n# --- 创建主图表 (p) ---\n\np &lt;- df_plot |&gt;\n  ggplot(aes(word, price)) +  # 初始化ggplot对象，设置x轴为单词，y轴为价格\n  # 添加半眼图层（雨云图的核心部分），展示数据分布\n  stat_halfeye(fill_type = \"segments\", alpha = 0.3) +\n  # 添加置信区间图层，默认显示50%, 80%, 95%的区间\n  stat_interval() +\n  # 添加一个点来表示每个单词对应的租金中位数\n  stat_summary(geom = \"point\", fun = median) +\n  # 在图表特定位置添加文本，作为平均卧室数的列标题\n  annotate(\"text\", x = 16, y = 0, label = \"(平均卧室数)\", # \\U00F8 是 Ø 符号的Unicode\n           family = \"Fira Sans\", size = 3, hjust = 0.5) +\n  # 为每个单词计算并显示平均卧室数\n  stat_summary(\n    aes(y = beds), # 使用 'beds' 列的数据\n    geom = \"text\", # 以文本形式显示\n    fun.data = function(x) { # 自定义一个函数来计算均值并格式化输出\n      data.frame(\n        y = 0, # 将文本放置在y=0的位置\n        label = sprintf(\"(%s)\", scales::number(mean(ifelse(x &gt; 0, x, NA), na.rm = TRUE), accuracy = 0.1))\n      )\n    },\n    family = font_family, size = 2.5\n  ) +\n  # 添加一条水平虚线，代表所有房源的租金中位数\n  geom_hline(yintercept = median_price, col = \"grey30\", lty = \"dashed\") +\n  # 为中位数线添加文本标签\n  annotate(\"text\", x = 16, y = median_price + 50, label = \"租金中位数\",\n           family = \"Fira Sans\", size = 3, hjust = 0) +\n  # 将x轴的标签（单词）转换为大写\n  scale_x_discrete(labels = toupper) +\n  # 设置y轴（价格）的刻度标记\n  scale_y_continuous(breaks = seq(2500, 20000, 2500)) +\n  # 手动设置颜色方案，使用MetBrewer包中的\"VanGogh3\"调色板\n  scale_color_manual(values = MetBrewer::met.brewer(\"VanGogh3\")) +\n  # 翻转坐标轴，使条形图水平显示，并设置y轴（翻转后为价格轴）的范围，clip=\"off\"允许绘图超出面板区域\n  coord_flip(ylim = c(0, 10000), clip = \"off\") +\n  # 移除默认的颜色图例\n  guides(col = \"none\") +\n  # 设置图表的标题、副标题、说明文字和坐标轴标签\n  labs(\n    title = toupper(\"“NICE” 和 “CLEAN” 的租金相对较低吗?\"),\n    subtitle = plot_subtitle,\n    caption = \"坐标轴上限设为 10,000 美元。&lt;br&gt;\n     数据来源: Pennington, Kate (2018). \n     Bay Area Craigslist Rental Housing Posts, 2000-2018.&lt;br&gt;\n     引自 github.com/katepennington/historic_bay_area_craigslist_housing_posts/blob/master/clean_2000_2018.csv.zip.\n     &lt;br&gt;\n     可视化: Ansgar Wolsing\",\n    x = NULL, # 移除x轴标签\n    y = \"租金 (美元)\"\n  ) +\n  # 使用一个简洁的主题，并设置基础字体\n  theme_minimal(base_family = font_family) +\n  # 对主题进行深度定制\n  theme(\n    plot.background = element_rect(color = NA, fill = bg_color), # 设置图表背景\n    panel.grid = element_blank(), # 移除所有网格线\n    panel.grid.major.x = element_line(linewidth = 0.1, color = \"grey75\"), # 添加主x轴网格线（翻转后是水平线）\n    plot.title = element_text(family = \"Fira Sans SemiBold\"), # 设置主标题字体\n    plot.title.position = \"plot\", # 标题位置与整个图对齐\n    plot.subtitle = element_textbox_simple( # 使用ggtext设置副标题，支持自动换行\n      margin = margin(t = 4, b = 16), size = 10),\n    plot.caption = element_textbox_simple( # 使用ggtext设置说明文字\n      margin = margin(t = 12), size = 7\n    ),\n    plot.caption.position = \"plot\", # 说明文字位置与整个图对齐\n    axis.text.y = element_text(hjust = 0, margin = margin(r = -10), family = \"Fira Sans SemiBold\"), # 设置y轴刻度标签样式\n    plot.margin = margin(4, 4, 4, 4) # 设置图表外边距\n  )\n\n# --- 创建自定义图例 (p_legend) ---\n\n# 为图例创建一个小的数据框，只使用 \"beautiful\" 这个词的数据作为示例\ndf_for_legend &lt;- rent_title_words |&gt; \n  filter(word == \"beautiful\")\n\n# 创建一个独立的ggplot对象作为图例\np_legend &lt;- df_for_legend |&gt; \n  ggplot(aes(word, price)) +\n  # 同样添加半眼图、区间图和中位数点，作为图例的示例图形\n  stat_halfeye(fill_type = \"segments\", alpha = 0.3) +\n  stat_interval() +\n  stat_summary(geom = \"point\", fun = median) +\n  # 添加富文本注释，解释图表的各个部分\n  annotate(\n    \"richtext\",\n    x = c(0.8, 0.8, 0.8, 1.4, 1.8),\n    y = c(1000, 5000, 3000, 2400, 4000),\n    label = c(\"50%的价格&lt;br&gt;落在此区间\", \"95%的价格\", \n              \"80%的价格\", \"中位数\", \"价格的&lt;br&gt;分布情况\"),\n    fill = NA, label.size = 0, family = font_family, size = 2, vjust = 1,\n  ) +\n  # 添加曲线箭头，将文本注释指向图形的相应部分\n  geom_curve(\n    data = data.frame(\n      x = c(0.7, 0.80, 0.80, 1.225, 1.8),\n      xend = c(0.95, 0.95, 0.95, 1.075, 1.8), \n      y = c(1800, 5000, 3000, 2300, 3800),\n      yend = c(1800, 5000, 3000, 2100, 2500)),\n    aes(x = x, xend = xend, y = y, yend = yend),\n    stat = \"unique\", curvature = 0.2, size = 0.2, color = \"grey12\",\n    arrow = arrow(angle = 20, length = unit(1, \"mm\"))\n  ) +\n  # 设置与主图一致的颜色方案\n  scale_color_manual(values = MetBrewer::met.brewer(\"VanGogh3\")) +\n  # 翻转坐标轴，并精心调整坐标轴范围以适应图例内容\n  coord_flip(xlim = c(0.75, 1.3), ylim = c(0, 6000), expand = TRUE) +\n  # 移除图例\n  guides(color = \"none\") +\n  # 添加图例的标题\n  labs(title = \"图例\") +\n  # 使用空白主题，移除所有坐标轴、背景等元素\n  theme_void(base_family = font_family) +\n  # 对图例进行主题微调\n  theme(plot.title = element_text(family = \"Fira Sans SemiBold\", size = 9,\n                                  hjust = 0.075), # 标题样式和位置\n        plot.background = element_rect(color = \"grey30\", size = 0.2, fill = bg_color)) # 为图例添加边框和背景色\n\n# --- 组合图表 ---\n\n# 使用 patchwork 包的 inset_element() 函数，将自定义图例 (p_legend) 嵌入到主图表 (p) 的指定位置\n# l, r, t, b 分别代表左、右、上、下的边界，数值是相对于主图绘图区域的比例\np + inset_element(p_legend, l = 0.6, r = 1.0,  t = 0.99, b = 0.7, clip = FALSE)\n\n\n\n\n\n高级图例",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Ridgeline</span>"
     ]
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "3  总结",
+    "title": "4  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>总结</span>"
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]

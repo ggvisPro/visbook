@@ -1,0 +1,252 @@
+# Ridgeline
+
+主要借助强大且美观的`ggridges`包来绘制山脊图。山脊图可以更好地展示多个分布的情况。
+
+山脊图（ridgeline chart）本质上是一组密度图（density plots），建议先学习密度图的绘制方法。
+
+## 基础山脊图
+```{r}
+#| fig-cap: 基础山脊图
+library(ggridges)
+library(tidyverse)
+
+ggplot(diamonds, aes(x = price, y = cut, fill = cut)) +
+  geom_density_ridges(alpha = 0.5) +
+  theme_ridges() + # 适合ridge图的主题
+  theme(legend.position = "none")
+```
+
+# 直方图类型
+```{r}
+#| fig-cap: 转换为直方图
+
+ggplot(diamonds, aes(x = price, y = cut, fill = cut)) +
+  geom_density_ridges(alpha = 0.5, stat="binline") + # 直方图参数
+  theme_ridges() + # 适合ridge图的主题
+  theme(legend.position = "none")
+```
+
+## 带颜色
+
+```{r}
+#| fig-cap: 带X轴颜色的山峦图
+# 加载 ggridges 包，用于创建山峦图 (Ridgeline Plot)
+library(ggridges)
+# 加载 ggplot2 包，这是 R 中用于数据可视化的核心包
+library(ggplot2)
+# 加载 viridis 包，提供对色盲友好的美观调色板
+library(viridis)
+# 加载 hrbrthemes 包，提供一套简洁、专业外观的 ggplot2 主题
+library(hrbrthemes)
+
+ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x..)) +
+
+  # 添加一个“渐变密度山峦图”几何对象层
+  # - geom_density_ridges_gradient() 是 ggridges 包的核心函数
+  # - `fill = ..x..` 的美学映射在这里生效，使得每个山峦的填充色根据其 x 轴数值（温度）进行渐变
+  geom_density_ridges_gradient(
+    # scale = 3: 控制山峦之间重叠的程度。数值越大，重叠越多，图形越紧凑
+    scale = 3,
+    # rel_min_height = 0.01: 裁剪每个密度曲线的尾部，移除高度低于最大高度1%的部分，使图形更整洁
+    rel_min_height = 0.01
+  ) +
+
+  # 使用 viridis 调色板来应用填充色
+  scale_fill_viridis(
+    # name = "Temp. [F]": 设置颜色图例的标题（尽管后面图例被隐藏了）
+    name = "Temp. [F]",
+    # option = "C": 选择 viridis 调色板中的 "C" 方案 (也称为 "plasma")
+    option = "C"
+  ) +
+
+  # 设置图表的标签
+  labs(title = 'Temperatures in Lincoln NE in 2016') + # 设置主标题
+
+  # 应用 hrbrthemes 包中的 ipsum 主题，这是一个简洁、美观的预设主题
+  theme_ipsum() +
+
+  # 对主题进行微调
+  theme(
+    # legend.position="none": 隐藏图例。因为颜色已经直观地反映在x轴上，所以图例不是必需的
+    legend.position="none",
+    # panel.spacing: 调整不同面板（即每个月份的图）之间的垂直间距，使其更紧凑
+    panel.spacing = unit(0.1, "lines"),
+    # strip.text.x: 调整分面标题在X轴方向的文本属性。
+    strip.text.y = element_text(size = 8)
+  )
+```
+
+
+## Pearl
+
+Quarto渲染效果不好，用R直接渲染会好看一点。
+```{r}
+#| fig-cap: 高级图例
+# 设置工作目录，指向包含数据文件的桌面子文件夹
+setwd("C:\\Users\\Administrator\\Desktop\\visbook")
+
+# 加载所需的R包
+library(tidyverse)    # 数据整理和可视化的核心包集合，包括 ggplot2, dplyr, readr 等
+library(ggtext)       # 增强ggplot2的文本渲染能力，支持Markdown和HTML
+library(ggdist)       # 提供高级的分布可视化图层，如 stat_halfeye
+library(glue)         # 方便地将变量嵌入到字符串中
+library(patchwork)    # 用于组合和排列多个ggplot图表
+
+# 读取数据文件
+rent = read_csv("data/rent.csv") # 包含原始租金信息的CSV文件
+rent_title_words = read_csv("data/rent_title_words.csv") # 包含从标题中提取的词语和对应租金的数据
+df_plot = read_csv("data/df_plot.csv") # 专门为绘图准备的聚合数据
+
+# --- 数据预处理 ---
+
+# 按平均价格降序排列数据框
+df_plot <- df_plot |> arrange(desc(mean_price))
+# 将 'word' 列转换为因子类型，并指定其顺序（levels），确保在图表中的显示顺序与排列后的一致
+df_plot$word <- factor(df_plot$word, levels = unique(df_plot$word))
+
+# 计算一些将在图表中使用的全局统计量
+mean_price <- mean(rent$price, na.rm = TRUE)       # 所有房源的平均租金
+median_price <- median(rent$price, na.rm = TRUE)   # 所有房源的租金中位数
+n_rental_posts <- nrow(subset(rent, !is.na(title))) # 有效（标题不为空）的出租帖子总数
+
+# --- 图表美学设置 ---
+
+# 定义图表的背景颜色和字体
+bg_color <- "grey97"
+font_family <- "Fira Sans"
+
+# 使用 glue 包创建一个动态的副标题字符串
+# 它会自动将 n_rental_posts 变量的值格式化后插入到文本中
+plot_subtitle = glue("在旧金山湾区Craigslist租房帖子标题中，用于描述房屋和公寓的形容词，
+以及它们与租金价格的关系。数据来源于 {scales::number(n_rental_posts, big.mark = ',')} 条
+在2000年至2018年间的Craigslist租房帖子。
+图中显示了出现频率最高的15个形容词。
+")
+
+
+# --- 创建主图表 (p) ---
+
+p <- df_plot |>
+  ggplot(aes(word, price)) +  # 初始化ggplot对象，设置x轴为单词，y轴为价格
+  # 添加半眼图层（雨云图的核心部分），展示数据分布
+  stat_halfeye(fill_type = "segments", alpha = 0.3) +
+  # 添加置信区间图层，默认显示50%, 80%, 95%的区间
+  stat_interval() +
+  # 添加一个点来表示每个单词对应的租金中位数
+  stat_summary(geom = "point", fun = median) +
+  # 在图表特定位置添加文本，作为平均卧室数的列标题
+  annotate("text", x = 16, y = 0, label = "(平均卧室数)", # \U00F8 是 Ø 符号的Unicode
+           family = "Fira Sans", size = 3, hjust = 0.5) +
+  # 为每个单词计算并显示平均卧室数
+  stat_summary(
+    aes(y = beds), # 使用 'beds' 列的数据
+    geom = "text", # 以文本形式显示
+    fun.data = function(x) { # 自定义一个函数来计算均值并格式化输出
+      data.frame(
+        y = 0, # 将文本放置在y=0的位置
+        label = sprintf("(%s)", scales::number(mean(ifelse(x > 0, x, NA), na.rm = TRUE), accuracy = 0.1))
+      )
+    },
+    family = font_family, size = 2.5
+  ) +
+  # 添加一条水平虚线，代表所有房源的租金中位数
+  geom_hline(yintercept = median_price, col = "grey30", lty = "dashed") +
+  # 为中位数线添加文本标签
+  annotate("text", x = 16, y = median_price + 50, label = "租金中位数",
+           family = "Fira Sans", size = 3, hjust = 0) +
+  # 将x轴的标签（单词）转换为大写
+  scale_x_discrete(labels = toupper) +
+  # 设置y轴（价格）的刻度标记
+  scale_y_continuous(breaks = seq(2500, 20000, 2500)) +
+  # 手动设置颜色方案，使用MetBrewer包中的"VanGogh3"调色板
+  scale_color_manual(values = MetBrewer::met.brewer("VanGogh3")) +
+  # 翻转坐标轴，使条形图水平显示，并设置y轴（翻转后为价格轴）的范围，clip="off"允许绘图超出面板区域
+  coord_flip(ylim = c(0, 10000), clip = "off") +
+  # 移除默认的颜色图例
+  guides(col = "none") +
+  # 设置图表的标题、副标题、说明文字和坐标轴标签
+  labs(
+    title = toupper("“NICE” 和 “CLEAN” 的租金相对较低吗?"),
+    subtitle = plot_subtitle,
+    caption = "坐标轴上限设为 10,000 美元。<br>
+     数据来源: Pennington, Kate (2018). 
+     Bay Area Craigslist Rental Housing Posts, 2000-2018.<br>
+     引自 github.com/katepennington/historic_bay_area_craigslist_housing_posts/blob/master/clean_2000_2018.csv.zip.
+     <br>
+     可视化: Ansgar Wolsing",
+    x = NULL, # 移除x轴标签
+    y = "租金 (美元)"
+  ) +
+  # 使用一个简洁的主题，并设置基础字体
+  theme_minimal(base_family = font_family) +
+  # 对主题进行深度定制
+  theme(
+    plot.background = element_rect(color = NA, fill = bg_color), # 设置图表背景
+    panel.grid = element_blank(), # 移除所有网格线
+    panel.grid.major.x = element_line(linewidth = 0.1, color = "grey75"), # 添加主x轴网格线（翻转后是水平线）
+    plot.title = element_text(family = "Fira Sans SemiBold"), # 设置主标题字体
+    plot.title.position = "plot", # 标题位置与整个图对齐
+    plot.subtitle = element_textbox_simple( # 使用ggtext设置副标题，支持自动换行
+      margin = margin(t = 4, b = 16), size = 10),
+    plot.caption = element_textbox_simple( # 使用ggtext设置说明文字
+      margin = margin(t = 12), size = 7
+    ),
+    plot.caption.position = "plot", # 说明文字位置与整个图对齐
+    axis.text.y = element_text(hjust = 0, margin = margin(r = -10), family = "Fira Sans SemiBold"), # 设置y轴刻度标签样式
+    plot.margin = margin(4, 4, 4, 4) # 设置图表外边距
+  )
+
+# --- 创建自定义图例 (p_legend) ---
+
+# 为图例创建一个小的数据框，只使用 "beautiful" 这个词的数据作为示例
+df_for_legend <- rent_title_words |> 
+  filter(word == "beautiful")
+
+# 创建一个独立的ggplot对象作为图例
+p_legend <- df_for_legend |> 
+  ggplot(aes(word, price)) +
+  # 同样添加半眼图、区间图和中位数点，作为图例的示例图形
+  stat_halfeye(fill_type = "segments", alpha = 0.3) +
+  stat_interval() +
+  stat_summary(geom = "point", fun = median) +
+  # 添加富文本注释，解释图表的各个部分
+  annotate(
+    "richtext",
+    x = c(0.8, 0.8, 0.8, 1.4, 1.8),
+    y = c(1000, 5000, 3000, 2400, 4000),
+    label = c("50%的价格<br>落在此区间", "95%的价格", 
+              "80%的价格", "中位数", "价格的<br>分布情况"),
+    fill = NA, label.size = 0, family = font_family, size = 2, vjust = 1,
+  ) +
+  # 添加曲线箭头，将文本注释指向图形的相应部分
+  geom_curve(
+    data = data.frame(
+      x = c(0.7, 0.80, 0.80, 1.225, 1.8),
+      xend = c(0.95, 0.95, 0.95, 1.075, 1.8), 
+      y = c(1800, 5000, 3000, 2300, 3800),
+      yend = c(1800, 5000, 3000, 2100, 2500)),
+    aes(x = x, xend = xend, y = y, yend = yend),
+    stat = "unique", curvature = 0.2, size = 0.2, color = "grey12",
+    arrow = arrow(angle = 20, length = unit(1, "mm"))
+  ) +
+  # 设置与主图一致的颜色方案
+  scale_color_manual(values = MetBrewer::met.brewer("VanGogh3")) +
+  # 翻转坐标轴，并精心调整坐标轴范围以适应图例内容
+  coord_flip(xlim = c(0.75, 1.3), ylim = c(0, 6000), expand = TRUE) +
+  # 移除图例
+  guides(color = "none") +
+  # 添加图例的标题
+  labs(title = "图例") +
+  # 使用空白主题，移除所有坐标轴、背景等元素
+  theme_void(base_family = font_family) +
+  # 对图例进行主题微调
+  theme(plot.title = element_text(family = "Fira Sans SemiBold", size = 9,
+                                  hjust = 0.075), # 标题样式和位置
+        plot.background = element_rect(color = "grey30", size = 0.2, fill = bg_color)) # 为图例添加边框和背景色
+
+# --- 组合图表 ---
+
+# 使用 patchwork 包的 inset_element() 函数，将自定义图例 (p_legend) 嵌入到主图表 (p) 的指定位置
+# l, r, t, b 分别代表左、右、上、下的边界，数值是相对于主图绘图区域的比例
+p + inset_element(p_legend, l = 0.6, r = 1.0,  t = 0.99, b = 0.7, clip = FALSE)
+```
