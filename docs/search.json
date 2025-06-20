@@ -148,13 +148,35 @@
     ]
   },
   {
+    "objectID": "beeswarm.html",
+    "href": "beeswarm.html",
+    "title": "4  Beeswarm",
+    "section": "",
+    "text": "4.1 beeswarm\n群蜂图,像蜂群一样展示数据,使用R包beeswarm 和 ggbeeswarm 包实现。\n本节课使用iris数据集，又称为“安德森鸢尾花卉数据集”（Anderson’s Iris data set），是 R 语言内置的一个“玩具”数据集，也是统计学、数据科学和机器学习领域中使用最频繁、最著名的示例数据集之一。\n它包含了150个鸢尾花样本的测量数据，这150个样本分别来自三个不同的鸢尾花品种：山鸢尾 (Setosa)、变色鸢尾 (Versicolor) 和 维吉尼亚鸢尾 (Virginica)，每个品种各50个样本。\niris数据集共有5个变量:\nShow/Hide Code\nbeeswarm(iris$Sepal.Length)\n\n\n\n\n\n最简单的群峰图\nShow/Hide Code\nbeeswarm(iris$Sepal.Length, horizontal=TRUE)\n\n\n\n\n\n翻转坐标轴的群峰图\nShow/Hide Code\nbeeswarm(\n  iris$Sepal.Length,\n  pch=16, # 点的形状\n  col='blue', # 点的颜色\n  cex=1.5, # 点的大小\n)\n\n\n\n\n\n自定义的群峰图\nShow/Hide Code\nbeeswarm(\n  Sepal.Length ~ Species, \n  data=iris,\n  col=c(\"orange\", \"lightblue\", \"magenta\"),\n  pch = 19, # fill the dots\n#   corral = \"gutter\" # 使用“gutter”方法来处理重叠,边缘裁切\n)\n\n\n\n\n\n分组的群峰图\n更多可以更改的参数见beeswarm包文档。",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Beeswarm</span>"
+    ]
+  },
+  {
+    "objectID": "beeswarm.html#ggbeeswarm",
+    "href": "beeswarm.html#ggbeeswarm",
+    "title": "4  Beeswarm",
+    "section": "4.2 ggbeeswarm",
+    "text": "4.2 ggbeeswarm\nggbeeswarm包是ggplot2的扩展包，有两个核心函数:\n\ngeom_beeswarm()函数创建群峰图。\ngeom_quasirandom()函数创建准随机分布图,这是一种介于蜂群图和抖动图之间的混合图。\n\n\n\nShow/Hide Code\nggplot(iris,aes(y=Sepal.Length,x='')) +\n  geom_beeswarm()\n\n\n\n\n\n最基本的geom_beeswarm\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris,aes(x=Sepal.Length,y='')) +\n  geom_beeswarm()\n\n\n\n\n\n翻转坐标轴的geom_beeswarm\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris,aes(y=Sepal.Length,x='')) +\n  geom_beeswarm(color='blue') +\n  theme_minimal()\n\n\n\n\n\n自定义颜色的geom_beeswarm\n\n\n\n\n还有更多可以通过“method”参数来控制的群峰图方法,例如\"center\"、\"square\"、\"hexagon\"等。 见ggbeeswarm包文档。\n\n\nShow/Hide Code\nggplot(iris,aes(x=Species, y=Sepal.Length, colour=Species)) +\n  geom_beeswarm()\n\n\n\n\n\n分组的geom_beeswarm\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris,aes(x=Species, y=Sepal.Length, colour=Species)) +\n  geom_beeswarm() +\n  scale_color_manual(values=c(\"#999999\", \"#E69F00\", \"#56B4E9\")) +\n  theme_minimal()\n\n\n\n\n\n自定义主题的分组geom_beeswarm",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Beeswarm</span>"
+    ]
+  },
+  {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "4  Summary",
+    "title": "5  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]
