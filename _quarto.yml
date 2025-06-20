@@ -1,0 +1,32 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "数据可视化探索(从入门到放弃)"
+  author: "Multa-Head Wang Zhikun"
+  date: "6/24/2025"
+  chapters:
+    - index.qmd
+    - 快速入门.qmd
+    - 箱线图.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    code-tools: true
+    code-fold: true
+    code-summary: "Show/Hide Code"
+  pdf:
+    documentclass: scrreprt
+
+execute:
+  warning: false
+  cache: true
+  freeze: auto
