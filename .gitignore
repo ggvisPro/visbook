@@ -1,4 +1,5 @@
 **/.DS_Store
 **/*_cache/
 /.quarto/
-*_files/
+/_freeze/
+/*_files/

@@ -177,6 +177,7 @@ ggplot(diamonds, aes(x = price, color = cut)) +
 ```
 
 **不好看!**
+
 ::: {.callout-important title="思考题"}
 Why is this plot ugly?
 :::

@@ -669,7 +669,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p><strong>不好看!</strong> ::: {.callout-important title=“思考题”} Why is this plot ugly? :::</p>
+<p><strong>不好看!</strong></p>
+<div class="callout callout-style-default callout-important callout-titled" title="思考题">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+思考题
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Why is this plot ugly?</p>
+</div>
+</div>
 </section>
 <section id="密度曲线图density-1" class="level4" data-number="1.3.1.2">
 <h4 data-number="1.3.1.2" class="anchored" data-anchor-id="密度曲线图density-1"><span class="header-section-number">1.3.1.2</span> 密度曲线图(Density)</h4>
@@ -1743,184 +1756,185 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb31-201"><a href="#cb31-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-202"><a href="#cb31-202" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-203"><a href="#cb31-203" aria-hidden="true" tabindex="-1"></a>**不好看!**</span>
-<span id="cb31-204"><a href="#cb31-204" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-205"><a href="#cb31-205" aria-hidden="true" tabindex="-1"></a>Why is this plot ugly?</span>
-<span id="cb31-206"><a href="#cb31-206" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-207"><a href="#cb31-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-208"><a href="#cb31-208" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 密度曲线图(Density)</span></span>
-<span id="cb31-209"><a href="#cb31-209" aria-hidden="true" tabindex="-1"></a>当各组数据差得较多时,纵轴用count不太合适,会造成摩天大厦+小平层,不如把纵轴改为density:</span>
-<span id="cb31-212"><a href="#cb31-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-213"><a href="#cb31-213" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> <span class="fu">after_stat</span>(density), <span class="at">color =</span> cut)) <span class="sc">+</span> </span>
-<span id="cb31-214"><a href="#cb31-214" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>)</span>
-<span id="cb31-215"><a href="#cb31-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-216"><a href="#cb31-216" aria-hidden="true" tabindex="-1"></a>好多了吧 ●'◡'● (好吧,还是有点丑)</span>
-<span id="cb31-217"><a href="#cb31-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-218"><a href="#cb31-218" aria-hidden="true" tabindex="-1"></a>分面(facet)会好一点吗? </span>
-<span id="cb31-221"><a href="#cb31-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-222"><a href="#cb31-222" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span> </span>
-<span id="cb31-223"><a href="#cb31-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
-<span id="cb31-224"><a href="#cb31-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cut, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb31-225"><a href="#cb31-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb31-226"><a href="#cb31-226" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-227"><a href="#cb31-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-228"><a href="#cb31-228" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 山脊图(Ridge)</span></span>
-<span id="cb31-229"><a href="#cb31-229" aria-hidden="true" tabindex="-1"></a>近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。</span>
-<span id="cb31-232"><a href="#cb31-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-233"><a href="#cb31-233" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
-<span id="cb31-234"><a href="#cb31-234" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span> </span>
-<span id="cb31-235"><a href="#cb31-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb31-236"><a href="#cb31-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb31-237"><a href="#cb31-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-238"><a href="#cb31-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-239"><a href="#cb31-239" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 并排箱线图(Boxplot)</span></span>
-<span id="cb31-240"><a href="#cb31-240" aria-hidden="true" tabindex="-1"></a>箱线图也是一种直观的可视化方式</span>
-<span id="cb31-243"><a href="#cb31-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-244"><a href="#cb31-244" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-245"><a href="#cb31-245" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb31-246"><a href="#cb31-246" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-247"><a href="#cb31-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-248"><a href="#cb31-248" aria-hidden="true" tabindex="-1"></a>或许还可以上点颜色, 让它显得花里胡哨:</span>
-<span id="cb31-251"><a href="#cb31-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-252"><a href="#cb31-252" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb31-253"><a href="#cb31-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
-<span id="cb31-254"><a href="#cb31-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
-<span id="cb31-255"><a href="#cb31-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>))</span>
-<span id="cb31-256"><a href="#cb31-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-257"><a href="#cb31-257" aria-hidden="true" tabindex="-1"></a>等等,**这不对吧**,cut越好的钻石价格应该越高才对啊!!!怎么回事?</span>
-<span id="cb31-258"><a href="#cb31-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-259"><a href="#cb31-259" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-260"><a href="#cb31-260" aria-hidden="true" tabindex="-1"></a>Why does the boxplot show that the price of diamonds with "Fair" cut is higher than those with "Ideal" cut?</span>
-<span id="cb31-261"><a href="#cb31-261" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-262"><a href="#cb31-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-263"><a href="#cb31-263" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 折线图(Line)</span></span>
-<span id="cb31-264"><a href="#cb31-264" aria-hidden="true" tabindex="-1"></a>还有一种策略,是算出数值的平均数(或其他特征),然后绘制折线图:</span>
-<span id="cb31-267"><a href="#cb31-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-268"><a href="#cb31-268" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span></span>
-<span id="cb31-269"><a href="#cb31-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">|&gt;</span></span>
-<span id="cb31-270"><a href="#cb31-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">price =</span> <span class="fu">mean</span>(price)) <span class="sc">|&gt;</span></span>
-<span id="cb31-271"><a href="#cb31-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
-<span id="cb31-272"><a href="#cb31-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-273"><a href="#cb31-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">group =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb31-274"><a href="#cb31-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb31-275"><a href="#cb31-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-276"><a href="#cb31-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-277"><a href="#cb31-277" aria-hidden="true" tabindex="-1"></a><span class="fu">###  两个分类变量(Two categorical variables)</span></span>
-<span id="cb31-278"><a href="#cb31-278" aria-hidden="true" tabindex="-1"></a>虽然听起来有点离谱,但有时候确实需要可视化两个分类变量之间的关系.</span>
-<span id="cb31-279"><a href="#cb31-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-280"><a href="#cb31-280" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 点图(Dot)</span></span>
-<span id="cb31-281"><a href="#cb31-281" aria-hidden="true" tabindex="-1"></a>下图是一个点图，展示了钻石的切割质量和颜色之间的关系。点的大小表示组合的数量</span>
-<span id="cb31-284"><a href="#cb31-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-285"><a href="#cb31-285" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> color)) <span class="sc">+</span></span>
-<span id="cb31-286"><a href="#cb31-286" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>()</span>
-<span id="cb31-287"><a href="#cb31-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-288"><a href="#cb31-288" aria-hidden="true" tabindex="-1"></a>好看吗? 好像还行。</span>
-<span id="cb31-289"><a href="#cb31-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-290"><a href="#cb31-290" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 色块图(Tile)</span></span>
-<span id="cb31-291"><a href="#cb31-291" aria-hidden="true" tabindex="-1"></a>让我们再来换一种表达形式——色块图,色块的颜色表示组合的数量.</span>
-<span id="cb31-294"><a href="#cb31-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-295"><a href="#cb31-295" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb31-296"><a href="#cb31-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(color, cut) <span class="sc">|&gt;</span>  </span>
-<span id="cb31-297"><a href="#cb31-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> cut)) <span class="sc">+</span></span>
-<span id="cb31-298"><a href="#cb31-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> n))</span>
-<span id="cb31-299"><a href="#cb31-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-300"><a href="#cb31-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-301"><a href="#cb31-301" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-302"><a href="#cb31-302" aria-hidden="true" tabindex="-1"></a>Which one do you prefer, the dot plot or the tile plot? Why?</span>
-<span id="cb31-303"><a href="#cb31-303" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-304"><a href="#cb31-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-305"><a href="#cb31-305" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 堆叠条形图(Barstack)</span></span>
-<span id="cb31-306"><a href="#cb31-306" aria-hidden="true" tabindex="-1"></a>又到了~我不喜欢的~堆叠条形图了.</span>
-<span id="cb31-307"><a href="#cb31-307" aria-hidden="true" tabindex="-1"></a>下面两个图是钻石的颜色和切割质量的堆叠条形图，分别展示了每种颜色的钻石在不同切割质量下的数量分布。</span>
-<span id="cb31-310"><a href="#cb31-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-311"><a href="#cb31-311" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb31-312"><a href="#cb31-312" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
-<span id="cb31-313"><a href="#cb31-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-314"><a href="#cb31-314" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
-<span id="cb31-315"><a href="#cb31-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb31-316"><a href="#cb31-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-317"><a href="#cb31-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-318"><a href="#cb31-318" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-319"><a href="#cb31-319" aria-hidden="true" tabindex="-1"></a>What is the difference between the two stacked bar charts?</span>
-<span id="cb31-320"><a href="#cb31-320" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-321"><a href="#cb31-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-322"><a href="#cb31-322" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 分面面包圈图(Facet Donut)</span></span>
-<span id="cb31-323"><a href="#cb31-323" aria-hidden="true" tabindex="-1"></a>其实就是多个面包圈图组合在一起,用ppt也能做.</span>
-<span id="cb31-326"><a href="#cb31-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-327"><a href="#cb31-327" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> color)) <span class="sc">+</span></span>
-<span id="cb31-328"><a href="#cb31-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
-<span id="cb31-329"><a href="#cb31-329" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>) <span class="sc">+</span> </span>
-<span id="cb31-330"><a href="#cb31-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span> </span>
-<span id="cb31-331"><a href="#cb31-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
-<span id="cb31-332"><a href="#cb31-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cut, <span class="at">scales=</span><span class="st">"free_y"</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb31-333"><a href="#cb31-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-334"><a href="#cb31-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-335"><a href="#cb31-335" aria-hidden="true" tabindex="-1"></a><span class="fu">### 两个数值变量(Two numerical variables)</span></span>
-<span id="cb31-336"><a href="#cb31-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-337"><a href="#cb31-337" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 散点图(Scatter)</span></span>
-<span id="cb31-338"><a href="#cb31-338" aria-hidden="true" tabindex="-1"></a>下图是钻石的克拉数和价格之间的散点图，X轴是克拉数，Y轴是价格。</span>
-<span id="cb31-341"><a href="#cb31-341" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-342"><a href="#cb31-342" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-343"><a href="#cb31-343" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb31-344"><a href="#cb31-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-345"><a href="#cb31-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-346"><a href="#cb31-346" aria-hidden="true" tabindex="-1"></a>黑色一大片,简直丑死了!</span>
-<span id="cb31-347"><a href="#cb31-347" aria-hidden="true" tabindex="-1"></a>来调整一下点的透明度吧</span>
-<span id="cb31-350"><a href="#cb31-350" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-351"><a href="#cb31-351" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-352"><a href="#cb31-352" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.02</span>)</span>
-<span id="cb31-353"><a href="#cb31-353" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-354"><a href="#cb31-354" aria-hidden="true" tabindex="-1"></a>稍微好一点,但是还有一些更好的策略.</span>
-<span id="cb31-355"><a href="#cb31-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-356"><a href="#cb31-356" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 分格散点图(bin)</span></span>
-<span id="cb31-359"><a href="#cb31-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-360"><a href="#cb31-360" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-361"><a href="#cb31-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>()</span>
-<span id="cb31-362"><a href="#cb31-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-363"><a href="#cb31-363" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb31-364"><a href="#cb31-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>()</span>
-<span id="cb31-365"><a href="#cb31-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-366"><a href="#cb31-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-367"><a href="#cb31-367" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 排序箱线图(Order Boxplot)</span></span>
-<span id="cb31-368"><a href="#cb31-368" aria-hidden="true" tabindex="-1"></a>把其中一个变量分成若干个区间,然后在每个区间内绘制箱线图,可以更好地展示数据的分布情况.</span>
-<span id="cb31-371"><a href="#cb31-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-372"><a href="#cb31-372" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
-<span id="cb31-373"><a href="#cb31-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">cut_width</span>(carat, <span class="fl">0.1</span>)))</span>
-<span id="cb31-374"><a href="#cb31-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-375"><a href="#cb31-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-376"><a href="#cb31-376" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-377"><a href="#cb31-377" aria-hidden="true" tabindex="-1"></a>When do you think a Order Boxplot Plot is useful?</span>
-<span id="cb31-378"><a href="#cb31-378" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-379"><a href="#cb31-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-380"><a href="#cb31-380" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 散点图(Scatter) + 线性回归(Linear Regression)</span></span>
-<span id="cb31-381"><a href="#cb31-381" aria-hidden="true" tabindex="-1"></a>换一个数据较少的例子,这是一个散点图，展示了汽车的发动机排量和高速公路油耗之间的关系。红色的点表示2座跑车。</span>
-<span id="cb31-384"><a href="#cb31-384" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-385"><a href="#cb31-385" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb31-386"><a href="#cb31-386" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-387"><a href="#cb31-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb31-388"><a href="#cb31-388" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"2seater"</span>),</span>
-<span id="cb31-389"><a href="#cb31-389" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span></span>
-<span id="cb31-390"><a href="#cb31-390" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb31-391"><a href="#cb31-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb31-392"><a href="#cb31-392" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"2seater"</span>),</span>
-<span id="cb31-393"><a href="#cb31-393" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"circle open"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"red"</span></span>
-<span id="cb31-394"><a href="#cb31-394" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb31-395"><a href="#cb31-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-396"><a href="#cb31-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-204"><a href="#cb31-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-205"><a href="#cb31-205" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-206"><a href="#cb31-206" aria-hidden="true" tabindex="-1"></a>Why is this plot ugly?</span>
+<span id="cb31-207"><a href="#cb31-207" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-208"><a href="#cb31-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-209"><a href="#cb31-209" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 密度曲线图(Density)</span></span>
+<span id="cb31-210"><a href="#cb31-210" aria-hidden="true" tabindex="-1"></a>当各组数据差得较多时,纵轴用count不太合适,会造成摩天大厦+小平层,不如把纵轴改为density:</span>
+<span id="cb31-213"><a href="#cb31-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-214"><a href="#cb31-214" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> <span class="fu">after_stat</span>(density), <span class="at">color =</span> cut)) <span class="sc">+</span> </span>
+<span id="cb31-215"><a href="#cb31-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">500</span>, <span class="at">linewidth =</span> <span class="fl">0.75</span>)</span>
+<span id="cb31-216"><a href="#cb31-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-217"><a href="#cb31-217" aria-hidden="true" tabindex="-1"></a>好多了吧 ●'◡'● (好吧,还是有点丑)</span>
+<span id="cb31-218"><a href="#cb31-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-219"><a href="#cb31-219" aria-hidden="true" tabindex="-1"></a>分面(facet)会好一点吗? </span>
+<span id="cb31-222"><a href="#cb31-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-223"><a href="#cb31-223" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span> </span>
+<span id="cb31-224"><a href="#cb31-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span> </span>
+<span id="cb31-225"><a href="#cb31-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cut, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb31-226"><a href="#cb31-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb31-227"><a href="#cb31-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-228"><a href="#cb31-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-229"><a href="#cb31-229" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 山脊图(Ridge)</span></span>
+<span id="cb31-230"><a href="#cb31-230" aria-hidden="true" tabindex="-1"></a>近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。</span>
+<span id="cb31-233"><a href="#cb31-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-234"><a href="#cb31-234" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb31-235"><a href="#cb31-235" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> price, <span class="at">y =</span> cut, <span class="at">fill =</span> cut)) <span class="sc">+</span> </span>
+<span id="cb31-236"><a href="#cb31-236" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb31-237"><a href="#cb31-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb31-238"><a href="#cb31-238" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-239"><a href="#cb31-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-240"><a href="#cb31-240" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 并排箱线图(Boxplot)</span></span>
+<span id="cb31-241"><a href="#cb31-241" aria-hidden="true" tabindex="-1"></a>箱线图也是一种直观的可视化方式</span>
+<span id="cb31-244"><a href="#cb31-244" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-245"><a href="#cb31-245" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb31-246"><a href="#cb31-246" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb31-247"><a href="#cb31-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-248"><a href="#cb31-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-249"><a href="#cb31-249" aria-hidden="true" tabindex="-1"></a>或许还可以上点颜色, 让它显得花里胡哨:</span>
+<span id="cb31-252"><a href="#cb31-252" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-253"><a href="#cb31-253" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb31-254"><a href="#cb31-254" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.shape =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb31-255"><a href="#cb31-255" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb31-256"><a href="#cb31-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>))</span>
+<span id="cb31-257"><a href="#cb31-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-258"><a href="#cb31-258" aria-hidden="true" tabindex="-1"></a>等等,**这不对吧**,cut越好的钻石价格应该越高才对啊!!!怎么回事?</span>
+<span id="cb31-259"><a href="#cb31-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-260"><a href="#cb31-260" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-261"><a href="#cb31-261" aria-hidden="true" tabindex="-1"></a>Why does the boxplot show that the price of diamonds with "Fair" cut is higher than those with "Ideal" cut?</span>
+<span id="cb31-262"><a href="#cb31-262" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-263"><a href="#cb31-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-264"><a href="#cb31-264" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 折线图(Line)</span></span>
+<span id="cb31-265"><a href="#cb31-265" aria-hidden="true" tabindex="-1"></a>还有一种策略,是算出数值的平均数(或其他特征),然后绘制折线图:</span>
+<span id="cb31-268"><a href="#cb31-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-269"><a href="#cb31-269" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span></span>
+<span id="cb31-270"><a href="#cb31-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">|&gt;</span></span>
+<span id="cb31-271"><a href="#cb31-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">price =</span> <span class="fu">mean</span>(price)) <span class="sc">|&gt;</span></span>
+<span id="cb31-272"><a href="#cb31-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price, <span class="at">color =</span> cut)) <span class="sc">+</span></span>
+<span id="cb31-273"><a href="#cb31-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-274"><a href="#cb31-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">group =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb31-275"><a href="#cb31-275" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb31-276"><a href="#cb31-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-277"><a href="#cb31-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-278"><a href="#cb31-278" aria-hidden="true" tabindex="-1"></a><span class="fu">###  两个分类变量(Two categorical variables)</span></span>
+<span id="cb31-279"><a href="#cb31-279" aria-hidden="true" tabindex="-1"></a>虽然听起来有点离谱,但有时候确实需要可视化两个分类变量之间的关系.</span>
+<span id="cb31-280"><a href="#cb31-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-281"><a href="#cb31-281" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 点图(Dot)</span></span>
+<span id="cb31-282"><a href="#cb31-282" aria-hidden="true" tabindex="-1"></a>下图是一个点图，展示了钻石的切割质量和颜色之间的关系。点的大小表示组合的数量</span>
+<span id="cb31-285"><a href="#cb31-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-286"><a href="#cb31-286" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> color)) <span class="sc">+</span></span>
+<span id="cb31-287"><a href="#cb31-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>()</span>
+<span id="cb31-288"><a href="#cb31-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-289"><a href="#cb31-289" aria-hidden="true" tabindex="-1"></a>好看吗? 好像还行。</span>
+<span id="cb31-290"><a href="#cb31-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-291"><a href="#cb31-291" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 色块图(Tile)</span></span>
+<span id="cb31-292"><a href="#cb31-292" aria-hidden="true" tabindex="-1"></a>让我们再来换一种表达形式——色块图,色块的颜色表示组合的数量.</span>
+<span id="cb31-295"><a href="#cb31-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-296"><a href="#cb31-296" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb31-297"><a href="#cb31-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(color, cut) <span class="sc">|&gt;</span>  </span>
+<span id="cb31-298"><a href="#cb31-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> cut)) <span class="sc">+</span></span>
+<span id="cb31-299"><a href="#cb31-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="fu">aes</span>(<span class="at">fill =</span> n))</span>
+<span id="cb31-300"><a href="#cb31-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-301"><a href="#cb31-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-302"><a href="#cb31-302" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-303"><a href="#cb31-303" aria-hidden="true" tabindex="-1"></a>Which one do you prefer, the dot plot or the tile plot? Why?</span>
+<span id="cb31-304"><a href="#cb31-304" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-305"><a href="#cb31-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-306"><a href="#cb31-306" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 堆叠条形图(Barstack)</span></span>
+<span id="cb31-307"><a href="#cb31-307" aria-hidden="true" tabindex="-1"></a>又到了~我不喜欢的~堆叠条形图了.</span>
+<span id="cb31-308"><a href="#cb31-308" aria-hidden="true" tabindex="-1"></a>下面两个图是钻石的颜色和切割质量的堆叠条形图，分别展示了每种颜色的钻石在不同切割质量下的数量分布。</span>
+<span id="cb31-311"><a href="#cb31-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-312"><a href="#cb31-312" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb31-313"><a href="#cb31-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb31-314"><a href="#cb31-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-315"><a href="#cb31-315" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">fill =</span> cut)) <span class="sc">+</span></span>
+<span id="cb31-316"><a href="#cb31-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
+<span id="cb31-317"><a href="#cb31-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-318"><a href="#cb31-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-319"><a href="#cb31-319" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-320"><a href="#cb31-320" aria-hidden="true" tabindex="-1"></a>What is the difference between the two stacked bar charts?</span>
+<span id="cb31-321"><a href="#cb31-321" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-322"><a href="#cb31-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-323"><a href="#cb31-323" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 分面面包圈图(Facet Donut)</span></span>
+<span id="cb31-324"><a href="#cb31-324" aria-hidden="true" tabindex="-1"></a>其实就是多个面包圈图组合在一起,用ppt也能做.</span>
+<span id="cb31-327"><a href="#cb31-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-328"><a href="#cb31-328" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">fill =</span> color)) <span class="sc">+</span></span>
+<span id="cb31-329"><a href="#cb31-329" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> </span>
+<span id="cb31-330"><a href="#cb31-330" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>) <span class="sc">+</span> </span>
+<span id="cb31-331"><a href="#cb31-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">"y"</span>) <span class="sc">+</span> </span>
+<span id="cb31-332"><a href="#cb31-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb31-333"><a href="#cb31-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cut, <span class="at">scales=</span><span class="st">"free_y"</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb31-334"><a href="#cb31-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-335"><a href="#cb31-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-336"><a href="#cb31-336" aria-hidden="true" tabindex="-1"></a><span class="fu">### 两个数值变量(Two numerical variables)</span></span>
+<span id="cb31-337"><a href="#cb31-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-338"><a href="#cb31-338" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 散点图(Scatter)</span></span>
+<span id="cb31-339"><a href="#cb31-339" aria-hidden="true" tabindex="-1"></a>下图是钻石的克拉数和价格之间的散点图，X轴是克拉数，Y轴是价格。</span>
+<span id="cb31-342"><a href="#cb31-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-343"><a href="#cb31-343" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb31-344"><a href="#cb31-344" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb31-345"><a href="#cb31-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-346"><a href="#cb31-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-347"><a href="#cb31-347" aria-hidden="true" tabindex="-1"></a>黑色一大片,简直丑死了!</span>
+<span id="cb31-348"><a href="#cb31-348" aria-hidden="true" tabindex="-1"></a>来调整一下点的透明度吧</span>
+<span id="cb31-351"><a href="#cb31-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-352"><a href="#cb31-352" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb31-353"><a href="#cb31-353" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.02</span>)</span>
+<span id="cb31-354"><a href="#cb31-354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-355"><a href="#cb31-355" aria-hidden="true" tabindex="-1"></a>稍微好一点,但是还有一些更好的策略.</span>
+<span id="cb31-356"><a href="#cb31-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-357"><a href="#cb31-357" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 分格散点图(bin)</span></span>
+<span id="cb31-360"><a href="#cb31-360" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-361"><a href="#cb31-361" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb31-362"><a href="#cb31-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bin2d</span>()</span>
+<span id="cb31-363"><a href="#cb31-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-364"><a href="#cb31-364" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb31-365"><a href="#cb31-365" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>()</span>
+<span id="cb31-366"><a href="#cb31-366" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-367"><a href="#cb31-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-368"><a href="#cb31-368" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 排序箱线图(Order Boxplot)</span></span>
+<span id="cb31-369"><a href="#cb31-369" aria-hidden="true" tabindex="-1"></a>把其中一个变量分成若干个区间,然后在每个区间内绘制箱线图,可以更好地展示数据的分布情况.</span>
+<span id="cb31-372"><a href="#cb31-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-373"><a href="#cb31-373" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
+<span id="cb31-374"><a href="#cb31-374" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="fu">cut_width</span>(carat, <span class="fl">0.1</span>)))</span>
+<span id="cb31-375"><a href="#cb31-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-376"><a href="#cb31-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-377"><a href="#cb31-377" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-378"><a href="#cb31-378" aria-hidden="true" tabindex="-1"></a>When do you think a Order Boxplot Plot is useful?</span>
+<span id="cb31-379"><a href="#cb31-379" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-380"><a href="#cb31-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-381"><a href="#cb31-381" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 散点图(Scatter) + 线性回归(Linear Regression)</span></span>
+<span id="cb31-382"><a href="#cb31-382" aria-hidden="true" tabindex="-1"></a>换一个数据较少的例子,这是一个散点图，展示了汽车的发动机排量和高速公路油耗之间的关系。红色的点表示2座跑车。</span>
+<span id="cb31-385"><a href="#cb31-385" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-386"><a href="#cb31-386" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb31-387"><a href="#cb31-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-388"><a href="#cb31-388" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb31-389"><a href="#cb31-389" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"2seater"</span>),</span>
+<span id="cb31-390"><a href="#cb31-390" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span></span>
+<span id="cb31-391"><a href="#cb31-391" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb31-392"><a href="#cb31-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb31-393"><a href="#cb31-393" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> mpg <span class="sc">|&gt;</span> <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"2seater"</span>),</span>
+<span id="cb31-394"><a href="#cb31-394" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">"circle open"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"red"</span></span>
+<span id="cb31-395"><a href="#cb31-395" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-396"><a href="#cb31-396" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb31-397"><a href="#cb31-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-398"><a href="#cb31-398" aria-hidden="true" tabindex="-1"></a>我们还可以在散点图上添加线性回归线,来展示两者之间的关系.</span>
-<span id="cb31-401"><a href="#cb31-401" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb31-402"><a href="#cb31-402" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb31-403"><a href="#cb31-403" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb31-404"><a href="#cb31-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb31-405"><a href="#cb31-405" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb31-406"><a href="#cb31-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-407"><a href="#cb31-407" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
-<span id="cb31-408"><a href="#cb31-408" aria-hidden="true" tabindex="-1"></a>What is the curve? What is the shadow around it?</span>
-<span id="cb31-409"><a href="#cb31-409" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb31-410"><a href="#cb31-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-411"><a href="#cb31-411" aria-hidden="true" tabindex="-1"></a><span class="fu">## 三变量</span></span>
-<span id="cb31-412"><a href="#cb31-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-413"><a href="#cb31-413" aria-hidden="true" tabindex="-1"></a>The author will update this section if he remembers it...</span>
+<span id="cb31-398"><a href="#cb31-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-399"><a href="#cb31-399" aria-hidden="true" tabindex="-1"></a>我们还可以在散点图上添加线性回归线,来展示两者之间的关系.</span>
+<span id="cb31-402"><a href="#cb31-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb31-403"><a href="#cb31-403" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb31-404"><a href="#cb31-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-405"><a href="#cb31-405" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb31-406"><a href="#cb31-406" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb31-407"><a href="#cb31-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-408"><a href="#cb31-408" aria-hidden="true" tabindex="-1"></a>::: {.callout-important title="思考题"}</span>
+<span id="cb31-409"><a href="#cb31-409" aria-hidden="true" tabindex="-1"></a>What is the curve? What is the shadow around it?</span>
+<span id="cb31-410"><a href="#cb31-410" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb31-411"><a href="#cb31-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-412"><a href="#cb31-412" aria-hidden="true" tabindex="-1"></a><span class="fu">## 三变量</span></span>
+<span id="cb31-413"><a href="#cb31-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-414"><a href="#cb31-414" aria-hidden="true" tabindex="-1"></a>The author will update this section if he remembers it...</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
