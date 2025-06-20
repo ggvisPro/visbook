@@ -38,7 +38,7 @@ data1 |>
   ggplot(aes(x = name, y = value, fill = name)) +
   geom_boxplot() +
   scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量
-  theme_ipsum() + # 更适合排版的主题
+  theme_ipsum() +
   theme(legend.position = "none") + 
   labs(x = "") + 
   ggtitle("A somewhat misleading boxplot") 
@@ -50,6 +50,7 @@ data1 |>
 ### 添加抖动(Jitter)
 
 适合数据量不太大的情况
+
 ```{r}
 #| fig-cap: 添加抖动(jitter)的箱线图
 data1 |> 
@@ -57,7 +58,7 @@ data1 |>
     geom_boxplot() +
     scale_fill_viridis(discrete = TRUE) +  # 好看的色盲友好型颜色,离散变量
     geom_jitter(color="grey", size=0.5, alpha=0.5) +
-    theme_ipsum() + # 更适合排版的主题
+    theme_ipsum() + 
     theme(legend.position="none") +
     labs(x = "") + 
     ggtitle("A boxplot with jitter")
@@ -125,6 +126,7 @@ data1 |>
 把**头顺时针旋转90度**(或交换R代码X轴和Y轴)，就更像云雨了
 
 甚至还可以再加上箱线图
+
 ```{r}
 library(ggdist) # ggdist 提供了半小提琴图和云雨图
 library(hrbrthemes) # hrbrthemes 提供了更适合排版的主题
@@ -164,6 +166,7 @@ data1 |>
 ```
 
 ## ggplot2
+
 主要是geom_boxplot()函数.
 
 ```{r}
@@ -331,7 +334,6 @@ ggMarginal(p, type = "density")
 ggMarginal(p, type = "boxplot")
 ```
 
-
 还可以定制化样式：
 
 ```{r}
@@ -354,6 +356,7 @@ ggMarginal(p, margins = 'x', color = "purple", size = 4)
 
 
 ## Base R
+
 主要是通过`boxplot()`函数.
 
 但是 base R 多看一秒都是浪费时间,直接ggplot2吧.
@@ -361,12 +364,14 @@ ggMarginal(p, margins = 'x', color = "purple", size = 4)
 如果实在想学,可以看 [r-graph-gallery](https://r-graph-gallery.com/boxplot.html) 的文档。
 
 ## Pearl
+
 ```{r}
 #| fig-cap: 带有统计的小提琴箱线图
 palmerpenguins::penguins |>
   drop_na() |>
   ggstatsplot::ggbetweenstats(x = species, y = flipper_length_mm, 1)
 ```
+
 在 [ggstatsplot](https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html) 可以看到进一步美化。
 
 或者
