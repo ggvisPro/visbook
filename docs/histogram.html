@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Histogram – 数据可视化探索(从入门到放弃)</title>
+<title>2&nbsp; Histogram – 数据可视化探索(从入门到放弃)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./distribution.html">Distribution</a></li><li class="breadcrumb-item"><a href="./histogram.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Histogram</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./distribution.html">Distribution</a></li><li class="breadcrumb-item"><a href="./histogram.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Histogram</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,7 +151,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./quick_start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span></a>
+ <span class="menu-text">0 Quick start</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -166,37 +166,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./beeswarm.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Beeswarm</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Beeswarm</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./histogram.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Histogram</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Histogram</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./boxplot.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Boxplot</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boxplot</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./density.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Density</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Density</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ridgeline.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ridgeline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Ridgeline</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./violin.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Violin</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Violin</span></span></a>
   </div>
 </li>
       </ul>
@@ -204,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -223,23 +223,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link active" data-scroll-target="#ggplot2"><span class="header-section-number">3.1</span> ggplot2</a>
+  <li><a href="#ggplot2" id="toc-ggplot2" class="nav-link active" data-scroll-target="#ggplot2"><span class="header-section-number">2.1</span> ggplot2</a>
   <ul class="collapse">
-  <li><a href="#基本" id="toc-基本" class="nav-link" data-scroll-target="#基本"><span class="header-section-number">3.1.1</span> 基本</a></li>
-  <li><a href="#sec-mirror-histogram" id="toc-sec-mirror-histogram" class="nav-link" data-scroll-target="#sec-mirror-histogram"><span class="header-section-number">3.1.2</span> 分组/镜像</a></li>
-  <li><a href="#分面" id="toc-分面" class="nav-link" data-scroll-target="#分面"><span class="header-section-number">3.1.3</span> 分面</a></li>
-  <li><a href="#边缘图" id="toc-边缘图" class="nav-link" data-scroll-target="#边缘图"><span class="header-section-number">3.1.4</span> 边缘图</a></li>
+  <li><a href="#基本" id="toc-基本" class="nav-link" data-scroll-target="#基本"><span class="header-section-number">2.1.1</span> 基本</a></li>
+  <li><a href="#sec-mirror-histogram" id="toc-sec-mirror-histogram" class="nav-link" data-scroll-target="#sec-mirror-histogram"><span class="header-section-number">2.1.2</span> 分组/镜像</a></li>
+  <li><a href="#分面" id="toc-分面" class="nav-link" data-scroll-target="#分面"><span class="header-section-number">2.1.3</span> 分面</a></li>
+  <li><a href="#边缘图" id="toc-边缘图" class="nav-link" data-scroll-target="#边缘图"><span class="header-section-number">2.1.4</span> 边缘图</a></li>
   </ul></li>
-  <li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r"><span class="header-section-number">3.2</span> base R</a></li>
+  <li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r"><span class="header-section-number">2.2</span> base R</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./distribution.html">Distribution</a></li><li class="breadcrumb-item"><a href="./histogram.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Histogram</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./distribution.html">Distribution</a></li><li class="breadcrumb-item"><a href="./histogram.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Histogram</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-histogram" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Histogram</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-histogram" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Histogram</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -257,10 +257,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>非常简单的数据可视化形式,可以用<code>base R::hist()</code>或<code>ggplot2::geom_histogram()</code>来实现。</p>
-<section id="ggplot2" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">3.1</span> ggplot2</h2>
-<section id="基本" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="基本"><span class="header-section-number">3.1.1</span> 基本</h3>
+<section id="ggplot2" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ggplot2"><span class="header-section-number">2.1</span> ggplot2</h2>
+<section id="基本" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="基本"><span class="header-section-number">2.1.1</span> 基本</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -299,8 +299,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="sec-mirror-histogram" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-mirror-histogram"><span class="header-section-number">3.1.2</span> 分组/镜像</h3>
+<section id="sec-mirror-histogram" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-mirror-histogram"><span class="header-section-number">2.1.2</span> 分组/镜像</h3>
 <p>还有用于比较两个变量分布(从0开始)的镜像直方图。</p>
 <p>直方图的默认<code>y = -..count..</code>，因此可以通过设置<code>y = -..count..</code>来实现镜像效果。</p>
 <div class="cell">
@@ -384,8 +384,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="分面" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="分面"><span class="header-section-number">3.1.3</span> 分面</h3>
+<section id="分面" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="分面"><span class="header-section-number">2.1.3</span> 分面</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -403,13 +403,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="边缘图" class="level3" data-number="3.1.4">
-<h3 data-number="3.1.4" class="anchored" data-anchor-id="边缘图"><span class="header-section-number">3.1.4</span> 边缘图</h3>
-<p>见 <a href="boxplot.html#sec-ggMarginal" class="quarto-xref"><span>Section 4.3.9</span></a>。</p>
+<section id="边缘图" class="level3" data-number="2.1.4">
+<h3 data-number="2.1.4" class="anchored" data-anchor-id="边缘图"><span class="header-section-number">2.1.4</span> 边缘图</h3>
+<p>见 <a href="boxplot.html#sec-ggMarginal" class="quarto-xref"><span>Section 3.3.9</span></a>。</p>
 </section>
 </section>
-<section id="base-r" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="base-r"><span class="header-section-number">3.2</span> base R</h2>
+<section id="base-r" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="base-r"><span class="header-section-number">2.2</span> base R</h2>
 <p>查看 <a href="https://r-graph-gallery.com/histogram.html">r-graph-gallery</a>的例子。</p>
 
 
@@ -871,12 +871,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./beeswarm.html" class="pagination-link" aria-label="Beeswarm">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Beeswarm</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Beeswarm</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./boxplot.html" class="pagination-link" aria-label="Boxplot">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Boxplot</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Boxplot</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
