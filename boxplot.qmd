@@ -1,6 +1,6 @@
-# Boxplot
+# Boxplot {#sec-boxplot}
 
-## 箱线图陷阱
+## 箱线图陷阱 {#sec-boxplot-trap}
 
 箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。
 
@@ -385,7 +385,7 @@ ggMarginal(p, margins = 'x', color = "purple", size = 4)
 
 如果实在想学,可以看 [r-graph-gallery](https://r-graph-gallery.com/boxplot.html) 的文档。
 
-## Pearl
+## Pearl {#sec-ggstatsplot}
 
 ```{r}
 #| fig-cap: 带有统计的小提琴箱线图

@@ -1,0 +1,17 @@
+# Distribution
+
+此部分探数据分布的可视化.
+
+![数据分布](./image/distribution.png)
+
+-  @sec-beeswarm 群峰图, 是一种强大的点图
+
+-  @sec-histogram 直方图, 用于显示数据的基础手段
+
+-  @sec-boxplot 箱线图, 用于显示数据的四分位数和异常值
+
+-  @sec-density 核密度图, 密度曲线,可以比较多组
+
+-  @sec-ridgeline 山脊图, 美观, 用于显示多个分布的叠加情况
+
+-  @sec-violin 小提琴图, 箱线图和密度曲线的变体

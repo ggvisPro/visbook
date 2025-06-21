@@ -1,4 +1,4 @@
-# Density
+# Density {#sec-density}
 
 核密度曲线图其实是一个平滑的直方图，曲线下面积是1。
 
@@ -58,6 +58,8 @@ ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
 ## 注释/标签
 还可以使用annot数据框来添加注释，下面的例子中，我们在鸢尾花的密度曲线上添加了每个物种的名称注释。
 
+### geom_text
+
 ```{r}
 #| fig-cap: 带注释的密度曲线图
 
@@ -74,6 +76,7 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
   theme(legend.position = "none") 
 ```
 
+### textdensity
 
 ```{r}
 #| fig-cap: geomtextpath 更方便添加标签,但是不能带fill颜色
@@ -108,6 +111,6 @@ ggplot(iris, aes(x = Sepal.Length, color = Species, label = Species)) +
 
 r-graph-gallery 还有一些示例: [geomtextpath](https://r-graph-gallery.com/361-density-plot-with-labels-on-lines.html)
 
-## 叠加散点
+## 边缘图
 
 见 @sec-ggMarginal

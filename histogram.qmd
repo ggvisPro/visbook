@@ -1,10 +1,10 @@
-# Histogram
+# Histogram {#sec-histogram}
 
 非常简单的数据可视化形式,可以用`base R::hist()`或`ggplot2::geom_histogram()`来实现。
 
 ## ggplot2
 
-### 基本的geom_histogram
+### 基本
 ```{r}
 #| fig-cap: 最基本的geom_histogram
 library(tidyverse)
@@ -25,7 +25,7 @@ ggplot(data, aes(x=value)) +
 ```
 
 
-### 分组/镜像的geom_histogram {#sec-mirror-histogram}
+### 分组/镜像 {#sec-mirror-histogram}
 还有用于比较两个变量分布(从0开始)的镜像直方图。
 
 直方图的默认`y = -..count..`，因此可以通过设置`y = -..count..`来实现镜像效果。
@@ -90,7 +90,7 @@ ggplot(data, aes(x = value, fill = type)) +
   scale_fill_manual(values = c("#69b3a2", "#404080")) # 使用自定义颜色
 ```
 
-### 分面的geom_histogram
+### 分面
 
 ```{r}
 #| fig-cap: facet_wrap分面,scale来控制自由坐标轴
@@ -99,7 +99,7 @@ ggplot(iris, aes(x = `Sepal.Length`, fill = `Sepal.Length`)) +
   facet_wrap(~ Species, scale = "free_x")
 ```
 
-### 散点图外边套箱线图
+### 边缘图
 
 见 @sec-ggMarginal。
 

@@ -1,0 +1,130 @@
+# Violin {#sec-violin}
+
+`ggplot2::geom_violin()` 或 `base R::vioplot` 可以绘制小提琴图。
+
+小提琴图是箱线图的变体, 弥补了箱线图隐藏数据点的缺点。([箱线图陷阱](#sec-boxplot-trap))
+
+小提琴图是一种强大的可视化技术, 允许比较多个组的数量和分布,但是使用频率低于箱线图,我不理解.
+
+如果数据量少(几百个),还可以叠加散点.
+
+## 基础
+
+```{r}
+#| fig-cap: 基础geom_violin
+
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_violin()
+```
+
+```{r}
+#| fig-cap: 稍微美化的geom_violin
+
+library(tidyverse)
+
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) + 
+  geom_violin(alpha = 0.5) + 
+  theme_minimal() + 
+  theme(legend.position = "none") 
+```
+
+wider格式数据转化为long格式数据后, 再使用`geom_violin()`绘制小提琴图。
+
+```{r}
+#| fig-cap: iris数据(wider格式数据)
+knitr::kable(head(iris))
+```
+
+`tidyr::gather()` 是个有意思的函数,可以将wider格式数据转化为long格式数据。
+
+```{r}
+#| fig-cap: iris数据(wider格式数据转化为long格式后)
+
+iris_long <- iris |> 
+  gather(key = "type", value = "value", -Species)
+
+knitr::kable(head(iris_long))
+
+table(iris_long$type)
+```
+
+
+```{r}
+#| fig-cap: iris数据(wider格式数据转化为long格式后)小提琴图
+
+ggplot(iris_long, aes(x = type, y = value)) +
+  geom_violin()
+```
+
+
+## 排序
+
+有多种方法: `forcats::fct_reorder()`, `dplyr::arrange()` `base R::reorder()`等,我一般用`forcats::fct_reorder()`, 另外两种方法见[Reorder a variable with ggplot2](https://r-graph-gallery.com/267-reorder-a-variable-in-ggplot2.html)。
+
+
+```{r}
+#| fig-cap: 使用fct_reorder()排序小提琴图
+
+iris_long |> 
+  # 重点是这里的fct_reorder
+  ggplot(aes(x = fct_reorder(type, value, .fun = median), y = value, fill = type)) + 
+  geom_violin(alpha = 0.5) + 
+  theme_minimal() + 
+  theme(legend.position = "none")
+```
+
+注意,如果X已经有顺序,比如月份等,就不适合使用`fct_reorder()`。
+
+## 横向
+
+有几种方法可以设置小提琴图为横向显示。
+
+- 在aes交换x和y的参数
+- `coord_flip()`
+- orientation = "y" 
+
+`coord_flip()`是比较落后的方式,纯粹是简单粗暴的翻转(回归线基于旋转前;调整坐标轴scale基于旋转前,反直觉), 现在优先考虑`aes()`交换x和y的参数,ggplot会自动识别方向,如果识别错误,可以使用`orientation = "y"`。
+
+
+```{r}
+#| fig-cap: 使用coord_flip()横向显示小提琴图
+
+iris_long |> 
+  ggplot(aes(x = value, y = fct_reorder(type, value, .fun = median), fill = type)) + 
+  geom_violin(alpha = 0.5) + 
+  theme_minimal() + 
+  theme(legend.position = "none") 
+```
+
+## +箱线图
+
+使用`geom_boxplot()`和`geom_violin()`结合,可以同时显示小提琴图和箱线图。
+注意: 调整`geom_boxplot()`的宽度,并且白色(fill仅放入`geom_violin()`),使其更美观。
+
+```{r}
+#| fig-cap: 小提琴图与箱线图结合
+
+iris_long |> 
+  ggplot(aes(x = type, y = value)) + 
+  geom_violin(aes(fill = type), alpha = 0.5) + 
+  geom_boxplot(width = 0.05) + 
+  theme(legend.position = "none") 
+```
+
+还可以用fill增加分组.
+
+```{r}
+#| fig-cap: 分组小提琴图
+ggplot(iris_long, aes(x = type, y = value, fill = Species)) +
+  geom_violin() +
+  theme(legend.position = "bottom")
+```
+
+## base R
+
+r-graph-gallery 有`base R::vioplot`的 [小提琴图示例](https://r-graph-gallery.com/94-violin-plot.html)
+
+
+## Pearl
+
+一种非常美观的带有统计量的小提琴图,见 @sec-ggstatsplot

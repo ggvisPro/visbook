@@ -16,7 +16,7 @@ ggplot(diamonds, aes(x = price, y = cut, fill = cut)) +
   theme(legend.position = "none")
 ```
 
-# 直方图类型
+## 直方图类型
 ```{r}
 #| fig-cap: 转换为直方图
 
@@ -77,7 +77,8 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x.
 
 
 ## Pearl
-[内部有图例和注释的山脊图](https://r-graph-gallery.com/web-ridgeline-plot-with-inside-plot-and-annotations.html)
+
+### [内部有图例和注释的山脊图](https://r-graph-gallery.com/web-ridgeline-plot-with-inside-plot-and-annotations.html)
 
 Quarto渲染效果不好，用R直接渲染会好看一点。
 
@@ -247,7 +248,7 @@ p_legend <- df_for_legend |>
 p + inset_element(p_legend, l = 0.6, r = 1.0,  t = 0.99, b = 0.7, clip = FALSE)
 ```
 
-[山水画一般的山脊图](https://r-graph-gallery.com/web-double-ridgeline-plot.html)
+### [山水画一般的山脊图](https://r-graph-gallery.com/web-double-ridgeline-plot.html)
 
 ```{r}
 #| fig-cap: 可视化1900年以来美国最受欢迎的50个男女姓名

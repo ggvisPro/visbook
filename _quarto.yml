@@ -10,7 +10,7 @@ book:
     - index.qmd
     - quick_start.qmd
 
-    - part: Distribution
+    - part: distribution.qmd
       chapters:
         - beeswarm.qmd
         - histogram.qmd
@@ -31,6 +31,7 @@ format:
     code-tools: true
     code-fold: true
     code-summary: "Show/Hide Code"
+    number-sections: true
   pdf:
     documentclass: scrreprt
 
