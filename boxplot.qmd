@@ -167,7 +167,9 @@ data1 |>
 
 ## ggplot2
 
-主要是geom_boxplot()函数.
+主要是`geom_boxplot()`函数.
+
+### 基础
 
 ```{r}
 #| fig-cap: 最基础的箱线图
@@ -193,6 +195,7 @@ ggplot(mpg, aes(x=class, y=hwy)) +
   )
 ```
 
+### 排序
 
 ```{r}
 #| fig-cap: 用均值排序箱线图
@@ -201,6 +204,8 @@ mpg |>
   ggplot( aes(x=fct_reorder(class, hwy, .fun='median'), y=hwy)) + 
     geom_boxplot()
 ```
+
+### 定制外观
 
 ```{r}
 #| fig-cap: 改变颜色
@@ -244,6 +249,9 @@ mpg |>
     xlab("") # 去除 x 轴标签
 ```
 
+
+### 分组/分面
+
 ```{r}
 library(patchwork)
 #| fig-cap: 分组箱线图与分面箱线图
@@ -268,6 +276,10 @@ ggplot(data2, aes(x=variety, y=note, fill=treatment)) +
     facet_wrap(~variety, scale="free") # 自由y轴
 ```
 
+### 不等宽
+
+让箱线图的宽度与样本量成正比
+
 ```{r}
 #| fig-cap: 不等宽箱线图(宽带是样本量)
 # 转换为因子类型
@@ -281,6 +293,10 @@ ggplot(mpg, aes(x = drv, y = hwy, fill = drv)) +
     theme(legend.position = "none")
 ```
 
+### 连续变量
+
+把连续变量分箱后再绘制箱线图。
+
 ```{r}
 #| fig-cap: 连续变量箱线图
 diamonds |>
@@ -289,13 +305,17 @@ diamonds |>
   geom_boxplot() 
 ```
 
+### 添加均值点
+
 ```{r}
 #| fig-cap: 添加均值点
 ggplot(mpg, aes(x=drv, y=hwy, fill=drv)) +
     geom_boxplot(alpha=0.7) +
-    stat_summary(fun.y=mean, geom="point", shape=1, size=2, color = 'red') +
+    stat_summary(fun=mean, geom="point", shape=1, size=2, color = 'red') +
     theme(legend.position="none") 
 ```
+
+### 带数据点
 
 ```{r}
 #| fig-cap: 带抖动的箱线图
@@ -310,6 +330,8 @@ data1 |>
     labs(x = "") + 
     ggtitle("A boxplot with jitter")
 ```
+
+### 散点图外边套箱线图 {#sec-ggMarginal}
 
 可以library(ggExtra)来实现更复杂（花哨）的图形，在ggplot2散点图的基础上再叠加箱线图、密度曲线等。
 

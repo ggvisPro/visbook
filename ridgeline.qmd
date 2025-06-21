@@ -1,4 +1,4 @@
-# Ridgeline
+# Ridgeline {#sec-ridgeline}
 
 主要借助强大且美观的`ggridges`包来绘制山脊图。山脊图可以更好地展示多个分布的情况。
 

@@ -12,9 +12,12 @@ book:
 
     - part: Distribution
       chapters:
-        - boxplot.qmd
-        - ridgeline.qmd
         - beeswarm.qmd
+        - histogram.qmd
+        - boxplot.qmd
+        - density.qmd
+        - ridgeline.qmd
+        - violin.qmd
     - summary.qmd
     - references.qmd
 
