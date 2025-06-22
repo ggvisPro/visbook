@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "数据可视化探索(从入门到放弃)",
     "section": "",
-    "text": "Preface\n数据可视化,对王师傅来说是很复杂的东西\n所以王师傅特地写了这个笔记,来记录学习过程和心得体会。\n看似简单,其实一点也不难.\n遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.\n王师傅强烈推荐 r graph gallery 的数据可视化思路:\n这本书是由quarto生成的,可以在quarto.org上了解更多.",
+    "text": "Preface\n数据可视化,对王师傅来说是很复杂的东西\n所以王师傅特地写了这个笔记,来记录学习过程和心得体会。\n看似简单,其实一点也不难.\n遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.\n\n\nShow/Hide Code\n# 彩蛋 右上角的封面是这段代码画的位图\nlibrary(ggplot2)\ndf &lt;- read.csv('https://raw.githubusercontent.com/ggvisPro/data/refs/heads/main/img_df2.csv')\np &lt;- ggplot(df, aes(x = x, y = y, color = color)) +\n  geom_point() +\n  scale_colour_identity() + #控制颜色映射\n  theme_void() #删除坐标轴\n# p # 显示图形\n\n\n王师傅强烈推荐 r graph gallery 的数据可视化思路:\n这本书是由quarto生成的,可以在quarto.org上了解更多.",
     "crumbs": [
       "Preface"
     ]

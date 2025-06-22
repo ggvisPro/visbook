@@ -6,6 +6,9 @@ book:
   title: "数据可视化探索(从入门到放弃)"
   author: "Multa-Head Wang Zhikun"
   date: "6/24/2025"
+
+  cover-image: ./image/ggvis.png
+
   chapters:
     - index.qmd
     - quick_start.qmd
