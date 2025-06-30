@@ -129,7 +129,7 @@
     "href": "histogram.html#ggplot2",
     "title": "2  Histogram",
     "section": "2.2 ggplot2",
-    "text": "2.2 ggplot2\n\n2.2.1 基本\n\n\nShow/Hide Code\ndata = data.frame(value = rnorm(1000))\n\nggplot(data, aes(x = value)) +\n  geom_histogram()\n\n\n\n\n\n最基本的geom_histogram\n\n\n\n\n\n\nShow/Hide Code\nggplot(data, aes(x=value)) + \n  geom_histogram(binwidth=0.1, fill=\"#69b3a2\", color=\"#e9ecef\", alpha=0.9) +\n  theme_ipsum()\n\n\n\n\n\n定制的geom_histogram\n\n\n\n\n\n\n2.2.2 分组/镜像\n还有用于比较两个变量分布(从0开始)的镜像直方图。\n直方图的默认y = -..count..，因此可以通过设置y = -..count..来实现镜像效果。\n\n\nShow/Hide Code\ndata &lt;- data.frame(\n  var1 = rnorm(100),\n  var2 = rnorm(100, mean = 2)\n)\n\nggplot(data, aes(x = x)) +\n  # 上方图\n  geom_histogram(aes(x = var1, y = ..count..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 4.5, y = 6, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图,主要是通过y = -..count..来实现镜像\n  geom_histogram(aes(x = var2, y = -..count..), fill = \"#404080\") +\n  geom_label(aes(x = 4.5, y = -4, label = \"variable2\"), color = \"#404080\") \n\n\n\n\n\n通过y = -..count.. 来绘制镜像直方图\n\n\n\n\n密度曲线图默认y = ..density..，因此可以通过设置y = -..density..来实现镜像效果。\n下图,左侧是直方图(y改为密度),右侧是密度曲线图。\n\n\nShow/Hide Code\np1 &lt;- ggplot(data, aes(x = x)) +\n  # 上方图\n  geom_histogram(aes(x = var1, y = ..density..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 3.5, y = 0.2, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图\n  geom_histogram(aes(x = var2, y = -..density..), fill = \"#404080\") +\n  geom_label(aes(x = 3.5, y = -0.2, label = \"variable2\"), color = \"#404080\") \n\np2 &lt;- ggplot(data, aes(x = x)) +\n  # 上方图\n  geom_density(aes(x = var1, y = ..density..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 3.5, y = 0.2, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图\n  geom_density(aes(x = var2, y = -..density..), fill = \"#404080\") +\n  geom_label(aes(x = 3.5, y = -0.2, label = \"variable2\"), color = \"#404080\")\n\np1 + p2\n\n\n\n\n\n通过y = -..count.. 来绘制镜像直方图\n\n\n\n\n\n\nShow/Hide Code\ndata &lt;- data.frame(\n  type = c(rep(\"variable 1\", 1000), rep(\"variable 2\", 1000)),\n  value = c(rnorm(1000), rnorm(1000, mean = 4))\n)\n\nggplot(data, aes(x = value, fill = type)) +\n  geom_histogram(color = \"#e9ecef\", alpha = 0.6, position = 'identity') +\n  scale_fill_manual(values = c(\"#69b3a2\", \"#404080\")) # 使用自定义颜色\n\n\n\n\n\n通过fill来绘制双色直方图\n\n\n\n\n\n\n2.2.3 分面\n\n\nShow/Hide Code\nggplot(iris, aes(x = `Sepal.Length`, fill = `Sepal.Length`)) + \n  geom_histogram() + \n  facet_wrap(~ Species, scale = \"free_x\")\n\n\n\n\n\nfacet_wrap分面,scale来控制自由坐标轴\n\n\n\n\n\n\n2.2.4 边缘图\n见 Section 3.3.9。",
+    "text": "2.2 ggplot2\n\n2.2.1 基本\n\n\nShow/Hide Code\ndata = data.frame(value = rnorm(1000))\n\nggplot(data, aes(x = value)) +\n  geom_histogram()\n\n\n\n\n\n最基本的geom_histogram\n\n\n\n\n\n\nShow/Hide Code\nggplot(data, aes(x=value)) + \n  geom_histogram(binwidth=0.1, fill=\"#69b3a2\", color=\"#e9ecef\", alpha=0.9) +\n  theme_ipsum()\n\n\n\n\n\n定制的geom_histogram\n\n\n\n\n\n\n2.2.2 分组/镜像\n还有用于比较两个变量分布(从0开始)的镜像直方图。\n直方图的默认y = -..count..，因此可以通过设置y = -..count..来实现镜像效果。\n\n\nShow/Hide Code\ndata &lt;- data.frame(\n  var1 = rnorm(100),\n  var2 = rnorm(100, mean = 2)\n)\n\nggplot(data, aes(x = x)) +\n  # 上方图\n  geom_histogram(aes(x = var1, y = ..count..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 4.5, y = 6, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图,主要是通过y = -..count..来实现镜像\n  geom_histogram(aes(x = var2, y = -..count..), fill = \"#404080\") +\n  geom_label(aes(x = 4.5, y = -4, label = \"variable2\"), color = \"#404080\") \n\n\n\n\n\n通过y = -..count.. 来绘制镜像直方图\n\n\n\n\n密度曲线图默认y = ..density..，因此可以通过设置y = -..density..来实现镜像效果。\n下图,左侧是直方图(y改为密度),右侧是密度曲线图。\n\n\nShow/Hide Code\np1 &lt;- ggplot(data, aes(x = x)) +\n  # 上方图\n  geom_histogram(aes(x = var1, y = ..density..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 3.5, y = 0.2, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图\n  geom_histogram(aes(x = var2, y = -..density..), fill = \"#404080\") +\n  geom_label(aes(x = 3.5, y = -0.2, label = \"variable2\"), color = \"#404080\") \n\np2 &lt;- ggplot(data, aes(x = x)) +\n  # 上方图\n  geom_density(aes(x = var1, y = ..density..), fill = \"#69b3a2\") +\n  geom_label(aes(x = 3.5, y = 0.2, label = \"variable1\"), color = \"#69b3a2\") +\n  # 下方图\n  geom_density(aes(x = var2, y = -..density..), fill = \"#404080\") +\n  geom_label(aes(x = 3.5, y = -0.2, label = \"variable2\"), color = \"#404080\")\n\np1 + p2\n\n\n\n\n\n通过y = -..count.. 来绘制镜像直方图\n\n\n\n\n\n\nShow/Hide Code\ndata &lt;- data.frame(\n  type = c(rep(\"variable 1\", 1000), rep(\"variable 2\", 1000)),\n  value = c(rnorm(1000), rnorm(1000, mean = 4))\n)\n\nggplot(data, aes(x = value, fill = type)) +\n  geom_histogram(color = \"#e9ecef\", alpha = 0.6, position = 'identity') +\n  scale_fill_manual(values = c(\"#69b3a2\", \"#404080\")) # 使用自定义颜色\n\n\n\n\n\n通过fill来绘制双色直方图\n\n\n\n\n\n\n2.2.3 分面\n\n\nShow/Hide Code\nggplot(iris, aes(x = `Sepal.Length`, fill = `Sepal.Length`)) + \n  geom_histogram() + \n  facet_wrap(~ Species, scale = \"free_x\")\n\n\n\n\n\nfacet_wrap分面,scale来控制自由坐标轴\n\n\n\n\n\n\n2.2.4 边缘图\n见 Section 3.4.9。",
     "crumbs": [
       "Distribution",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Histogram</span>"
@@ -152,6 +152,17 @@
     "title": "3  Boxplot",
     "section": "",
     "text": "3.1 PKG\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(hrbrthemes) # hrbrthemes 提供了更适合排版的主题\nlibrary(viridis) # viridis 提供了好看的色盲友好型颜色\nlibrary(ggdist) # ggdist 提供了半小提琴图和云雨图\nlibrary(patchwork) # patchwork 用于图形拼接\nlibrary(ggExtra) # ggExtra 用于 ggplot2 散点图的边际图",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boxplot</span>"
+    ]
+  },
+  {
+    "objectID": "boxplot.html#sec-boxplot-trap",
+    "href": "boxplot.html#sec-boxplot-trap",
+    "title": "3  Boxplot",
+    "section": "3.2 箱线图陷阱",
+    "text": "3.2 箱线图陷阱\n箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。\n这是说明箱线图构成的示意图：  \n但是，这种信息的总结也有个大问题——无法显示数据的分布情况。例如：正态分布可能看起来与双峰分布完全相同。因此，考虑用小提琴图或脊线图。\n\n\nShow/Hide Code\n# 创建数据集\ndata1 &lt;- data.frame(\n  name = c(\n    rep(\"A\", 500),\n    rep(\"B\", 250),\n    rep(\"B\", 250),\n    rep(\"C\", 20),\n    rep('D', 100)\n  ),\n  value = c(\n    rnorm(500, 10, 5),\n    rnorm(250, 13, 1),\n    rnorm(250, 18, 1),\n    rnorm(20, 25, 4),\n    rnorm(100, 12, 1)\n  )\n)\n\ndata1 |&gt; \n  ggplot(aes(x = name, y = value, fill = name)) +\n  geom_boxplot() +\n  scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量\n  theme_ipsum() +\n  theme(legend.position = \"none\") + \n  labs(x = \"\") + \n  ggtitle(\"A somewhat misleading boxplot\")",
     "crumbs": [
       "Distribution",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boxplot</span>"
@@ -207,6 +218,17 @@
     "title": "4  Density",
     "section": "",
     "text": "4.1 PKG\n核密度曲线图其实是一个平滑的直方图，曲线下面积是1。\n通过geom_density()函数可以绘制核密度曲线图。\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(geomtextpath) # 添加文本路径\nlibrary(hrbrthemes) # theme_ipsum主题",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Density</span>"
+    ]
+  },
+  {
+    "objectID": "density.html#单组",
+    "href": "density.html#单组",
+    "title": "4  Density",
+    "section": "4.2 单组",
+    "text": "4.2 单组\n\n\nShow/Hide Code\nggplot(iris, aes(x = Sepal.Length)) + \n  geom_density(fill=\"#69b3a2\", alpha=0.8) # 可选主题 theme_ipsum()\n\n\n\n\n\n基本的geom_density",
     "crumbs": [
       "Distribution",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Density</span>"
@@ -301,6 +323,17 @@
     ]
   },
   {
+    "objectID": "violin.html#基础",
+    "href": "violin.html#基础",
+    "title": "6  Violin",
+    "section": "6.2 基础",
+    "text": "6.2 基础\n\n\nShow/Hide Code\nggplot(iris, aes(x = Species, y = Sepal.Length)) + \n  geom_violin()\n\n\n\n\n\n基础geom_violin\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) + \n  geom_violin(alpha = 0.5) + \n  theme_minimal() + \n  theme(legend.position = \"none\") \n\n\n\n\n\n稍微美化的geom_violin\n\n\n\n\nwider格式数据转化为long格式数据后, 再使用geom_violin()绘制小提琴图。\n\n\nShow/Hide Code\nknitr::kable(head(iris))\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n\niris数据(wider格式数据)\n\n\ntidyr::gather() 是个有意思的函数,可以将wider格式数据转化为long格式数据。\n\n\nShow/Hide Code\niris_long &lt;- iris |&gt; \n  gather(key = \"type\", value = \"value\", -Species)\n\nknitr::kable(head(iris_long))\n\n\n\n\n\nSpecies\ntype\nvalue\n\n\n\n\nsetosa\nSepal.Length\n5.1\n\n\nsetosa\nSepal.Length\n4.9\n\n\nsetosa\nSepal.Length\n4.7\n\n\nsetosa\nSepal.Length\n4.6\n\n\nsetosa\nSepal.Length\n5.0\n\n\nsetosa\nSepal.Length\n5.4\n\n\n\niris数据(wider格式数据转化为long格式后)\n\n\nShow/Hide Code\ntable(iris_long$type)\n\n\n\nPetal.Length  Petal.Width Sepal.Length  Sepal.Width \n         150          150          150          150 \n\n\n\n\nShow/Hide Code\nggplot(iris_long, aes(x = type, y = value)) +\n  geom_violin()\n\n\n\n\n\niris数据(wider格式数据转化为long格式后)小提琴图",
+    "crumbs": [
+      "Distribution",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Violin</span>"
+    ]
+  },
+  {
     "objectID": "violin.html#排序",
     "href": "violin.html#排序",
     "title": "6  Violin",
@@ -378,6 +411,17 @@
     ]
   },
   {
+    "objectID": "scatter.html#标注",
+    "href": "scatter.html#标注",
+    "title": "7  Scatter",
+    "section": "7.3 标注",
+    "text": "7.3 标注\n在图上添加标注,可以突出重点信息, 参考WHY ANNOTATING?\n\n7.3.1 text\n添加文本标注的几种方式：geom_text()、geom_label()、annotate()。geom_text() 和 annotate() 写法不同,效果相同，geom_label() 有背景色。annotate() 是更全能的标注方式\n\n\nShow/Hide Code\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) +\n    geom_point()\n\n# 注释的坐标和内容\nannotation &lt;- data.frame(\n    x = c(2, 4.5),\n    y = c(20, 25),\n    label = c(\"label 1\", \"label 2\")\n)\n\n# 使用 annotate() 添加标注\n# p +\n#     annotate(\n#         \"text\",\n#         x = c(2, 4.5),\n#         y = c(20, 25),\n#         label = c(\"label 1\", \"label 2\"),\n#         color = \"orange\",\n#         size = 7,\n#         angle = 45,\n#         fontface = \"bold\"\n#     )\n\n# 使用 geom_text() 添加标注\np +\n    geom_text( # 或者使用 geom_label\n        data = annotation,\n        aes(x = x, y = y, label = label),\n        color = \"orange\",\n        size = 7,\n        angle = 45,\n        fontface = \"bold\"\n    )\n\n\n\n\n\n使用geom_text()添加标注\n\n\n\n\n\n\n7.3.2 label\n\n\nShow/Hide Code\ndata = head(mtcars, 30)\n\nggplot(data, aes(x = wt, y = mpg)) +\n    geom_point() + # Show dots\n    geom_label(\n        label = \"Look at this!\",\n        x = 4.1,\n        y = 20,\n        label.padding = unit(0.55, \"lines\"), # Rectangle size around label\n        label.size = 0.35,\n        color = \"black\",\n        fill = \"#69b3a2\"\n    )\n\n\n\n\n\n只添加一个文本标签\n\n\n\n\n\n\nShow/Hide Code\ndata &lt;- head(iris, 20)\n\nggplot(data, aes(x = Sepal.Length, y = Sepal.Width)) + \n    geom_point() + \n    geom_label( # 与ggplot2语法相似\n        data = data |&gt; filter(Sepal.Length&gt;5 & Sepal.Width&gt;2),\n        aes(label = Species) \n    )\n\n\n\n\n\n给一部分数据加标签\n\n\n\n\n\n\nShow/Hide Code\n# 区别是 geom_label() 有背景色, 没有check_overlap参数\n\ndata = head(mtcars, 30)\n\np &lt;- ggplot(data, aes(x=wt, y=mpg)) +\n  geom_point() \n\n# 使用 geom_text() 添加标签\np_text &lt;- p +\n    geom_text(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n        check_overlap = T # 避免标签重叠,重叠只会留一个\n    )\n\np_label &lt;- p +\n    geom_label(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n    )\n\np_text + p_label\n\n\n\n\n\n使用 geom_text() / geom_label() 添加标签\n\n\n\n\n\n\n7.3.3 图形\n\n\nShow/Hide Code\n# rect 矩形\np +\n    annotate(\n        \"rect\", \n        xmin = c(2, 4),\n        xmax = c(3, 5),\n        ymin = c(20, 10),\n        ymax = c(30, 20),\n        alpha = 0.2,\n        color = \"blue\",\n        fill = \"blue\"\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n#  线段\np +\n    annotate(\n        \"segment\",\n        x = 1,\n        xend = 3,\n        y = 25,\n        yend = 15,\n        colour = \"purple\",\n        size = 3,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n# segment + arrow 箭头\np +\n    annotate(\n        \"segment\",\n        x = 2,\n        xend = 4,\n        y = 15,\n        yend = 25,\n        colour = \"pink\",\n        size = 3,\n        alpha = 0.6,\n        arrow = arrow()\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\n\n\nShow/Hide Code\np + \n  # 水平线\n  geom_hline(yintercept=25, color=\"orange\", size=1) + \n  # 垂直线\n  geom_vline(xintercept=3, color=\"orange\", size=1)\n\n\n\n\n\n使用 geom_hline() 添加水平线, geom_vline() 添加垂直线\n\n\n\n\n\n\nShow/Hide Code\n# 好像不知道这个到底有啥用\np +\n    annotate(\n        \"pointrange\",\n        x = 3.5,\n        y = 20,\n        ymin = 12,\n        ymax = 28,\n        colour = \"orange\",\n        size = 1,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 pointrange() 添加一个点和一条线段",
+    "crumbs": [
+      "correlation.qmd",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
+    ]
+  },
+  {
     "objectID": "scatter.html#base-r",
     "href": "scatter.html#base-r",
     "title": "7  Scatter",
@@ -422,61 +466,6 @@
     ]
   },
   {
-    "objectID": "heatmap.html",
-    "href": "heatmap.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>8</span>  <span class='chapter-title'>heatmap.html</span>"
-    ]
-  },
-  {
-    "objectID": "correlogram.html",
-    "href": "correlogram.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>correlogram.html</span>"
-    ]
-  },
-  {
-    "objectID": "bubble.html",
-    "href": "bubble.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>bubble.html</span>"
-    ]
-  },
-  {
-    "objectID": "connected-scatter.html",
-    "href": "connected-scatter.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>connected-scatter.html</span>"
-    ]
-  },
-  {
-    "objectID": "density2d.html",
-    "href": "density2d.html",
-    "title": "",
-    "section": "",
-    "text": "Code",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>12</span>  <span class='chapter-title'>density2d.html</span>"
-    ]
-  },
-  {
     "objectID": "summary.html",
     "href": "summary.html",
     "title": "13  Summary",
@@ -484,61 +473,6 @@
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Summary</span>"
-    ]
-  },
-  {
-    "objectID": "boxplot.html#sec-boxplot-trap",
-    "href": "boxplot.html#sec-boxplot-trap",
-    "title": "3  Boxplot",
-    "section": "3.2 箱线图陷阱",
-    "text": "3.2 箱线图陷阱\n箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。\n这是说明箱线图构成的示意图：  \n但是，这种信息的总结也有个大问题——无法显示数据的分布情况。例如：正态分布可能看起来与双峰分布完全相同。因此，考虑用小提琴图或脊线图。\n\n\nShow/Hide Code\n# 创建数据集\ndata1 &lt;- data.frame(\n  name = c(\n    rep(\"A\", 500),\n    rep(\"B\", 250),\n    rep(\"B\", 250),\n    rep(\"C\", 20),\n    rep('D', 100)\n  ),\n  value = c(\n    rnorm(500, 10, 5),\n    rnorm(250, 13, 1),\n    rnorm(250, 18, 1),\n    rnorm(20, 25, 4),\n    rnorm(100, 12, 1)\n  )\n)\n\ndata1 |&gt; \n  ggplot(aes(x = name, y = value, fill = name)) +\n  geom_boxplot() +\n  scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量\n  theme_ipsum() +\n  theme(legend.position = \"none\") + \n  labs(x = \"\") + \n  ggtitle(\"A somewhat misleading boxplot\")",
-    "crumbs": [
-      "Distribution",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Boxplot</span>"
-    ]
-  },
-  {
-    "objectID": "density.html#单组",
-    "href": "density.html#单组",
-    "title": "4  Density",
-    "section": "4.2 单组",
-    "text": "4.2 单组\n\n\nShow/Hide Code\nggplot(iris, aes(x = Sepal.Length)) + \n  geom_density(fill=\"#69b3a2\", alpha=0.8) # 可选主题 theme_ipsum()\n\n\n\n\n\n基本的geom_density",
-    "crumbs": [
-      "Distribution",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Density</span>"
-    ]
-  },
-  {
-    "objectID": "violin.html#基础",
-    "href": "violin.html#基础",
-    "title": "6  Violin",
-    "section": "6.2 基础",
-    "text": "6.2 基础\n\n\nShow/Hide Code\nggplot(iris, aes(x = Species, y = Sepal.Length)) + \n  geom_violin()\n\n\n\n\n\n基础geom_violin\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) + \n  geom_violin(alpha = 0.5) + \n  theme_minimal() + \n  theme(legend.position = \"none\") \n\n\n\n\n\n稍微美化的geom_violin\n\n\n\n\nwider格式数据转化为long格式数据后, 再使用geom_violin()绘制小提琴图。\n\n\nShow/Hide Code\nknitr::kable(head(iris))\n\n\n\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n\niris数据(wider格式数据)\n\n\ntidyr::gather() 是个有意思的函数,可以将wider格式数据转化为long格式数据。\n\n\nShow/Hide Code\niris_long &lt;- iris |&gt; \n  gather(key = \"type\", value = \"value\", -Species)\n\nknitr::kable(head(iris_long))\n\n\n\n\n\nSpecies\ntype\nvalue\n\n\n\n\nsetosa\nSepal.Length\n5.1\n\n\nsetosa\nSepal.Length\n4.9\n\n\nsetosa\nSepal.Length\n4.7\n\n\nsetosa\nSepal.Length\n4.6\n\n\nsetosa\nSepal.Length\n5.0\n\n\nsetosa\nSepal.Length\n5.4\n\n\n\niris数据(wider格式数据转化为long格式后)\n\n\nShow/Hide Code\ntable(iris_long$type)\n\n\n\nPetal.Length  Petal.Width Sepal.Length  Sepal.Width \n         150          150          150          150 \n\n\n\n\nShow/Hide Code\nggplot(iris_long, aes(x = type, y = value)) +\n  geom_violin()\n\n\n\n\n\niris数据(wider格式数据转化为long格式后)小提琴图",
-    "crumbs": [
-      "Distribution",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Violin</span>"
-    ]
-  },
-  {
-    "objectID": "scatter.html#标注",
-    "href": "scatter.html#标注",
-    "title": "7  Scatter",
-    "section": "7.3 标注",
-    "text": "7.3 标注\n在图上添加标注,可以突出重点信息, 参考WHY ANNOTATING?\n\n7.3.1 text\n添加文本标注的几种方式：geom_text()、geom_label()、annotate()。geom_text() 和 annotate() 写法不同,效果相同，geom_label() 有背景色。annotate() 是更全能的标注方式\n\n\nShow/Hide Code\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) +\n    geom_point()\n\n# 注释的坐标和内容\nannotation &lt;- data.frame(\n    x = c(2, 4.5),\n    y = c(20, 25),\n    label = c(\"label 1\", \"label 2\")\n)\n\n# 使用 annotate() 添加标注\n# p +\n#     annotate(\n#         \"text\",\n#         x = c(2, 4.5),\n#         y = c(20, 25),\n#         label = c(\"label 1\", \"label 2\"),\n#         color = \"orange\",\n#         size = 7,\n#         angle = 45,\n#         fontface = \"bold\"\n#     )\n\n# 使用 geom_text() 添加标注\np +\n    geom_text( # 或者使用 geom_label\n        data = annotation,\n        aes(x = x, y = y, label = label),\n        color = \"orange\",\n        size = 7,\n        angle = 45,\n        fontface = \"bold\"\n    )\n\n\n\n\n\n使用geom_text()添加标注\n\n\n\n\n\n\n7.3.2 label\n\n\nShow/Hide Code\ndata = head(mtcars, 30)\n\nggplot(data, aes(x = wt, y = mpg)) +\n    geom_point() + # Show dots\n    geom_label(\n        label = \"Look at this!\",\n        x = 4.1,\n        y = 20,\n        label.padding = unit(0.55, \"lines\"), # Rectangle size around label\n        label.size = 0.35,\n        color = \"black\",\n        fill = \"#69b3a2\"\n    )\n\n\n\n\n\n只添加一个文本标签\n\n\n\n\n\n\nShow/Hide Code\ndata &lt;- head(iris, 20)\n\nggplot(data, aes(x = Sepal.Length, y = Sepal.Width)) + \n    geom_point() + \n    geom_label( # 与ggplot2语法相似\n        data = data |&gt; filter(Sepal.Length&gt;5 & Sepal.Width&gt;2),\n        aes(label = Species) \n    )\n\n\n\n\n\n给一部分数据加标签\n\n\n\n\n\n\nShow/Hide Code\n# 区别是 geom_label() 有背景色, 没有check_overlap参数\n\ndata = head(mtcars, 30)\n\np &lt;- ggplot(data, aes(x=wt, y=mpg)) +\n  geom_point() \n\n# 使用 geom_text() 添加标签\np_text &lt;- p +\n    geom_text(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n        check_overlap = T # 避免标签重叠,重叠只会留一个\n    )\n\np_label &lt;- p +\n    geom_label(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n    )\n\np_text + p_label\n\n\n\n\n\n使用 geom_text() / geom_label() 添加标签\n\n\n\n\n\n\n7.3.3 图形\n\n\nShow/Hide Code\n# rect 矩形\np +\n    annotate(\n        \"rect\", \n        xmin = c(2, 4),\n        xmax = c(3, 5),\n        ymin = c(20, 10),\n        ymax = c(30, 20),\n        alpha = 0.2,\n        color = \"blue\",\n        fill = \"blue\"\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n#  线段\np +\n    annotate(\n        \"segment\",\n        x = 1,\n        xend = 3,\n        y = 25,\n        yend = 15,\n        colour = \"purple\",\n        size = 3,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n# segment + arrow 箭头\np +\n    annotate(\n        \"segment\",\n        x = 2,\n        xend = 4,\n        y = 15,\n        yend = 25,\n        colour = \"pink\",\n        size = 3,\n        alpha = 0.6,\n        arrow = arrow()\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\n\n\nShow/Hide Code\np + \n  # 水平线\n  geom_hline(yintercept=25, color=\"orange\", size=1) + \n  # 垂直线\n  geom_vline(xintercept=3, color=\"orange\", size=1)\n\n\n\n\n\n使用 geom_hline() 添加水平线, geom_vline() 添加垂直线\n\n\n\n\n\n\nShow/Hide Code\n# 好像不知道这个到底有啥用\np +\n    annotate(\n        \"pointrange\",\n        x = 3.5,\n        y = 20,\n        ymin = 12,\n        ymax = 28,\n        colour = \"orange\",\n        size = 1,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 pointrange() 添加一个点和一条线段",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
-    ]
-  },
-  {
-    "objectID": "scatter.html#rug",
-    "href": "scatter.html#rug",
-    "title": "7  Scatter",
-    "section": "7.3 rug",
-    "text": "7.3 rug\n在X轴和Y轴上添加geom_rug图,可以显示数据的分布情况。\n\n\nShow/Hide Code\nggplot(iris, aes(x=Sepal.Length, Petal.Length)) +\n  geom_point() +\n  geom_rug(color=\"steelblue\",alpha=0.1, size=1.5)\n\n\n\n\n\n添加rug图,显示点的分布\n\n\n\n\n\n7.3.1 散点图外边套箱线图\n见 Section 3.4.9",
-    "crumbs": [
-      "correlation.qmd",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   }
 ]
