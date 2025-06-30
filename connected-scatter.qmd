@@ -1,1 +1,3 @@
 # Connected Scatter {#sec-connected-scatter}
+
+1

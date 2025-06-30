@@ -1,0 +1,17 @@
+# Correlation
+
+此部分探数据(变量)之间的关系
+
+![变量间的关系](./image/correlation.png)
+
+-  @sec-scatter 散点图，用数据点显示两个变量之间的关系
+
+-  @sec-heatmap 热力图, 用颜色块显示变量之间的关系
+
+-  @sec-correlogram 相关性图, 显示变量之间的统计学相关性
+
+-  @sec-bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系
+
+-  @sec-connected-scatter 连接散点图, 用线连接数据点显示变量之间的关系
+
+-  @sec-density2d 二维密度图, 用颜色块显示两个变量的密度分布

@@ -389,13 +389,23 @@
     ]
   },
   {
+    "objectID": "correlation.html",
+    "href": "correlation.html",
+    "title": "Correlation",
+    "section": "",
+    "text": "此部分探数据(变量)之间的关系\n\n\n\n变量间的关系\n\n\n\n7  Scatter 散点图，用数据点显示两个变量之间的关系\n8  Heatmap 热力图, 用颜色块显示变量之间的关系\n9  Correlogram 相关性图, 显示变量之间的统计学相关性\n10  Bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系\n11  Connected Scatter 连接散点图, 用线连接数据点显示变量之间的关系\n12  Density 2D 二维密度图, 用颜色块显示两个变量的密度分布",
+    "crumbs": [
+      "Correlation"
+    ]
+  },
+  {
     "objectID": "scatter.html",
     "href": "scatter.html",
     "title": "7  Scatter",
     "section": "",
     "text": "7.1 PKG\n散点图显示两个数值变量之间的关系。每个点代表一个观测值。\nShow/Hide Code\n# 环境准备\nlibrary(tidyverse) # tidyverse\nlibrary(hrbrthemes) # 主题\nlibrary(patchwork) # 组合图形\nlibrary(geomtextpath) # 添加文本路径\nlibrary(ggiraph) # 交互式图形\nlibrary(sf) # 地理数据处理\nlibrary(qqman) # 曼哈顿图\nlibrary(knitr)\nset.seed(123)",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -406,7 +416,7 @@
     "section": "7.2 ggplot2",
     "text": "7.2 ggplot2\n\n7.2.1 基础\n\n\nShow/Hide Code\nggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) + \n    geom_point()\n\n\n\n\n\n基础散点图\n\n\n\n\n\n\n7.2.2 更改外观\n\n\nShow/Hide Code\nggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) + \n    geom_point(\n        color=\"orange\",\n        fill=\"#69b3a2\",\n        shape=21,\n        alpha=0.5,\n        size=6,\n        stroke = 2\n        )\n\n\n\n\n\n更改外观\n\n\n\n\n\n\nShow/Hide Code\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n    geom_point(\n        color = \"black\",\n        fill = \"#69b3a2\",\n        shape = 22,\n        alpha = 0.5,\n        size = 6,\n        stroke = 1\n    ) +\n    theme_ipsum()   \n\n\n\n\n\n使用hrbrthemes::theme_ipsum()主题\n\n\n\n\n\n\n7.2.3 第三变量\n\n\nShow/Hide Code\n# 改可以同时添加多个变量到aes()中,比如shape+color,但是比较乱\n\n# color\np_color &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, color=Species)) + \n    geom_point() + \n    theme(legend.position = \"bottom\")\n\n# alpha 不推荐把离散变量Species添加到alpha\np_alpha &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, alpha=Species)) + \n    geom_point() + \n    theme(legend.position = \"bottom\")\n\n\n# Shape\np_shape &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, shape=Species)) + \n    geom_point() + \n    theme(legend.position = \"bottom\")\n\n# Size 不推荐把离散变量Species添加到size\np_size &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width, size=Species)) + \n    geom_point() +\n    theme(legend.position = \"bottom\")\n\n(p_color + p_alpha) / (p_shape + p_size)\n\n\n\n\n\n把第三种变量添加到aes()中\n\n\n\n\n\n\n7.2.4 rug\n在X轴和Y轴上添加geom_rug图,可以显示数据的分布情况。\n\n\nShow/Hide Code\nggplot(iris, aes(x=Sepal.Length, Petal.Length)) +\n  geom_point() +\n  geom_rug(color=\"steelblue\",alpha=0.1, size=1.5)\n\n\n\n\n\n添加rug图,显示点的分布\n\n\n\n\n\n\n7.2.5 拟合线\n\n\nShow/Hide Code\n# 基础散点图\np1 &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) + \n  geom_point( color=\"#69b3a2\") \n \n# 添加线性趋势\np2 &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) +\n  geom_point() +\n  geom_smooth(method=lm , color=\"red\", se=FALSE) \n\n# 添加线和阴影\np3 &lt;- ggplot(iris, aes(x=Sepal.Length, y=Sepal.Width)) +\n  geom_point() +\n  geom_smooth(method=lm , color=\"red\", fill=\"#69b3a2\", se=TRUE) \n\np1 / p2 / p3\n\n\n\n\n\n添加拟合线\n\n\n\n\n\n\n7.2.6 拟合线标签\ngeom_labelsmooth() 创建带有lable的线\n\n\nShow/Hide Code\nlibrary(hrbrthemes)\nlibrary(patchwork)\nlibrary(geomtextpath)\n\n# 一个拟合线\n\np1 &lt;- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  geom_labelsmooth(\n    aes(label = 'My Label'),\n    fill = \"white\",\n    method = \"lm\",\n    formula = y ~ x,\n    size = 6,\n    linewidth = 2,\n    boxlinewidth = 0.6\n  )\n\n# 多个拟合线\np2 &lt;- ggplot(iris, aes(x = Sepal.Length, y = Petal.Length, color = Species)) +\n  geom_point() +\n  geom_labelsmooth(\n    aes(label = Species),\n    fill = \"white\",\n    method = \"lm\",\n    formula = y ~ x,\n    size = 3,\n    linewidth = 1,\n    boxlinewidth = 0.4\n  ) +\n  guides(color = 'none')\n\np1 + p2\n\n\n\n\n\n带有lable的线\n\n\n\n\n\n\n7.2.7 外套箱线图\n见 Section 3.4.9",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -417,7 +427,7 @@
     "section": "7.3 标注",
     "text": "7.3 标注\n在图上添加标注,可以突出重点信息, 参考WHY ANNOTATING?\n\n7.3.1 text\n添加文本标注的几种方式：geom_text()、geom_label()、annotate()。geom_text() 和 annotate() 写法不同,效果相同，geom_label() 有背景色。annotate() 是更全能的标注方式\n\n\nShow/Hide Code\np &lt;- ggplot(mtcars, aes(x = wt, y = mpg)) +\n    geom_point()\n\n# 注释的坐标和内容\nannotation &lt;- data.frame(\n    x = c(2, 4.5),\n    y = c(20, 25),\n    label = c(\"label 1\", \"label 2\")\n)\n\n# 使用 annotate() 添加标注\n# p +\n#     annotate(\n#         \"text\",\n#         x = c(2, 4.5),\n#         y = c(20, 25),\n#         label = c(\"label 1\", \"label 2\"),\n#         color = \"orange\",\n#         size = 7,\n#         angle = 45,\n#         fontface = \"bold\"\n#     )\n\n# 使用 geom_text() 添加标注\np +\n    geom_text( # 或者使用 geom_label\n        data = annotation,\n        aes(x = x, y = y, label = label),\n        color = \"orange\",\n        size = 7,\n        angle = 45,\n        fontface = \"bold\"\n    )\n\n\n\n\n\n使用geom_text()添加标注\n\n\n\n\n\n\n7.3.2 label\n\n\nShow/Hide Code\ndata = head(mtcars, 30)\n\nggplot(data, aes(x = wt, y = mpg)) +\n    geom_point() + # Show dots\n    geom_label(\n        label = \"Look at this!\",\n        x = 4.1,\n        y = 20,\n        label.padding = unit(0.55, \"lines\"), # Rectangle size around label\n        label.size = 0.35,\n        color = \"black\",\n        fill = \"#69b3a2\"\n    )\n\n\n\n\n\n只添加一个文本标签\n\n\n\n\n\n\nShow/Hide Code\ndata &lt;- head(iris, 20)\n\nggplot(data, aes(x = Sepal.Length, y = Sepal.Width)) + \n    geom_point() + \n    geom_label( # 与ggplot2语法相似\n        data = data |&gt; filter(Sepal.Length&gt;5 & Sepal.Width&gt;2),\n        aes(label = Species) \n    )\n\n\n\n\n\n给一部分数据加标签\n\n\n\n\n\n\nShow/Hide Code\n# 区别是 geom_label() 有背景色, 没有check_overlap参数\n\ndata = head(mtcars, 30)\n\np &lt;- ggplot(data, aes(x=wt, y=mpg)) +\n  geom_point() \n\n# 使用 geom_text() 添加标签\np_text &lt;- p +\n    geom_text(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n        check_overlap = T # 避免标签重叠,重叠只会留一个\n    )\n\np_label &lt;- p +\n    geom_label(\n        label = rownames(data), # 或者 data$&lt;列名&gt;\n        nudge_x = 0.25, # 调整标签x位置\n        nudge_y = 0.25, # 调整标签y位置\n    )\n\np_text + p_label\n\n\n\n\n\n使用 geom_text() / geom_label() 添加标签\n\n\n\n\n\n\n7.3.3 图形\n\n\nShow/Hide Code\n# rect 矩形\np +\n    annotate(\n        \"rect\", \n        xmin = c(2, 4),\n        xmax = c(3, 5),\n        ymin = c(20, 10),\n        ymax = c(30, 20),\n        alpha = 0.2,\n        color = \"blue\",\n        fill = \"blue\"\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n#  线段\np +\n    annotate(\n        \"segment\",\n        x = 1,\n        xend = 3,\n        y = 25,\n        yend = 15,\n        colour = \"purple\",\n        size = 3,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\nShow/Hide Code\n# segment + arrow 箭头\np +\n    annotate(\n        \"segment\",\n        x = 2,\n        xend = 4,\n        y = 15,\n        yend = 25,\n        colour = \"pink\",\n        size = 3,\n        alpha = 0.6,\n        arrow = arrow()\n    )\n\n\n\n\n\n使用 annotate() 添加图形标注\n\n\n\n\n\n\nShow/Hide Code\np + \n  # 水平线\n  geom_hline(yintercept=25, color=\"orange\", size=1) + \n  # 垂直线\n  geom_vline(xintercept=3, color=\"orange\", size=1)\n\n\n\n\n\n使用 geom_hline() 添加水平线, geom_vline() 添加垂直线\n\n\n\n\n\n\nShow/Hide Code\n# 好像不知道这个到底有啥用\np +\n    annotate(\n        \"pointrange\",\n        x = 3.5,\n        y = 20,\n        ymin = 12,\n        ymax = 28,\n        colour = \"orange\",\n        size = 1,\n        alpha = 0.6\n    )\n\n\n\n\n\n使用 pointrange() 添加一个点和一条线段",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -428,7 +438,7 @@
     "section": "7.4 Base R",
     "text": "7.4 Base R\n见 R-graph-gallery 的 scatterplot",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -439,7 +449,7 @@
     "section": "7.5 Interactive",
     "text": "7.5 Interactive\n\n\nShow/Hide Code\n# 将mtcars数据集的行名（汽车型号）保存到一个名为'car'的新列中，方便后续调用。\nmtcars$car &lt;- rownames(mtcars)\n\n# p1: 创建一个可交互的散点图。\n# x轴是车重(wt)，y轴是燃油效率(mpg)。\n# 鼠标悬停在点上时，会显示汽车型号(tooltip = car)。\np1 &lt;- ggplot(mtcars, aes(wt, mpg, tooltip = car, data_id = car)) +\n  geom_point_interactive(size = 4)\n\n# p2: 创建一个可交互的水平条形图。\n# x轴是汽车型号，并按燃油效率(mpg)从低到高排序 (reorder(car, mpg))。\n# y轴是燃油效率(mpg)。\n# coord_flip()将图表翻转为水平方向，便于阅读。\np2 &lt;- ggplot(mtcars, aes(x = reorder(car, mpg), y = mpg, tooltip = car, data_id = car)) +\n  geom_col_interactive() +\n  coord_flip()\n\n# 使用patchwork包的 `+` 号，将散点图(p1)和条形图(p2)并排拼接成一张图。\ncombined_plot &lt;- p1 + p2 + plot_layout(ncol = 2)\n\n# 使用ggiraph包的girafe()函数，将拼接好的静态图转换为最终的HTML交互式图表。\ngirafe(ggobj = combined_plot)\n\n\n\n\n交互式散点图\n\n\n\n\nShow/Hide Code\n# 从网络读取世界地图的地理空间数据 (.geojson格式)\nworld_sf &lt;- read_sf(\"https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world.geojson\")\n\n# 从地图数据中移除南极洲和格陵兰，因为它们通常很大且没有数据，会影响可视化。\nworld_sf &lt;- world_sf %&gt;%\n  filter(!name %in% c(\"Antarctica\", \"Greenland\"))\n\n# 创建一个包含幸福度指数等指标的示例数据集。\nhappiness_data &lt;- data.frame(\n  Country = c(\"France\", \"Germany\", \"United Kingdom\", \"Japan\", \"China\", \"Vietnam\", \"United States of America\", \"Canada\", \"Mexico\"),\n  Continent = c(\"Europe\", \"Europe\", \"Europe\", \"Asia\", \"Asia\", \"Asia\", \"North America\", \"North America\", \"North America\"),\n  Happiness_Score = rnorm(mean = 30, sd = 20, n = 9),\n  GDP_per_capita = rnorm(mean = 30, sd = 20, n = 9),\n  Social_support = rnorm(mean = 30, sd = 20, n = 9),\n  Healthy_life_expectancy = rnorm(mean = 30, sd = 20, n = 9)\n)\n\n# 使用左连接(left_join)将幸福度数据合并到世界地图数据中。\n# 连接的依据是国家名称 (地图中的 'name' 和 幸福度数据中的 'Country')。\nworld_sf &lt;- world_sf %&gt;%\n  left_join(happiness_data, by = c(\"name\" = \"Country\"))\n\n# p1: 创建散点图，展示人均GDP与幸福度指数的关系。\np1 &lt;- ggplot(world_sf, aes(GDP_per_capita, Happiness_Score, tooltip = name, data_id = name, color = name)) +\n  geom_point_interactive(data = filter(world_sf, !is.na(Happiness_Score)), size = 4) +\n  theme_minimal() +\n  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), legend.position = \"none\")\n\n# p2: 创建水平条形图，按幸福度指数对国家进行排序。\np2 &lt;- ggplot(world_sf, aes(x = reorder(name, Happiness_Score), y = Happiness_Score, tooltip = name, data_id = name, fill = name)) +\n  geom_col_interactive(data = filter(world_sf, !is.na(Happiness_Score))) +\n  coord_flip() + # 翻转坐标轴，使其成为水平条形图\n  theme_minimal() +\n  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), legend.position = \"none\")\n\n# p3: 创建分层设色地图 (choropleth map)。\n# 灰色层是完整的世界地图背景。\n# 彩色层是那些有幸福度数据的国家，颜色对应国家名称。\np3 &lt;- ggplot() +\n  geom_sf(data = world_sf, fill = \"lightgrey\", color = \"lightgrey\") +\n  geom_sf_interactive(data = filter(world_sf, !is.na(Happiness_Score)), aes(fill = name, tooltip = name, data_id = name)) +\n  coord_sf(crs = st_crs(3857)) + # 使用特定的地图投影以避免变形\n  theme_void() + # 移除所有背景、网格线和坐标轴文本\n  theme(axis.title.x = element_blank(), axis.title.y = element_blank(), legend.position = \"none\")\n\n# 使用 patchwork 拼接图形。\n# (p1 + p2) 表示将散点图和条形图并排。\n# / p3 表示将上面拼接好的图放在地图的上方。\n# plot_layout 指定上方图和下方图的高度比例为 1:2。\ncombined_plot &lt;- (p1 + p2) / p3 + plot_layout(heights = c(1, 2))\n\n# 使用 girafe 将最终的组合图转换为可交互的HTML对象。\ngirafe(ggobj = combined_plot)\n\n\n\n\n交互式散点图和地图",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -450,7 +460,7 @@
     "section": "7.6 Manhattan",
     "text": "7.6 Manhattan\n曼哈顿图是一种特定的散点图，在基因组学中广泛用于研究全基因组关联研究（Genome Wide Association Study，GWAS）的结果。每个点代表一个遗传变异。X 轴显示其在染色体上的位置，Y 轴表示其与性状的关联程度。\n使用的数据如下：\n\n\nShow/Hide Code\nknitr::kable(head(gwasResults), caption = \"曼哈顿图演示数据\")\n\n\n\n曼哈顿图演示数据\n\n\nSNP\nCHR\nBP\nP\n\n\n\n\nrs1\n1\n1\n0.9148060\n\n\nrs2\n1\n2\n0.9370754\n\n\nrs3\n1\n3\n0.2861395\n\n\nrs4\n1\n4\n0.8304476\n\n\nrs5\n1\n5\n0.6417455\n\n\nrs6\n1\n6\n0.5190959\n\n\n\n\n\n\n7.6.1 基础\nmanhattan 函数非常简单：只需正确识别 4 列数据，它就能很好地完成任务\n\n\nShow/Hide Code\nmanhattan(gwasResults, chr=\"CHR\", bp=\"BP\", snp=\"SNP\", p=\"P\" )\n\n\n\n\n\n基础曼哈顿图\n\n\n\n\n高亮显示曼哈顿图上的 SNP 群体\n\n\nShow/Hide Code\nmanhattan(gwasResults, highlight = snpsOfInterest)\n\n\n\n\n\n高亮显示曼哈顿图上的 SNP 群体\n\n\n\n\n还可以添加文字注释\n\n\nShow/Hide Code\nmanhattan(gwasResults, annotatePval = 0.01)\n\n\n\n\n\n给显著的SNP添加文字注释\n\n\n\n\n从 GWAS 的输出中绘制 qq 图是一种良好的做法。它允许通过随机性比较 p 值的分布与预期分布。得益于 qq 函数，其实现过程非常直接：\n\n\nShow/Hide Code\nqq(gwasResults$P)\n\n\n\n\n\nqq 图\n\n\n\n\n\n\n7.6.2 ggplot\n使用 ggplot2 可高度定制曼哈顿图。见 Manhattan",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
     ]
   },
@@ -461,8 +471,63 @@
     "section": "7.7 Pearl",
     "text": "7.7 Pearl\n\n7.7.1 箭头散点\n带有智慧文本标签的散点图，见 R-graph-gallery :\n\n\nShow/Hide Code\n# --- 1. 准备工作 ---\n# 加载所需的R包\nlibrary(ggrepel) # 用于添加智慧型文本标签，避免重叠\nlibrary(palmerpenguins) # 提供企鹅数据集\nlibrary(randomNames) # 用于生成随机姓名\nlibrary(tidyverse) # 加载一系列数据处理和可视化的包，如ggplot2, dplyr, stringr等\n\n# --- 2. 数据加载与处理 ---\n\n# 从 'palmerpenguins' 包中加载 'penguins' 数据集\ndata(\"penguins\", package = \"palmerpenguins\")\n\n# 移除数据集中所有包含缺失值(NA)的行，以确保数据干净。\npenguins &lt;- drop_na(penguins)\n\n# 生成随机姓名\n# set.seed() 用于设置随机数种子，确保每次运行代码时生成的“随机”结果都完全相同。\n# 这样可以保证实验的可重复性。\nset.seed(2021 + 03 + 27)\n# 为数据集中的每一行（每只企鹅）生成一个随机的名字（仅取名字，不取姓）。\nname_vector &lt;- randomNames(nrow(penguins), which.names = \"first\")\n\n# 创建一个名为 'highlight' 的指示变量（列），用于后续标记。\npenguins &lt;- penguins %&gt;%\n  mutate(\n    name = name_vector, # 将随机生成的名字添加到数据集中\n    highlight = case_when(\n      # case_when 类似于一个 if-else 语句。\n      # 如果 'name' 列的字符串是以 \"C\" 开头的 (str_starts)，\n      str_starts(name, \"C\") ~ name, # 那么 'highlight' 列的值就是这个名字\n      TRUE ~ \"\" # 对于所有其他情况，'highlight' 列的值为空字符串 \"\"\n    )\n  )\n\n# --- 3. 创建基础图形 ---\n\n# 注意 `color = species` 和 `shape = species`。\n# 这意味着每个物种(species)的点都会有不同的颜色和不同的形状。\nplt &lt;- ggplot(penguins, aes(x = flipper_length_mm, y = bill_length_mm)) +\n  geom_point(\n    aes(color = species, shape = species), # 根据物种区分颜色和形状\n    size = 1.5, # 设置点的大小\n    alpha = 0.8 # 添加一些透明度，因为数据点可能有重叠，透明化有助于观察。\n  ) +\n  # 使用 scale_color_manual() 手动指定点的颜色。\n  scale_color_manual(\n    values = c(\"#386cb0\", \"#fdb462\", \"#7fc97f\") # 为三个物种分别设置颜色\n  )\n\n# --- 4. 添加智慧型文本标签 ---\n\n# 在基础图(plt)上添加 ggrepel 提供的智慧型文本标签层。\nplt &lt;- plt +\n  geom_text_repel(\n    aes(label = highlight), # 标签的内容来自于我们之前创建的'highlight'列。\n    # 只有 'highlight' 列不为空的那些点才会被添加标签。\n    family = \"Poppins\", # 设置标签的字体\n    size = 3, # 设置标签的字号\n    min.segment.length = 0, # 即使标签离点很近，也强制画出连接线段。\n    seed = 42, # 为标签的随机布局设置种子，确保每次渲染位置相同。\n    box.padding = 0.5, # 标签文本框的内边距。\n    max.overlaps = Inf, # 允许显示所有标签，即使它们会重叠（ggrepel会尽力排开）。\n    arrow = arrow(length = unit(0.010, \"npc\")), # 在标签和点之间添加一个箭头。\n    nudge_x = .15, # 在x方向上将标签轻微推动一点距离。\n    nudge_y = .5, # 在y方向上将标签轻微推动一点距离。\n    color = \"grey50\" # 设置标签和连接线的颜色为中灰色。\n  )\n\n# --- 5. 添加标题和进行主题美化 ---\n\n# 在图(plt)上继续添加各种元素\nplt &lt;- plt +\n  # 使用 labs() 添加坐标轴标签、主标题和副标题\n  labs(\n    title = \"Palmer Penguins Data Visualization\",\n    subtitle = \"Scatter plot of flipper lenth vs bill length\",\n    x = \"flip length (mm)\",\n    y = \"bill length (mm)\"\n  ) +\n  # 使用 theme() 函数对图表的非数据元素（如背景、网格线、字体等）进行精细调整。\n  theme(\n    # --- 字体设置 ---\n    # 为图中所有未被单独指定的文本元素设置一个默认字体。\n    text = element_text(family = \"Lobster Two\", size = 8, color = \"black\"),\n\n    # --- 图例(Legend)设置 ---\n    # 自定义图例中的文本（物种名称）\n    legend.text = element_text(size = 9, family = \"Roboto\"),\n    # 自定义图例的标题（\"species\"）\n    legend.title = element_text(face = \"bold\", size = 12, family = \"Roboto\"),\n    # 手动设置图例的位置在绘图区域的右下角。c(1, 0)代表(右,下)。\n    legend.position = c(1, 0),\n    legend.justification = c(1, 0),\n    # 移除图例的背景。\n    legend.background = element_blank(),\n    # 移除图例中每个小图标（key）后面的背景。\n    legend.key = element_blank(),\n\n    # --- 标题(Title)设置 ---\n    # 自定义主标题的字体、大小、样式和颜色。\n    plot.title = element_text(\n      family = \"Lobster Two\",\n      size = 20,\n      face = \"bold\",\n      color = \"#2a475e\"\n    ),\n    # 自定义副标题。\n    plot.subtitle = element_text(\n      family = \"Lobster Two\",\n      size = 15,\n      face = \"bold\",\n      color = \"#1b2838\"\n    ),\n    # 设置标题的位置相对于整个绘图区域对齐。\n    plot.title.position = \"plot\",\n\n    # --- 坐标轴(Axis)设置 ---\n    # 调整坐标轴刻度标签的文本大小和颜色。\n    axis.text = element_text(size = 10, color = \"black\"),\n    # 调整坐标轴标题的文本大小。\n    axis.title = element_text(size = 12),\n    # 移除坐标轴上的刻度短线。\n    axis.ticks = element_blank(),\n    # 将坐标轴线设置为比默认更浅的灰色。\n    axis.line = element_line(colour = \"grey50\"),\n\n    # --- 网格线(Grid)设置 ---\n    # 移除次要网格线。\n    panel.grid.minor = element_blank(),\n    # 移除X轴的主要网格线。\n    panel.grid.major.x = element_blank(),\n    # 保留Y轴的主要网格线，并设置为灰色虚线。\n    panel.grid.major.y = element_line(color = \"#b4aea9\", linetype = \"dashed\"),\n\n    # --- 背景(Background)设置 ---\n    # 为绘图面板（panel，即数据点所在的矩形区域）和整个图表（plot）设置一个浅色的背景。\n    panel.background = element_rect(fill = \"#fbf9f4\", color = \"#fbf9f4\"),\n    plot.background = element_rect(fill = \"#fbf9f4\", color = \"#fbf9f4\")\n  )\n\nplt\n\n\n\n\n\n箭头散点图\n\n\n\n\n\n\n7.7.2 箭头拟合\n一种美观的带有回归拟合和自动文本排斥的散点图，见 R-graph-gallery :\n\n\n\n箭头拟合散点图",
     "crumbs": [
-      "correlation.qmd",
+      "Correlation",
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Scatter</span>"
+    ]
+  },
+  {
+    "objectID": "heatmap.html",
+    "href": "heatmap.html",
+    "title": "8  Heatmap",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Heatmap</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html",
+    "href": "correlogram.html",
+    "title": "9  Correlogram",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "bubble.html",
+    "href": "bubble.html",
+    "title": "10  Bubble",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Bubble</span>"
+    ]
+  },
+  {
+    "objectID": "connected-scatter.html",
+    "href": "connected-scatter.html",
+    "title": "11  Connected Scatter",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Connected Scatter</span>"
+    ]
+  },
+  {
+    "objectID": "density2d.html",
+    "href": "density2d.html",
+    "title": "12  Density 2D",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Density 2D</span>"
     ]
   },
   {
