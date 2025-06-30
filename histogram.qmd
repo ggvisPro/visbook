@@ -2,12 +2,18 @@
 
 非常简单的数据可视化形式,可以用`base R::hist()`或`ggplot2::geom_histogram()`来实现。
 
+## PKG
+```{r}
+library(tidyverse)
+library(hrbrthemes) # 主题包
+library(patchwork) # 图形拼接
+```
+
 ## ggplot2
 
 ### 基本
 ```{r}
 #| fig-cap: 最基本的geom_histogram
-library(tidyverse)
 
 data = data.frame(value = rnorm(1000))
 
@@ -17,7 +23,6 @@ ggplot(data, aes(x = value)) +
 
 ```{r}
 #| fig-cap: 定制的geom_histogram
-library(hrbrthemes)
 
 ggplot(data, aes(x=value)) + 
   geom_histogram(binwidth=0.1, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
@@ -54,8 +59,6 @@ ggplot(data, aes(x = x)) +
 
 ```{r}
 #| fig-cap: 通过y = -..count.. 来绘制镜像直方图
-
-library(patchwork)
 
 p1 <- ggplot(data, aes(x = x)) +
   # 上方图

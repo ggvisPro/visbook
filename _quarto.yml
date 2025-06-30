@@ -21,6 +21,18 @@ book:
         - density.qmd
         - ridgeline.qmd
         - violin.qmd
+
+    - part: correlation.qmd
+      chapters:
+        - scatter.qmd
+        - heatmap.qmd
+        - correlogram.qmd
+        - bubble.qmd
+        - connected-scatter.qmd
+        - density2d.qmd
+
+
+
     - summary.qmd
     - references.qmd
 

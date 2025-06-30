@@ -1,12 +1,19 @@
 # 0 Quick start {.unnumbered}
 
+## PKG
+
+```{r}
+library(tidyverse)
+library(ggridges) # 山脊图
+library(patchwork) # 图形拼接
+```
+
 ## 基本概念
 
 现在有下面这张表格，记录了钻石相关的一些信息：
 
 ```{r}
 #| echo: true
-library(tidyverse)
 diamonds <- diamonds |> filter(carat < 3)
 knitr::kable(head(diamonds))
 ```
@@ -154,7 +161,6 @@ what is the difference in the three plots(boxplot, density plot, histogram)?
 下图很地解释了直方图、密度曲线图和箱线图这三者之前的关系
 
 ```{r}
-library(patchwork)
 ## Left
 p_left <- ggplot(diamonds, aes(x = carat)) +
   geom_histogram(binwidth = 0.1)
@@ -228,7 +234,6 @@ ggplot(diamonds, aes(x = price, fill = cut)) +
 近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。
 
 ```{r}
-library(ggridges)
 ggplot(diamonds, aes(x = price, y = cut, fill = cut)) + 
   geom_density_ridges(alpha = 0.5) + 
   theme(legend.position = "none")

@@ -2,6 +2,14 @@
 
 群蜂图,像蜂群一样展示数据,使用R包` beeswarm` 和 `ggbeeswarm` 包实现。
 
+## PKG
+
+```{r}
+library(beeswarm) # beeswarm包,绘制群峰图
+library(ggplot2)
+library(ggbeeswarm) # ggbeeswarm包,基于ggplot2的群峰图
+```
+
 ## `iris`
 
 `iris`数据集，又称为“安德森鸢尾花卉数据集”（Anderson's Iris data set），是 R 语言内置的一个“玩具”数据集，也是统计学、数据科学和机器学习领域中使用最频繁、最著名的示例数据集之一。
@@ -9,11 +17,8 @@
 它包含了150个鸢尾花样本的测量数据，这150个样本分别来自三个不同的鸢尾花品种：山鸢尾 (Setosa)、变色鸢尾 (Versicolor) 和 维吉尼亚鸢尾 (Virginica)，每个品种各50个样本。
 
 ```{r}
-#| fig-cap: 群峰图使用的R包和数据集
-library(beeswarm)
-library(ggplot2)
-library(ggbeeswarm)
-data(iris)
+#| fig-cap: 群峰图使用的数据集iris
+data(iris) # 载入内置数据集
 knitr::kable(head(iris))
 ```
 

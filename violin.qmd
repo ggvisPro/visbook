@@ -8,6 +8,13 @@
 
 如果数据量少(几百个),还可以叠加散点.
 
+## PKG
+
+```{r}
+library(tidyverse)
+```
+
+
 ## 基础
 
 ```{r}
@@ -19,8 +26,6 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
 
 ```{r}
 #| fig-cap: 稍微美化的geom_violin
-
-library(tidyverse)
 
 ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) + 
   geom_violin(alpha = 0.5) + 

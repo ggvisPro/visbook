@@ -1,5 +1,17 @@
 # Boxplot {#sec-boxplot}
 
+## PKG
+
+```{r}
+library(tidyverse)
+library(hrbrthemes) # hrbrthemes 提供了更适合排版的主题
+library(viridis) # viridis 提供了好看的色盲友好型颜色
+library(ggdist) # ggdist 提供了半小提琴图和云雨图
+library(patchwork) # patchwork 用于图形拼接
+library(ggExtra) # ggExtra 用于 ggplot2 散点图的边际图
+```
+
+
 ## 箱线图陷阱 {#sec-boxplot-trap}
 
 箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。
@@ -12,9 +24,6 @@
 但是，这种信息的总结也有个大问题——**无法显示数据的分布情况**。例如：正态分布可能看起来与双峰分布完全相同。因此，考虑用小提琴图或脊线图。
 
 ```{r}
-library(tidyverse)
-library(hrbrthemes) # hrbrthemes 提供了更适合排版的主题
-library(viridis) # viridis 提供了好看的色盲友好型颜色
 
 # 创建数据集
 data1 <- data.frame(
@@ -93,9 +102,6 @@ data1  |>
 看了就知道,云(半小提琴)+雨(散点)的组合。
 
 ```{r}
-library(ggdist) # ggdist 提供了半小提琴图和云雨图
-library(hrbrthemes) # hrbrthemes 提供了更适合排版的主题
-library(viridis) # viridis 提供了好看的色盲友好型颜色
 
 data1 |>
     ggplot(aes(x = factor(name), y = value, fill = factor(name))) +
@@ -128,9 +134,6 @@ data1 |>
 甚至还可以再加上箱线图
 
 ```{r}
-library(ggdist) # ggdist 提供了半小提琴图和云雨图
-library(hrbrthemes) # hrbrthemes 提供了更适合排版的主题
-library(viridis) # viridis 提供了好看的色盲友好型颜色
 
 data1 |>
     ggplot(aes(x = factor(name), y = value, fill = factor(name))) +
@@ -209,7 +212,6 @@ mpg |>
 
 ```{r}
 #| fig-cap: 改变颜色
-library(patchwork)
  
 p1 <- ggplot(mpg, aes(x=class, y=hwy)) + 
     geom_boxplot(color="red", fill="orange", alpha=0.2)
@@ -234,7 +236,6 @@ p1 + p2 + p3 + p4
 
 ```{r}
 #| fig-cap: 高亮某个组
-library(hrbrthemes)
 
 mpg |> 
   # 添加一列 'type'，用于标记是否高亮某个组
@@ -253,7 +254,6 @@ mpg |>
 ### 分组/分面
 
 ```{r}
-library(patchwork)
 #| fig-cap: 分组箱线图与分面箱线图
 # 构造数据
 variety = rep(LETTERS[1:7], each = 40) # 7种品种，每种40个观测
@@ -331,13 +331,13 @@ data1 |>
     ggtitle("A boxplot with jitter")
 ```
 
-### 散点图外边套箱线图 {#sec-ggMarginal}
+### 外套箱线图 {#sec-ggMarginal}
 
-可以library(ggExtra)来实现更复杂（花哨）的图形，在ggplot2散点图的基础上再叠加箱线图、密度曲线等。
+ggExtra包来实现更复杂（花哨）的图形，在ggplot2散点图的基础上再叠加箱线图、密度曲线等。
 
 ```{r}
 #| fig-cap: ggMarginal散点图叠加直方图
-library(ggExtra)
+
 # 创建ggplot散点图
 p <- ggplot(mtcars, aes(x = wt, y = mpg, color = cyl, size = cyl)) +
   geom_point() +
@@ -389,6 +389,22 @@ ggMarginal(p, margins = 'x', color = "purple", size = 4)
 
 ```{r}
 #| fig-cap: 带有统计的小提琴箱线图
+
+# 自动安装packages
+if(!require(ggstatsplot)) {
+  install.packages(
+    "ggstatsplot",
+    repos = "https://cloud.r-project.org"
+    )
+  }
+
+if(!require(palmerpenguins)) {
+  install.packages(
+    "palmerpenguins", 
+    repos = "https://cloud.r-project.org"
+    )
+  }
+
 palmerpenguins::penguins |>
   drop_na() |>
   ggstatsplot::ggbetweenstats(x = species, y = flipper_length_mm, 1)

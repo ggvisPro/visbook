@@ -4,12 +4,18 @@
 
 通过`geom_density()`函数可以绘制核密度曲线图。
 
+## PKG
+
+```{r}
+library(tidyverse)
+library(geomtextpath) # 添加文本路径
+library(hrbrthemes) # theme_ipsum主题
+```
+
 ## 单组
 
 ```{r}
 #| fig-cap: "基本的geom_density"
-
-library(tidyverse)
 
 ggplot(iris, aes(x = Sepal.Length)) + 
   geom_density(fill="#69b3a2", alpha=0.8) # 可选主题 theme_ipsum()
@@ -49,7 +55,6 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
 
 ```{r}
 #| fig-cap: 堆叠密度图
-library(hrbrthemes) # theme_ipsum
 ggplot(data=diamonds, aes(x=price, group=cut, fill=cut)) +
     geom_density(adjust=1.5, position="fill") +
     theme_ipsum()
@@ -81,8 +86,6 @@ ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
 ```{r}
 #| fig-cap: geomtextpath 更方便添加标签,但是不能带fill颜色
 
-library(geomtextpath)
-library(hrbrthemes)
 
 ggplot(iris, aes(x = Sepal.Length, color = Species, label = Species)) +
   geom_textdensity() + 
@@ -93,8 +96,6 @@ ggplot(iris, aes(x = Sepal.Length, color = Species, label = Species)) +
 ```{r}
 #| fig-cap: geomtextpath 调整标签位置
 
-library(geomtextpath)
-library(hrbrthemes)
 
 ggplot(iris, aes(x = Sepal.Length, color = Species, label = Species)) +
   geom_textdensity(vjust = -0.4, hjust = "ymid") + # hjust = "ymid" 调整标签位置
