@@ -557,7 +557,40 @@
     "href": "correlogram.html",
     "title": "9  Correlogram",
     "section": "",
-    "text": "1",
+    "text": "9.1 PKG\nGGally::ggpairs() 可以绘制好看的相关性图：\nShow/Hide Code\nlibrary(GGally)\nlibrary(tidyverse)",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#ggpairs",
+    "href": "correlogram.html#ggpairs",
+    "title": "9  Correlogram",
+    "section": "9.2 ggpairs()",
+    "text": "9.2 ggpairs()\n\n9.2.1 基础\n\n对角线是单变量分布密度曲线\n右上方是相关系数和显著性\n左下方是散点图。\n\n\n\nShow/Hide Code\n# 构造示例数据\ndata &lt;- data.frame(\n  v1 = 1:100 + rnorm(100, sd = 20),\n  v2 = 1:100 + rnorm(100, sd = 27),\n  v3 = rep(1, 100) + rnorm(100, sd = 1)\n)\ndata$v4 = data$v1**2\ndata$v5 = -(data$v1**2)\n\n# 绘图\nggpairs(data, title = \"correlogram with ggpairs()\")\n\n\n\n\n\nggpairs() 绘制相关性图\n\n\n\n\n\n\n9.2.2 split\n通过 ggpairs() 的 mapping 参数可以指定不同的美学映射，从而实现分组绘图：\n\n\nShow/Hide Code\n# 使用了color参数\nggpairs(flea, columns = 2:4, aes(colour=species)) \n\n\n\n\n\nggpairs() 分组绘图\n\n\n\n\n带有颜色的 ggpairs() 相关性图，非常美观：\n\n\nShow/Hide Code\nggpairs(\n    mtcars[, c(1, 3:7)],\n    columnLabels = c(\n        \"Miles\",\n        \"Displacement\",\n        \"Horsepower\",\n        \"Rear axle ratio\",\n        \"Weight\",\n        \"1/4 mile time\"\n    ),\n    # 这里将 mtcars$vs 转换为因子，作为分组变量上色\n    aes(color = factor(mtcars$vs)),  # &lt;--- 主要修改在这里\n    # 上三角显示相关系数\n    upper = list(continuous = wrap('cor', size = 3)),\n    # 下三角显示分组直方图\n    lower = list(combo = wrap(\"facethist\", bins = 30)),\n    # 对角线显示密度图\n    diag = list(continuous = wrap(\"densityDiag\", alpha = 0.5)),\n    # 图标题\n    title = \"Scatterplot matrix of `mtcars` Grouped by Engine\"\n)\n\n\n\n\n\n带有颜色的 ggpairs() 相关性图\n\n\n\n\n\n\n9.2.3 type\nupper、lower 和 diag 参数修改图的类型\n\n\nShow/Hide Code\n# 使用 ggpairs() 并通过 upper、lower 参数自定义图的类型\nggpairs(\n    reshape::tips[, c(1, 3, 4, 2)],\n    # 上三角连续型变量用密度图，组合型用无分面箱线图\n    upper = list(continuous = \"density\", combo = \"box_no_facet\"),\n    # 下三角连续型变量用散点图，组合型用无分面点图\n    lower = list(continuous = \"points\", combo = \"dot_no_facet\")\n)\n\n\n\n\n\nupper、lower 和 diag 参数 修改图的类型",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#ggcorr",
+    "href": "correlogram.html#ggcorr",
+    "title": "9  Correlogram",
+    "section": "9.3 ggcorr()",
+    "text": "9.3 ggcorr()\nggcorr() 可以绘制一种朴素的相关性图\n\n\nShow/Hide Code\n# data是之前构建的数据\nggcorr(data, method = c(\"everything\", \"pearson\"))\n\n\n\n\n\nggcorr() 绘制相关性图",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#corrgram",
+    "href": "correlogram.html#corrgram",
+    "title": "9  Correlogram",
+    "section": "9.4 corrgram()",
+    "text": "9.4 corrgram()",
     "crumbs": [
       "Correlation",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"

@@ -1,3 +1,105 @@
 # Correlogram {#sec-correlogram}
 
-1
+`GGally::ggpairs()` 可以绘制好看的相关性图：
+
+## PKG
+
+```{r}
+library(GGally)
+library(tidyverse)
+```
+
+
+## `ggpairs()`
+
+### 基础
+
+- 对角线是单变量分布密度曲线
+- 右上方是相关系数和显著性
+- 左下方是散点图。
+
+```{r}
+#| fig-cap: ggpairs() 绘制相关性图
+
+# 构造示例数据
+data <- data.frame(
+  v1 = 1:100 + rnorm(100, sd = 20),
+  v2 = 1:100 + rnorm(100, sd = 27),
+  v3 = rep(1, 100) + rnorm(100, sd = 1)
+)
+data$v4 = data$v1**2
+data$v5 = -(data$v1**2)
+
+# 绘图
+ggpairs(data, title = "correlogram with ggpairs()")
+```
+
+### split
+
+通过 `ggpairs()` 的 `mapping` 参数可以指定不同的美学映射，从而实现分组绘图：
+
+```{r}
+#| fig-cap: ggpairs() 分组绘图
+
+# 使用了color参数
+ggpairs(flea, columns = 2:4, aes(colour=species)) 
+```
+
+带有颜色的 `ggpairs()` 相关性图，非常美观：
+
+```{r}
+#| fig-cap: 带有颜色的 ggpairs() 相关性图
+
+ggpairs(
+    mtcars[, c(1, 3:7)],
+    columnLabels = c(
+        "Miles",
+        "Displacement",
+        "Horsepower",
+        "Rear axle ratio",
+        "Weight",
+        "1/4 mile time"
+    ),
+    # 这里将 mtcars$vs 转换为因子，作为分组变量上色
+    aes(color = factor(mtcars$vs)),  # <--- 主要修改在这里
+    # 上三角显示相关系数
+    upper = list(continuous = wrap('cor', size = 3)),
+    # 下三角显示分组直方图
+    lower = list(combo = wrap("facethist", bins = 30)),
+    # 对角线显示密度图
+    diag = list(continuous = wrap("densityDiag", alpha = 0.5)),
+    # 图标题
+    title = "Scatterplot matrix of `mtcars` Grouped by Engine"
+)
+```
+
+### type
+
+`upper`、`lower` 和 `diag` 参数修改图的类型
+
+```{r}
+#| fig-cap: upper、lower 和 diag 参数 修改图的类型
+
+# 使用 ggpairs() 并通过 upper、lower 参数自定义图的类型
+ggpairs(
+    reshape::tips[, c(1, 3, 4, 2)],
+    # 上三角连续型变量用密度图，组合型用无分面箱线图
+    upper = list(continuous = "density", combo = "box_no_facet"),
+    # 下三角连续型变量用散点图，组合型用无分面点图
+    lower = list(continuous = "points", combo = "dot_no_facet")
+)
+
+```
+
+## `ggcorr()`
+
+`ggcorr()` 可以绘制一种朴素的相关性图
+
+```{r}
+#| fig-cap: ggcorr() 绘制相关性图
+
+# data是之前构建的数据
+ggcorr(data, method = c("everything", "pearson"))
+```
+
+## `corrgram()`
