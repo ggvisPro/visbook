@@ -1,3 +1,466 @@
 # Heatmap {#sec-heatmap}
 
-1
+热图是一种数据图形表示，其中矩阵中包含的各个值以颜色形式呈现。
+
+## PKG
+
+```{r}
+# 需要的R包
+library(tidyverse)
+library(RColorBrewer)
+library(hrbrthemes) # 美化主题
+library(viridis) # 渐变色
+library(plotly) # 交互式图形
+library(lattice) # 另一种绘图系统
+library(RColorBrewer) # 调色板
+library(viridisLite) # 调色板
+library(latticeExtra) # 扩展lattice功能
+```
+
+## `heatmap()`
+
+`heatmap()` 是Base R 的函数，带有聚类功能，胜出一筹。
+
+### 基础
+
+```{r}
+#| fig-cap: 基础热力图
+
+data <- as.matrix(mtcars)
+
+heatmap(data)
+```
+
+所有的变化都被 hp 和 disp 这两个与其他变量相比具有非常高的值的变量所吸收。我们需要对数据进行标准化。
+
+```{r}
+#| fig-cap: scale="column"对列进行标化
+
+heatmap(data, scale="column")
+```
+
+解读：
+
+- 行 (Rows)：右侧的标签（Toyota Corona, Porsche 914-2 等）代表了 mtcars 数据集中的32款不同汽车；
+- 列 (Columns)：底部的标签（cyl, am, mpg, hp 等）代表了汽车的11个性能指标。
+- 浅黄色代表较低的数值，深红色代表较高的数值。
+- 在树状图上彼此靠近的汽车，意味着它们的各项性能指标综合来看更加相似。
+- 例如: 请看图的底部，Maserati Bora、Chrysler Imperial 和 Cadillac Fleetwood 被紧密地聚在一起。这说明它们在整体性能上非常相似（通常是大排量、高马力、高油耗、车身重）。
+- 相对地，图顶部的 Toyota Corona、Datsun 710 等车也聚在一起，它们通常是性能相反的另一类车（小排量、低油耗）。
+
+
+### 不聚类
+
+刚才的图由于聚类而重新排序，可以指定不排序。
+
+```{r}
+#| fig-cap: 不聚类的热力图
+
+heatmap(data, Colv = NA, Rowv = NA, scale="column")
+```
+
+### 配色
+
+```{r}
+#| fig-cap: 不同配色的热力图
+
+# 自带调色板
+heatmap(data, scale="column", col = cm.colors(256))
+heatmap(data, scale="column", col = terrain.colors(256))
+
+# RColorBrewer 调色板
+# 需要library(RColorBrewer)
+coul <- colorRampPalette(brewer.pal(8, "PiYG"))(25)
+heatmap(data, scale="column", col = coul)
+```
+
+
+### 布局
+
+```{r}
+#| fig-cap: 热力图布局示例
+
+# 使用自定义调色板，去除聚类，添加坐标轴和标题
+heatmap(
+    data,
+    Colv = NA, # 不对列进行聚类
+    Rowv = NA, # 不对行进行聚类
+    scale = "column", # 对列进行标准化
+    col = coul, # 使用自定义调色板
+    xlab = "variable", # x轴标签
+    ylab = "car",      # y轴标签
+    main = "heatmap"   # 图标题
+)
+
+# 修改行标签字号和内容，使用蓝色调色板
+heatmap(
+    data,
+    scale = "column", # 对列进行标准化
+    cexRow = 1.5, # 行标签字号
+    labRow = paste("new_", rownames(data), sep = ""), # 修改行标签内容
+    col = colorRampPalette(brewer.pal(8, "Blues"))(25) # 使用蓝色调色板
+)
+
+```
+
+### 颜色条
+
+```{r}
+#| fig-cap: 左侧添加颜色条
+
+# 按行名首字母分组
+my_group <- as.numeric(as.factor(substr(rownames(data), 1, 1)))
+# 为每组分配颜色
+colSide <- brewer.pal(9, "Set1")[my_group]
+# 生成主热图颜色
+colMain <- colorRampPalette(brewer.pal(8, "Blues"))(25)
+# 绘制带有颜色条的热力图
+heatmap(
+    data,
+    Colv = NA,         # 不对列聚类
+    Rowv = NA,         # 不对行聚类
+    scale = "column",  # 对列标准化
+    RowSideColors = colSide, # 行侧颜色条
+    col = colMain      # 主热图颜色
+)
+```
+
+
+## `geom_tile()`
+
+`geom_tile()` 是源于 `ggplot2` 的瓦片函数，适用于绘制热图。
+
+### 基础
+
+```{r}
+#| fig-cap: geom_tile() 基础热力图
+
+# 构造示例数据
+x <- LETTERS[1:20] # X轴标签，A到T
+y <- paste0("var", seq(1, 20)) # Y轴标签，var1到var20
+data <- expand.grid(X = x, Y = y) # 生成所有组合
+data$Z <- runif(400, 0, 5) # 生成均匀分布随机数，runif(n, min, max)
+
+# 绘制热图
+ggplot(data, aes(X, Y, fill = Z)) +
+    geom_tile() # 用颜色填充瓦片
+```
+
+### 颜色
+
+```{r}
+#| fig-cap: 不同配色的 geom_tile() 热力图
+# scale_fill_gradient 线性，灵活，但需自己选色。
+# scale_fill_viridis 自动、专业且色盲友好，推荐用于科学数据可视化。
+
+# 构造示例数据
+x <- LETTERS[1:20]
+y <- paste0("var", seq(1,20))
+data <- expand.grid(X=x, Y=y)
+data$Z <- runif(400, 0, 5)
+
+# 1. 使用蓝色渐变色
+ggplot(data, aes(X, Y, fill= Z)) + 
+    geom_tile() +
+    scale_fill_gradient(low="white", high="blue") + # 渐变色从白到蓝
+    theme_ipsum()
+
+# 2. 使用 RColorBrewer 的 RdPu 调色板
+ggplot(data, aes(X, Y, fill= Z)) + 
+    geom_tile() +
+    scale_fill_distiller(palette = "RdPu") + # 使用 RdPu 调色板
+    theme_ipsum()
+
+# 3. 使用 viridis 包的配色
+ggplot(data, aes(X, Y, fill= Z)) + 
+    geom_tile() +
+    scale_fill_viridis(discrete=FALSE) + # 使用 viridis 渐变色
+    theme_ipsum()
+```
+
+### pivot 
+
+```{r}
+#| fig-cap: volcano 热力图
+
+# volcano 数据集是 R 自带的地形高度矩阵
+volcano |>
+    as_tibble() |> # 转为 tibble 数据框
+    rowid_to_column(var = "X") |> # 添加行号作为 X 坐标
+    pivot_longer(
+        cols = !X, # 除 X 外的所有列
+        names_to = "Y", # 列名作为 Y 坐标
+        values_to = "Z" # 值作为高度
+    ) |>
+    mutate(Y = as.numeric(gsub("V", "", Y))) |> # Y 坐标转为数值型
+
+    # 可视化
+    ggplot(aes(X, Y, fill = Z)) +
+        geom_tile() + # 用颜色填充瓦片
+        theme_ipsum() + # 美化主题
+        theme(legend.position = "none") # 去除图例
+```
+
+
+### plotly
+
+```{r}
+#| fig-cap: plotly 交互式热力图
+# 构造示例数据
+x <- LETTERS[1:20] # X轴标签，A到T
+y <- paste0("var", seq(1, 20)) # Y轴标签，var1到var20
+data <- expand.grid(X = x, Y = y) # 生成所有组合
+data$Z <- runif(400, 0, 5) # 生成均匀分布随机数
+
+# 添加自定义文本用于交互式提示
+data <- data |>
+    mutate(
+        text = paste0(
+            "x: ", x, "\n",
+            "y: ", y, "\n",
+            "Value: ", round(Z, 2), "\n",
+            "What else?"
+        )
+    )
+
+# 使用ggplot2绘制热图，并将text映射到交互式提示
+p <- ggplot(data, aes(X, Y, fill = Z, text = text)) +
+    geom_tile() +
+    theme_ipsum()
+
+# 使用plotly实现交互式热图，显示自定义tooltip（悬浮提示）
+ggplotly(p, tooltip = "text")
+
+```
+
+
+## Interactive
+
+见 [heatmap](https://www.data-to-viz.com/graph/heatmap.html), `有以下几种方式：
+
+- plotly: 如前所述。
+
+- d3heatmap: 用 Base R 的 `heatmap()` 相同的函数语法制作交互式热图。
+
+- heatmaply: 最灵活的选项，允许多种不同的自定义。
+
+
+## Time series
+
+热力图在可视化时间序列方面是一个非常不错的选择，特别是研究的时间框架是重复的，比如周。
+
+```{r}
+# 时间序列热力图
+
+
+# --- 1. 加载所需的R包 ---
+# library(ggplot2)
+# library(dplyr)         # 用于更方便的数据处理
+# library(viridis)       # 提供对色盲友好的调色板
+# library(Interpol.T)    # 用于加载数据集
+# library(lubridate)     # 用于方便地处理日期和时间
+# library(ggExtra)       # 提供额外的主题功能，如removeGrid()
+# library(tidyr)         # 用于数据整理，如此处的fill()
+
+# # --- 2. 加载和初步处理数据 ---
+# # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集
+# data <- data(Trentino_hourly_T, package = "Interpol.T")
+# # 重命名数据框的前5个列名，使其更具可读性
+# names(h_d_t)[1:5] <- c("stationid", "date", "hour", "temp", "flag")
+
+# # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据
+# df <- tbl_df(h_d_t) %>%
+#   filter(stationid == "T0001")
+
+# # 使用lubridate包从date列中提取年、月、日信息，并创建新列
+# # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字
+# df <- df %>% mutate(
+#   year = year(date),
+#   month = month(date, label = TRUE),
+#   day = day(date)
+# )
+
+# # 使用lubridate的ymd()函数确保date列是标准的日期格式
+# # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用
+# df$date <- ymd(df$date)
+
+# # --- 3. 清理工作环境 ---
+# # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存
+# rm(list = c(
+#   "h_d_t", "mo_bias", "Tn", "Tx",
+#   "Th_int_list", "calibration_l",
+#   "calibration_shape", "Tm_list"
+# ))
+
+# # --- 4. 创建用于绘图的最终数据框 ---
+# # 选择绘图所需的列，并填充缺失的温度值
+# df <- df %>%
+#   select(stationid, day, hour, month, year, temp) %>%
+#   fill(temp) # 使用前一个非缺失值来填充NA
+
+# # 填充缺失值(NA)的注意事项：
+# # 这段代码是为了演示可视化技术。
+# # 数据集中有5个缺失的小时温度值。
+# # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。
+# # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！
+# # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，
+# # 或者使用更专业的插补方法来处理缺失值。
+
+# # 获取当前正在分析的气象站ID，用于图表标题
+# statno <- unique(df$stationid)
+
+# ######## 绘图部分开始 #####################
+
+# # --- 5. 使用ggplot2创建图表 ---
+# # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度
+# p <- ggplot(df, aes(day, hour, fill = temp)) +
+#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框
+#   geom_tile(color = "white", size = 0.1) +
+#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题
+#   scale_fill_viridis(name = "Hourly Temps C", option = "C")
+
+# # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板
+# p <- p + facet_grid(year ~ month)
+
+# # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉
+# p <- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))
+
+# # 自定义x轴（天）的刻度，使其更清晰
+# p <- p + scale_x_continuous(breaks = c(1, 10, 20, 31))
+
+# # --- 6. 精细调整图表主题和标签 ---
+# # 应用一个简洁的主题，并设置基础字体大小
+# p <- p + theme_minimal(base_size = 8)
+
+# # 添加图表标题和坐标轴标签
+# p <- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")
+
+# # 对图表的各种视觉元素进行精细调整
+# p <- p + theme(legend.position = "bottom") + # 将图例置于底部
+#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小
+#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小
+#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景
+#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐
+#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线
+#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小
+#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小
+#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小
+#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净
+
+# # --- 7. 显示图表 ---
+# # 在R的绘图窗口中打印（显示）最终生成的图表对象
+# # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果
+# p
+
+```
+
+[这段代码](https://r-graph-gallery.com/283-the-hourly-heatmap.html) 生成了时间序列热力图。显示了气象站的每小时温度变化。
+
+![时间序列热力图](./image/hourly-heatmap.png)
+
+## `levelplot()`
+
+### 基础
+
+```{r}
+#| fig-cap: levelplot() 基础热力图
+
+# 创建示例数据
+x <- seq(1, 10, length.out = 20)
+y <- seq(1, 10, length.out = 20)
+data <- expand.grid(X = x, Y = y)
+data$Z <- runif(400, 0, 5)
+
+# levelplot() 绘制基础热力图
+levelplot(Z ~ X * Y, data = data)
+```
+
+### povit
+
+```{r}
+#| fig-cap: levelplot() 宽数据透视热力图示例
+
+# 构造一个 10x10 的随机矩阵作为示例数据
+data <- matrix(runif(100, 0, 5), 10, 10)
+colnames(data) <- letters[1:10] # 设置列名为 a~j
+rownames(data) <- paste("row", 1:10) # 设置行名为 row 1 ~ row 10
+
+# 使用 levelplot() 绘制热力图
+levelplot(data)
+```
+
+### 翻转
+
+```{r}
+#| fig-cap: 翻转 levelplot 热力图
+
+# 构造一个 10x10 的随机矩阵作为示例数据
+data <- matrix(runif(100, 0, 5), 10, 10)
+colnames(data) <- letters[c(1:10)] # 设置列名为 a~j
+rownames(data) <- paste(rep("row", 10), c(1:10), sep = " ") # 设置行名为 row 1 ~ row 10
+
+# 翻转行顺序并转置矩阵，使热图的 y 轴从上到下递增
+# t() 转置，data[nrow(data):1, ] 反转行顺序
+levelplot(
+    t(data[nrow(data):1, ]),         # 翻转并转置数据
+    col.regions = heat.colors(100)   # 使用 heat.colors 调色板
+)
+```
+
+### 颜色
+
+```{r}
+#| fig-cap: 不同颜色的 levelplot() 热力图
+
+# 1: R自带调色板
+levelplot(volcano, col.regions = terrain.colors(100)) # 使用 terrain.colors() 原生调色板，可尝试 cm.colors() 或 terrain.colors()
+
+# 2: RColorBrewer 调色板
+# library(RColorBrewer)
+coul <- colorRampPalette(brewer.pal(8, "PiYG"))(25)
+levelplot(volcano, col.regions = coul) # 使用 RColorBrewer 的 PiYG 调色板
+
+# 3: Viridis 渐变色
+# library(viridisLite)
+coul <- viridis(100)
+levelplot(volcano, col.regions = coul) # 使用 viridis 渐变色
+levelplot(volcano, col.regions = magma(100)) # 使用 magma 渐变色
+
+```
+
+
+### 平滑
+
+```{r}
+#| fig-cap: 平滑的 levelplot() 热力图
+
+# 加载 latticeExtra 包以获得 panel.2dsmoother
+# library(latticeExtra)
+
+# 创建示例数据
+set.seed(1)
+data <- data.frame(x = rnorm(100), y = rnorm(100))
+data$z <- with(data, x * y + rnorm(100, sd = 1))
+
+# 使用 levelplot 绘制散点热力图，并叠加平滑层
+levelplot(
+  z ~ x * y,
+  data,
+  panel = panel.levelplot.points, # 显示数据点
+  cex = 1.2
+) +
+  # 叠加二维平滑层，n 控制平滑网格的分辨率
+  layer_(panel.2dsmoother(..., n = 200))
+
+```
+
+
+## Pearl
+
+这是一个非常优秀的数据可视化作品，利用 R 语言的 ggplot2 包将美国各州从1928年到2011年的麻疹发病率数据绘制成了热图。
+
+代码通过逐层叠加，精细地控制了图表的每一个细节，从而清晰地讲述了“**疫苗引入后麻疹病例急剧下降**”这一核心故事。
+
+见 [vaccination-heatmap](https://r-graph-gallery.com/vaccination-heatmap.html)
+
+![麻疹疫苗接种带来的影响](./image/morbilli.png)

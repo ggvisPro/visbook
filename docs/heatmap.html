@@ -104,6 +104,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.11.0/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
 
 
 </head>
@@ -265,15 +283,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pkg" id="toc-pkg" class="nav-link active" data-scroll-target="#pkg"><span class="header-section-number">8.1</span> PKG</a></li>
+  <li><a href="#heatmap" id="toc-heatmap" class="nav-link" data-scroll-target="#heatmap"><span class="header-section-number">8.2</span> <code>heatmap()</code></a>
+  <ul class="collapse">
+  <li><a href="#基础" id="toc-基础" class="nav-link" data-scroll-target="#基础"><span class="header-section-number">8.2.1</span> 基础</a></li>
+  <li><a href="#不聚类" id="toc-不聚类" class="nav-link" data-scroll-target="#不聚类"><span class="header-section-number">8.2.2</span> 不聚类</a></li>
+  <li><a href="#配色" id="toc-配色" class="nav-link" data-scroll-target="#配色"><span class="header-section-number">8.2.3</span> 配色</a></li>
+  <li><a href="#布局" id="toc-布局" class="nav-link" data-scroll-target="#布局"><span class="header-section-number">8.2.4</span> 布局</a></li>
+  <li><a href="#颜色条" id="toc-颜色条" class="nav-link" data-scroll-target="#颜色条"><span class="header-section-number">8.2.5</span> 颜色条</a></li>
+  </ul></li>
+  <li><a href="#geom_tile" id="toc-geom_tile" class="nav-link" data-scroll-target="#geom_tile"><span class="header-section-number">8.3</span> <code>geom_tile()</code></a>
+  <ul class="collapse">
+  <li><a href="#基础-1" id="toc-基础-1" class="nav-link" data-scroll-target="#基础-1"><span class="header-section-number">8.3.1</span> 基础</a></li>
+  <li><a href="#颜色" id="toc-颜色" class="nav-link" data-scroll-target="#颜色"><span class="header-section-number">8.3.2</span> 颜色</a></li>
+  <li><a href="#pivot" id="toc-pivot" class="nav-link" data-scroll-target="#pivot"><span class="header-section-number">8.3.3</span> pivot</a></li>
+  <li><a href="#plotly" id="toc-plotly" class="nav-link" data-scroll-target="#plotly"><span class="header-section-number">8.3.4</span> plotly</a></li>
+  </ul></li>
+  <li><a href="#interactive" id="toc-interactive" class="nav-link" data-scroll-target="#interactive"><span class="header-section-number">8.4</span> Interactive</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">8.5</span> Time series</a></li>
+  <li><a href="#levelplot" id="toc-levelplot" class="nav-link" data-scroll-target="#levelplot"><span class="header-section-number">8.6</span> <code>levelplot()</code></a>
+  <ul class="collapse">
+  <li><a href="#基础-2" id="toc-基础-2" class="nav-link" data-scroll-target="#基础-2"><span class="header-section-number">8.6.1</span> 基础</a></li>
+  <li><a href="#povit" id="toc-povit" class="nav-link" data-scroll-target="#povit"><span class="header-section-number">8.6.2</span> povit</a></li>
+  <li><a href="#翻转" id="toc-翻转" class="nav-link" data-scroll-target="#翻转"><span class="header-section-number">8.6.3</span> 翻转</a></li>
+  <li><a href="#颜色-1" id="toc-颜色-1" class="nav-link" data-scroll-target="#颜色-1"><span class="header-section-number">8.6.4</span> 颜色</a></li>
+  <li><a href="#平滑" id="toc-平滑" class="nav-link" data-scroll-target="#平滑"><span class="header-section-number">8.6.5</span> 平滑</a></li>
+  </ul></li>
+  <li><a href="#pearl" id="toc-pearl" class="nav-link" data-scroll-target="#pearl"><span class="header-section-number">8.7</span> Pearl</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./correlation.html">Correlation</a></li><li class="breadcrumb-item"><a href="./heatmap.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heatmap</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-heatmap" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heatmap</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-heatmap" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Heatmap</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -290,11 +340,684 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>1</p>
+<p>热图是一种数据图形表示，其中矩阵中包含的各个值以颜色形式呈现。</p>
+<section id="pkg" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="pkg"><span class="header-section-number">8.1</span> PKG</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要的R包</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes) <span class="co"># 美化主题</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis) <span class="co"># 渐变色</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly) <span class="co"># 交互式图形</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice) <span class="co"># 另一种绘图系统</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer) <span class="co"># 调色板</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite) <span class="co"># 调色板</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latticeExtra) <span class="co"># 扩展lattice功能</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="heatmap" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="heatmap"><span class="header-section-number">8.2</span> <code>heatmap()</code></h2>
+<p><code>heatmap()</code> 是Base R 的函数，带有聚类功能，胜出一筹。</p>
+<section id="基础" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="基础"><span class="header-section-number">8.2.1</span> 基础</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mtcars)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>基础热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>所有的变化都被 hp 和 disp 这两个与其他变量相比具有非常高的值的变量所吸收。我们需要对数据进行标准化。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>scale=“column”对列进行标化</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>解读：</p>
+<ul>
+<li>行 (Rows)：右侧的标签（Toyota Corona, Porsche 914-2 等）代表了 mtcars 数据集中的32款不同汽车；</li>
+<li>列 (Columns)：底部的标签（cyl, am, mpg, hp 等）代表了汽车的11个性能指标。</li>
+<li>浅黄色代表较低的数值，深红色代表较高的数值。</li>
+<li>在树状图上彼此靠近的汽车，意味着它们的各项性能指标综合来看更加相似。</li>
+<li>例如: 请看图的底部，Maserati Bora、Chrysler Imperial 和 Cadillac Fleetwood 被紧密地聚在一起。这说明它们在整体性能上非常相似（通常是大排量、高马力、高油耗、车身重）。</li>
+<li>相对地，图顶部的 Toyota Corona、Datsun 710 等车也聚在一起，它们通常是性能相反的另一类车（小排量、低油耗）。</li>
+</ul>
+</section>
+<section id="不聚类" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="不聚类"><span class="header-section-number">8.2.2</span> 不聚类</h3>
+<p>刚才的图由于聚类而重新排序，可以指定不排序。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">Colv =</span> <span class="cn">NA</span>, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">scale=</span><span class="st">"column"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不聚类的热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="配色" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="配色"><span class="header-section-number">8.2.3</span> 配色</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 自带调色板</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> <span class="fu">cm.colors</span>(<span class="dv">256</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">256</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RColorBrewer 调色板</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要library(RColorBrewer)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"PiYG"</span>))(<span class="dv">25</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> coul)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="布局" class="level3" data-number="8.2.4">
+<h3 data-number="8.2.4" class="anchored" data-anchor-id="布局"><span class="header-section-number">8.2.4</span> 布局</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用自定义调色板，去除聚类，添加坐标轴和标题</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Colv =</span> <span class="cn">NA</span>, <span class="co"># 不对列进行聚类</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="co"># 不对行进行聚类</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>, <span class="co"># 对列进行标准化</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> coul, <span class="co"># 使用自定义调色板</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"variable"</span>, <span class="co"># x轴标签</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"car"</span>,      <span class="co"># y轴标签</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"heatmap"</span>   <span class="co"># 图标题</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>热力图布局示例</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改行标签字号和内容，使用蓝色调色板</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>, <span class="co"># 对列进行标准化</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cexRow =</span> <span class="fl">1.5</span>, <span class="co"># 行标签字号</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">labRow =</span> <span class="fu">paste</span>(<span class="st">"new_"</span>, <span class="fu">rownames</span>(data), <span class="at">sep =</span> <span class="st">""</span>), <span class="co"># 修改行标签内容</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Blues"</span>))(<span class="dv">25</span>) <span class="co"># 使用蓝色调色板</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>热力图布局示例</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="颜色条" class="level3" data-number="8.2.5">
+<h3 data-number="8.2.5" class="anchored" data-anchor-id="颜色条"><span class="header-section-number">8.2.5</span> 颜色条</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 按行名首字母分组</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>my_group <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">substr</span>(<span class="fu">rownames</span>(data), <span class="dv">1</span>, <span class="dv">1</span>)))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 为每组分配颜色</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>colSide <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"Set1"</span>)[my_group]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成主热图颜色</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>colMain <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Blues"</span>))(<span class="dv">25</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制带有颜色条的热力图</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Colv =</span> <span class="cn">NA</span>,         <span class="co"># 不对列聚类</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rowv =</span> <span class="cn">NA</span>,         <span class="co"># 不对行聚类</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>,  <span class="co"># 对列标准化</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">RowSideColors =</span> colSide, <span class="co"># 行侧颜色条</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> colMain      <span class="co"># 主热图颜色</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>左侧添加颜色条</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="geom_tile" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="geom_tile"><span class="header-section-number">8.3</span> <code>geom_tile()</code></h2>
+<p><code>geom_tile()</code> 是源于 <code>ggplot2</code> 的瓦片函数，适用于绘制热图。</p>
+<section id="基础-1" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="基础-1"><span class="header-section-number">8.3.1</span> 基础</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># X轴标签，A到T</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)) <span class="co"># Y轴标签，var1到var20</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y) <span class="co"># 生成所有组合</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># 生成均匀分布随机数，runif(n, min, max)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制热图</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z)) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="co"># 用颜色填充瓦片</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>geom_tile() 基础热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="颜色" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="颜色"><span class="header-section-number">8.3.2</span> 颜色</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scale_fill_gradient 线性，灵活，但需自己选色。</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># scale_fill_viridis 自动、专业且色盲友好，推荐用于科学数据可视化。</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X=</span>x, <span class="at">Y=</span>y)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 使用蓝色渐变色</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"white"</span>, <span class="at">high=</span><span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># 渐变色从白到蓝</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的 geom_tile() 热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 使用 RColorBrewer 的 RdPu 调色板</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"RdPu"</span>) <span class="sc">+</span> <span class="co"># 使用 RdPu 调色板</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的 geom_tile() 热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 使用 viridis 包的配色</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># 使用 viridis 渐变色</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同配色的 geom_tile() 热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="pivot" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="pivot"><span class="header-section-number">8.3.3</span> pivot</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># volcano 数据集是 R 自带的地形高度矩阵</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>volcano <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="co"># 转为 tibble 数据框</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">"X"</span>) <span class="sc">|&gt;</span> <span class="co"># 添加行号作为 X 坐标</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="sc">!</span>X, <span class="co"># 除 X 外的所有列</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"Y"</span>, <span class="co"># 列名作为 Y 坐标</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"Z"</span> <span class="co"># 值作为高度</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"V"</span>, <span class="st">""</span>, Y))) <span class="sc">|&gt;</span> <span class="co"># Y 坐标转为数值型</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 可视化</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z)) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_tile</span>() <span class="sc">+</span> <span class="co"># 用颜色填充瓦片</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_ipsum</span>() <span class="sc">+</span> <span class="co"># 美化主题</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># 去除图例</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>volcano 热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plotly" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="plotly"><span class="header-section-number">8.3.4</span> plotly</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># X轴标签，A到T</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)) <span class="co"># Y轴标签，var1到var20</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y) <span class="co"># 生成所有组合</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># 生成均匀分布随机数</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加自定义文本用于交互式提示</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">paste0</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"x: "</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y: "</span>, y, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Value: "</span>, <span class="fu">round</span>(Z, <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"What else?"</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用ggplot2绘制热图，并将text映射到交互式提示</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z, <span class="at">text =</span> text)) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用plotly实现交互式热图，显示自定义tooltip（悬浮提示）</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p, <span class="at">tooltip =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-dcd98fee3a368aebfb56" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-dcd98fee3a368aebfb56">{"x":{"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"y":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"z":[[0.90717268781582128,0.45592439987685257,0.0436408932506481,0.043962703516089399,0.36959782940364977,0.26518711374551718,0.039237228388747387,0.72757327995693866,0.1013593746439284,0.062627828869975338,0.3690876068659863,0.45064208118890303,0.20481630754156804,0.44336898943758424,0.7766615445143521,0.20497294291560816,0.21138498553126722,0.11195096695304343,0.80527754497989723,0.95454347763594272],[0.69172680520922414,0.15667705804541943,0.49140613433795827,0.14398898301554394,0.93308009222951704,0.95226432176876641,0.33439448772677755,0.1042344822012119,0.43579553077169281,0.56034470752818089,0.49977913297367266,0.36708579247170958,0.73935369740481915,0.82594145819044718,0.9072473041370076,0.58416008460122626,0.86065962294733911,0.13157518146472647,0.94011781693973673,0.13524087747408425],[0.069049252471282838,0.99043040621029621,0.75409063848431601,0.72608387526575213,0.5599778723046096,0.86994761598597004,0.022544810964220272,0.29166436011079405,0.15672158319980042,0.74121111160219666,0.90591570258127641,0.88861472821114296,0.47929606324586138,0.99897630946090765,0.077265274301318784,0.32925833508476005,0.74954381501628276,0.57893371319033105,0.85109435434655467,0.90073413440755623],[0.021646297508408373,0.91082221077208947,0.10418348777901498,0.87338247905459376,0.87242648863345973,0.93319537944029396,0.36322531832998589,0.32258688710352174,0.62088293447979892,0.53330346616990443,0.98518271931072166,0.58528065974474952,0.17897250723067143,0.880396570453716,0.57567621989852125,0.013826717636410763,0.29176653480951764,0.0068810073553222774,0.75201236156926421,0.90975294865818557],[0.91901652304637094,0.8860689747884668,0.65331576755590348,0.24936150717377181,0.098916985806906416,0.79648366570628493,0.27254493876818447,0.5786112526676358,0.94206033891192409,0.0085821471739116039,0.6983025892157837,0.43352349629278758,0.02843080011946502,0.59040330487603798,0.11036518468108003,0.87493948371666885,0.70518963893292397,0.61749753218580161,0.81240368418143505,0.99316393422454941],[0.88097967793275722,0.39445420219656757,0.18358872912464866,0.49512573998084791,0.16889822391246659,0.78462662643391823,0.99678067974353712,0.7842432920970297,0.83276585217425025,0.79807984743630767,0.64271001817750606,0.41427491178061499,0.83549506943939422,0.13787821283028964,0.41617168750286893,0.079734895688550578,0.95302671649165993,0.86780157839891758,0.28068703156541391,0.70899257345918176],[0.30680694293765121,0.74574852427336069,0.68067171875236465,0.85151188378401321,0.76343376038882993,0.96190632934281894,0.88912607309468983,0.16446595751320042,0.41197062878069846,0.45088590413620488,0.67845857866917103,0.2463670205827552,0.88152627411911144,0.25666057567762385,0.541565531197581,0.15321218299604572,0.77490638629785502,0.66103801705255905,0.63605847943376548,0.56119361161906267],[0.65875500482449079,0.42956576420767251,0.87233991987592996,0.73024114037295229,0.88049340638201279,0.56523268525045867,0.13464334718667517,0.20556537431975794,0.70253502168595483,0.8961869394637636,0.23158041354358874,0.76804554646631074,0.95358586250327459,0.72169766999743923,0.45575544687901404,0.50687665200583198,0.34203686527717819,0.31717700946232907,0.053075990457065826,0.092982170297078184],[0.74974096290780279,0.1157095353957313,0.44159788641015674,0.2754632905289548,0.98246197285739068,0.40727573018410057,0.89453000176702979,0.073853092680828,0.46331670483698872,0.19439772814592557,0.0073704973534132667,0.68845091327037111,0.81301122847713436,0.57088165237604893,0.036731567098757745,0.28098659753632743,0.1342255864793552,0.65198108706002289,0.50937039835640441,0.66628820203927752],[0.51286349275397669,0.79380570976692411,0.35050137248287061,0.27342624532708504,0.37995498044981185,0.72310135438638823,0.8671679036365777,0.27845397851831982,0.12878284056981865,0.46244032504812732,0.47707249925009115,0.2318722206784862,0.9759877249373089,0.12979017848979602,0.77292479672079628,0.86197871892884081,0.59434173326407802,0.73109104640033351,0.12973981452833921,0.10617951320685071],[0.59910780731486035,0.31649245300147094,0.30869351227608061,0.026919887331164644,0.7423399512079889,0.45629997956992785,0.99788674148052914,0.83664327748850675,0.60161914973851571,0.69779512444894543,0.58672448866892157,0.40520012323651255,0.46235874361467899,0.01032544611413032,0.20578588815298873,0.53211239703807256,0.5304958188434119,0.27492984248837871,0.073360991639014356,0.5198912817103607],[0.61316393883131459,0.080130683662932398,0.93524566175580393,0.77834650336124622,0.1660259833561844,0.74694587122907485,0.57840771865365792,0.38411932013235045,0.24727262351951593,0.21197829846253233,0.43214058846154169,0.48964311108297087,0.23581652397312722,0.71599302179968038,0.86286559878863189,0.51560463543904533,0.10122765725828241,0.86666361679245774,0.17328021788003983,0.10809547734059924],[0.0076974796327649144,0.80928675405634598,0.89881348967924046,0.18759063957580266,0,0.46339770192392915,0.97250692091421598,0.6942120271809461,0.3000468585112398,0.79284822249644527,0.24756099724021668,0.81550053854540994,0.7837939778427836,0.98915978373963176,0.29986693801184539,0.164051115743618,0.98199605724665595,0.57242225481127429,0.87834797037608026,0.33708435977005646],[0.22540275350004163,0.50669167128460524,0.27613243808215671,0.038071240508323598,0.86920970931777053,0.78262305783561692,0.77701861167220465,0.41244958912953916,0.068356890827276265,0.45262603633291304,0.22128591310696019,0.56436374149798796,0.66606701139817426,0.70831152680377363,0.40674568108849707,0.49233092032950981,0.9388459389042958,0.65985316286156559,0.16740374199773586,0.93829448954435368],[0.40694661663536119,0.51129382763906395,0.17252401527376873,0.84178052825479088,0.16308487887983145,0.50203485279618942,0.51324121908785048,0.45994373708267139,0.090099283408564296,0.79901243232270336,0.85703676752548641,0.057118098544679995,0.89210813842133574,0.97643260966336298,0.62721989776874842,0.95207817934152872,0.33781648492462019,0.77651745291016827,0.091264472441430433,0.40948853512396033],[0.77626196981622697,0.50754100996719043,0.45427381127145078,0.048679845941414723,0.46853622642120241,0.034029963408489509,0.5033291633094894,0.25808068069253537,0.84614064078628959,0.22309533519813651,0.12413128189867439,0.39383341473182371,0.59216962110642413,0.22466043360666144,0.60478121451771116,0.96920399392449086,0.099265923118783891,0.73675323014434979,0.15366270017963155,0.24137474527677194],[0.095043922479794818,0.14130671213487106,0.23459624077650232,0.30606521181588203,0.98854420648442487,0.34628663693155298,0.71595721922218825,0.73109143790550679,0.36790419339539854,0.2197796531981078,0.31972662926060413,0.036285410737816021,0.59003212373543312,0.70341707468987646,0.43517881370309031,0.71212192531444174,0.21142241514929516,0.22150325460707654,0.51043346649048449,0.61629799783176054],[0.055468553564906709,0.85224863084230318,0.1262802500684726,0.54751036933300556,0.14217142036498506,0.8517503453695725,0.43032119917500772,0.36888416135407015,0.47284772523596613,0.31292679296864379,0.31575957604518246,0.96750221665815661,0.80946681056943537,0.53900974723070305,0.52034017068890992,1,0.63543696508761416,0.64222088428376356,0.55586773035310411,0.82976992113642523],[0.89031351503938982,0.47703129548492867,0.19156169168701584,0.20524024872050234,0.083543817146387631,0.52842385165956463,0.72759933100462382,0.66570741890385887,0.7807137749088322,0.094592240329595789,0.92521851370410213,0.046353521037211763,0.29537486657723205,0.83542292581923405,0.31697080385058618,0.69419709362252158,0.1112713333029217,0.28592122725727087,0.96916627667476218,0.085960019387829933],[0.95828659967404817,0.32601682689560868,0.12900454918088347,0.21675279325159277,0.37234976188745028,0.27554950690853858,0.061095493226020633,0.28449921222812602,0.013964254964219396,0.70953773102123174,0.1639297032585654,0.48077432925387248,0.36283704068714673,0.30856400581167792,0.65238708700783321,0.44553485847348018,0.039197446711977585,0.80052180191452649,0.41573833948636812,0.89925922821729043]],"text":[["x: A<br />y: var1<br />Value: 4.53<br />What else?","x: B<br />y: var2<br />Value: 2.28<br />What else?","x: C<br />y: var3<br />Value: 0.22<br />What else?","x: D<br />y: var4<br />Value: 0.22<br />What else?","x: E<br />y: var5<br />Value: 1.85<br />What else?","x: F<br />y: var6<br />Value: 1.33<br />What else?","x: G<br />y: var7<br />Value: 0.2<br />What else?","x: H<br />y: var8<br />Value: 3.64<br />What else?","x: I<br />y: var9<br />Value: 0.51<br />What else?","x: J<br />y: var10<br />Value: 0.31<br />What else?","x: K<br />y: var11<br />Value: 1.84<br />What else?","x: L<br />y: var12<br />Value: 2.25<br />What else?","x: M<br />y: var13<br />Value: 1.02<br />What else?","x: N<br />y: var14<br />Value: 2.22<br />What else?","x: O<br />y: var15<br />Value: 3.88<br />What else?","x: P<br />y: var16<br />Value: 1.02<br />What else?","x: Q<br />y: var17<br />Value: 1.06<br />What else?","x: R<br />y: var18<br />Value: 0.56<br />What else?","x: S<br />y: var19<br />Value: 4.03<br />What else?","x: T<br />y: var20<br />Value: 4.77<br />What else?"],["x: A<br />y: var1<br />Value: 3.46<br />What else?","x: B<br />y: var2<br />Value: 0.78<br />What else?","x: C<br />y: var3<br />Value: 2.46<br />What else?","x: D<br />y: var4<br />Value: 0.72<br />What else?","x: E<br />y: var5<br />Value: 4.66<br />What else?","x: F<br />y: var6<br />Value: 4.76<br />What else?","x: G<br />y: var7<br />Value: 1.67<br />What else?","x: H<br />y: var8<br />Value: 0.52<br />What else?","x: I<br />y: var9<br />Value: 2.18<br />What else?","x: J<br />y: var10<br />Value: 2.8<br />What else?","x: K<br />y: var11<br />Value: 2.5<br />What else?","x: L<br />y: var12<br />Value: 1.83<br />What else?","x: M<br />y: var13<br />Value: 3.7<br />What else?","x: N<br />y: var14<br />Value: 4.13<br />What else?","x: O<br />y: var15<br />Value: 4.53<br />What else?","x: P<br />y: var16<br />Value: 2.92<br />What else?","x: Q<br />y: var17<br />Value: 4.3<br />What else?","x: R<br />y: var18<br />Value: 0.66<br />What else?","x: S<br />y: var19<br />Value: 4.7<br />What else?","x: T<br />y: var20<br />Value: 0.68<br />What else?"],["x: A<br />y: var1<br />Value: 0.35<br />What else?","x: B<br />y: var2<br />Value: 4.95<br />What else?","x: C<br />y: var3<br />Value: 3.77<br />What else?","x: D<br />y: var4<br />Value: 3.63<br />What else?","x: E<br />y: var5<br />Value: 2.8<br />What else?","x: F<br />y: var6<br />Value: 4.35<br />What else?","x: G<br />y: var7<br />Value: 0.11<br />What else?","x: H<br />y: var8<br />Value: 1.46<br />What else?","x: I<br />y: var9<br />Value: 0.78<br />What else?","x: J<br />y: var10<br />Value: 3.71<br />What else?","x: K<br />y: var11<br />Value: 4.53<br />What else?","x: L<br />y: var12<br />Value: 4.44<br />What else?","x: M<br />y: var13<br />Value: 2.4<br />What else?","x: N<br />y: var14<br />Value: 4.99<br />What else?","x: O<br />y: var15<br />Value: 0.39<br />What else?","x: P<br />y: var16<br />Value: 1.65<br />What else?","x: Q<br />y: var17<br />Value: 3.75<br />What else?","x: R<br />y: var18<br />Value: 2.89<br />What else?","x: S<br />y: var19<br />Value: 4.25<br />What else?","x: T<br />y: var20<br />Value: 4.5<br />What else?"],["x: A<br />y: var1<br />Value: 0.11<br />What else?","x: B<br />y: var2<br />Value: 4.55<br />What else?","x: C<br />y: var3<br />Value: 0.52<br />What else?","x: D<br />y: var4<br />Value: 4.37<br />What else?","x: E<br />y: var5<br />Value: 4.36<br />What else?","x: F<br />y: var6<br />Value: 4.66<br />What else?","x: G<br />y: var7<br />Value: 1.82<br />What else?","x: H<br />y: var8<br />Value: 1.61<br />What else?","x: I<br />y: var9<br />Value: 3.1<br />What else?","x: J<br />y: var10<br />Value: 2.67<br />What else?","x: K<br />y: var11<br />Value: 4.92<br />What else?","x: L<br />y: var12<br />Value: 2.93<br />What else?","x: M<br />y: var13<br />Value: 0.89<br />What else?","x: N<br />y: var14<br />Value: 4.4<br />What else?","x: O<br />y: var15<br />Value: 2.88<br />What else?","x: P<br />y: var16<br />Value: 0.07<br />What else?","x: Q<br />y: var17<br />Value: 1.46<br />What else?","x: R<br />y: var18<br />Value: 0.03<br />What else?","x: S<br />y: var19<br />Value: 3.76<br />What else?","x: T<br />y: var20<br />Value: 4.55<br />What else?"],["x: A<br />y: var1<br />Value: 4.59<br />What else?","x: B<br />y: var2<br />Value: 4.43<br />What else?","x: C<br />y: var3<br />Value: 3.27<br />What else?","x: D<br />y: var4<br />Value: 1.25<br />What else?","x: E<br />y: var5<br />Value: 0.49<br />What else?","x: F<br />y: var6<br />Value: 3.98<br />What else?","x: G<br />y: var7<br />Value: 1.36<br />What else?","x: H<br />y: var8<br />Value: 2.89<br />What else?","x: I<br />y: var9<br />Value: 4.71<br />What else?","x: J<br />y: var10<br />Value: 0.04<br />What else?","x: K<br />y: var11<br />Value: 3.49<br />What else?","x: L<br />y: var12<br />Value: 2.17<br />What else?","x: M<br />y: var13<br />Value: 0.14<br />What else?","x: N<br />y: var14<br />Value: 2.95<br />What else?","x: O<br />y: var15<br />Value: 0.55<br />What else?","x: P<br />y: var16<br />Value: 4.37<br />What else?","x: Q<br />y: var17<br />Value: 3.52<br />What else?","x: R<br />y: var18<br />Value: 3.09<br />What else?","x: S<br />y: var19<br />Value: 4.06<br />What else?","x: T<br />y: var20<br />Value: 4.96<br />What else?"],["x: A<br />y: var1<br />Value: 4.4<br />What else?","x: B<br />y: var2<br />Value: 1.97<br />What else?","x: C<br />y: var3<br />Value: 0.92<br />What else?","x: D<br />y: var4<br />Value: 2.47<br />What else?","x: E<br />y: var5<br />Value: 0.84<br />What else?","x: F<br />y: var6<br />Value: 3.92<br />What else?","x: G<br />y: var7<br />Value: 4.98<br />What else?","x: H<br />y: var8<br />Value: 3.92<br />What else?","x: I<br />y: var9<br />Value: 4.16<br />What else?","x: J<br />y: var10<br />Value: 3.99<br />What else?","x: K<br />y: var11<br />Value: 3.21<br />What else?","x: L<br />y: var12<br />Value: 2.07<br />What else?","x: M<br />y: var13<br />Value: 4.18<br />What else?","x: N<br />y: var14<br />Value: 0.69<br />What else?","x: O<br />y: var15<br />Value: 2.08<br />What else?","x: P<br />y: var16<br />Value: 0.4<br />What else?","x: Q<br />y: var17<br />Value: 4.76<br />What else?","x: R<br />y: var18<br />Value: 4.34<br />What else?","x: S<br />y: var19<br />Value: 1.4<br />What else?","x: T<br />y: var20<br />Value: 3.54<br />What else?"],["x: A<br />y: var1<br />Value: 1.53<br />What else?","x: B<br />y: var2<br />Value: 3.73<br />What else?","x: C<br />y: var3<br />Value: 3.4<br />What else?","x: D<br />y: var4<br />Value: 4.26<br />What else?","x: E<br />y: var5<br />Value: 3.82<br />What else?","x: F<br />y: var6<br />Value: 4.81<br />What else?","x: G<br />y: var7<br />Value: 4.44<br />What else?","x: H<br />y: var8<br />Value: 0.82<br />What else?","x: I<br />y: var9<br />Value: 2.06<br />What else?","x: J<br />y: var10<br />Value: 2.25<br />What else?","x: K<br />y: var11<br />Value: 3.39<br />What else?","x: L<br />y: var12<br />Value: 1.23<br />What else?","x: M<br />y: var13<br />Value: 4.41<br />What else?","x: N<br />y: var14<br />Value: 1.28<br />What else?","x: O<br />y: var15<br />Value: 2.71<br />What else?","x: P<br />y: var16<br />Value: 0.77<br />What else?","x: Q<br />y: var17<br />Value: 3.87<br />What else?","x: R<br />y: var18<br />Value: 3.3<br />What else?","x: S<br />y: var19<br />Value: 3.18<br />What else?","x: T<br />y: var20<br />Value: 2.81<br />What else?"],["x: A<br />y: var1<br />Value: 3.29<br />What else?","x: B<br />y: var2<br />Value: 2.15<br />What else?","x: C<br />y: var3<br />Value: 4.36<br />What else?","x: D<br />y: var4<br />Value: 3.65<br />What else?","x: E<br />y: var5<br />Value: 4.4<br />What else?","x: F<br />y: var6<br />Value: 2.83<br />What else?","x: G<br />y: var7<br />Value: 0.67<br />What else?","x: H<br />y: var8<br />Value: 1.03<br />What else?","x: I<br />y: var9<br />Value: 3.51<br />What else?","x: J<br />y: var10<br />Value: 4.48<br />What else?","x: K<br />y: var11<br />Value: 1.16<br />What else?","x: L<br />y: var12<br />Value: 3.84<br />What else?","x: M<br />y: var13<br />Value: 4.77<br />What else?","x: N<br />y: var14<br />Value: 3.61<br />What else?","x: O<br />y: var15<br />Value: 2.28<br />What else?","x: P<br />y: var16<br />Value: 2.53<br />What else?","x: Q<br />y: var17<br />Value: 1.71<br />What else?","x: R<br />y: var18<br />Value: 1.59<br />What else?","x: S<br />y: var19<br />Value: 0.27<br />What else?","x: T<br />y: var20<br />Value: 0.46<br />What else?"],["x: A<br />y: var1<br />Value: 3.75<br />What else?","x: B<br />y: var2<br />Value: 0.58<br />What else?","x: C<br />y: var3<br />Value: 2.21<br />What else?","x: D<br />y: var4<br />Value: 1.38<br />What else?","x: E<br />y: var5<br />Value: 4.91<br />What else?","x: F<br />y: var6<br />Value: 2.04<br />What else?","x: G<br />y: var7<br />Value: 4.47<br />What else?","x: H<br />y: var8<br />Value: 0.37<br />What else?","x: I<br />y: var9<br />Value: 2.32<br />What else?","x: J<br />y: var10<br />Value: 0.97<br />What else?","x: K<br />y: var11<br />Value: 0.04<br />What else?","x: L<br />y: var12<br />Value: 3.44<br />What else?","x: M<br />y: var13<br />Value: 4.06<br />What else?","x: N<br />y: var14<br />Value: 2.85<br />What else?","x: O<br />y: var15<br />Value: 0.18<br />What else?","x: P<br />y: var16<br />Value: 1.4<br />What else?","x: Q<br />y: var17<br />Value: 0.67<br />What else?","x: R<br />y: var18<br />Value: 3.26<br />What else?","x: S<br />y: var19<br />Value: 2.55<br />What else?","x: T<br />y: var20<br />Value: 3.33<br />What else?"],["x: A<br />y: var1<br />Value: 2.56<br />What else?","x: B<br />y: var2<br />Value: 3.97<br />What else?","x: C<br />y: var3<br />Value: 1.75<br />What else?","x: D<br />y: var4<br />Value: 1.37<br />What else?","x: E<br />y: var5<br />Value: 1.9<br />What else?","x: F<br />y: var6<br />Value: 3.61<br />What else?","x: G<br />y: var7<br />Value: 4.33<br />What else?","x: H<br />y: var8<br />Value: 1.39<br />What else?","x: I<br />y: var9<br />Value: 0.64<br />What else?","x: J<br />y: var10<br />Value: 2.31<br />What else?","x: K<br />y: var11<br />Value: 2.38<br />What else?","x: L<br />y: var12<br />Value: 1.16<br />What else?","x: M<br />y: var13<br />Value: 4.88<br />What else?","x: N<br />y: var14<br />Value: 0.65<br />What else?","x: O<br />y: var15<br />Value: 3.86<br />What else?","x: P<br />y: var16<br />Value: 4.31<br />What else?","x: Q<br />y: var17<br />Value: 2.97<br />What else?","x: R<br />y: var18<br />Value: 3.65<br />What else?","x: S<br />y: var19<br />Value: 0.65<br />What else?","x: T<br />y: var20<br />Value: 0.53<br />What else?"],["x: A<br />y: var1<br />Value: 2.99<br />What else?","x: B<br />y: var2<br />Value: 1.58<br />What else?","x: C<br />y: var3<br />Value: 1.54<br />What else?","x: D<br />y: var4<br />Value: 0.13<br />What else?","x: E<br />y: var5<br />Value: 3.71<br />What else?","x: F<br />y: var6<br />Value: 2.28<br />What else?","x: G<br />y: var7<br />Value: 4.99<br />What else?","x: H<br />y: var8<br />Value: 4.18<br />What else?","x: I<br />y: var9<br />Value: 3.01<br />What else?","x: J<br />y: var10<br />Value: 3.49<br />What else?","x: K<br />y: var11<br />Value: 2.93<br />What else?","x: L<br />y: var12<br />Value: 2.03<br />What else?","x: M<br />y: var13<br />Value: 2.31<br />What else?","x: N<br />y: var14<br />Value: 0.05<br />What else?","x: O<br />y: var15<br />Value: 1.03<br />What else?","x: P<br />y: var16<br />Value: 2.66<br />What else?","x: Q<br />y: var17<br />Value: 2.65<br />What else?","x: R<br />y: var18<br />Value: 1.37<br />What else?","x: S<br />y: var19<br />Value: 0.37<br />What else?","x: T<br />y: var20<br />Value: 2.6<br />What else?"],["x: A<br />y: var1<br />Value: 3.06<br />What else?","x: B<br />y: var2<br />Value: 0.4<br />What else?","x: C<br />y: var3<br />Value: 4.67<br />What else?","x: D<br />y: var4<br />Value: 3.89<br />What else?","x: E<br />y: var5<br />Value: 0.83<br />What else?","x: F<br />y: var6<br />Value: 3.73<br />What else?","x: G<br />y: var7<br />Value: 2.89<br />What else?","x: H<br />y: var8<br />Value: 1.92<br />What else?","x: I<br />y: var9<br />Value: 1.24<br />What else?","x: J<br />y: var10<br />Value: 1.06<br />What else?","x: K<br />y: var11<br />Value: 2.16<br />What else?","x: L<br />y: var12<br />Value: 2.45<br />What else?","x: M<br />y: var13<br />Value: 1.18<br />What else?","x: N<br />y: var14<br />Value: 3.58<br />What else?","x: O<br />y: var15<br />Value: 4.31<br />What else?","x: P<br />y: var16<br />Value: 2.58<br />What else?","x: Q<br />y: var17<br />Value: 0.51<br />What else?","x: R<br />y: var18<br />Value: 4.33<br />What else?","x: S<br />y: var19<br />Value: 0.87<br />What else?","x: T<br />y: var20<br />Value: 0.54<br />What else?"],["x: A<br />y: var1<br />Value: 0.04<br />What else?","x: B<br />y: var2<br />Value: 4.05<br />What else?","x: C<br />y: var3<br />Value: 4.49<br />What else?","x: D<br />y: var4<br />Value: 0.94<br />What else?","x: E<br />y: var5<br />Value: 0<br />What else?","x: F<br />y: var6<br />Value: 2.32<br />What else?","x: G<br />y: var7<br />Value: 4.86<br />What else?","x: H<br />y: var8<br />Value: 3.47<br />What else?","x: I<br />y: var9<br />Value: 1.5<br />What else?","x: J<br />y: var10<br />Value: 3.96<br />What else?","x: K<br />y: var11<br />Value: 1.24<br />What else?","x: L<br />y: var12<br />Value: 4.08<br />What else?","x: M<br />y: var13<br />Value: 3.92<br />What else?","x: N<br />y: var14<br />Value: 4.94<br />What else?","x: O<br />y: var15<br />Value: 1.5<br />What else?","x: P<br />y: var16<br />Value: 0.82<br />What else?","x: Q<br />y: var17<br />Value: 4.91<br />What else?","x: R<br />y: var18<br />Value: 2.86<br />What else?","x: S<br />y: var19<br />Value: 4.39<br />What else?","x: T<br />y: var20<br />Value: 1.69<br />What else?"],["x: A<br />y: var1<br />Value: 1.13<br />What else?","x: B<br />y: var2<br />Value: 2.53<br />What else?","x: C<br />y: var3<br />Value: 1.38<br />What else?","x: D<br />y: var4<br />Value: 0.19<br />What else?","x: E<br />y: var5<br />Value: 4.34<br />What else?","x: F<br />y: var6<br />Value: 3.91<br />What else?","x: G<br />y: var7<br />Value: 3.88<br />What else?","x: H<br />y: var8<br />Value: 2.06<br />What else?","x: I<br />y: var9<br />Value: 0.34<br />What else?","x: J<br />y: var10<br />Value: 2.26<br />What else?","x: K<br />y: var11<br />Value: 1.11<br />What else?","x: L<br />y: var12<br />Value: 2.82<br />What else?","x: M<br />y: var13<br />Value: 3.33<br />What else?","x: N<br />y: var14<br />Value: 3.54<br />What else?","x: O<br />y: var15<br />Value: 2.03<br />What else?","x: P<br />y: var16<br />Value: 2.46<br />What else?","x: Q<br />y: var17<br />Value: 4.69<br />What else?","x: R<br />y: var18<br />Value: 3.3<br />What else?","x: S<br />y: var19<br />Value: 0.84<br />What else?","x: T<br />y: var20<br />Value: 4.69<br />What else?"],["x: A<br />y: var1<br />Value: 2.03<br />What else?","x: B<br />y: var2<br />Value: 2.56<br />What else?","x: C<br />y: var3<br />Value: 0.86<br />What else?","x: D<br />y: var4<br />Value: 4.21<br />What else?","x: E<br />y: var5<br />Value: 0.82<br />What else?","x: F<br />y: var6<br />Value: 2.51<br />What else?","x: G<br />y: var7<br />Value: 2.57<br />What else?","x: H<br />y: var8<br />Value: 2.3<br />What else?","x: I<br />y: var9<br />Value: 0.45<br />What else?","x: J<br />y: var10<br />Value: 3.99<br />What else?","x: K<br />y: var11<br />Value: 4.28<br />What else?","x: L<br />y: var12<br />Value: 0.29<br />What else?","x: M<br />y: var13<br />Value: 4.46<br />What else?","x: N<br />y: var14<br />Value: 4.88<br />What else?","x: O<br />y: var15<br />Value: 3.14<br />What else?","x: P<br />y: var16<br />Value: 4.76<br />What else?","x: Q<br />y: var17<br />Value: 1.69<br />What else?","x: R<br />y: var18<br />Value: 3.88<br />What else?","x: S<br />y: var19<br />Value: 0.46<br />What else?","x: T<br />y: var20<br />Value: 2.05<br />What else?"],["x: A<br />y: var1<br />Value: 3.88<br />What else?","x: B<br />y: var2<br />Value: 2.54<br />What else?","x: C<br />y: var3<br />Value: 2.27<br />What else?","x: D<br />y: var4<br />Value: 0.24<br />What else?","x: E<br />y: var5<br />Value: 2.34<br />What else?","x: F<br />y: var6<br />Value: 0.17<br />What else?","x: G<br />y: var7<br />Value: 2.52<br />What else?","x: H<br />y: var8<br />Value: 1.29<br />What else?","x: I<br />y: var9<br />Value: 4.23<br />What else?","x: J<br />y: var10<br />Value: 1.12<br />What else?","x: K<br />y: var11<br />Value: 0.62<br />What else?","x: L<br />y: var12<br />Value: 1.97<br />What else?","x: M<br />y: var13<br />Value: 2.96<br />What else?","x: N<br />y: var14<br />Value: 1.12<br />What else?","x: O<br />y: var15<br />Value: 3.02<br />What else?","x: P<br />y: var16<br />Value: 4.84<br />What else?","x: Q<br />y: var17<br />Value: 0.5<br />What else?","x: R<br />y: var18<br />Value: 3.68<br />What else?","x: S<br />y: var19<br />Value: 0.77<br />What else?","x: T<br />y: var20<br />Value: 1.21<br />What else?"],["x: A<br />y: var1<br />Value: 0.48<br />What else?","x: B<br />y: var2<br />Value: 0.71<br />What else?","x: C<br />y: var3<br />Value: 1.17<br />What else?","x: D<br />y: var4<br />Value: 1.53<br />What else?","x: E<br />y: var5<br />Value: 4.94<br />What else?","x: F<br />y: var6<br />Value: 1.73<br />What else?","x: G<br />y: var7<br />Value: 3.58<br />What else?","x: H<br />y: var8<br />Value: 3.65<br />What else?","x: I<br />y: var9<br />Value: 1.84<br />What else?","x: J<br />y: var10<br />Value: 1.1<br />What else?","x: K<br />y: var11<br />Value: 1.6<br />What else?","x: L<br />y: var12<br />Value: 0.18<br />What else?","x: M<br />y: var13<br />Value: 2.95<br />What else?","x: N<br />y: var14<br />Value: 3.52<br />What else?","x: O<br />y: var15<br />Value: 2.18<br />What else?","x: P<br />y: var16<br />Value: 3.56<br />What else?","x: Q<br />y: var17<br />Value: 1.06<br />What else?","x: R<br />y: var18<br />Value: 1.11<br />What else?","x: S<br />y: var19<br />Value: 2.55<br />What else?","x: T<br />y: var20<br />Value: 3.08<br />What else?"],["x: A<br />y: var1<br />Value: 0.28<br />What else?","x: B<br />y: var2<br />Value: 4.26<br />What else?","x: C<br />y: var3<br />Value: 0.63<br />What else?","x: D<br />y: var4<br />Value: 2.74<br />What else?","x: E<br />y: var5<br />Value: 0.71<br />What else?","x: F<br />y: var6<br />Value: 4.26<br />What else?","x: G<br />y: var7<br />Value: 2.15<br />What else?","x: H<br />y: var8<br />Value: 1.84<br />What else?","x: I<br />y: var9<br />Value: 2.36<br />What else?","x: J<br />y: var10<br />Value: 1.56<br />What else?","x: K<br />y: var11<br />Value: 1.58<br />What else?","x: L<br />y: var12<br />Value: 4.84<br />What else?","x: M<br />y: var13<br />Value: 4.05<br />What else?","x: N<br />y: var14<br />Value: 2.69<br />What else?","x: O<br />y: var15<br />Value: 2.6<br />What else?","x: P<br />y: var16<br />Value: 5<br />What else?","x: Q<br />y: var17<br />Value: 3.18<br />What else?","x: R<br />y: var18<br />Value: 3.21<br />What else?","x: S<br />y: var19<br />Value: 2.78<br />What else?","x: T<br />y: var20<br />Value: 4.15<br />What else?"],["x: A<br />y: var1<br />Value: 4.45<br />What else?","x: B<br />y: var2<br />Value: 2.38<br />What else?","x: C<br />y: var3<br />Value: 0.96<br />What else?","x: D<br />y: var4<br />Value: 1.03<br />What else?","x: E<br />y: var5<br />Value: 0.42<br />What else?","x: F<br />y: var6<br />Value: 2.64<br />What else?","x: G<br />y: var7<br />Value: 3.64<br />What else?","x: H<br />y: var8<br />Value: 3.33<br />What else?","x: I<br />y: var9<br />Value: 3.9<br />What else?","x: J<br />y: var10<br />Value: 0.47<br />What else?","x: K<br />y: var11<br />Value: 4.62<br />What else?","x: L<br />y: var12<br />Value: 0.23<br />What else?","x: M<br />y: var13<br />Value: 1.48<br />What else?","x: N<br />y: var14<br />Value: 4.18<br />What else?","x: O<br />y: var15<br />Value: 1.58<br />What else?","x: P<br />y: var16<br />Value: 3.47<br />What else?","x: Q<br />y: var17<br />Value: 0.56<br />What else?","x: R<br />y: var18<br />Value: 1.43<br />What else?","x: S<br />y: var19<br />Value: 4.84<br />What else?","x: T<br />y: var20<br />Value: 0.43<br />What else?"],["x: A<br />y: var1<br />Value: 4.79<br />What else?","x: B<br />y: var2<br />Value: 1.63<br />What else?","x: C<br />y: var3<br />Value: 0.64<br />What else?","x: D<br />y: var4<br />Value: 1.08<br />What else?","x: E<br />y: var5<br />Value: 1.86<br />What else?","x: F<br />y: var6<br />Value: 1.38<br />What else?","x: G<br />y: var7<br />Value: 0.31<br />What else?","x: H<br />y: var8<br />Value: 1.42<br />What else?","x: I<br />y: var9<br />Value: 0.07<br />What else?","x: J<br />y: var10<br />Value: 3.55<br />What else?","x: K<br />y: var11<br />Value: 0.82<br />What else?","x: L<br />y: var12<br />Value: 2.4<br />What else?","x: M<br />y: var13<br />Value: 1.81<br />What else?","x: N<br />y: var14<br />Value: 1.54<br />What else?","x: O<br />y: var15<br />Value: 3.26<br />What else?","x: P<br />y: var16<br />Value: 2.23<br />What else?","x: Q<br />y: var17<br />Value: 0.2<br />What else?","x: R<br />y: var18<br />Value: 4<br />What else?","x: S<br />y: var19<br />Value: 2.08<br />What else?","x: T<br />y: var20<br />Value: 4.5<br />What else?"]],"colorscale":[[0,"#132B43"],[0.0068810073553222774,"#132C44"],[0.0073704973534132667,"#132C44"],[0.0076974796327649144,"#132C44"],[0.0085821471739116039,"#142C44"],[0.01032544611413032,"#142C45"],[0.013826717636410763,"#142D45"],[0.013964254964219396,"#142D45"],[0.021646297508408373,"#142E46"],[0.022544810964220272,"#142E47"],[0.026919887331164644,"#152E47"],[0.02843080011946502,"#152E47"],[0.034029963408489509,"#152F48"],[0.036285410737816021,"#152F49"],[0.036731567098757745,"#152F49"],[0.038071240508323598,"#152F49"],[0.039197446711977585,"#153049"],[0.039237228388747387,"#153049"],[0.0436408932506481,"#16304A"],[0.043962703516089399,"#16304A"],[0.046353521037211763,"#16304A"],[0.048679845941414723,"#16314B"],[0.053075990457065826,"#16314B"],[0.055468553564906709,"#16324C"],[0.057118098544679995,"#16324C"],[0.061095493226020633,"#17324D"],[0.062627828869975338,"#17324D"],[0.068356890827276265,"#17334E"],[0.069049252471282838,"#17334E"],[0.073360991639014356,"#17344F"],[0.073853092680828,"#17344F"],[0.077265274301318784,"#18344F"],[0.079734895688550578,"#183450"],[0.080130683662932398,"#183450"],[0.083543817146387631,"#183550"],[0.085960019387829933,"#183551"],[0.090099283408564296,"#183651"],[0.091264472441430433,"#183652"],[0.092982170297078184,"#193652"],[0.094592240329595789,"#193652"],[0.095043922479794818,"#193652"],[0.098916985806906416,"#193753"],[0.099265923118783891,"#193753"],[0.10122765725828241,"#193753"],[0.1013593746439284,"#193753"],[0.10418348777901498,"#193754"],[0.1042344822012119,"#193754"],[0.10617951320685071,"#193854"],[0.10809547734059924,"#1A3854"],[0.11036518468108003,"#1A3855"],[0.1112713333029217,"#1A3855"],[0.11195096695304343,"#1A3855"],[0.1157095353957313,"#1A3956"],[0.12413128189867439,"#1B3A57"],[0.1262802500684726,"#1B3A57"],[0.12878284056981865,"#1B3A58"],[0.12900454918088347,"#1B3A58"],[0.12973981452833921,"#1B3A58"],[0.12979017848979602,"#1B3A58"],[0.13157518146472647,"#1B3B58"],[0.1342255864793552,"#1B3B59"],[0.13464334718667517,"#1B3B59"],[0.13524087747408425,"#1B3B59"],[0.13787821283028964,"#1B3B59"],[0.14130671213487106,"#1C3C5A"],[0.14217142036498506,"#1C3C5A"],[0.14398898301554394,"#1C3C5A"],[0.15321218299604572,"#1C3D5C"],[0.15366270017963155,"#1C3D5C"],[0.15667705804541943,"#1D3E5C"],[0.15672158319980042,"#1D3E5C"],[0.16308487887983145,"#1D3F5D"],[0.1639297032585654,"#1D3F5D"],[0.164051115743618,"#1D3F5E"],[0.16446595751320042,"#1D3F5E"],[0.1660259833561844,"#1D3F5E"],[0.16740374199773586,"#1D3F5E"],[0.16889822391246659,"#1D3F5E"],[0.17252401527376873,"#1E405F"],[0.17328021788003983,"#1E405F"],[0.17897250723067143,"#1E4160"],[0.18358872912464866,"#1E4161"],[0.18759063957580266,"#1E4261"],[0.19156169168701584,"#1F4262"],[0.19439772814592557,"#1F4263"],[0.20481630754156804,"#204464"],[0.20497294291560816,"#204464"],[0.20524024872050234,"#204464"],[0.20556537431975794,"#204464"],[0.20578588815298873,"#204464"],[0.21138498553126722,"#204565"],[0.21142241514929516,"#204565"],[0.21197829846253233,"#204566"],[0.21675279325159277,"#204566"],[0.2197796531981078,"#204667"],[0.22128591310696019,"#214667"],[0.22150325460707654,"#214667"],[0.22309533519813651,"#214667"],[0.22466043360666144,"#214668"],[0.22540275350004163,"#214668"],[0.23158041354358874,"#214769"],[0.2318722206784862,"#214769"],[0.23459624077650232,"#214769"],[0.23581652397312722,"#21486A"],[0.24137474527677194,"#22486B"],[0.2463670205827552,"#22496B"],[0.24727262351951593,"#22496C"],[0.24756099724021668,"#22496C"],[0.24936150717377181,"#22496C"],[0.25666057567762385,"#234A6D"],[0.25808068069253537,"#234A6D"],[0.26518711374551718,"#234B6F"],[0.27254493876818447,"#244C70"],[0.27342624532708504,"#244C70"],[0.27492984248837871,"#244D70"],[0.2754632905289548,"#244D70"],[0.27554950690853858,"#244D70"],[0.27613243808215671,"#244D70"],[0.27845397851831982,"#244D71"],[0.28068703156541391,"#244D71"],[0.28098659753632743,"#244D71"],[0.28449921222812602,"#254E72"],[0.28592122725727087,"#254E72"],[0.29166436011079405,"#254F73"],[0.29176653480951764,"#254F73"],[0.29537486657723205,"#254F74"],[0.29986693801184539,"#265075"],[0.3000468585112398,"#265075"],[0.30606521181588203,"#265176"],[0.30680694293765121,"#265176"],[0.30856400581167792,"#265176"],[0.30869351227608061,"#265176"],[0.31292679296864379,"#265177"],[0.31575957604518246,"#275277"],[0.31649245300147094,"#275277"],[0.31697080385058618,"#275277"],[0.31717700946232907,"#275278"],[0.31972662926060413,"#275278"],[0.32258688710352174,"#275378"],[0.32601682689560868,"#275379"],[0.32925833508476005,"#27547A"],[0.33439448772677755,"#28547B"],[0.33708435977005646,"#28557B"],[0.33781648492462019,"#28557B"],[0.34203686527717819,"#28557C"],[0.34628663693155298,"#29567D"],[0.35050137248287061,"#29567D"],[0.36283704068714673,"#2A587F"],[0.36322531832998589,"#2A5880"],[0.36708579247170958,"#2A5880"],[0.36790419339539854,"#2A5980"],[0.36888416135407015,"#2A5981"],[0.3690876068659863,"#2A5981"],[0.36959782940364977,"#2A5981"],[0.37234976188745028,"#2A5981"],[0.37995498044981185,"#2B5A82"],[0.38411932013235045,"#2B5B83"],[0.39383341473182371,"#2C5C85"],[0.39445420219656757,"#2C5C85"],[0.40520012323651255,"#2C5D87"],[0.40674568108849707,"#2D5E87"],[0.40694661663536119,"#2D5E87"],[0.40727573018410057,"#2D5E87"],[0.40948853512396033,"#2D5E88"],[0.41197062878069846,"#2D5E88"],[0.41244958912953916,"#2D5E88"],[0.41427491178061499,"#2D5F89"],[0.41573833948636812,"#2D5F89"],[0.41617168750286893,"#2D5F89"],[0.42956576420767251,"#2E618B"],[0.43032119917500772,"#2E618B"],[0.43214058846154169,"#2E618C"],[0.43352349629278758,"#2E618C"],[0.43517881370309031,"#2E618C"],[0.43579553077169281,"#2E628C"],[0.44159788641015674,"#2F628D"],[0.44336898943758424,"#2F638E"],[0.44553485847348018,"#2F638E"],[0.45064208118890303,"#2F648F"],[0.45088590413620488,"#2F648F"],[0.45262603633291304,"#30648F"],[0.45427381127145078,"#306490"],[0.45575544687901404,"#306490"],[0.45592439987685257,"#306490"],[0.45629997956992785,"#306490"],[0.45994373708267139,"#306591"],[0.46235874361467899,"#306591"],[0.46244032504812732,"#306591"],[0.46331670483698872,"#306591"],[0.46339770192392915,"#306591"],[0.46853622642120241,"#316692"],[0.47284772523596613,"#316693"],[0.47703129548492867,"#316794"],[0.47707249925009115,"#316794"],[0.47929606324586138,"#316794"],[0.48077432925387248,"#316894"],[0.48964311108297087,"#326996"],[0.49140613433795827,"#326996"],[0.49233092032950981,"#326997"],[0.49512573998084791,"#326997"],[0.49977913297367266,"#336A98"],[0.50203485279618942,"#336A98"],[0.5033291633094894,"#336B99"],[0.50669167128460524,"#336B99"],[0.50687665200583198,"#336B99"],[0.50754100996719043,"#336B99"],[0.50937039835640441,"#336B9A"],[0.51043346649048449,"#336C9A"],[0.51129382763906395,"#346C9A"],[0.51286349275397669,"#346C9A"],[0.51324121908785048,"#346C9A"],[0.51560463543904533,"#346C9B"],[0.5198912817103607,"#346D9C"],[0.52034017068890992,"#346D9C"],[0.52842385165956463,"#356E9D"],[0.5304958188434119,"#356E9D"],[0.53211239703807256,"#356E9E"],[0.53330346616990443,"#356F9E"],[0.53900974723070305,"#356F9F"],[0.541565531197581,"#3670A0"],[0.54751036933300556,"#3671A1"],[0.55586773035310411,"#3772A2"],[0.5599778723046096,"#3772A3"],[0.56034470752818089,"#3772A3"],[0.56119361161906267,"#3772A3"],[0.56436374149798796,"#3773A4"],[0.56523268525045867,"#3773A4"],[0.57088165237604893,"#3874A5"],[0.57242225481127429,"#3874A5"],[0.57567621989852125,"#3874A6"],[0.57840771865365792,"#3875A6"],[0.5786112526676358,"#3875A6"],[0.57893371319033105,"#3875A6"],[0.58416008460122626,"#3976A7"],[0.58528065974474952,"#3976A8"],[0.58672448866892157,"#3976A8"],[0.59003212373543312,"#3976A8"],[0.59040330487603798,"#3976A8"],[0.59216962110642413,"#3977A9"],[0.59434173326407802,"#3977A9"],[0.59910780731486035,"#3A78AA"],[0.60161914973851571,"#3A78AB"],[0.60478121451771116,"#3A78AB"],[0.61316393883131459,"#3A7AAD"],[0.61629799783176054,"#3B7AAD"],[0.61749753218580161,"#3B7AAD"],[0.62088293447979892,"#3B7BAE"],[0.62721989776874842,"#3B7CAF"],[0.63543696508761416,"#3C7DB1"],[0.63605847943376548,"#3C7DB1"],[0.64222088428376356,"#3C7EB2"],[0.64271001817750606,"#3D7EB2"],[0.65198108706002289,"#3D7FB4"],[0.65238708700783321,"#3D7FB4"],[0.65331576755590348,"#3D7FB4"],[0.65875500482449079,"#3E80B5"],[0.65985316286156559,"#3E80B5"],[0.66103801705255905,"#3E80B6"],[0.66570741890385887,"#3E81B6"],[0.66606701139817426,"#3E81B7"],[0.66628820203927752,"#3E81B7"],[0.67845857866917103,"#3F83B9"],[0.68067171875236465,"#3F83B9"],[0.68845091327037111,"#4084BB"],[0.69172680520922414,"#4085BB"],[0.69419709362252158,"#4085BC"],[0.6942120271809461,"#4085BC"],[0.69779512444894543,"#4085BD"],[0.6983025892157837,"#4085BD"],[0.70253502168595483,"#4186BD"],[0.70341707468987646,"#4186BE"],[0.70518963893292397,"#4186BE"],[0.70831152680377363,"#4187BF"],[0.70899257345918176,"#4187BF"],[0.70953773102123174,"#4187BF"],[0.71212192531444174,"#4187BF"],[0.71595721922218825,"#4288C0"],[0.71599302179968038,"#4288C0"],[0.72169766999743923,"#4289C1"],[0.72310135438638823,"#4289C1"],[0.72608387526575213,"#4289C2"],[0.72757327995693866,"#428AC2"],[0.72759933100462382,"#428AC2"],[0.73024114037295229,"#438AC3"],[0.73109104640033351,"#438AC3"],[0.73109143790550679,"#438AC3"],[0.73675323014434979,"#438BC4"],[0.73935369740481915,"#438BC4"],[0.74121111160219666,"#438CC5"],[0.7423399512079889,"#438CC5"],[0.74574852427336069,"#448CC6"],[0.74694587122907485,"#448CC6"],[0.74954381501628276,"#448DC6"],[0.74974096290780279,"#448DC6"],[0.75201236156926421,"#448DC7"],[0.75409063848431601,"#448DC7"],[0.76343376038882993,"#458FC9"],[0.76804554646631074,"#458FCA"],[0.77292479672079628,"#4690CB"],[0.77490638629785502,"#4690CB"],[0.77626196981622697,"#4690CB"],[0.77651745291016827,"#4691CB"],[0.7766615445143521,"#4691CB"],[0.77701861167220465,"#4691CC"],[0.77834650336124622,"#4691CC"],[0.7807137749088322,"#4691CC"],[0.78262305783561692,"#4691CD"],[0.7837939778427836,"#4692CD"],[0.7842432920970297,"#4692CD"],[0.78462662643391823,"#4692CD"],[0.79284822249644527,"#4793CF"],[0.79380570976692411,"#4793CF"],[0.79648366570628493,"#4793CF"],[0.79807984743630767,"#4794D0"],[0.79901243232270336,"#4794D0"],[0.80052180191452649,"#4894D0"],[0.80527754497989723,"#4895D1"],[0.80928675405634598,"#4895D2"],[0.80946681056943537,"#4895D2"],[0.81240368418143505,"#4896D2"],[0.81301122847713436,"#4896D2"],[0.81550053854540994,"#4996D3"],[0.82594145819044718,"#4998D5"],[0.82976992113642523,"#4A98D6"],[0.83276585217425025,"#4A99D6"],[0.83542292581923405,"#4A99D7"],[0.83549506943939422,"#4A99D7"],[0.83664327748850675,"#4A99D7"],[0.84178052825479088,"#4B9AD8"],[0.84614064078628959,"#4B9BD9"],[0.85109435434655467,"#4B9BDA"],[0.85151188378401321,"#4B9BDA"],[0.8517503453695725,"#4B9BDA"],[0.85224863084230318,"#4B9BDA"],[0.85703676752548641,"#4C9CDB"],[0.86065962294733911,"#4C9DDC"],[0.86197871892884081,"#4C9DDC"],[0.86286559878863189,"#4C9DDC"],[0.86666361679245774,"#4C9DDD"],[0.8671679036365777,"#4C9EDD"],[0.86780157839891758,"#4C9EDD"],[0.86920970931777053,"#4D9EDD"],[0.86994761598597004,"#4D9EDD"],[0.87233991987592996,"#4D9EDE"],[0.87242648863345973,"#4D9EDE"],[0.87338247905459376,"#4D9EDE"],[0.87493948371666885,"#4D9FDE"],[0.87834797037608026,"#4D9FDF"],[0.880396570453716,"#4D9FE0"],[0.88049340638201279,"#4D9FE0"],[0.88097967793275722,"#4DA0E0"],[0.88152627411911144,"#4DA0E0"],[0.8860689747884668,"#4EA0E1"],[0.88861472821114296,"#4EA1E1"],[0.88912607309468983,"#4EA1E1"],[0.89031351503938982,"#4EA1E1"],[0.89210813842133574,"#4EA1E2"],[0.89453000176702979,"#4EA2E2"],[0.8961869394637636,"#4EA2E3"],[0.89881348967924046,"#4FA2E3"],[0.89925922821729043,"#4FA2E3"],[0.90073413440755623,"#4FA2E3"],[0.90591570258127641,"#4FA3E4"],[0.90717268781582128,"#4FA3E5"],[0.9072473041370076,"#4FA3E5"],[0.90975294865818557,"#4FA4E5"],[0.91082221077208947,"#50A4E5"],[0.91901652304637094,"#50A5E7"],[0.92521851370410213,"#51A6E8"],[0.93308009222951704,"#51A7EA"],[0.93319537944029396,"#51A7EA"],[0.93524566175580393,"#51A7EA"],[0.93829448954435368,"#51A8EB"],[0.9388459389042958,"#52A8EB"],[0.94011781693973673,"#52A8EB"],[0.94206033891192409,"#52A8EC"],[0.95207817934152872,"#53AAEE"],[0.95226432176876641,"#53AAEE"],[0.95302671649165993,"#53AAEE"],[0.95358586250327459,"#53AAEE"],[0.95454347763594272,"#53AAEE"],[0.95828659967404817,"#53ABEF"],[0.96190632934281894,"#53ABEF"],[0.96750221665815661,"#54ACF1"],[0.96916627667476218,"#54ACF1"],[0.96920399392449086,"#54ACF1"],[0.97250692091421598,"#54ADF2"],[0.9759877249373089,"#54ADF2"],[0.97643260966336298,"#54AEF2"],[0.98199605724665595,"#55AEF3"],[0.98246197285739068,"#55AEF4"],[0.98518271931072166,"#55AFF4"],[0.98854420648442487,"#55AFF5"],[0.98915978373963176,"#55AFF5"],[0.99043040621029621,"#55B0F5"],[0.99316393422454941,"#55B0F6"],[0.99678067974353712,"#56B1F6"],[0.99788674148052914,"#56B1F7"],[0.99897630946090765,"#56B1F7"],[1,"#56B1F7"]],"type":"heatmap","showscale":false,"autocolorscale":false,"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[1],"name":"46eac89ecd37856b2349e4d2b0929032","type":"scatter","mode":"markers","opacity":0,"hoverinfo":"skip","showlegend":false,"marker":{"color":[0,1],"colorscale":[[0,"#132B43"],[0.0033444816053511705,"#132B44"],[0.006688963210702341,"#132C44"],[0.01003344481605351,"#142C45"],[0.013377926421404682,"#142D45"],[0.016722408026755852,"#142D46"],[0.02006688963210702,"#142D46"],[0.023411371237458192,"#142E47"],[0.026755852842809364,"#152E47"],[0.030100334448160532,"#152F48"],[0.033444816053511704,"#152F48"],[0.036789297658862873,"#152F49"],[0.040133779264214041,"#153049"],[0.043478260869565216,"#16304A"],[0.046822742474916385,"#16304A"],[0.050167224080267553,"#16314B"],[0.053511705685618728,"#16314B"],[0.056856187290969896,"#16324C"],[0.060200668896321065,"#17324D"],[0.06354515050167224,"#17324D"],[0.066889632107023408,"#17334E"],[0.070234113712374577,"#17334E"],[0.073578595317725745,"#17344F"],[0.076923076923076913,"#18344F"],[0.080267558528428082,"#183450"],[0.083612040133779264,"#183550"],[0.086956521739130432,"#183551"],[0.090301003344481601,"#183651"],[0.093645484949832769,"#193652"],[0.096989966555183937,"#193652"],[0.10033444816053511,"#193753"],[0.10367892976588627,"#193754"],[0.10702341137123746,"#193854"],[0.11036789297658862,"#1A3855"],[0.11371237458193979,"#1A3955"],[0.11705685618729096,"#1A3956"],[0.12040133779264213,"#1A3956"],[0.12374581939799331,"#1A3A57"],[0.12709030100334448,"#1B3A57"],[0.13043478260869565,"#1B3B58"],[0.13377926421404682,"#1B3B59"],[0.13712374581939799,"#1B3B59"],[0.14046822742474915,"#1C3C5A"],[0.14381270903010032,"#1C3C5A"],[0.14715719063545149,"#1C3D5B"],[0.15050167224080266,"#1C3D5B"],[0.15384615384615383,"#1C3D5C"],[0.157190635451505,"#1D3E5C"],[0.16053511705685616,"#1D3E5D"],[0.16387959866220733,"#1D3F5D"],[0.16722408026755853,"#1D3F5E"],[0.1705685618729097,"#1D3F5F"],[0.17391304347826086,"#1E405F"],[0.17725752508361203,"#1E4060"],[0.1806020066889632,"#1E4160"],[0.18394648829431437,"#1E4161"],[0.18729096989966554,"#1E4261"],[0.19063545150501671,"#1F4262"],[0.19397993311036787,"#1F4263"],[0.19732441471571904,"#1F4363"],[0.20066889632107021,"#1F4364"],[0.20401337792642141,"#1F4464"],[0.20735785953177255,"#204465"],[0.21070234113712374,"#204465"],[0.21404682274247491,"#204566"],[0.21739130434782605,"#204566"],[0.22073578595317725,"#214667"],[0.22408026755852839,"#214668"],[0.22742474916387959,"#214768"],[0.23076923076923073,"#214769"],[0.23411371237458192,"#214769"],[0.23745819397993309,"#22486A"],[0.24080267558528426,"#22486A"],[0.24414715719063543,"#22496B"],[0.24749163879598662,"#22496C"],[0.25083612040133779,"#224A6C"],[0.25418060200668896,"#234A6D"],[0.25752508361204013,"#234A6D"],[0.2608695652173913,"#234B6E"],[0.26421404682274247,"#234B6E"],[0.26755852842809363,"#244C6F"],[0.2709030100334448,"#244C70"],[0.27424749163879597,"#244C70"],[0.27759197324414714,"#244D71"],[0.28093645484949831,"#244D71"],[0.28428093645484948,"#254E72"],[0.28762541806020064,"#254E72"],[0.29096989966555181,"#254F73"],[0.29431438127090298,"#254F74"],[0.29765886287625415,"#254F74"],[0.30100334448160532,"#265075"],[0.30434782608695649,"#265075"],[0.30769230769230765,"#265176"],[0.31103678929765888,"#265176"],[0.31438127090300999,"#275277"],[0.31772575250836121,"#275278"],[0.32107023411371233,"#275278"],[0.3244147157190635,"#275379"],[0.32775919732441466,"#275379"],[0.33110367892976583,"#28547A"],[0.33444816053511706,"#28547B"],[0.33779264214046817,"#28557B"],[0.34113712374581939,"#28557C"],[0.34448160535117051,"#28567C"],[0.34782608695652173,"#29567D"],[0.3511705685618729,"#29567D"],[0.35451505016722407,"#29577E"],[0.35785953177257523,"#29577F"],[0.3612040133779264,"#2A587F"],[0.36454849498327757,"#2A5880"],[0.36789297658862874,"#2A5980"],[0.37123745819397991,"#2A5981"],[0.37458193979933108,"#2A5982"],[0.37792642140468224,"#2B5A82"],[0.38127090301003341,"#2B5A83"],[0.38461538461538458,"#2B5B83"],[0.38795986622073575,"#2B5B84"],[0.39130434782608692,"#2C5C85"],[0.39464882943143809,"#2C5C85"],[0.39799331103678925,"#2C5D86"],[0.40133779264214042,"#2C5D86"],[0.40468227424749159,"#2C5D87"],[0.40802675585284282,"#2D5E87"],[0.41137123745819398,"#2D5E88"],[0.4147157190635451,"#2D5F89"],[0.41806020066889626,"#2D5F89"],[0.42140468227424749,"#2E608A"],[0.42474916387959866,"#2E608A"],[0.42809364548494983,"#2E618B"],[0.43143812709030094,"#2E618C"],[0.43478260869565211,"#2E618C"],[0.43812709030100333,"#2F628D"],[0.4414715719063545,"#2F628D"],[0.44481605351170561,"#2F638E"],[0.44816053511705678,"#2F638F"],[0.451505016722408,"#30648F"],[0.45484949832775917,"#306490"],[0.45819397993311034,"#306590"],[0.46153846153846145,"#306591"],[0.46488294314381273,"#306592"],[0.46822742474916385,"#316692"],[0.47157190635451501,"#316693"],[0.47491638795986618,"#316793"],[0.47826086956521741,"#316794"],[0.48160535117056852,"#326895"],[0.48494983277591969,"#326895"],[0.48829431438127086,"#326996"],[0.49163879598662197,"#326996"],[0.49498327759197325,"#326997"],[0.49832775919732436,"#336A98"],[0.50167224080267558,"#336A98"],[0.50501672240802664,"#336B99"],[0.50836120401337792,"#336B99"],[0.51170568561872909,"#346C9A"],[0.51505016722408026,"#346C9B"],[0.51839464882943131,"#346D9B"],[0.52173913043478259,"#346D9C"],[0.52508361204013376,"#346E9D"],[0.52842809364548493,"#356E9D"],[0.5317725752508361,"#356E9E"],[0.53511705685618727,"#356F9E"],[0.53846153846153844,"#356F9F"],[0.5418060200668896,"#3670A0"],[0.54515050167224077,"#3670A0"],[0.54849498327759194,"#3671A1"],[0.55183946488294311,"#3671A1"],[0.55518394648829428,"#3772A2"],[0.55852842809364545,"#3772A3"],[0.56187290969899661,"#3773A3"],[0.56521739130434778,"#3773A4"],[0.56856187290969895,"#3773A4"],[0.57190635451505012,"#3874A5"],[0.57525083612040129,"#3874A6"],[0.57859531772575246,"#3875A6"],[0.58193979933110362,"#3875A7"],[0.58528428093645479,"#3976A8"],[0.58862876254180596,"#3976A8"],[0.59197324414715713,"#3977A9"],[0.5953177257525083,"#3977A9"],[0.59866220735785947,"#3978AA"],[0.60200668896321063,"#3A78AB"],[0.6053511705685618,"#3A79AB"],[0.60869565217391297,"#3A79AC"],[0.61204013377926414,"#3A79AC"],[0.61538461538461531,"#3B7AAD"],[0.61872909698996648,"#3B7AAE"],[0.62207357859531776,"#3B7BAE"],[0.62541806020066881,"#3B7BAF"],[0.62876254180601998,"#3C7CB0"],[0.63210702341137115,"#3C7CB0"],[0.63545150501672243,"#3C7DB1"],[0.6387959866220736,"#3C7DB1"],[0.64214046822742465,"#3C7EB2"],[0.64548494983277582,"#3D7EB3"],[0.64882943143812699,"#3D7FB3"],[0.65217391304347827,"#3D7FB4"],[0.65551839464882933,"#3D7FB5"],[0.6588628762541805,"#3E80B5"],[0.66220735785953166,"#3E80B6"],[0.66555183946488294,"#3E81B6"],[0.66889632107023411,"#3E81B7"],[0.67224080267558517,"#3F82B8"],[0.67558528428093634,"#3F82B8"],[0.67892976588628762,"#3F83B9"],[0.68227424749163879,"#3F83BA"],[0.68561872909698995,"#4084BA"],[0.68896321070234101,"#4084BB"],[0.69230769230769229,"#4085BB"],[0.69565217391304346,"#4085BC"],[0.69899665551839463,"#4086BD"],[0.7023411371237458,"#4186BD"],[0.70568561872909685,"#4186BE"],[0.70903010033444813,"#4187BF"],[0.7123745819397993,"#4187BF"],[0.71571906354515047,"#4288C0"],[0.71906354515050153,"#4288C1"],[0.72240802675585281,"#4289C1"],[0.72575250836120397,"#4289C2"],[0.72909698996655514,"#438AC2"],[0.73244147157190631,"#438AC3"],[0.73578595317725748,"#438BC4"],[0.73913043478260865,"#438BC4"],[0.74247491638795982,"#438CC5"],[0.74581939799331098,"#448CC6"],[0.74916387959866215,"#448DC6"],[0.75250836120401332,"#448DC7"],[0.75585284280936449,"#448EC8"],[0.75919732441471566,"#458EC8"],[0.76254180602006683,"#458FC9"],[0.76588628762541799,"#458FC9"],[0.76923076923076916,"#458FCA"],[0.77257525083612033,"#4690CB"],[0.7759197324414715,"#4690CB"],[0.77926421404682267,"#4691CC"],[0.78260869565217384,"#4691CD"],[0.785953177257525,"#4792CD"],[0.78929765886287617,"#4792CE"],[0.79264214046822745,"#4793CF"],[0.79598662207357851,"#4793CF"],[0.79933110367892968,"#4894D0"],[0.80267558528428085,"#4894D0"],[0.80602006688963213,"#4895D1"],[0.80936454849498318,"#4895D2"],[0.81270903010033435,"#4896D2"],[0.81605351170568563,"#4996D3"],[0.81939799331103669,"#4997D4"],[0.82274247491638797,"#4997D4"],[0.82608695652173902,"#4998D5"],[0.82943143812709019,"#4A98D6"],[0.83277591973244147,"#4A99D6"],[0.83612040133779253,"#4A99D7"],[0.83946488294314381,"#4A9AD8"],[0.84280936454849498,"#4B9AD8"],[0.84615384615384603,"#4B9BD9"],[0.84949832775919731,"#4B9BDA"],[0.85284280936454837,"#4B9BDA"],[0.85618729096989965,"#4C9CDB"],[0.85953177257525082,"#4C9CDB"],[0.86287625418060188,"#4C9DDC"],[0.86622073578595316,"#4C9DDD"],[0.86956521739130421,"#4D9EDD"],[0.87290969899665538,"#4D9EDE"],[0.87625418060200666,"#4D9FDF"],[0.87959866220735772,"#4D9FDF"],[0.882943143812709,"#4DA0E0"],[0.88628762541806017,"#4EA0E1"],[0.88963210702341122,"#4EA1E1"],[0.8929765886287625,"#4EA1E2"],[0.89632107023411356,"#4EA2E3"],[0.89966555183946484,"#4FA2E3"],[0.90301003344481601,"#4FA3E4"],[0.90635451505016706,"#4FA3E5"],[0.90969899665551834,"#4FA4E5"],[0.9130434782608694,"#50A4E6"],[0.91638795986622068,"#50A5E7"],[0.91973244147157185,"#50A5E7"],[0.92307692307692291,"#50A6E8"],[0.92642140468227419,"#51A6E8"],[0.92976588628762546,"#51A7E9"],[0.93311036789297652,"#51A7EA"],[0.93645484949832769,"#51A8EA"],[0.93979933110367875,"#52A8EB"],[0.94314381270903003,"#52A9EC"],[0.94648829431438131,"#52A9EC"],[0.94983277591973236,"#52AAED"],[0.95317725752508353,"#53AAEE"],[0.95652173913043481,"#53ABEE"],[0.95986622073578587,"#53ABEF"],[0.96321070234113704,"#53ACF0"],[0.96655518394648809,"#54ACF0"],[0.96989966555183937,"#54ADF1"],[0.97324414715719065,"#54ADF2"],[0.97658862876254171,"#54AEF2"],[0.97993311036789288,"#55AEF3"],[0.98327759197324394,"#55AFF4"],[0.98662207357859522,"#55AFF4"],[0.98996655518394649,"#55B0F5"],[0.99331103678929755,"#56B0F6"],[0.99665551839464872,"#56B1F6"],[1,"#56B1F7"]],"colorbar":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"thickness":23.039999999999996,"title":"Z","titlefont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.276048152760483},"tickmode":"array","ticktext":["1","2","3","4"],"tickvals":[0.2010419542929234,0.40043480487230737,0.59982765545169137,0.79922050603107531],"tickfont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.220838522208389},"ticklen":2,"len":0.5}},"xaxis":"x","yaxis":"y","frame":null}],"layout":{"margin":{"t":71.790784557907841,"r":39.850560398505614,"b":86.841012868410132,"l":93.814860938148641},"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.276048152760483},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,20.600000000000001],"tickmode":"array","ticktext":["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"],"tickvals":[1,2,3,4.0000000000000009,5,6.0000000000000009,7,8,9,10,11,12.000000000000002,13,14.000000000000002,15,16,17,18,19,20],"categoryorder":"array","categoryarray":["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":{"text":"X","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,20.600000000000001],"tickmode":"array","ticktext":["var1","var2","var3","var4","var5","var6","var7","var8","var9","var10","var11","var12","var13","var14","var15","var16","var17","var18","var19","var20"],"tickvals":[1,2,3,4.0000000000000009,5,6.0000000000000009,7,8,9,10,11,12.000000000000002,13,14.000000000000002,15,16,17,18,19,20],"categoryorder":"array","categoryarray":["var1","var2","var3","var4","var5","var6","var7","var8","var9","var10","var11","var12","var13","var14","var15","var16","var17","var18","var19","var20"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"Y","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.220838522208389},"title":{"text":"Z","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.276048152760483}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"3adcac06b7d":{"x":{},"y":{},"fill":{},"text":{},"type":"heatmap"}},"cur_data":"3adcac06b7d","visdat":{"3adcac06b7d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>plotly 交互式热力图</p>
+</div>
+</div>
+</section>
+</section>
+<section id="interactive" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="interactive"><span class="header-section-number">8.4</span> Interactive</h2>
+<p>见 <a href="https://www.data-to-viz.com/graph/heatmap.html">heatmap</a>, `有以下几种方式：</p>
+<ul>
+<li><p>plotly: 如前所述。</p></li>
+<li><p>d3heatmap: 用 Base R 的 <code>heatmap()</code> 相同的函数语法制作交互式热图。</p></li>
+<li><p>heatmaply: 最灵活的选项，允许多种不同的自定义。</p></li>
+</ul>
+</section>
+<section id="time-series" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="time-series"><span class="header-section-number">8.5</span> Time series</h2>
+<p>热力图在可视化时间序列方面是一个非常不错的选择，特别是研究的时间框架是重复的，比如周。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 时间序列热力图</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. 加载所需的R包 ---</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr)         # 用于更方便的数据处理</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridis)       # 提供对色盲友好的调色板</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># library(Interpol.T)    # 用于加载数据集</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 用于方便地处理日期和时间</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggExtra)       # 提供额外的主题功能，如removeGrid()</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyr)         # 用于数据整理，如此处的fill()</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 2. 加载和初步处理数据 ---</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># data &lt;- data(Trentino_hourly_T, package = "Interpol.T")</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # 重命名数据框的前5个列名，使其更具可读性</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># names(h_d_t)[1:5] &lt;- c("stationid", "date", "hour", "temp", "flag")</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- tbl_df(h_d_t) %&gt;%</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(stationid == "T0001")</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;% mutate(</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   year = year(date),</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   month = month(date, label = TRUE),</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   day = day(date)</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># df$date &lt;- ymd(df$date)</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 3. 清理工作环境 ---</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(list = c(</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="co">#   "h_d_t", "mo_bias", "Tn", "Tx",</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Th_int_list", "calibration_l",</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co">#   "calibration_shape", "Tm_list"</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ))</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 4. 创建用于绘图的最终数据框 ---</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="co"># # 选择绘图所需的列，并填充缺失的温度值</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;%</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(stationid, day, hour, month, year, temp) %&gt;%</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="co">#   fill(temp) # 使用前一个非缺失值来填充NA</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="co"># # 填充缺失值(NA)的注意事项：</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这段代码是为了演示可视化技术。</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co"># # 数据集中有5个缺失的小时温度值。</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="co"># # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co"># # 或者使用更专业的插补方法来处理缺失值。</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="co"># # 获取当前正在分析的气象站ID，用于图表标题</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="co"># statno &lt;- unique(df$stationid)</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="co"># ######## 绘图部分开始 #####################</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 5. 使用ggplot2创建图表 ---</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="co"># # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- ggplot(df, aes(day, hour, fill = temp)) +</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_tile(color = "white", size = 0.1) +</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_fill_viridis(name = "Hourly Temps C", option = "C")</span></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="co"># # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + facet_grid(year ~ month)</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="co"># # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="co"># # 自定义x轴（天）的刻度，使其更清晰</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_x_continuous(breaks = c(1, 10, 20, 31))</span></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 6. 精细调整图表主题和标签 ---</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应用一个简洁的主题，并设置基础字体大小</span></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme_minimal(base_size = 8)</span></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="co"># # 添加图表标题和坐标轴标签</span></span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")</span></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="co"># # 对图表的各种视觉元素进行精细调整</span></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme(legend.position = "bottom") + # 将图例置于底部</span></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小</span></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小</span></span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景</span></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐</span></span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线</span></span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小</span></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小</span></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小</span></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="co">#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 7. 显示图表 ---</span></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="co"># # 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="co"># # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="co"># p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><a href="https://r-graph-gallery.com/283-the-hourly-heatmap.html">这段代码</a> 生成了时间序列热力图。显示了气象站的每小时温度变化。</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./image/hourly-heatmap.png" class="img-fluid figure-img"></p>
+<figcaption>时间序列热力图</figcaption>
+</figure>
+</div>
+</section>
+<section id="levelplot" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="levelplot"><span class="header-section-number">8.6</span> <code>levelplot()</code></h2>
+<section id="基础-2" class="level3" data-number="8.6.1">
+<h3 data-number="8.6.1" class="anchored" data-anchor-id="基础-2"><span class="header-section-number">8.6.1</span> 基础</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建示例数据</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># levelplot() 绘制基础热力图</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(Z <span class="sc">~</span> X <span class="sc">*</span> Y, <span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>levelplot() 基础热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="povit" class="level3" data-number="8.6.2">
+<h3 data-number="8.6.2" class="anchored" data-anchor-id="povit"><span class="header-section-number">8.6.2</span> povit</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造一个 10x10 的随机矩阵作为示例数据</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># 设置列名为 a~j</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"row"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># 设置行名为 row 1 ~ row 10</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 levelplot() 绘制热力图</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>levelplot() 宽数据透视热力图示例</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="翻转" class="level3" data-number="8.6.3">
+<h3 data-number="8.6.3" class="anchored" data-anchor-id="翻转"><span class="header-section-number">8.6.3</span> 翻转</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造一个 10x10 的随机矩阵作为示例数据</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> letters[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)] <span class="co"># 设置列名为 a~j</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">"row"</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">sep =</span> <span class="st">" "</span>) <span class="co"># 设置行名为 row 1 ~ row 10</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 翻转行顺序并转置矩阵，使热图的 y 轴从上到下递增</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># t() 转置，data[nrow(data):1, ] 反转行顺序</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>(data[<span class="fu">nrow</span>(data)<span class="sc">:</span><span class="dv">1</span>, ]),         <span class="co"># 翻转并转置数据</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.regions =</span> <span class="fu">heat.colors</span>(<span class="dv">100</span>)   <span class="co"># 使用 heat.colors 调色板</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>翻转 levelplot 热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="颜色-1" class="level3" data-number="8.6.4">
+<h3 data-number="8.6.4" class="anchored" data-anchor-id="颜色-1"><span class="header-section-number">8.6.4</span> 颜色</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1: R自带调色板</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> <span class="fu">terrain.colors</span>(<span class="dv">100</span>)) <span class="co"># 使用 terrain.colors() 原生调色板，可尝试 cm.colors() 或 terrain.colors()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同颜色的 levelplot() 热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2: RColorBrewer 调色板</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(RColorBrewer)</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"PiYG"</span>))(<span class="dv">25</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> coul) <span class="co"># 使用 RColorBrewer 的 PiYG 调色板</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同颜色的 levelplot() 热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3: Viridis 渐变色</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridisLite)</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">viridis</span>(<span class="dv">100</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> coul) <span class="co"># 使用 viridis 渐变色</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同颜色的 levelplot() 热力图</figcaption>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> <span class="fu">magma</span>(<span class="dv">100</span>)) <span class="co"># 使用 magma 渐变色</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-16-4.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>不同颜色的 levelplot() 热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="平滑" class="level3" data-number="8.6.5">
+<h3 data-number="8.6.5" class="anchored" data-anchor-id="平滑"><span class="header-section-number">8.6.5</span> 平滑</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载 latticeExtra 包以获得 panel.2dsmoother</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(latticeExtra)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建示例数据</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>z <span class="ot">&lt;-</span> <span class="fu">with</span>(data, x <span class="sc">*</span> y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 levelplot 绘制散点热力图，并叠加平滑层</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span> x <span class="sc">*</span> y,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  data,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel =</span> panel.levelplot.points, <span class="co"># 显示数据点</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 叠加二维平滑层，n 控制平滑网格的分辨率</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_</span>(<span class="fu">panel.2dsmoother</span>(..., <span class="at">n =</span> <span class="dv">200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="heatmap_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>平滑的 levelplot() 热力图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pearl" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="pearl"><span class="header-section-number">8.7</span> Pearl</h2>
+<p>这是一个非常优秀的数据可视化作品，利用 R 语言的 ggplot2 包将美国各州从1928年到2011年的麻疹发病率数据绘制成了热图。</p>
+<p>代码通过逐层叠加，精细地控制了图表的每一个细节，从而清晰地讲述了“<strong>疫苗引入后麻疹病例急剧下降</strong>”这一核心故事。</p>
+<p>见 <a href="https://r-graph-gallery.com/vaccination-heatmap.html">vaccination-heatmap</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./image/morbilli.png" class="img-fluid figure-img"></p>
+<figcaption>麻疹疫苗接种带来的影响</figcaption>
+</figure>
+</div>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -759,9 +1482,473 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Heatmap {#sec-heatmap}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>1</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Heatmap {#sec-heatmap}</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>热图是一种数据图形表示，其中矩阵中包含的各个值以颜色形式呈现。</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## PKG</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要的R包</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes) <span class="co"># 美化主题</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis) <span class="co"># 渐变色</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly) <span class="co"># 交互式图形</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice) <span class="co"># 另一种绘图系统</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer) <span class="co"># 调色板</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridisLite) <span class="co"># 调色板</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(latticeExtra) <span class="co"># 扩展lattice功能</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## `heatmap()`</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="in">`heatmap()`</span> 是Base R 的函数，带有聚类功能，胜出一筹。</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="fu">### 基础</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 基础热力图</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(mtcars)</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>所有的变化都被 hp 和 disp 这两个与其他变量相比具有非常高的值的变量所吸收。我们需要对数据进行标准化。</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: scale="column"对列进行标化</span></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>)</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>解读：</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>行 (Rows)：右侧的标签（Toyota Corona, Porsche 914-2 等）代表了 mtcars 数据集中的32款不同汽车；</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>列 (Columns)：底部的标签（cyl, am, mpg, hp 等）代表了汽车的11个性能指标。</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>浅黄色代表较低的数值，深红色代表较高的数值。</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>在树状图上彼此靠近的汽车，意味着它们的各项性能指标综合来看更加相似。</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>例如: 请看图的底部，Maserati Bora、Chrysler Imperial 和 Cadillac Fleetwood 被紧密地聚在一起。这说明它们在整体性能上非常相似（通常是大排量、高马力、高油耗、车身重）。</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>相对地，图顶部的 Toyota Corona、Datsun 710 等车也聚在一起，它们通常是性能相反的另一类车（小排量、低油耗）。</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="fu">### 不聚类</span></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>刚才的图由于聚类而重新排序，可以指定不排序。</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 不聚类的热力图</span></span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">Colv =</span> <span class="cn">NA</span>, <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="at">scale=</span><span class="st">"column"</span>)</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a><span class="fu">### 配色</span></span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 不同配色的热力图</span></span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 自带调色板</span></span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> <span class="fu">cm.colors</span>(<span class="dv">256</span>))</span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> <span class="fu">terrain.colors</span>(<span class="dv">256</span>))</span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a><span class="co"># RColorBrewer 调色板</span></span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要library(RColorBrewer)</span></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"PiYG"</span>))(<span class="dv">25</span>)</span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(data, <span class="at">scale=</span><span class="st">"column"</span>, <span class="at">col =</span> coul)</span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a><span class="fu">### 布局</span></span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-92"><a href="#cb26-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 热力图布局示例</span></span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用自定义调色板，去除聚类，添加坐标轴和标题</span></span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a>    <span class="at">Colv =</span> <span class="cn">NA</span>, <span class="co"># 不对列进行聚类</span></span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rowv =</span> <span class="cn">NA</span>, <span class="co"># 不对行进行聚类</span></span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>, <span class="co"># 对列进行标准化</span></span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> coul, <span class="co"># 使用自定义调色板</span></span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"variable"</span>, <span class="co"># x轴标签</span></span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"car"</span>,      <span class="co"># y轴标签</span></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">"heatmap"</span>   <span class="co"># 图标题</span></span>
+<span id="cb26-105"><a href="#cb26-105" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-106"><a href="#cb26-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改行标签字号和内容，使用蓝色调色板</span></span>
+<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>, <span class="co"># 对列进行标准化</span></span>
+<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">cexRow =</span> <span class="fl">1.5</span>, <span class="co"># 行标签字号</span></span>
+<span id="cb26-112"><a href="#cb26-112" aria-hidden="true" tabindex="-1"></a>    <span class="at">labRow =</span> <span class="fu">paste</span>(<span class="st">"new_"</span>, <span class="fu">rownames</span>(data), <span class="at">sep =</span> <span class="st">""</span>), <span class="co"># 修改行标签内容</span></span>
+<span id="cb26-113"><a href="#cb26-113" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Blues"</span>))(<span class="dv">25</span>) <span class="co"># 使用蓝色调色板</span></span>
+<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-115"><a href="#cb26-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-116"><a href="#cb26-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a><span class="fu">### 颜色条</span></span>
+<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 左侧添加颜色条</span></span>
+<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a><span class="co"># 按行名首字母分组</span></span>
+<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a>my_group <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(<span class="fu">substr</span>(<span class="fu">rownames</span>(data), <span class="dv">1</span>, <span class="dv">1</span>)))</span>
+<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a><span class="co"># 为每组分配颜色</span></span>
+<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a>colSide <span class="ot">&lt;-</span> <span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"Set1"</span>)[my_group]</span>
+<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成主热图颜色</span></span>
+<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a>colMain <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"Blues"</span>))(<span class="dv">25</span>)</span>
+<span id="cb26-131"><a href="#cb26-131" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制带有颜色条的热力图</span></span>
+<span id="cb26-132"><a href="#cb26-132" aria-hidden="true" tabindex="-1"></a><span class="fu">heatmap</span>(</span>
+<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a>    data,</span>
+<span id="cb26-134"><a href="#cb26-134" aria-hidden="true" tabindex="-1"></a>    <span class="at">Colv =</span> <span class="cn">NA</span>,         <span class="co"># 不对列聚类</span></span>
+<span id="cb26-135"><a href="#cb26-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">Rowv =</span> <span class="cn">NA</span>,         <span class="co"># 不对行聚类</span></span>
+<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="st">"column"</span>,  <span class="co"># 对列标准化</span></span>
+<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a>    <span class="at">RowSideColors =</span> colSide, <span class="co"># 行侧颜色条</span></span>
+<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> colMain      <span class="co"># 主热图颜色</span></span>
+<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-140"><a href="#cb26-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-141"><a href="#cb26-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-142"><a href="#cb26-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-143"><a href="#cb26-143" aria-hidden="true" tabindex="-1"></a><span class="fu">## `geom_tile()`</span></span>
+<span id="cb26-144"><a href="#cb26-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-145"><a href="#cb26-145" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_tile()`</span> 是源于 <span class="in">`ggplot2`</span> 的瓦片函数，适用于绘制热图。</span>
+<span id="cb26-146"><a href="#cb26-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-147"><a href="#cb26-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### 基础</span></span>
+<span id="cb26-148"><a href="#cb26-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-151"><a href="#cb26-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-152"><a href="#cb26-152" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: geom_tile() 基础热力图</span></span>
+<span id="cb26-153"><a href="#cb26-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-154"><a href="#cb26-154" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb26-155"><a href="#cb26-155" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># X轴标签，A到T</span></span>
+<span id="cb26-156"><a href="#cb26-156" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)) <span class="co"># Y轴标签，var1到var20</span></span>
+<span id="cb26-157"><a href="#cb26-157" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y) <span class="co"># 生成所有组合</span></span>
+<span id="cb26-158"><a href="#cb26-158" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># 生成均匀分布随机数，runif(n, min, max)</span></span>
+<span id="cb26-159"><a href="#cb26-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-160"><a href="#cb26-160" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制热图</span></span>
+<span id="cb26-161"><a href="#cb26-161" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z)) <span class="sc">+</span></span>
+<span id="cb26-162"><a href="#cb26-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="co"># 用颜色填充瓦片</span></span>
+<span id="cb26-163"><a href="#cb26-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-164"><a href="#cb26-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-165"><a href="#cb26-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### 颜色</span></span>
+<span id="cb26-166"><a href="#cb26-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-169"><a href="#cb26-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-170"><a href="#cb26-170" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 不同配色的 geom_tile() 热力图</span></span>
+<span id="cb26-171"><a href="#cb26-171" aria-hidden="true" tabindex="-1"></a><span class="co"># scale_fill_gradient 线性，灵活，但需自己选色。</span></span>
+<span id="cb26-172"><a href="#cb26-172" aria-hidden="true" tabindex="-1"></a><span class="co"># scale_fill_viridis 自动、专业且色盲友好，推荐用于科学数据可视化。</span></span>
+<span id="cb26-173"><a href="#cb26-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-174"><a href="#cb26-174" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb26-175"><a href="#cb26-175" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb26-176"><a href="#cb26-176" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>))</span>
+<span id="cb26-177"><a href="#cb26-177" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X=</span>x, <span class="at">Y=</span>y)</span>
+<span id="cb26-178"><a href="#cb26-178" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb26-179"><a href="#cb26-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-180"><a href="#cb26-180" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 使用蓝色渐变色</span></span>
+<span id="cb26-181"><a href="#cb26-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb26-182"><a href="#cb26-182" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb26-183"><a href="#cb26-183" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">"white"</span>, <span class="at">high=</span><span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># 渐变色从白到蓝</span></span>
+<span id="cb26-184"><a href="#cb26-184" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb26-185"><a href="#cb26-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-186"><a href="#cb26-186" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 使用 RColorBrewer 的 RdPu 调色板</span></span>
+<span id="cb26-187"><a href="#cb26-187" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb26-188"><a href="#cb26-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb26-189"><a href="#cb26-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"RdPu"</span>) <span class="sc">+</span> <span class="co"># 使用 RdPu 调色板</span></span>
+<span id="cb26-190"><a href="#cb26-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb26-191"><a href="#cb26-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-192"><a href="#cb26-192" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 使用 viridis 包的配色</span></span>
+<span id="cb26-193"><a href="#cb26-193" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill=</span> Z)) <span class="sc">+</span> </span>
+<span id="cb26-194"><a href="#cb26-194" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb26-195"><a href="#cb26-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">FALSE</span>) <span class="sc">+</span> <span class="co"># 使用 viridis 渐变色</span></span>
+<span id="cb26-196"><a href="#cb26-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb26-197"><a href="#cb26-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-198"><a href="#cb26-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-199"><a href="#cb26-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### pivot </span></span>
+<span id="cb26-200"><a href="#cb26-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-203"><a href="#cb26-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-204"><a href="#cb26-204" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: volcano 热力图</span></span>
+<span id="cb26-205"><a href="#cb26-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-206"><a href="#cb26-206" aria-hidden="true" tabindex="-1"></a><span class="co"># volcano 数据集是 R 自带的地形高度矩阵</span></span>
+<span id="cb26-207"><a href="#cb26-207" aria-hidden="true" tabindex="-1"></a>volcano <span class="sc">|&gt;</span></span>
+<span id="cb26-208"><a href="#cb26-208" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> <span class="co"># 转为 tibble 数据框</span></span>
+<span id="cb26-209"><a href="#cb26-209" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">"X"</span>) <span class="sc">|&gt;</span> <span class="co"># 添加行号作为 X 坐标</span></span>
+<span id="cb26-210"><a href="#cb26-210" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb26-211"><a href="#cb26-211" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="sc">!</span>X, <span class="co"># 除 X 外的所有列</span></span>
+<span id="cb26-212"><a href="#cb26-212" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"Y"</span>, <span class="co"># 列名作为 Y 坐标</span></span>
+<span id="cb26-213"><a href="#cb26-213" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"Z"</span> <span class="co"># 值作为高度</span></span>
+<span id="cb26-214"><a href="#cb26-214" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb26-215"><a href="#cb26-215" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Y =</span> <span class="fu">as.numeric</span>(<span class="fu">gsub</span>(<span class="st">"V"</span>, <span class="st">""</span>, Y))) <span class="sc">|&gt;</span> <span class="co"># Y 坐标转为数值型</span></span>
+<span id="cb26-216"><a href="#cb26-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-217"><a href="#cb26-217" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 可视化</span></span>
+<span id="cb26-218"><a href="#cb26-218" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z)) <span class="sc">+</span></span>
+<span id="cb26-219"><a href="#cb26-219" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_tile</span>() <span class="sc">+</span> <span class="co"># 用颜色填充瓦片</span></span>
+<span id="cb26-220"><a href="#cb26-220" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_ipsum</span>() <span class="sc">+</span> <span class="co"># 美化主题</span></span>
+<span id="cb26-221"><a href="#cb26-221" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="co"># 去除图例</span></span>
+<span id="cb26-222"><a href="#cb26-222" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-223"><a href="#cb26-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-224"><a href="#cb26-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-225"><a href="#cb26-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### plotly</span></span>
+<span id="cb26-226"><a href="#cb26-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-229"><a href="#cb26-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-230"><a href="#cb26-230" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: plotly 交互式热力图</span></span>
+<span id="cb26-231"><a href="#cb26-231" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb26-232"><a href="#cb26-232" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="co"># X轴标签，A到T</span></span>
+<span id="cb26-233"><a href="#cb26-233" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"var"</span>, <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">20</span>)) <span class="co"># Y轴标签，var1到var20</span></span>
+<span id="cb26-234"><a href="#cb26-234" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y) <span class="co"># 生成所有组合</span></span>
+<span id="cb26-235"><a href="#cb26-235" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>) <span class="co"># 生成均匀分布随机数</span></span>
+<span id="cb26-236"><a href="#cb26-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-237"><a href="#cb26-237" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加自定义文本用于交互式提示</span></span>
+<span id="cb26-238"><a href="#cb26-238" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb26-239"><a href="#cb26-239" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb26-240"><a href="#cb26-240" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">paste0</span>(</span>
+<span id="cb26-241"><a href="#cb26-241" aria-hidden="true" tabindex="-1"></a>            <span class="st">"x: "</span>, x, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb26-242"><a href="#cb26-242" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y: "</span>, y, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb26-243"><a href="#cb26-243" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Value: "</span>, <span class="fu">round</span>(Z, <span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb26-244"><a href="#cb26-244" aria-hidden="true" tabindex="-1"></a>            <span class="st">"What else?"</span></span>
+<span id="cb26-245"><a href="#cb26-245" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-246"><a href="#cb26-246" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-247"><a href="#cb26-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-248"><a href="#cb26-248" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用ggplot2绘制热图，并将text映射到交互式提示</span></span>
+<span id="cb26-249"><a href="#cb26-249" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(X, Y, <span class="at">fill =</span> Z, <span class="at">text =</span> text)) <span class="sc">+</span></span>
+<span id="cb26-250"><a href="#cb26-250" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb26-251"><a href="#cb26-251" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb26-252"><a href="#cb26-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-253"><a href="#cb26-253" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用plotly实现交互式热图，显示自定义tooltip（悬浮提示）</span></span>
+<span id="cb26-254"><a href="#cb26-254" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p, <span class="at">tooltip =</span> <span class="st">"text"</span>)</span>
+<span id="cb26-255"><a href="#cb26-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-256"><a href="#cb26-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-257"><a href="#cb26-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-258"><a href="#cb26-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-259"><a href="#cb26-259" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interactive</span></span>
+<span id="cb26-260"><a href="#cb26-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-261"><a href="#cb26-261" aria-hidden="true" tabindex="-1"></a>见 <span class="co">[</span><span class="ot">heatmap</span><span class="co">](https://www.data-to-viz.com/graph/heatmap.html)</span>, `有以下几种方式：</span>
+<span id="cb26-262"><a href="#cb26-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-263"><a href="#cb26-263" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>plotly: 如前所述。</span>
+<span id="cb26-264"><a href="#cb26-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-265"><a href="#cb26-265" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d3heatmap: 用 Base R 的 <span class="in">`heatmap()`</span> 相同的函数语法制作交互式热图。</span>
+<span id="cb26-266"><a href="#cb26-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-267"><a href="#cb26-267" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>heatmaply: 最灵活的选项，允许多种不同的自定义。</span>
+<span id="cb26-268"><a href="#cb26-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-269"><a href="#cb26-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-270"><a href="#cb26-270" aria-hidden="true" tabindex="-1"></a><span class="fu">## Time series</span></span>
+<span id="cb26-271"><a href="#cb26-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-272"><a href="#cb26-272" aria-hidden="true" tabindex="-1"></a>热力图在可视化时间序列方面是一个非常不错的选择，特别是研究的时间框架是重复的，比如周。</span>
+<span id="cb26-273"><a href="#cb26-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-276"><a href="#cb26-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a><span class="co"># 时间序列热力图</span></span>
+<span id="cb26-278"><a href="#cb26-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-280"><a href="#cb26-280" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. 加载所需的R包 ---</span></span>
+<span id="cb26-281"><a href="#cb26-281" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
+<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr)         # 用于更方便的数据处理</span></span>
+<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridis)       # 提供对色盲友好的调色板</span></span>
+<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a><span class="co"># library(Interpol.T)    # 用于加载数据集</span></span>
+<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 用于方便地处理日期和时间</span></span>
+<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggExtra)       # 提供额外的主题功能，如removeGrid()</span></span>
+<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyr)         # 用于数据整理，如此处的fill()</span></span>
+<span id="cb26-288"><a href="#cb26-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-289"><a href="#cb26-289" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 2. 加载和初步处理数据 ---</span></span>
+<span id="cb26-290"><a href="#cb26-290" aria-hidden="true" tabindex="-1"></a><span class="co"># # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
+<span id="cb26-291"><a href="#cb26-291" aria-hidden="true" tabindex="-1"></a><span class="co"># data &lt;- data(Trentino_hourly_T, package = "Interpol.T")</span></span>
+<span id="cb26-292"><a href="#cb26-292" aria-hidden="true" tabindex="-1"></a><span class="co"># # 重命名数据框的前5个列名，使其更具可读性</span></span>
+<span id="cb26-293"><a href="#cb26-293" aria-hidden="true" tabindex="-1"></a><span class="co"># names(h_d_t)[1:5] &lt;- c("stationid", "date", "hour", "temp", "flag")</span></span>
+<span id="cb26-294"><a href="#cb26-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-295"><a href="#cb26-295" aria-hidden="true" tabindex="-1"></a><span class="co"># # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
+<span id="cb26-296"><a href="#cb26-296" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- tbl_df(h_d_t) %&gt;%</span></span>
+<span id="cb26-297"><a href="#cb26-297" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(stationid == "T0001")</span></span>
+<span id="cb26-298"><a href="#cb26-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-299"><a href="#cb26-299" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
+<span id="cb26-300"><a href="#cb26-300" aria-hidden="true" tabindex="-1"></a><span class="co"># # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
+<span id="cb26-301"><a href="#cb26-301" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;% mutate(</span></span>
+<span id="cb26-302"><a href="#cb26-302" aria-hidden="true" tabindex="-1"></a><span class="co">#   year = year(date),</span></span>
+<span id="cb26-303"><a href="#cb26-303" aria-hidden="true" tabindex="-1"></a><span class="co">#   month = month(date, label = TRUE),</span></span>
+<span id="cb26-304"><a href="#cb26-304" aria-hidden="true" tabindex="-1"></a><span class="co">#   day = day(date)</span></span>
+<span id="cb26-305"><a href="#cb26-305" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb26-306"><a href="#cb26-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-307"><a href="#cb26-307" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
+<span id="cb26-308"><a href="#cb26-308" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
+<span id="cb26-309"><a href="#cb26-309" aria-hidden="true" tabindex="-1"></a><span class="co"># df$date &lt;- ymd(df$date)</span></span>
+<span id="cb26-310"><a href="#cb26-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-311"><a href="#cb26-311" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 3. 清理工作环境 ---</span></span>
+<span id="cb26-312"><a href="#cb26-312" aria-hidden="true" tabindex="-1"></a><span class="co"># # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
+<span id="cb26-313"><a href="#cb26-313" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(list = c(</span></span>
+<span id="cb26-314"><a href="#cb26-314" aria-hidden="true" tabindex="-1"></a><span class="co">#   "h_d_t", "mo_bias", "Tn", "Tx",</span></span>
+<span id="cb26-315"><a href="#cb26-315" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Th_int_list", "calibration_l",</span></span>
+<span id="cb26-316"><a href="#cb26-316" aria-hidden="true" tabindex="-1"></a><span class="co">#   "calibration_shape", "Tm_list"</span></span>
+<span id="cb26-317"><a href="#cb26-317" aria-hidden="true" tabindex="-1"></a><span class="co"># ))</span></span>
+<span id="cb26-318"><a href="#cb26-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-319"><a href="#cb26-319" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 4. 创建用于绘图的最终数据框 ---</span></span>
+<span id="cb26-320"><a href="#cb26-320" aria-hidden="true" tabindex="-1"></a><span class="co"># # 选择绘图所需的列，并填充缺失的温度值</span></span>
+<span id="cb26-321"><a href="#cb26-321" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;%</span></span>
+<span id="cb26-322"><a href="#cb26-322" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(stationid, day, hour, month, year, temp) %&gt;%</span></span>
+<span id="cb26-323"><a href="#cb26-323" aria-hidden="true" tabindex="-1"></a><span class="co">#   fill(temp) # 使用前一个非缺失值来填充NA</span></span>
+<span id="cb26-324"><a href="#cb26-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-325"><a href="#cb26-325" aria-hidden="true" tabindex="-1"></a><span class="co"># # 填充缺失值(NA)的注意事项：</span></span>
+<span id="cb26-326"><a href="#cb26-326" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这段代码是为了演示可视化技术。</span></span>
+<span id="cb26-327"><a href="#cb26-327" aria-hidden="true" tabindex="-1"></a><span class="co"># # 数据集中有5个缺失的小时温度值。</span></span>
+<span id="cb26-328"><a href="#cb26-328" aria-hidden="true" tabindex="-1"></a><span class="co"># # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
+<span id="cb26-329"><a href="#cb26-329" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
+<span id="cb26-330"><a href="#cb26-330" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
+<span id="cb26-331"><a href="#cb26-331" aria-hidden="true" tabindex="-1"></a><span class="co"># # 或者使用更专业的插补方法来处理缺失值。</span></span>
+<span id="cb26-332"><a href="#cb26-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-333"><a href="#cb26-333" aria-hidden="true" tabindex="-1"></a><span class="co"># # 获取当前正在分析的气象站ID，用于图表标题</span></span>
+<span id="cb26-334"><a href="#cb26-334" aria-hidden="true" tabindex="-1"></a><span class="co"># statno &lt;- unique(df$stationid)</span></span>
+<span id="cb26-335"><a href="#cb26-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-336"><a href="#cb26-336" aria-hidden="true" tabindex="-1"></a><span class="co"># ######## 绘图部分开始 #####################</span></span>
+<span id="cb26-337"><a href="#cb26-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-338"><a href="#cb26-338" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 5. 使用ggplot2创建图表 ---</span></span>
+<span id="cb26-339"><a href="#cb26-339" aria-hidden="true" tabindex="-1"></a><span class="co"># # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
+<span id="cb26-340"><a href="#cb26-340" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- ggplot(df, aes(day, hour, fill = temp)) +</span></span>
+<span id="cb26-341"><a href="#cb26-341" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
+<span id="cb26-342"><a href="#cb26-342" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_tile(color = "white", size = 0.1) +</span></span>
+<span id="cb26-343"><a href="#cb26-343" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
+<span id="cb26-344"><a href="#cb26-344" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_fill_viridis(name = "Hourly Temps C", option = "C")</span></span>
+<span id="cb26-345"><a href="#cb26-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-346"><a href="#cb26-346" aria-hidden="true" tabindex="-1"></a><span class="co"># # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
+<span id="cb26-347"><a href="#cb26-347" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + facet_grid(year ~ month)</span></span>
+<span id="cb26-348"><a href="#cb26-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-349"><a href="#cb26-349" aria-hidden="true" tabindex="-1"></a><span class="co"># # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
+<span id="cb26-350"><a href="#cb26-350" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))</span></span>
+<span id="cb26-351"><a href="#cb26-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-352"><a href="#cb26-352" aria-hidden="true" tabindex="-1"></a><span class="co"># # 自定义x轴（天）的刻度，使其更清晰</span></span>
+<span id="cb26-353"><a href="#cb26-353" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_x_continuous(breaks = c(1, 10, 20, 31))</span></span>
+<span id="cb26-354"><a href="#cb26-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-355"><a href="#cb26-355" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 6. 精细调整图表主题和标签 ---</span></span>
+<span id="cb26-356"><a href="#cb26-356" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应用一个简洁的主题，并设置基础字体大小</span></span>
+<span id="cb26-357"><a href="#cb26-357" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme_minimal(base_size = 8)</span></span>
+<span id="cb26-358"><a href="#cb26-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-359"><a href="#cb26-359" aria-hidden="true" tabindex="-1"></a><span class="co"># # 添加图表标题和坐标轴标签</span></span>
+<span id="cb26-360"><a href="#cb26-360" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")</span></span>
+<span id="cb26-361"><a href="#cb26-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-362"><a href="#cb26-362" aria-hidden="true" tabindex="-1"></a><span class="co"># # 对图表的各种视觉元素进行精细调整</span></span>
+<span id="cb26-363"><a href="#cb26-363" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme(legend.position = "bottom") + # 将图例置于底部</span></span>
+<span id="cb26-364"><a href="#cb26-364" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小</span></span>
+<span id="cb26-365"><a href="#cb26-365" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小</span></span>
+<span id="cb26-366"><a href="#cb26-366" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景</span></span>
+<span id="cb26-367"><a href="#cb26-367" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐</span></span>
+<span id="cb26-368"><a href="#cb26-368" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线</span></span>
+<span id="cb26-369"><a href="#cb26-369" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小</span></span>
+<span id="cb26-370"><a href="#cb26-370" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小</span></span>
+<span id="cb26-371"><a href="#cb26-371" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小</span></span>
+<span id="cb26-372"><a href="#cb26-372" aria-hidden="true" tabindex="-1"></a><span class="co">#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
+<span id="cb26-373"><a href="#cb26-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-374"><a href="#cb26-374" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 7. 显示图表 ---</span></span>
+<span id="cb26-375"><a href="#cb26-375" aria-hidden="true" tabindex="-1"></a><span class="co"># # 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
+<span id="cb26-376"><a href="#cb26-376" aria-hidden="true" tabindex="-1"></a><span class="co"># # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
+<span id="cb26-377"><a href="#cb26-377" aria-hidden="true" tabindex="-1"></a><span class="co"># p</span></span>
+<span id="cb26-378"><a href="#cb26-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-379"><a href="#cb26-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-380"><a href="#cb26-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-381"><a href="#cb26-381" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">这段代码</span><span class="co">](https://r-graph-gallery.com/283-the-hourly-heatmap.html)</span> 生成了时间序列热力图。显示了气象站的每小时温度变化。</span>
+<span id="cb26-382"><a href="#cb26-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-383"><a href="#cb26-383" aria-hidden="true" tabindex="-1"></a><span class="al">![时间序列热力图](./image/hourly-heatmap.png)</span></span>
+<span id="cb26-384"><a href="#cb26-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-385"><a href="#cb26-385" aria-hidden="true" tabindex="-1"></a><span class="fu">## `levelplot()`</span></span>
+<span id="cb26-386"><a href="#cb26-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-387"><a href="#cb26-387" aria-hidden="true" tabindex="-1"></a><span class="fu">### 基础</span></span>
+<span id="cb26-388"><a href="#cb26-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-391"><a href="#cb26-391" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-392"><a href="#cb26-392" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: levelplot() 基础热力图</span></span>
+<span id="cb26-393"><a href="#cb26-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-394"><a href="#cb26-394" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建示例数据</span></span>
+<span id="cb26-395"><a href="#cb26-395" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
+<span id="cb26-396"><a href="#cb26-396" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="at">length.out =</span> <span class="dv">20</span>)</span>
+<span id="cb26-397"><a href="#cb26-397" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X =</span> x, <span class="at">Y =</span> y)</span>
+<span id="cb26-398"><a href="#cb26-398" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Z <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">400</span>, <span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb26-399"><a href="#cb26-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-400"><a href="#cb26-400" aria-hidden="true" tabindex="-1"></a><span class="co"># levelplot() 绘制基础热力图</span></span>
+<span id="cb26-401"><a href="#cb26-401" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(Z <span class="sc">~</span> X <span class="sc">*</span> Y, <span class="at">data =</span> data)</span>
+<span id="cb26-402"><a href="#cb26-402" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-403"><a href="#cb26-403" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-404"><a href="#cb26-404" aria-hidden="true" tabindex="-1"></a><span class="fu">### povit</span></span>
+<span id="cb26-405"><a href="#cb26-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-408"><a href="#cb26-408" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-409"><a href="#cb26-409" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: levelplot() 宽数据透视热力图示例</span></span>
+<span id="cb26-410"><a href="#cb26-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-411"><a href="#cb26-411" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造一个 10x10 的随机矩阵作为示例数据</span></span>
+<span id="cb26-412"><a href="#cb26-412" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb26-413"><a href="#cb26-413" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># 设置列名为 a~j</span></span>
+<span id="cb26-414"><a href="#cb26-414" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"row"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># 设置行名为 row 1 ~ row 10</span></span>
+<span id="cb26-415"><a href="#cb26-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-416"><a href="#cb26-416" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 levelplot() 绘制热力图</span></span>
+<span id="cb26-417"><a href="#cb26-417" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(data)</span>
+<span id="cb26-418"><a href="#cb26-418" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-419"><a href="#cb26-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-420"><a href="#cb26-420" aria-hidden="true" tabindex="-1"></a><span class="fu">### 翻转</span></span>
+<span id="cb26-421"><a href="#cb26-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-424"><a href="#cb26-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-425"><a href="#cb26-425" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 翻转 levelplot 热力图</span></span>
+<span id="cb26-426"><a href="#cb26-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-427"><a href="#cb26-427" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造一个 10x10 的随机矩阵作为示例数据</span></span>
+<span id="cb26-428"><a href="#cb26-428" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">5</span>), <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb26-429"><a href="#cb26-429" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> letters[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)] <span class="co"># 设置列名为 a~j</span></span>
+<span id="cb26-430"><a href="#cb26-430" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">rep</span>(<span class="st">"row"</span>, <span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>), <span class="at">sep =</span> <span class="st">" "</span>) <span class="co"># 设置行名为 row 1 ~ row 10</span></span>
+<span id="cb26-431"><a href="#cb26-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-432"><a href="#cb26-432" aria-hidden="true" tabindex="-1"></a><span class="co"># 翻转行顺序并转置矩阵，使热图的 y 轴从上到下递增</span></span>
+<span id="cb26-433"><a href="#cb26-433" aria-hidden="true" tabindex="-1"></a><span class="co"># t() 转置，data[nrow(data):1, ] 反转行顺序</span></span>
+<span id="cb26-434"><a href="#cb26-434" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(</span>
+<span id="cb26-435"><a href="#cb26-435" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t</span>(data[<span class="fu">nrow</span>(data)<span class="sc">:</span><span class="dv">1</span>, ]),         <span class="co"># 翻转并转置数据</span></span>
+<span id="cb26-436"><a href="#cb26-436" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.regions =</span> <span class="fu">heat.colors</span>(<span class="dv">100</span>)   <span class="co"># 使用 heat.colors 调色板</span></span>
+<span id="cb26-437"><a href="#cb26-437" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-438"><a href="#cb26-438" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-439"><a href="#cb26-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-440"><a href="#cb26-440" aria-hidden="true" tabindex="-1"></a><span class="fu">### 颜色</span></span>
+<span id="cb26-441"><a href="#cb26-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-444"><a href="#cb26-444" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-445"><a href="#cb26-445" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 不同颜色的 levelplot() 热力图</span></span>
+<span id="cb26-446"><a href="#cb26-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-447"><a href="#cb26-447" aria-hidden="true" tabindex="-1"></a><span class="co"># 1: R自带调色板</span></span>
+<span id="cb26-448"><a href="#cb26-448" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> <span class="fu">terrain.colors</span>(<span class="dv">100</span>)) <span class="co"># 使用 terrain.colors() 原生调色板，可尝试 cm.colors() 或 terrain.colors()</span></span>
+<span id="cb26-449"><a href="#cb26-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-450"><a href="#cb26-450" aria-hidden="true" tabindex="-1"></a><span class="co"># 2: RColorBrewer 调色板</span></span>
+<span id="cb26-451"><a href="#cb26-451" aria-hidden="true" tabindex="-1"></a><span class="co"># library(RColorBrewer)</span></span>
+<span id="cb26-452"><a href="#cb26-452" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">brewer.pal</span>(<span class="dv">8</span>, <span class="st">"PiYG"</span>))(<span class="dv">25</span>)</span>
+<span id="cb26-453"><a href="#cb26-453" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> coul) <span class="co"># 使用 RColorBrewer 的 PiYG 调色板</span></span>
+<span id="cb26-454"><a href="#cb26-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-455"><a href="#cb26-455" aria-hidden="true" tabindex="-1"></a><span class="co"># 3: Viridis 渐变色</span></span>
+<span id="cb26-456"><a href="#cb26-456" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridisLite)</span></span>
+<span id="cb26-457"><a href="#cb26-457" aria-hidden="true" tabindex="-1"></a>coul <span class="ot">&lt;-</span> <span class="fu">viridis</span>(<span class="dv">100</span>)</span>
+<span id="cb26-458"><a href="#cb26-458" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> coul) <span class="co"># 使用 viridis 渐变色</span></span>
+<span id="cb26-459"><a href="#cb26-459" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(volcano, <span class="at">col.regions =</span> <span class="fu">magma</span>(<span class="dv">100</span>)) <span class="co"># 使用 magma 渐变色</span></span>
+<span id="cb26-460"><a href="#cb26-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-461"><a href="#cb26-461" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-462"><a href="#cb26-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-463"><a href="#cb26-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-464"><a href="#cb26-464" aria-hidden="true" tabindex="-1"></a><span class="fu">### 平滑</span></span>
+<span id="cb26-465"><a href="#cb26-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-468"><a href="#cb26-468" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-469"><a href="#cb26-469" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 平滑的 levelplot() 热力图</span></span>
+<span id="cb26-470"><a href="#cb26-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-471"><a href="#cb26-471" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载 latticeExtra 包以获得 panel.2dsmoother</span></span>
+<span id="cb26-472"><a href="#cb26-472" aria-hidden="true" tabindex="-1"></a><span class="co"># library(latticeExtra)</span></span>
+<span id="cb26-473"><a href="#cb26-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-474"><a href="#cb26-474" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建示例数据</span></span>
+<span id="cb26-475"><a href="#cb26-475" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb26-476"><a href="#cb26-476" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb26-477"><a href="#cb26-477" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>z <span class="ot">&lt;-</span> <span class="fu">with</span>(data, x <span class="sc">*</span> y <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">sd =</span> <span class="dv">1</span>))</span>
+<span id="cb26-478"><a href="#cb26-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-479"><a href="#cb26-479" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 levelplot 绘制散点热力图，并叠加平滑层</span></span>
+<span id="cb26-480"><a href="#cb26-480" aria-hidden="true" tabindex="-1"></a><span class="fu">levelplot</span>(</span>
+<span id="cb26-481"><a href="#cb26-481" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span> x <span class="sc">*</span> y,</span>
+<span id="cb26-482"><a href="#cb26-482" aria-hidden="true" tabindex="-1"></a>  data,</span>
+<span id="cb26-483"><a href="#cb26-483" aria-hidden="true" tabindex="-1"></a>  <span class="at">panel =</span> panel.levelplot.points, <span class="co"># 显示数据点</span></span>
+<span id="cb26-484"><a href="#cb26-484" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex =</span> <span class="fl">1.2</span></span>
+<span id="cb26-485"><a href="#cb26-485" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb26-486"><a href="#cb26-486" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 叠加二维平滑层，n 控制平滑网格的分辨率</span></span>
+<span id="cb26-487"><a href="#cb26-487" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_</span>(<span class="fu">panel.2dsmoother</span>(..., <span class="at">n =</span> <span class="dv">200</span>))</span>
+<span id="cb26-488"><a href="#cb26-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-489"><a href="#cb26-489" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-490"><a href="#cb26-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-491"><a href="#cb26-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-492"><a href="#cb26-492" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pearl</span></span>
+<span id="cb26-493"><a href="#cb26-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-494"><a href="#cb26-494" aria-hidden="true" tabindex="-1"></a>这是一个非常优秀的数据可视化作品，利用 R 语言的 ggplot2 包将美国各州从1928年到2011年的麻疹发病率数据绘制成了热图。</span>
+<span id="cb26-495"><a href="#cb26-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-496"><a href="#cb26-496" aria-hidden="true" tabindex="-1"></a>代码通过逐层叠加，精细地控制了图表的每一个细节，从而清晰地讲述了“**疫苗引入后麻疹病例急剧下降**”这一核心故事。</span>
+<span id="cb26-497"><a href="#cb26-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-498"><a href="#cb26-498" aria-hidden="true" tabindex="-1"></a>见 <span class="co">[</span><span class="ot">vaccination-heatmap</span><span class="co">](https://r-graph-gallery.com/vaccination-heatmap.html)</span></span>
+<span id="cb26-499"><a href="#cb26-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-500"><a href="#cb26-500" aria-hidden="true" tabindex="-1"></a><span class="al">![麻疹疫苗接种带来的影响](./image/morbilli.png)</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
