@@ -557,7 +557,7 @@
     "href": "correlogram.html",
     "title": "9  Correlogram",
     "section": "",
-    "text": "9.1 PKG\nGGally::ggpairs() 可以绘制好看的相关性图：\nShow/Hide Code\nlibrary(GGally)\nlibrary(tidyverse)",
+    "text": "9.1 PKG\nGGally::ggpairs() 可以绘制好看的相关性图：\nShow/Hide Code\nlibrary(GGally)\nlibrary(tidyverse)\nlibrary(corrgram) # 相关性图\nlibrary(ellipse) # 椭圆\nlibrary(RColorBrewer) # 调色板\nlibrary(car) # 线性回归诊断",
     "crumbs": [
       "Correlation",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
@@ -590,7 +590,40 @@
     "href": "correlogram.html#corrgram",
     "title": "9  Correlogram",
     "section": "9.4 corrgram()",
-    "text": "9.4 corrgram()",
+    "text": "9.4 corrgram()\n\n\nShow/Hide Code\n# 第一种：下三角为色块，上三角为饼图，主对角线为变量名\ncorrgram(\n    mtcars, \n    order = TRUE, \n    lower.panel = panel.shade,    # 下三角用色块表示相关性\n    upper.panel = panel.pie,      # 上三角用饼图表示相关性\n    text.panel = panel.txt,       # 主对角线显示变量名\n    main = \"Car Milage Data in PC2/PC1 Order\"\n) \n\n\n\n\n\ncorrgram() 绘制相关性图\n\n\n\n\nShow/Hide Code\n# 第二种：下三角为椭圆，上三角为点图，对角线为极值\ncorrgram(\n    mtcars, \n    order = TRUE, \n    lower.panel = panel.ellipse,  # 下三角用椭圆表示相关性\n    upper.panel = panel.pts,      # 上三角用点图表示相关性\n    text.panel = panel.txt,       # 主对角线显示变量名\n    diag.panel = panel.minmax,    # 对角线显示极值\n    main = \"Car Milage Data in PC2/PC1 Order\"\n) \n\n\n\n\n\ncorrgram() 绘制相关性图\n\n\n\n\nShow/Hide Code\n# 第三种：下三角为色块，上三角不显示，主对角线为变量名，不排序\ncorrgram(\n    mtcars, \n    order = NULL, \n    lower.panel = panel.shade,    # 下三角用色块表示相关性\n    upper.panel = NULL,           # 上三角不显示\n    text.panel = panel.txt,       # 主对角线显示变量名\n    main = \"Car Milage Data (unsorted)\"\n)\n\n\n\n\n\ncorrgram() 绘制相关性图",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#椭圆",
+    "href": "correlogram.html#椭圆",
+    "title": "9  Correlogram",
+    "section": "9.5 椭圆",
+    "text": "9.5 椭圆\n\n\nShow/Hide Code\n# library(ellipse) # 椭圆包\n# library(RColorBrewer) # 调色板包\n\n# 计算 mtcars 数据集的相关系数矩阵\ndata &lt;- cor(mtcars)  # 计算相关系数矩阵\n\n# 用 RColorBrewer 构建 100 个颜色的调色板\nmy_colors &lt;- brewer.pal(5, \"Spectral\")  # 选择5种“Spectral”配色\nmy_colors &lt;- colorRampPalette(my_colors)(100)  # 插值生成100种颜色\n\n# 对相关系数矩阵进行排序（这里以第一行相关性为依据排序）\nord &lt;- order(data[1, ])  # 获取排序索引\ndata_ord &lt;- data[ord, ord]  # 按排序索引重新排列矩阵\n\n# 绘制椭圆相关性图\nplotcorr(\n    data_ord,  # 排序后的相关系数矩阵\n    col = my_colors[data_ord * 50 + 50],  # 根据相关系数映射颜色\n    mar = c(1, 1, 1, 1)  # 设置图形边距\n)\n\n\n\n\n\n椭圆相关性图",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#散点",
+    "href": "correlogram.html#散点",
+    "title": "9  Correlogram",
+    "section": "9.6 散点",
+    "text": "9.6 散点\nplot() 可以绘制散点图矩阵：\n\n\nShow/Hide Code\n# 选择 mtcars 数据集的第1、3、4、5、6列，构建数据框\ndata &lt;- mtcars[, c(1, 3:6)]\n\n# 绘制散点图矩阵\n# pch = 20 表示点的形状为实心圆\n# cex = 1.5 表示点的大小为1.5倍\n# col = \"#69b3a2\" 设置点的颜色为绿色系\nplot(data, pch = 20, cex = 1.5, col = \"#69b3a2\")\n\n\n\n\n\nplot() 散点",
+    "crumbs": [
+      "Correlation",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
+    ]
+  },
+  {
+    "objectID": "correlogram.html#分组散点",
+    "href": "correlogram.html#分组散点",
+    "title": "9  Correlogram",
+    "section": "9.7 分组散点",
+    "text": "9.7 分组散点\ncar::scatterplotMatrix() 可以绘制分组散点图矩阵：\n\n\nShow/Hide Code\n# 使用 R 自带的 mtcars 数据集\ndata &lt;- mtcars\n\n# 根据气缸数（cyl）生成调色板\nmy_colors &lt;- brewer.pal(nlevels(as.factor(data$cyl)), \"Set2\")\n\n# 绘制分组散点图矩阵\nscatterplotMatrix(\n    ~ mpg + disp + drat | cyl,  # 选择 mpg、disp、drat 三个变量，并按 cyl 分组\n    data = data,                # 数据来源\n    reg.line = \"\",              # 不添加回归线\n    smoother = \"\",              # 不添加平滑曲线\n    col = my_colors,            # 设置分组颜色\n    smoother.args = list(col = \"grey\"), # 平滑曲线颜色（虽然未用到）\n    cex = 1.5,                  # 点的大小\n    pch = c(15, 16, 17),        # 不同分组的点形状\n    main = \"按气缸数分组的散点图矩阵\" # 图标题\n)\n\n\n\n\n\n分组散点图矩阵",
     "crumbs": [
       "Correlation",
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>Correlogram</span>"
