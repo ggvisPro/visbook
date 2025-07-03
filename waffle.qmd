@@ -1,0 +1,3 @@
+# Waffle {#sec-waffle}
+
+1

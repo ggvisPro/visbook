@@ -31,6 +31,19 @@ book:
         - connected-scatter.qmd
         - density2d.qmd
 
+    # --part: Ranking
+
+
+
+    - part: part-of-a-whole.qmd
+      chapters:
+        - bar.qmd
+        - treemap.qmd
+        - donut.qmd
+        - pie.qmd
+        - dendrogram.qmd
+        - circular.qmd
+        - waffle.qmd
 
 
     - summary.qmd

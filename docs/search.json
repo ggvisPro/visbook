@@ -850,13 +850,100 @@
     ]
   },
   {
+    "objectID": "part-of-a-whole.html",
+    "href": "part-of-a-whole.html",
+    "title": "Part of a Whole",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole"
+    ]
+  },
+  {
+    "objectID": "bar.html",
+    "href": "bar.html",
+    "title": "13  Bar",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Bar</span>"
+    ]
+  },
+  {
+    "objectID": "treemap.html",
+    "href": "treemap.html",
+    "title": "14  Treemap",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Treemap</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html",
+    "href": "donut.html",
+    "title": "15  Donut",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Donut</span>"
+    ]
+  },
+  {
+    "objectID": "pie.html",
+    "href": "pie.html",
+    "title": "16  Pie",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Pie</span>"
+    ]
+  },
+  {
+    "objectID": "dendrogram.html",
+    "href": "dendrogram.html",
+    "title": "17  Dendrogram",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Dendrogram</span>"
+    ]
+  },
+  {
+    "objectID": "circular.html",
+    "href": "circular.html",
+    "title": "18  Circular",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Circular</span>"
+    ]
+  },
+  {
+    "objectID": "waffle.html",
+    "href": "waffle.html",
+    "title": "19  Waffle",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Waffle</span>"
+    ]
+  },
+  {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "13  Summary",
+    "title": "20  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]
