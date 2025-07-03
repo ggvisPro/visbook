@@ -393,7 +393,7 @@
     "href": "correlation.html",
     "title": "Correlation",
     "section": "",
-    "text": "此部分探数据(变量)之间的关系\n\n\n\n变量间的关系\n\n\n\n7  Scatter 散点图，用数据点显示两个变量之间的关系\n8  Heatmap 热力图, 用颜色块显示变量之间的关系\n9  Correlogram 相关性图, 显示变量之间的统计学相关性\n10  Bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系\n11  Connected Scatter 连接散点图, 用线连接数据点显示变量之间的关系\n12  Density 2D 二维密度图, 用颜色块显示两个变量的密度分布",
+    "text": "此部分探数据(变量)之间的关系\n\n\n\n变量间的关系\n\n\n\n7  Scatter 散点图，用数据点显示两个变量之间的关系\n8  Heatmap 热力图, 用颜色块显示变量之间的关系\n9  Correlogram 相关性图, 显示变量之间的统计学相关性\n10  Bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系\n11  Conn-Scatter 连接散点图, 用线连接数据点显示变量之间的关系\n12  Density 2D 二维密度图, 用颜色块显示两个变量的密度分布",
     "crumbs": [
       "Correlation"
     ]
@@ -709,12 +709,12 @@
   {
     "objectID": "connected-scatter.html",
     "href": "connected-scatter.html",
-    "title": "11  Connected Scatter",
+    "title": "11  Conn-Scatter",
     "section": "",
     "text": "1",
     "crumbs": [
       "Correlation",
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Connected Scatter</span>"
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Conn-Scatter</span>"
     ]
   },
   {
