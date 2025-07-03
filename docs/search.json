@@ -863,12 +863,12 @@
   {
     "objectID": "spider.html",
     "href": "spider.html",
-    "title": "14  Spider{#sec-spider}",
+    "title": "14  Spider",
     "section": "",
     "text": "1",
     "crumbs": [
       "Ranking",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Spider{#sec-spider}</span>"
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Spider</span>"
     ]
   },
   {
@@ -974,7 +974,7 @@
     "href": "pie.html",
     "title": "23  Pie",
     "section": "",
-    "text": "23.1 PKG\n饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.\n谨慎使用，或者，使用条形图、棒棒糖图、树状图等替代方案。\nShow/Hide Code\nlibrary(tidyverse)",
+    "text": "23.1 PKG\n饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.\n谨慎使用饼图，或者，使用 条形图、棒棒糖图、树状图 等替代方案。\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(RColorBrewer) # 用于调色板",
     "crumbs": [
       "Part of a Whole",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
@@ -985,7 +985,29 @@
     "href": "pie.html#饼图的问题",
     "title": "23  Pie",
     "section": "23.2 饼图的问题",
-    "text": "23.2 饼图的问题",
+    "text": "23.2 饼图的问题\n\n23.2.1 Bad by definition\n饼图是一个被分成扇区的圆，每个扇区代表整体的一部分。它通常用于显示百分比，其中所有扇区的总和等于 100%。\n可读性太差了!，尤其是当扇区的大小相似时。人们很难准确地比较不同扇区的大小。\n\n\n\n饼图,你能找出组间趋势吗?\n\n\n同样的数据用条形图表示就清晰多了:\n\n\n\n柱状图看起来比饼图清晰多了\n\n\n\n\n23.2.2 Even worse\n饼图还有一些讨厌的问题:\n\n3D 版饼图\n总和不为 100%\n项目太多\n爆炸/分散式饼图(exploded pie charts)\n\n\n\n23.2.3 Alternatives\n最好的替代是条形图,如果数据很多,可以使用棒棒糖图,会更优雅一点.\n基于世界上几个国家 武器销售 数量的例子：\n\n\n\n世界上部分国家武器销售数量,美国遥遥领先\n\n\n为了描述整体的组成,还可以使用树状图, 例如:\n\n\n\n树状图,武器销售占比",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+    ]
+  },
+  {
+    "objectID": "pie.html#pie",
+    "href": "pie.html#pie",
+    "title": "23  Pie",
+    "section": "23.3 pie()",
+    "text": "23.3 pie()\nBase R::pie() 函数用于绘制饼图.\n\n23.3.1 基础\n\n\nShow/Hide Code\nProp &lt;- c(3,7,9,1,2)\npie(Prop)\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n23.3.2 labels\n\n\nShow/Hide Code\npie(Prop , labels = c(\"Gr-A\",\"Gr-B\",\"Gr-C\",\"Gr-D\",\"Gr-E\"))\n\n\n\n\n\n带标签的饼图\n\n\n\n\n\n\n23.3.3 Non-circular\n可以通过 edges 参数(多边形的边数)来绘制非圆形的饼图, 例如:\n\n\nShow/Hide Code\npie(Prop, labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"), edges = 50)\n\n\n\n\n\n非圆形饼图\n\n\n\n\n\n\n23.3.4 Shadow\n\n\nShow/Hide Code\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  density = 10, # 设置阴影密度\n  angle = c(20, 90, 30, 10, 0) # 设置每个扇区的阴影角度\n)\n\n\n\n\n\n带阴影的饼图\n\n\n\n\n\n\n23.3.5 颜色\n使用 col 更改组颜色，使用 border 更改边框颜色。\n\n\nShow/Hide Code\n# library(RColorBrewer) # 用于调色板\n\nmyPalette &lt;- brewer.pal(5, \"Set2\")\n\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  border = \"white\", # 设置边框颜色为白色\n  col = myPalette # 使用调色板\n)\n\n\n\n\n\n定制饼图颜色",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+    ]
+  },
+  {
+    "objectID": "pie.html#geom_bar",
+    "href": "pie.html#geom_bar",
+    "title": "23  Pie",
+    "section": "23.4 geom_bar()",
+    "text": "23.4 geom_bar()\n由于饼图不受待见, ggplot2 没有提供专门的饼图函数, 但可以使用 geom_bar() 绘制饼图. 核心技术:\n\n输入数据框有 2 列：group 和 value\ngeom_bar() 函数创建一个仅包含一个条形的堆叠条形图\ncoord_polar() 使其呈圆形\n\n\n23.4.1 基础\n\n\nShow/Hide Code\n# 创建数据框\ndata &lt;- data.frame(\n  group = LETTERS[1:5],\n  value = c(13, 7, 9, 21, 2)\n)\n# 绘制饼图\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) # 将条形图转换为极坐标系\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n23.4.2 去坐标轴\n上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景:\n\n\nShow/Hide Code\n# 移除x 轴和 y 轴的标签和背景\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) + # 将条形图转换为极坐标系\n  theme_void() # 移除背景和坐标轴\n\n\n\n\n\n改进后的饼图\n\n\n\n\n\n\n23.4.3 标签\n因为使用了 coord_polar()，所以计算文本标签的位置比较复杂.\n\n\nShow/Hide Code\n#| fig-cap: 带标签和自定义配色的饼图\n\n# 1. 按 group 降序排列，计算每组所占百分比和标签位置\ndata &lt;- data |&gt; \n    arrange(desc(group)) |&gt; # 按 group 降序排列\n    mutate(\n        prop = value / sum(data$value) * 100, # 计算百分比\n        ypos = cumsum(prop) - 0.5 * prop      # 计算标签位置\n    )\n\n# 2. 绘制饼图\nggplot(data, aes(x = \"\", y = prop, fill = group)) +\n    geom_bar(stat = \"identity\", width = 1, color = \"white\") + # 绘制堆叠条形图\n    coord_polar(\"y\", start = 0) +                             # 转换为极坐标系（饼图）\n    theme_void() +                                            # 移除背景和坐标轴\n    theme(legend.position = \"none\") +                         # 移除图例\n    geom_text(\n        aes(y = ypos, label = group),                           # 添加标签\n        color = \"white\", size = 6\n    ) +\n    scale_fill_brewer(palette = \"Set1\")                       # 设置配色方案\n\n\n\n\n\n加上标签的饼图\n\n\n\n\n大功告成!",
     "crumbs": [
       "Part of a Whole",
       "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"

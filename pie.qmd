@@ -2,14 +2,180 @@
 
 饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.
 
-谨慎使用，或者，使用条形图、棒棒糖图、树状图等替代方案。
+谨慎使用饼图，或者，使用 [条形图](@sec-bar)、[棒棒糖图](@sec-lollipop)、[树状图](@sec-treemap) 等替代方案。
 
 ## PKG
 
 ```{r}
 library(tidyverse)
-
+library(RColorBrewer) # 用于调色板
 
 ```
 
-## 饼图的问题
+## [饼图的问题](https://www.data-to-viz.com/caveat/pie.html)
+
+### Bad by definition
+
+饼图是一个被分成扇区的圆，每个扇区代表整体的一部分。它通常用于显示百分比，其中所有扇区的总和等于 100%。
+
+可读性太差了!，尤其是当扇区的大小相似时。人们很难准确地比较不同扇区的大小。
+
+![饼图,你能找出组间趋势吗?](./image/bad-pie.png)
+
+同样的数据用条形图表示就清晰多了:
+
+![柱状图看起来比饼图清晰多了](./image/better-bar.png)
+
+### Even worse
+
+饼图还有一些讨厌的问题:
+
+- 3D 版饼图
+- 总和不为 100%
+- 项目太多
+- 爆炸/分散式饼图(exploded pie charts)
+
+### Alternatives 
+
+最好的替代是条形图,如果数据很多,可以使用棒棒糖图,会更优雅一点. 
+
+基于世界上几个国家 [武器销售](https://www.data-to-viz.com/story/OneNumOneCat.html) 数量的例子：
+
+![世界上部分国家武器销售数量,美国遥遥领先](./image/alt-bar.png)
+
+为了描述**整体的组成**,还可以使用树状图, 例如:
+
+![树状图,武器销售占比](./image/alt-bar2.png)
+
+## `pie()`
+
+`Base R::pie()` 函数用于绘制饼图.
+
+### 基础
+
+```{r}
+#| fig-cap: 基础饼图
+
+Prop <- c(3,7,9,1,2)
+pie(Prop)
+```
+
+### `labels`
+
+```{r}
+#| fig-cap: 带标签的饼图
+
+pie(Prop , labels = c("Gr-A","Gr-B","Gr-C","Gr-D","Gr-E"))
+```
+
+### Non-circular
+
+可以通过 `edges` 参数(多边形的边数)来绘制非圆形的饼图, 例如:
+
+```{r}
+#| fig-cap: 非圆形饼图
+
+pie(Prop, labels = c("Gr-A", "Gr-B", "Gr-C", "Gr-D", "Gr-E"), edges = 50)
+```
+
+### Shadow
+
+```{r}
+#| fig-cap: 带阴影的饼图
+pie(
+  Prop,
+  labels = c("Gr-A", "Gr-B", "Gr-C", "Gr-D", "Gr-E"),
+  density = 10, # 设置阴影密度
+  angle = c(20, 90, 30, 10, 0) # 设置每个扇区的阴影角度
+)
+```
+
+### 颜色
+
+使用 col 更改组颜色，使用 border 更改边框颜色。
+
+```{r}
+#| fig-cap: 定制饼图颜色
+
+# library(RColorBrewer) # 用于调色板
+
+myPalette <- brewer.pal(5, "Set2")
+
+pie(
+  Prop,
+  labels = c("Gr-A", "Gr-B", "Gr-C", "Gr-D", "Gr-E"),
+  border = "white", # 设置边框颜色为白色
+  col = myPalette # 使用调色板
+)
+```
+
+## `geom_bar()`
+
+由于饼图不受待见, `ggplot2` 没有提供专门的饼图函数, 但可以使用 `geom_bar()` 绘制饼图. 核心技术:
+
+- 输入数据框有 2 列：group 和 value
+- `geom_bar()` 函数创建一个仅包含一个条形的堆叠条形图
+- `coord_polar()` 使其呈圆形
+
+### 基础
+
+```{r}
+#| fig-cap: 基础饼图
+
+# 创建数据框
+data <- data.frame(
+  group = LETTERS[1:5],
+  value = c(13, 7, 9, 21, 2)
+)
+# 绘制饼图
+ggplot(data, aes(x = "", y = value, fill = group)) +
+  geom_bar(stat = "identity", width = 1) + # identity 创建堆叠条形图
+  coord_polar("y", start = 0) # 将条形图转换为极坐标系
+```
+
+### 去坐标轴
+
+上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景: 
+
+```{r}
+#| fig-cap: 改进后的饼图
+
+# 移除x 轴和 y 轴的标签和背景
+ggplot(data, aes(x = "", y = value, fill = group)) +
+  geom_bar(stat = "identity", width = 1) + # identity 创建堆叠条形图
+  coord_polar("y", start = 0) + # 将条形图转换为极坐标系
+  theme_void() # 移除背景和坐标轴
+```
+
+### 标签
+
+因为使用了 `coord_polar()`，所以计算文本标签的位置比较复杂.
+
+```{r}
+#| fig-cap: 加上标签的饼图
+
+
+#| fig-cap: 带标签和自定义配色的饼图
+
+# 1. 按 group 降序排列，计算每组所占百分比和标签位置
+data <- data |> 
+    arrange(desc(group)) |> # 按 group 降序排列
+    mutate(
+        prop = value / sum(data$value) * 100, # 计算百分比
+        ypos = cumsum(prop) - 0.5 * prop      # 计算标签位置
+    )
+
+# 2. 绘制饼图
+ggplot(data, aes(x = "", y = prop, fill = group)) +
+    geom_bar(stat = "identity", width = 1, color = "white") + # 绘制堆叠条形图
+    coord_polar("y", start = 0) +                             # 转换为极坐标系（饼图）
+    theme_void() +                                            # 移除背景和坐标轴
+    theme(legend.position = "none") +                         # 移除图例
+    geom_text(
+        aes(y = ypos, label = group),                           # 添加标签
+        color = "white", size = 6
+    ) +
+    scale_fill_brewer(palette = "Set1")                       # 设置配色方案
+```
+
+**大功告成!**
