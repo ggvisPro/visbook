@@ -1,0 +1,3 @@
+# Group bar {#sec-group-bar}
+
+1

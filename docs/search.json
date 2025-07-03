@@ -850,6 +850,83 @@
     ]
   },
   {
+    "objectID": "bar.html",
+    "href": "bar.html",
+    "title": "13  Bar",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Bar</span>"
+    ]
+  },
+  {
+    "objectID": "spider.html",
+    "href": "spider.html",
+    "title": "14  Spider{#sec-spider}",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Spider{#sec-spider}</span>"
+    ]
+  },
+  {
+    "objectID": "wordcloud.html",
+    "href": "wordcloud.html",
+    "title": "15  Wordcloud",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Wordcloud</span>"
+    ]
+  },
+  {
+    "objectID": "parallel.html",
+    "href": "parallel.html",
+    "title": "16  Parallel",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Parallel</span>"
+    ]
+  },
+  {
+    "objectID": "lollipop.html",
+    "href": "lollipop.html",
+    "title": "17  Lollipop",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Lollipop</span>"
+    ]
+  },
+  {
+    "objectID": "cir-bar.html",
+    "href": "cir-bar.html",
+    "title": "18  Cir-bar",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Cir-bar</span>"
+    ]
+  },
+  {
+    "objectID": "table.html",
+    "href": "table.html",
+    "title": "19  Table",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
     "objectID": "part-of-a-whole.html",
     "href": "part-of-a-whole.html",
     "title": "Part of a Whole",
@@ -860,90 +937,101 @@
     ]
   },
   {
-    "objectID": "bar.html",
-    "href": "bar.html",
-    "title": "13  Bar",
+    "objectID": "group-bar.html",
+    "href": "group-bar.html",
+    "title": "20  Group bar",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Bar</span>"
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Group bar</span>"
     ]
   },
   {
     "objectID": "treemap.html",
     "href": "treemap.html",
-    "title": "14  Treemap",
+    "title": "21  Treemap",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Treemap</span>"
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Treemap</span>"
     ]
   },
   {
     "objectID": "donut.html",
     "href": "donut.html",
-    "title": "15  Donut",
+    "title": "22  Donut",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Donut</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Donut</span>"
     ]
   },
   {
     "objectID": "pie.html",
     "href": "pie.html",
-    "title": "16  Pie",
+    "title": "23  Pie",
     "section": "",
-    "text": "1",
+    "text": "23.1 PKG\n饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.\n谨慎使用，或者，使用条形图、棒棒糖图、树状图等替代方案。\nShow/Hide Code\nlibrary(tidyverse)",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Pie</span>"
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+    ]
+  },
+  {
+    "objectID": "pie.html#饼图的问题",
+    "href": "pie.html#饼图的问题",
+    "title": "23  Pie",
+    "section": "23.2 饼图的问题",
+    "text": "23.2 饼图的问题",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
     ]
   },
   {
     "objectID": "dendrogram.html",
     "href": "dendrogram.html",
-    "title": "17  Dendrogram",
+    "title": "24  Dendrogram",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Dendrogram</span>"
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Dendrogram</span>"
     ]
   },
   {
     "objectID": "circular.html",
     "href": "circular.html",
-    "title": "18  Circular",
+    "title": "25  Circular",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Circular</span>"
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Circular</span>"
     ]
   },
   {
     "objectID": "waffle.html",
     "href": "waffle.html",
-    "title": "19  Waffle",
+    "title": "26  Waffle",
     "section": "",
     "text": "1",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Waffle</span>"
+      "<span class='chapter-number'>26</span>  <span class='chapter-title'>Waffle</span>"
     ]
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "20  Summary",
+    "title": "27  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>27</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]

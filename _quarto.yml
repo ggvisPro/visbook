@@ -31,13 +31,20 @@ book:
         - connected-scatter.qmd
         - density2d.qmd
 
-    # --part: Ranking
-
+    - part: Ranking
+      chapters:
+        - bar.qmd
+        - spider.qmd
+        - wordcloud.qmd
+        - parallel.qmd
+        - lollipop.qmd
+        - cir-bar.qmd
+        - table.qmd
 
 
     - part: part-of-a-whole.qmd
       chapters:
-        - bar.qmd
+        - group-bar.qmd
         - treemap.qmd
         - donut.qmd
         - pie.qmd

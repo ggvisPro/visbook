@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Correlation – 数据可视化探索(从入门到放弃)</title>
+<title>17&nbsp; Lollipop – 数据可视化探索(从入门到放弃)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./scatter.html" rel="next">
-<link href="./violin.html" rel="prev">
+<link href="./cir-bar.html" rel="next">
+<link href="./parallel.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./correlation.html">Correlation</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./bar.html">Ranking</a></li><li class="breadcrumb-item"><a href="./lollipop.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lollipop</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./correlation.html" class="sidebar-item-text sidebar-link active">
+            <a href="./correlation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Correlation</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -283,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./lollipop.html" class="sidebar-item-text sidebar-link">
+  <a href="./lollipop.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lollipop</span></span></a>
   </div>
 </li>
@@ -377,9 +377,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./bar.html">Ranking</a></li><li class="breadcrumb-item"><a href="./lollipop.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lollipop</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Correlation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-lollipop" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Lollipop</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -396,21 +396,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>此部分探数据(变量)之间的关系</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./image/correlation.png" class="img-fluid figure-img"></p>
-<figcaption>变量间的关系</figcaption>
-</figure>
-</div>
-<ul>
-<li><p><a href="scatter.html" class="quarto-xref"><span>7&nbsp; Scatter</span></a> 散点图，用数据点显示两个变量之间的关系</p></li>
-<li><p><a href="heatmap.html" class="quarto-xref"><span>8&nbsp; Heatmap</span></a> 热力图, 用颜色块显示变量之间的关系</p></li>
-<li><p><a href="correlogram.html" class="quarto-xref"><span>9&nbsp; Correlogram</span></a> 相关性图, 显示变量之间的统计学相关性</p></li>
-<li><p><a href="bubble.html" class="quarto-xref"><span>10&nbsp; Bubble</span></a> 气泡图, 用气泡的大小和颜色表示三个变量之间的关系</p></li>
-<li><p><a href="connected-scatter.html" class="quarto-xref"><span>11&nbsp; Conn-Scatter</span></a> 连接散点图, 用线连接数据点显示变量之间的关系</p></li>
-<li><p><a href="density2d.html" class="quarto-xref"><span>12&nbsp; Density 2D</span></a> 二维密度图, 用颜色块显示两个变量的密度分布</p></li>
-</ul>
+<p>1</p>
 
 
 <!-- -->
@@ -869,33 +855,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./violin.html" class="pagination-link" aria-label="Violin">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Violin</span></span>
+      <a href="./parallel.html" class="pagination-link" aria-label="Parallel">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Parallel</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./scatter.html" class="pagination-link" aria-label="Scatter">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Scatter</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./cir-bar.html" class="pagination-link" aria-label="Cir-bar">
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Cir-bar</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Correlation</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Lollipop {#sec-lollipop}</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>此部分探数据(变量)之间的关系</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="al">![变量间的关系](./image/correlation.png)</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-scatter 散点图，用数据点显示两个变量之间的关系</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-heatmap 热力图, 用颜色块显示变量之间的关系</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-correlogram 相关性图, 显示变量之间的统计学相关性</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-connected-scatter 连接散点图, 用线连接数据点显示变量之间的关系</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-  </span>@sec-density2d 二维密度图, 用颜色块显示两个变量的密度分布</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>1</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
