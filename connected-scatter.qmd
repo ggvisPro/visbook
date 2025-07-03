@@ -272,6 +272,101 @@ plot(
 abline(h = seq(0, 100, 10), col = "grey", lwd = 0.8)
 ```
 
+### Cheatsheet
+
+Base R 提供了许多选项来自定义图表外观。基本上所有功能都可以通过这几个选项实现：
+
+- `lwd` → 线条宽度
+- `type` → 点之间的连接
+- `lty` → 线条类型
+- `cex` → 形状大小
+- `col` → 控制颜色
+- `pch` → 标记形状
+
+```{r}
+#| fig-cap: "Base R 图形参数速查表：pch, col, cex, lty, type, lwd 的效果演示"
+
+# 设置绘图区边距
+par(mar = c(3, 3, 3, 3))
+
+num <- 0   # 用于lty编号
+num1 <- 0  # 用于type和lwd编号
+
+# 创建空白绘图区，不显示任何点
+plot(
+  0, 0,
+  xlim = c(0, 21),           # x轴范围
+  ylim = c(0.5, 6.5),        # y轴范围
+  col = "white",             # 不显示点
+  yaxt = "n",                # 不显示y轴刻度
+  ylab = "",                 # y轴标签为空
+  xlab = ""                  # x轴标签为空
+)
+
+# 填充图形各行，分别演示不同参数
+for (i in seq(1, 20)) {
+  # 第一行：pch（点的形状）
+  points(i, 1, pch = i, cex = 3)
+  # 第二行：col（颜色）
+  points(i, 2, col = i, pch = 16, cex = 3)
+  # 第三行：cex（点的大小）
+  points(i, 3, col = "black", pch = 16, cex = i * 0.25)
+
+  # 第四行：lty（线型），每隔3个画一条线
+  if (i %in% c(seq(1, 18, 3))) {
+    num = num + 1
+    points(c(i, i + 2), c(4, 4), col = "black", lty = num, type = "l", lwd = 2)
+    text(i + 1.1, 4.15, num)  # 标注lty编号
+  }
+
+  # 第五、六行：type（线型类型）和lwd（线宽），每隔5个画一组
+  if (i %in% c(seq(1, 20, 5))) {
+    num1 = num1 + 1
+    # type参数演示（点、线、点线、点线重叠）
+    points(
+      c(i, i + 1, i + 2, i + 3),
+      c(5, 5, 5, 5),
+      col = "black",
+      type = c("p", "l", "b", "o")[num1],
+      lwd = 2
+    )
+    text(i + 1.1, 5.2, c("p", "l", "b", "o")[num1])  # 标注type类型
+
+    # lwd参数演示（线宽1~4）
+    points(
+      c(i, i + 1, i + 2, i + 3),
+      c(6, 6, 6, 6),
+      col = "black",
+      type = "l",
+      lwd = num1
+    )
+    text(i + 1.1, 6.2, num1)  # 标注lwd数值
+  }
+}
+
+# 添加y轴标签，分别对应各参数
+axis(
+  2,
+  at = c(1, 2, 3, 4, 5, 6),
+  labels = c("pch", "col", "cex", "lty", "type", "lwd"),
+  tick = TRUE,
+  col = "black",
+  las = 1,
+  cex.axis = 0.8
+)
+
+# 添加x轴标签，1~20
+axis(
+  1,
+  at = seq(1, 20),
+  labels = seq(1, 20),
+  tick = TRUE,
+  col = "black",
+  las = 1,
+  cex.axis = 0.8
+)
+```
+
 
 ## Pearl
 
