@@ -721,107 +721,106 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 时间序列热力图</span></span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 时间序列热力图</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. 加载所需的R包 ---</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr)         # 用于更方便的数据处理</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridis)       # 提供对色盲友好的调色板</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># library(Interpol.T)    # 用于加载数据集</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 用于方便地处理日期和时间</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggExtra)       # 提供额外的主题功能，如removeGrid()</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyr)         # 用于数据整理，如此处的fill()</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 2. 加载和初步处理数据 ---</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># data &lt;- data(Trentino_hourly_T, package = "Interpol.T")</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># # 重命名数据框的前5个列名，使其更具可读性</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># names(h_d_t)[1:5] &lt;- c("stationid", "date", "hour", "temp", "flag")</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- tbl_df(h_d_t) %&gt;%</span></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(stationid == "T0001")</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co"># # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;% mutate(</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   year = year(date),</span></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">#   month = month(date, label = TRUE),</span></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#   day = day(date)</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># df$date &lt;- ymd(df$date)</span></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 3. 清理工作环境 ---</span></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co"># # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(list = c(</span></span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="co">#   "h_d_t", "mo_bias", "Tn", "Tx",</span></span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Th_int_list", "calibration_l",</span></span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co">#   "calibration_shape", "Tm_list"</span></span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ))</span></span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 4. 创建用于绘图的最终数据框 ---</span></span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="co"># # 选择绘图所需的列，并填充缺失的温度值</span></span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;%</span></span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(stationid, day, hour, month, year, temp) %&gt;%</span></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="co">#   fill(temp) # 使用前一个非缺失值来填充NA</span></span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="co"># # 填充缺失值(NA)的注意事项：</span></span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这段代码是为了演示可视化技术。</span></span>
-<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co"># # 数据集中有5个缺失的小时温度值。</span></span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="co"># # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co"># # 或者使用更专业的插补方法来处理缺失值。</span></span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="co"># # 获取当前正在分析的气象站ID，用于图表标题</span></span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="co"># statno &lt;- unique(df$stationid)</span></span>
-<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="co"># ######## 绘图部分开始 #####################</span></span>
-<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 5. 使用ggplot2创建图表 ---</span></span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="co"># # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
-<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- ggplot(df, aes(day, hour, fill = temp)) +</span></span>
-<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
-<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_tile(color = "white", size = 0.1) +</span></span>
-<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
-<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_fill_viridis(name = "Hourly Temps C", option = "C")</span></span>
-<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="co"># # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
-<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + facet_grid(year ~ month)</span></span>
-<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="co"># # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
-<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))</span></span>
-<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="co"># # 自定义x轴（天）的刻度，使其更清晰</span></span>
-<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_x_continuous(breaks = c(1, 10, 20, 31))</span></span>
-<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 6. 精细调整图表主题和标签 ---</span></span>
-<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应用一个简洁的主题，并设置基础字体大小</span></span>
-<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme_minimal(base_size = 8)</span></span>
-<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="co"># # 添加图表标题和坐标轴标签</span></span>
-<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")</span></span>
-<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="co"># # 对图表的各种视觉元素进行精细调整</span></span>
-<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme(legend.position = "bottom") + # 将图例置于底部</span></span>
-<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小</span></span>
-<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小</span></span>
-<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景</span></span>
-<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐</span></span>
-<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线</span></span>
-<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小</span></span>
-<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小</span></span>
-<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小</span></span>
-<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="co">#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
-<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 7. 显示图表 ---</span></span>
-<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="co"># # 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
-<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="co"># # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
-<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="co"># p</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span> <span class="fl">1.</span> 加载所需的R包 <span class="sc">---</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)         <span class="co"># 用于更方便的数据处理</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)       <span class="co"># 提供对色盲友好的调色板</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Interpol.T)    <span class="co"># 用于加载数据集</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)     <span class="co"># 用于方便地处理日期和时间</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)       <span class="co"># 提供额外的主题功能，如removeGrid()</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)         <span class="co"># 用于数据整理，如此处的fill()</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. 加载和初步处理数据 ---</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data</span>(Trentino_hourly_T, <span class="at">package =</span> <span class="st">"Interpol.T"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 重命名数据框的前5个列名，使其更具可读性</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(h_d_t)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"stationid"</span>, <span class="st">"date"</span>, <span class="st">"hour"</span>, <span class="st">"temp"</span>, <span class="st">"flag"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tbl_df</span>(h_d_t) <span class="sc">%&gt;%</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stationid <span class="sc">==</span> <span class="st">"T0001"</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co"># month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">year</span>(date),</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">day</span>(date)</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(df<span class="sc">$</span>date)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. 清理工作环境 ---</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">c</span>(</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"h_d_t"</span>, <span class="st">"mo_bias"</span>, <span class="st">"Tn"</span>, <span class="st">"Tx"</span>,</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Th_int_list"</span>, <span class="st">"calibration_l"</span>,</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"calibration_shape"</span>, <span class="st">"Tm_list"</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. 创建用于绘图的最终数据框 ---</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择绘图所需的列，并填充缺失的温度值</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(stationid, day, hour, month, year, temp) <span class="sc">%&gt;%</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fill</span>(temp) <span class="co"># 使用前一个非缺失值来填充NA</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 填充缺失值(NA)的注意事项：</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码是为了演示可视化技术。</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据集中有5个缺失的小时温度值。</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者使用更专业的插补方法来处理缺失值。</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取当前正在分析的气象站ID，用于图表标题</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a>statno <span class="ot">&lt;-</span> <span class="fu">unique</span>(df<span class="sc">$</span>stationid)</span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="do">######## 绘图部分开始 #####################</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 5. 使用ggplot2创建图表 ---</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(day, hour, <span class="at">fill =</span> temp)) <span class="sc">+</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">name =</span> <span class="st">"Hourly Temps C"</span>, <span class="at">option =</span> <span class="st">"C"</span>)</span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">facet_grid</span>(year <span class="sc">~</span> month)</span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">"reverse"</span>, <span class="at">breaks =</span> <span class="fu">unique</span>(df<span class="sc">$</span>hour))</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义x轴（天）的刻度，使其更清晰</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">31</span>))</span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 6. 精细调整图表主题和标签 ---</span></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用一个简洁的主题，并设置基础字体大小</span></span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">8</span>)</span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图表标题和坐标轴标签</span></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Hourly Temps - Station"</span>, statno), <span class="at">x =</span> <span class="st">"Day"</span>, <span class="at">y =</span> <span class="st">"Hour Commencing"</span>)</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="co"># 对图表的各种视觉元素进行精细调整</span></span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="co"># 将图例置于底部</span></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span> <span class="co"># 设置主标题字体大小</span></span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span> <span class="co"># 设置y轴文字大小</span></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">colour =</span> <span class="st">"white"</span>)) <span class="sc">+</span> <span class="co"># 设置分面标签的背景</span></span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>)) <span class="sc">+</span> <span class="co"># 标题左对齐</span></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="co"># 隐藏坐标轴刻度线</span></span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>)) <span class="sc">+</span> <span class="co"># 设置坐标轴文字大小</span></span>
+<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)) <span class="sc">+</span> <span class="co"># 设置图例标题大小</span></span>
+<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span> <span class="co"># 设置图例文本大小</span></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">removeGrid</span>() <span class="co"># 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 7. 显示图表 ---</span></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="co"># 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><a href="https://r-graph-gallery.com/283-the-hourly-heatmap.html">这段代码</a> 生成了时间序列热力图。显示了气象站的每小时温度变化。</p>
@@ -1734,108 +1733,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-272"><a href="#cb26-272" aria-hidden="true" tabindex="-1"></a>热力图在可视化时间序列方面是一个非常不错的选择，特别是研究的时间框架是重复的，比如周。</span>
 <span id="cb26-273"><a href="#cb26-273" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-276"><a href="#cb26-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a><span class="co"># 时间序列热力图</span></span>
+<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="cb26-278"><a href="#cb26-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-280"><a href="#cb26-280" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. 加载所需的R包 ---</span></span>
-<span id="cb26-281"><a href="#cb26-281" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggplot2)</span></span>
-<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dplyr)         # 用于更方便的数据处理</span></span>
-<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a><span class="co"># library(viridis)       # 提供对色盲友好的调色板</span></span>
-<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a><span class="co"># library(Interpol.T)    # 用于加载数据集</span></span>
-<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 用于方便地处理日期和时间</span></span>
-<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggExtra)       # 提供额外的主题功能，如removeGrid()</span></span>
-<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyr)         # 用于数据整理，如此处的fill()</span></span>
-<span id="cb26-288"><a href="#cb26-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-289"><a href="#cb26-289" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 2. 加载和初步处理数据 ---</span></span>
-<span id="cb26-290"><a href="#cb26-290" aria-hidden="true" tabindex="-1"></a><span class="co"># # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
-<span id="cb26-291"><a href="#cb26-291" aria-hidden="true" tabindex="-1"></a><span class="co"># data &lt;- data(Trentino_hourly_T, package = "Interpol.T")</span></span>
-<span id="cb26-292"><a href="#cb26-292" aria-hidden="true" tabindex="-1"></a><span class="co"># # 重命名数据框的前5个列名，使其更具可读性</span></span>
-<span id="cb26-293"><a href="#cb26-293" aria-hidden="true" tabindex="-1"></a><span class="co"># names(h_d_t)[1:5] &lt;- c("stationid", "date", "hour", "temp", "flag")</span></span>
-<span id="cb26-294"><a href="#cb26-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-295"><a href="#cb26-295" aria-hidden="true" tabindex="-1"></a><span class="co"># # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
-<span id="cb26-296"><a href="#cb26-296" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- tbl_df(h_d_t) %&gt;%</span></span>
-<span id="cb26-297"><a href="#cb26-297" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(stationid == "T0001")</span></span>
-<span id="cb26-298"><a href="#cb26-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-299"><a href="#cb26-299" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
-<span id="cb26-300"><a href="#cb26-300" aria-hidden="true" tabindex="-1"></a><span class="co"># # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
-<span id="cb26-301"><a href="#cb26-301" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;% mutate(</span></span>
-<span id="cb26-302"><a href="#cb26-302" aria-hidden="true" tabindex="-1"></a><span class="co">#   year = year(date),</span></span>
-<span id="cb26-303"><a href="#cb26-303" aria-hidden="true" tabindex="-1"></a><span class="co">#   month = month(date, label = TRUE),</span></span>
-<span id="cb26-304"><a href="#cb26-304" aria-hidden="true" tabindex="-1"></a><span class="co">#   day = day(date)</span></span>
-<span id="cb26-305"><a href="#cb26-305" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
-<span id="cb26-306"><a href="#cb26-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-307"><a href="#cb26-307" aria-hidden="true" tabindex="-1"></a><span class="co"># # 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
-<span id="cb26-308"><a href="#cb26-308" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
-<span id="cb26-309"><a href="#cb26-309" aria-hidden="true" tabindex="-1"></a><span class="co"># df$date &lt;- ymd(df$date)</span></span>
-<span id="cb26-310"><a href="#cb26-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-311"><a href="#cb26-311" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 3. 清理工作环境 ---</span></span>
-<span id="cb26-312"><a href="#cb26-312" aria-hidden="true" tabindex="-1"></a><span class="co"># # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
-<span id="cb26-313"><a href="#cb26-313" aria-hidden="true" tabindex="-1"></a><span class="co"># rm(list = c(</span></span>
-<span id="cb26-314"><a href="#cb26-314" aria-hidden="true" tabindex="-1"></a><span class="co">#   "h_d_t", "mo_bias", "Tn", "Tx",</span></span>
-<span id="cb26-315"><a href="#cb26-315" aria-hidden="true" tabindex="-1"></a><span class="co">#   "Th_int_list", "calibration_l",</span></span>
-<span id="cb26-316"><a href="#cb26-316" aria-hidden="true" tabindex="-1"></a><span class="co">#   "calibration_shape", "Tm_list"</span></span>
-<span id="cb26-317"><a href="#cb26-317" aria-hidden="true" tabindex="-1"></a><span class="co"># ))</span></span>
-<span id="cb26-318"><a href="#cb26-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-319"><a href="#cb26-319" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 4. 创建用于绘图的最终数据框 ---</span></span>
-<span id="cb26-320"><a href="#cb26-320" aria-hidden="true" tabindex="-1"></a><span class="co"># # 选择绘图所需的列，并填充缺失的温度值</span></span>
-<span id="cb26-321"><a href="#cb26-321" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df %&gt;%</span></span>
-<span id="cb26-322"><a href="#cb26-322" aria-hidden="true" tabindex="-1"></a><span class="co">#   select(stationid, day, hour, month, year, temp) %&gt;%</span></span>
-<span id="cb26-323"><a href="#cb26-323" aria-hidden="true" tabindex="-1"></a><span class="co">#   fill(temp) # 使用前一个非缺失值来填充NA</span></span>
-<span id="cb26-324"><a href="#cb26-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-325"><a href="#cb26-325" aria-hidden="true" tabindex="-1"></a><span class="co"># # 填充缺失值(NA)的注意事项：</span></span>
-<span id="cb26-326"><a href="#cb26-326" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这段代码是为了演示可视化技术。</span></span>
-<span id="cb26-327"><a href="#cb26-327" aria-hidden="true" tabindex="-1"></a><span class="co"># # 数据集中有5个缺失的小时温度值。</span></span>
-<span id="cb26-328"><a href="#cb26-328" aria-hidden="true" tabindex="-1"></a><span class="co"># # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
-<span id="cb26-329"><a href="#cb26-329" aria-hidden="true" tabindex="-1"></a><span class="co"># # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
-<span id="cb26-330"><a href="#cb26-330" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
-<span id="cb26-331"><a href="#cb26-331" aria-hidden="true" tabindex="-1"></a><span class="co"># # 或者使用更专业的插补方法来处理缺失值。</span></span>
-<span id="cb26-332"><a href="#cb26-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-333"><a href="#cb26-333" aria-hidden="true" tabindex="-1"></a><span class="co"># # 获取当前正在分析的气象站ID，用于图表标题</span></span>
-<span id="cb26-334"><a href="#cb26-334" aria-hidden="true" tabindex="-1"></a><span class="co"># statno &lt;- unique(df$stationid)</span></span>
-<span id="cb26-335"><a href="#cb26-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-336"><a href="#cb26-336" aria-hidden="true" tabindex="-1"></a><span class="co"># ######## 绘图部分开始 #####################</span></span>
-<span id="cb26-337"><a href="#cb26-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-338"><a href="#cb26-338" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 5. 使用ggplot2创建图表 ---</span></span>
-<span id="cb26-339"><a href="#cb26-339" aria-hidden="true" tabindex="-1"></a><span class="co"># # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
-<span id="cb26-340"><a href="#cb26-340" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- ggplot(df, aes(day, hour, fill = temp)) +</span></span>
-<span id="cb26-341"><a href="#cb26-341" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
-<span id="cb26-342"><a href="#cb26-342" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_tile(color = "white", size = 0.1) +</span></span>
-<span id="cb26-343"><a href="#cb26-343" aria-hidden="true" tabindex="-1"></a><span class="co">#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
-<span id="cb26-344"><a href="#cb26-344" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_fill_viridis(name = "Hourly Temps C", option = "C")</span></span>
-<span id="cb26-345"><a href="#cb26-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-346"><a href="#cb26-346" aria-hidden="true" tabindex="-1"></a><span class="co"># # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
-<span id="cb26-347"><a href="#cb26-347" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + facet_grid(year ~ month)</span></span>
-<span id="cb26-348"><a href="#cb26-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-349"><a href="#cb26-349" aria-hidden="true" tabindex="-1"></a><span class="co"># # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
-<span id="cb26-350"><a href="#cb26-350" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))</span></span>
-<span id="cb26-351"><a href="#cb26-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-352"><a href="#cb26-352" aria-hidden="true" tabindex="-1"></a><span class="co"># # 自定义x轴（天）的刻度，使其更清晰</span></span>
-<span id="cb26-353"><a href="#cb26-353" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + scale_x_continuous(breaks = c(1, 10, 20, 31))</span></span>
-<span id="cb26-354"><a href="#cb26-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-355"><a href="#cb26-355" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 6. 精细调整图表主题和标签 ---</span></span>
-<span id="cb26-356"><a href="#cb26-356" aria-hidden="true" tabindex="-1"></a><span class="co"># # 应用一个简洁的主题，并设置基础字体大小</span></span>
-<span id="cb26-357"><a href="#cb26-357" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme_minimal(base_size = 8)</span></span>
-<span id="cb26-358"><a href="#cb26-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-359"><a href="#cb26-359" aria-hidden="true" tabindex="-1"></a><span class="co"># # 添加图表标题和坐标轴标签</span></span>
-<span id="cb26-360"><a href="#cb26-360" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")</span></span>
-<span id="cb26-361"><a href="#cb26-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-362"><a href="#cb26-362" aria-hidden="true" tabindex="-1"></a><span class="co"># # 对图表的各种视觉元素进行精细调整</span></span>
-<span id="cb26-363"><a href="#cb26-363" aria-hidden="true" tabindex="-1"></a><span class="co"># p &lt;- p + theme(legend.position = "bottom") + # 将图例置于底部</span></span>
-<span id="cb26-364"><a href="#cb26-364" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小</span></span>
-<span id="cb26-365"><a href="#cb26-365" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小</span></span>
-<span id="cb26-366"><a href="#cb26-366" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景</span></span>
-<span id="cb26-367"><a href="#cb26-367" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐</span></span>
-<span id="cb26-368"><a href="#cb26-368" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线</span></span>
-<span id="cb26-369"><a href="#cb26-369" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小</span></span>
-<span id="cb26-370"><a href="#cb26-370" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小</span></span>
-<span id="cb26-371"><a href="#cb26-371" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小</span></span>
-<span id="cb26-372"><a href="#cb26-372" aria-hidden="true" tabindex="-1"></a><span class="co">#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
-<span id="cb26-373"><a href="#cb26-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-374"><a href="#cb26-374" aria-hidden="true" tabindex="-1"></a><span class="co"># # --- 7. 显示图表 ---</span></span>
-<span id="cb26-375"><a href="#cb26-375" aria-hidden="true" tabindex="-1"></a><span class="co"># # 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
-<span id="cb26-376"><a href="#cb26-376" aria-hidden="true" tabindex="-1"></a><span class="co"># # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
-<span id="cb26-377"><a href="#cb26-377" aria-hidden="true" tabindex="-1"></a><span class="co"># p</span></span>
-<span id="cb26-378"><a href="#cb26-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 时间序列热力图</span></span>
+<span id="cb26-280"><a href="#cb26-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-281"><a href="#cb26-281" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span> <span class="fl">1.</span> 加载所需的R包 <span class="sc">---</span></span>
+<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)         <span class="co"># 用于更方便的数据处理</span></span>
+<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)       <span class="co"># 提供对色盲友好的调色板</span></span>
+<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Interpol.T)    <span class="co"># 用于加载数据集</span></span>
+<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)     <span class="co"># 用于方便地处理日期和时间</span></span>
+<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggExtra)       <span class="co"># 提供额外的主题功能，如removeGrid()</span></span>
+<span id="cb26-288"><a href="#cb26-288" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)         <span class="co"># 用于数据整理，如此处的fill()</span></span>
+<span id="cb26-289"><a href="#cb26-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-290"><a href="#cb26-290" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. 加载和初步处理数据 ---</span></span>
+<span id="cb26-291"><a href="#cb26-291" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 Interpol.T 包中加载 Trentino_hourly_T 数据集</span></span>
+<span id="cb26-292"><a href="#cb26-292" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data</span>(Trentino_hourly_T, <span class="at">package =</span> <span class="st">"Interpol.T"</span>)</span>
+<span id="cb26-293"><a href="#cb26-293" aria-hidden="true" tabindex="-1"></a><span class="co"># 重命名数据框的前5个列名，使其更具可读性</span></span>
+<span id="cb26-294"><a href="#cb26-294" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(h_d_t)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"stationid"</span>, <span class="st">"date"</span>, <span class="st">"hour"</span>, <span class="st">"temp"</span>, <span class="st">"flag"</span>)</span>
+<span id="cb26-295"><a href="#cb26-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-296"><a href="#cb26-296" aria-hidden="true" tabindex="-1"></a><span class="co"># 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据</span></span>
+<span id="cb26-297"><a href="#cb26-297" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tbl_df</span>(h_d_t) <span class="sc">%&gt;%</span></span>
+<span id="cb26-298"><a href="#cb26-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stationid <span class="sc">==</span> <span class="st">"T0001"</span>)</span>
+<span id="cb26-299"><a href="#cb26-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-300"><a href="#cb26-300" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用lubridate包从date列中提取年、月、日信息，并创建新列</span></span>
+<span id="cb26-301"><a href="#cb26-301" aria-hidden="true" tabindex="-1"></a><span class="co"># month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字</span></span>
+<span id="cb26-302"><a href="#cb26-302" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb26-303"><a href="#cb26-303" aria-hidden="true" tabindex="-1"></a>  <span class="at">year =</span> <span class="fu">year</span>(date),</span>
+<span id="cb26-304"><a href="#cb26-304" aria-hidden="true" tabindex="-1"></a>  <span class="at">month =</span> <span class="fu">month</span>(date, <span class="at">label =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb26-305"><a href="#cb26-305" aria-hidden="true" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">day</span>(date)</span>
+<span id="cb26-306"><a href="#cb26-306" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-307"><a href="#cb26-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-308"><a href="#cb26-308" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用lubridate的ymd()函数确保date列是标准的日期格式</span></span>
+<span id="cb26-309"><a href="#cb26-309" aria-hidden="true" tabindex="-1"></a><span class="co"># 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用</span></span>
+<span id="cb26-310"><a href="#cb26-310" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(df<span class="sc">$</span>date)</span>
+<span id="cb26-311"><a href="#cb26-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-312"><a href="#cb26-312" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. 清理工作环境 ---</span></span>
+<span id="cb26-313"><a href="#cb26-313" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除加载数据时附带的、后续不再需要的中间变量，以节省内存</span></span>
+<span id="cb26-314"><a href="#cb26-314" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">c</span>(</span>
+<span id="cb26-315"><a href="#cb26-315" aria-hidden="true" tabindex="-1"></a>  <span class="st">"h_d_t"</span>, <span class="st">"mo_bias"</span>, <span class="st">"Tn"</span>, <span class="st">"Tx"</span>,</span>
+<span id="cb26-316"><a href="#cb26-316" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Th_int_list"</span>, <span class="st">"calibration_l"</span>,</span>
+<span id="cb26-317"><a href="#cb26-317" aria-hidden="true" tabindex="-1"></a>  <span class="st">"calibration_shape"</span>, <span class="st">"Tm_list"</span></span>
+<span id="cb26-318"><a href="#cb26-318" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb26-319"><a href="#cb26-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-320"><a href="#cb26-320" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. 创建用于绘图的最终数据框 ---</span></span>
+<span id="cb26-321"><a href="#cb26-321" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择绘图所需的列，并填充缺失的温度值</span></span>
+<span id="cb26-322"><a href="#cb26-322" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb26-323"><a href="#cb26-323" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(stationid, day, hour, month, year, temp) <span class="sc">%&gt;%</span></span>
+<span id="cb26-324"><a href="#cb26-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fill</span>(temp) <span class="co"># 使用前一个非缺失值来填充NA</span></span>
+<span id="cb26-325"><a href="#cb26-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-326"><a href="#cb26-326" aria-hidden="true" tabindex="-1"></a><span class="co"># 填充缺失值(NA)的注意事项：</span></span>
+<span id="cb26-327"><a href="#cb26-327" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码是为了演示可视化技术。</span></span>
+<span id="cb26-328"><a href="#cb26-328" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据集中有5个缺失的小时温度值。</span></span>
+<span id="cb26-329"><a href="#cb26-329" aria-hidden="true" tabindex="-1"></a><span class="co"># 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。</span></span>
+<span id="cb26-330"><a href="#cb26-330" aria-hidden="true" tabindex="-1"></a><span class="co"># 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！</span></span>
+<span id="cb26-331"><a href="#cb26-331" aria-hidden="true" tabindex="-1"></a><span class="co"># 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，</span></span>
+<span id="cb26-332"><a href="#cb26-332" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者使用更专业的插补方法来处理缺失值。</span></span>
+<span id="cb26-333"><a href="#cb26-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-334"><a href="#cb26-334" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取当前正在分析的气象站ID，用于图表标题</span></span>
+<span id="cb26-335"><a href="#cb26-335" aria-hidden="true" tabindex="-1"></a>statno <span class="ot">&lt;-</span> <span class="fu">unique</span>(df<span class="sc">$</span>stationid)</span>
+<span id="cb26-336"><a href="#cb26-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-337"><a href="#cb26-337" aria-hidden="true" tabindex="-1"></a><span class="do">######## 绘图部分开始 #####################</span></span>
+<span id="cb26-338"><a href="#cb26-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-339"><a href="#cb26-339" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 5. 使用ggplot2创建图表 ---</span></span>
+<span id="cb26-340"><a href="#cb26-340" aria-hidden="true" tabindex="-1"></a><span class="co"># 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度</span></span>
+<span id="cb26-341"><a href="#cb26-341" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(day, hour, <span class="at">fill =</span> temp)) <span class="sc">+</span></span>
+<span id="cb26-342"><a href="#cb26-342" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框</span></span>
+<span id="cb26-343"><a href="#cb26-343" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb26-344"><a href="#cb26-344" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题</span></span>
+<span id="cb26-345"><a href="#cb26-345" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">name =</span> <span class="st">"Hourly Temps C"</span>, <span class="at">option =</span> <span class="st">"C"</span>)</span>
+<span id="cb26-346"><a href="#cb26-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-347"><a href="#cb26-347" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板</span></span>
+<span id="cb26-348"><a href="#cb26-348" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">facet_grid</span>(year <span class="sc">~</span> month)</span>
+<span id="cb26-349"><a href="#cb26-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-350"><a href="#cb26-350" aria-hidden="true" tabindex="-1"></a><span class="co"># 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉</span></span>
+<span id="cb26-351"><a href="#cb26-351" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">trans =</span> <span class="st">"reverse"</span>, <span class="at">breaks =</span> <span class="fu">unique</span>(df<span class="sc">$</span>hour))</span>
+<span id="cb26-352"><a href="#cb26-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-353"><a href="#cb26-353" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义x轴（天）的刻度，使其更清晰</span></span>
+<span id="cb26-354"><a href="#cb26-354" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">31</span>))</span>
+<span id="cb26-355"><a href="#cb26-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-356"><a href="#cb26-356" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 6. 精细调整图表主题和标签 ---</span></span>
+<span id="cb26-357"><a href="#cb26-357" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用一个简洁的主题，并设置基础字体大小</span></span>
+<span id="cb26-358"><a href="#cb26-358" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">8</span>)</span>
+<span id="cb26-359"><a href="#cb26-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-360"><a href="#cb26-360" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图表标题和坐标轴标签</span></span>
+<span id="cb26-361"><a href="#cb26-361" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Hourly Temps - Station"</span>, statno), <span class="at">x =</span> <span class="st">"Day"</span>, <span class="at">y =</span> <span class="st">"Hour Commencing"</span>)</span>
+<span id="cb26-362"><a href="#cb26-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-363"><a href="#cb26-363" aria-hidden="true" tabindex="-1"></a><span class="co"># 对图表的各种视觉元素进行精细调整</span></span>
+<span id="cb26-364"><a href="#cb26-364" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>) <span class="sc">+</span> <span class="co"># 将图例置于底部</span></span>
+<span id="cb26-365"><a href="#cb26-365" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span> <span class="co"># 设置主标题字体大小</span></span>
+<span id="cb26-366"><a href="#cb26-366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span> <span class="co"># 设置y轴文字大小</span></span>
+<span id="cb26-367"><a href="#cb26-367" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">colour =</span> <span class="st">"white"</span>)) <span class="sc">+</span> <span class="co"># 设置分面标签的背景</span></span>
+<span id="cb26-368"><a href="#cb26-368" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>)) <span class="sc">+</span> <span class="co"># 标题左对齐</span></span>
+<span id="cb26-369"><a href="#cb26-369" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> <span class="co"># 隐藏坐标轴刻度线</span></span>
+<span id="cb26-370"><a href="#cb26-370" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">7</span>)) <span class="sc">+</span> <span class="co"># 设置坐标轴文字大小</span></span>
+<span id="cb26-371"><a href="#cb26-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)) <span class="sc">+</span> <span class="co"># 设置图例标题大小</span></span>
+<span id="cb26-372"><a href="#cb26-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>)) <span class="sc">+</span> <span class="co"># 设置图例文本大小</span></span>
+<span id="cb26-373"><a href="#cb26-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">removeGrid</span>() <span class="co"># 使用ggExtra包的函数移除背景网格线，使图表更干净</span></span>
+<span id="cb26-374"><a href="#cb26-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-375"><a href="#cb26-375" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 7. 显示图表 ---</span></span>
+<span id="cb26-376"><a href="#cb26-376" aria-hidden="true" tabindex="-1"></a><span class="co"># 在R的绘图窗口中打印（显示）最终生成的图表对象</span></span>
+<span id="cb26-377"><a href="#cb26-377" aria-hidden="true" tabindex="-1"></a><span class="co"># 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果</span></span>
+<span id="cb26-378"><a href="#cb26-378" aria-hidden="true" tabindex="-1"></a>p</span>
 <span id="cb26-379"><a href="#cb26-379" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb26-380"><a href="#cb26-380" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-381"><a href="#cb26-381" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">这段代码</span><span class="co">](https://r-graph-gallery.com/283-the-hourly-heatmap.html)</span> 生成了时间序列热力图。显示了气象站的每小时温度变化。</span>

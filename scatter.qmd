@@ -504,7 +504,7 @@ qq(gwasResults$P)
 ![ggplot2 高度定制曼哈顿图](./image/manhattan2.png)
 
 
-## Pearl
+## Pearl {#sec-label-pearl}
 
 ### 箭头散点
 

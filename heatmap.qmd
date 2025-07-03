@@ -250,108 +250,108 @@ ggplotly(p, tooltip = "text")
 热力图在可视化时间序列方面是一个非常不错的选择，特别是研究的时间框架是重复的，比如周。
 
 ```{r}
-# 时间序列热力图
+#| eval: false
 
+#| fig-cap: 时间序列热力图
 
-# --- 1. 加载所需的R包 ---
-# library(ggplot2)
-# library(dplyr)         # 用于更方便的数据处理
-# library(viridis)       # 提供对色盲友好的调色板
-# library(Interpol.T)    # 用于加载数据集
-# library(lubridate)     # 用于方便地处理日期和时间
-# library(ggExtra)       # 提供额外的主题功能，如removeGrid()
-# library(tidyr)         # 用于数据整理，如此处的fill()
+--- 1. 加载所需的R包 ---
+library(ggplot2)
+library(dplyr)         # 用于更方便的数据处理
+library(viridis)       # 提供对色盲友好的调色板
+library(Interpol.T)    # 用于加载数据集
+library(lubridate)     # 用于方便地处理日期和时间
+library(ggExtra)       # 提供额外的主题功能，如removeGrid()
+library(tidyr)         # 用于数据整理，如此处的fill()
 
-# # --- 2. 加载和初步处理数据 ---
-# # 从 Interpol.T 包中加载 Trentino_hourly_T 数据集
-# data <- data(Trentino_hourly_T, package = "Interpol.T")
-# # 重命名数据框的前5个列名，使其更具可读性
-# names(h_d_t)[1:5] <- c("stationid", "date", "hour", "temp", "flag")
+# --- 2. 加载和初步处理数据 ---
+# 从 Interpol.T 包中加载 Trentino_hourly_T 数据集
+data <- data(Trentino_hourly_T, package = "Interpol.T")
+# 重命名数据框的前5个列名，使其更具可读性
+names(h_d_t)[1:5] <- c("stationid", "date", "hour", "temp", "flag")
 
-# # 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据
-# df <- tbl_df(h_d_t) %>%
-#   filter(stationid == "T0001")
+# 将数据框转换为dplyr的tbl_df格式，并筛选出特定气象站（T0001）的数据
+df <- tbl_df(h_d_t) %>%
+  filter(stationid == "T0001")
 
-# # 使用lubridate包从date列中提取年、月、日信息，并创建新列
-# # month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字
-# df <- df %>% mutate(
-#   year = year(date),
-#   month = month(date, label = TRUE),
-#   day = day(date)
-# )
+# 使用lubridate包从date列中提取年、月、日信息，并创建新列
+# month()中的label=TRUE使月份显示为缩写（如 Jan, Feb），而不是数字
+df <- df %>% mutate(
+  year = year(date),
+  month = month(date, label = TRUE),
+  day = day(date)
+)
 
-# # 使用lubridate的ymd()函数确保date列是标准的日期格式
-# # 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用
-# df$date <- ymd(df$date)
+# 使用lubridate的ymd()函数确保date列是标准的日期格式
+# 这一步对于当前绘图不是必需的，但对于后续可能的数据分析很有用
+df$date <- ymd(df$date)
 
-# # --- 3. 清理工作环境 ---
-# # 删除加载数据时附带的、后续不再需要的中间变量，以节省内存
-# rm(list = c(
-#   "h_d_t", "mo_bias", "Tn", "Tx",
-#   "Th_int_list", "calibration_l",
-#   "calibration_shape", "Tm_list"
-# ))
+# --- 3. 清理工作环境 ---
+# 删除加载数据时附带的、后续不再需要的中间变量，以节省内存
+rm(list = c(
+  "h_d_t", "mo_bias", "Tn", "Tx",
+  "Th_int_list", "calibration_l",
+  "calibration_shape", "Tm_list"
+))
 
-# # --- 4. 创建用于绘图的最终数据框 ---
-# # 选择绘图所需的列，并填充缺失的温度值
-# df <- df %>%
-#   select(stationid, day, hour, month, year, temp) %>%
-#   fill(temp) # 使用前一个非缺失值来填充NA
+# --- 4. 创建用于绘图的最终数据框 ---
+# 选择绘图所需的列，并填充缺失的温度值
+df <- df %>%
+  select(stationid, day, hour, month, year, temp) %>%
+  fill(temp) # 使用前一个非缺失值来填充NA
 
-# # 填充缺失值(NA)的注意事项：
-# # 这段代码是为了演示可视化技术。
-# # 数据集中有5个缺失的小时温度值。
-# # 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。
-# # 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！
-# # 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，
-# # 或者使用更专业的插补方法来处理缺失值。
+# 填充缺失值(NA)的注意事项：
+# 这段代码是为了演示可视化技术。
+# 数据集中有5个缺失的小时温度值。
+# 作者使用了tidyr包的fill()函数，用前一个小时的值来替换NA。
+# 这只是为了让图表好看的快速修复方法，在真实的数据分析中请不要这样做！
+# 应该使用更严谨的方法，如 tidyr 的 replace_NA 或 complete(with fill)，
+# 或者使用更专业的插补方法来处理缺失值。
 
-# # 获取当前正在分析的气象站ID，用于图表标题
-# statno <- unique(df$stationid)
+# 获取当前正在分析的气象站ID，用于图表标题
+statno <- unique(df$stationid)
 
-# ######## 绘图部分开始 #####################
+######## 绘图部分开始 #####################
 
-# # --- 5. 使用ggplot2创建图表 ---
-# # 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度
-# p <- ggplot(df, aes(day, hour, fill = temp)) +
-#   # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框
-#   geom_tile(color = "white", size = 0.1) +
-#   # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题
-#   scale_fill_viridis(name = "Hourly Temps C", option = "C")
+# --- 5. 使用ggplot2创建图表 ---
+# 初始化ggplot对象，设置核心美学映射：x轴为天，y轴为小时，填充色为温度
+p <- ggplot(df, aes(day, hour, fill = temp)) +
+  # 使用瓦片图层来创建热图，并给瓦片之间添加细微的白色边框
+  geom_tile(color = "white", size = 0.1) +
+  # 使用viridis调色板填充颜色，对色盲友好。name参数设置图例标题
+  scale_fill_viridis(name = "Hourly Temps C", option = "C")
 
-# # 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板
-# p <- p + facet_grid(year ~ month)
+# 创建分面网格，按年份(行)和月份(列)将图表分割成多个面板
+p <- p + facet_grid(year ~ month)
 
-# # 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉
-# p <- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))
+# 反转y轴（小时），使得0点在顶部，23点在底部，更符合直觉
+p <- p + scale_y_continuous(trans = "reverse", breaks = unique(df$hour))
 
-# # 自定义x轴（天）的刻度，使其更清晰
-# p <- p + scale_x_continuous(breaks = c(1, 10, 20, 31))
+# 自定义x轴（天）的刻度，使其更清晰
+p <- p + scale_x_continuous(breaks = c(1, 10, 20, 31))
 
-# # --- 6. 精细调整图表主题和标签 ---
-# # 应用一个简洁的主题，并设置基础字体大小
-# p <- p + theme_minimal(base_size = 8)
+# --- 6. 精细调整图表主题和标签 ---
+# 应用一个简洁的主题，并设置基础字体大小
+p <- p + theme_minimal(base_size = 8)
 
-# # 添加图表标题和坐标轴标签
-# p <- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")
+# 添加图表标题和坐标轴标签
+p <- p + labs(title = paste("Hourly Temps - Station", statno), x = "Day", y = "Hour Commencing")
 
-# # 对图表的各种视觉元素进行精细调整
-# p <- p + theme(legend.position = "bottom") + # 将图例置于底部
-#   theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小
-#   theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小
-#   theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景
-#   theme(plot.title = element_text(hjust = 0)) + # 标题左对齐
-#   theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线
-#   theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小
-#   theme(legend.title = element_text(size = 8)) + # 设置图例标题大小
-#   theme(legend.text = element_text(size = 6)) + # 设置图例文本大小
-#   removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净
+# 对图表的各种视觉元素进行精细调整
+p <- p + theme(legend.position = "bottom") + # 将图例置于底部
+  theme(plot.title = element_text(size = 14)) + # 设置主标题字体大小
+  theme(axis.text.y = element_text(size = 6)) + # 设置y轴文字大小
+  theme(strip.background = element_rect(colour = "white")) + # 设置分面标签的背景
+  theme(plot.title = element_text(hjust = 0)) + # 标题左对齐
+  theme(axis.ticks = element_blank()) + # 隐藏坐标轴刻度线
+  theme(axis.text = element_text(size = 7)) + # 设置坐标轴文字大小
+  theme(legend.title = element_text(size = 8)) + # 设置图例标题大小
+  theme(legend.text = element_text(size = 6)) + # 设置图例文本大小
+  removeGrid() # 使用ggExtra包的函数移除背景网格线，使图表更干净
 
-# # --- 7. 显示图表 ---
-# # 在R的绘图窗口中打印（显示）最终生成的图表对象
-# # 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果
-# p
-
+# --- 7. 显示图表 ---
+# 在R的绘图窗口中打印（显示）最终生成的图表对象
+# 建议在显示前先将绘图窗口拉大，以获得最佳视觉效果
+p
 ```
 
 [这段代码](https://r-graph-gallery.com/283-the-hourly-heatmap.html) 生成了时间序列热力图。显示了气象站的每小时温度变化。
