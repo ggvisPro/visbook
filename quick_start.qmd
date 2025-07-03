@@ -65,11 +65,13 @@ ggplot(diamonds, aes(x = 1, fill = cut)) +
 甜甜圈图是饼图的变种，去掉了中间的空心部分，形成一个甜甜圈形状。
 
 ```{r}
+#| fig-cap: 甜甜圈图
+
 ggplot(diamonds, aes(x = 2, fill = cut)) + 
-  geom_bar(color = "white") +
-  xlim(0.5, 2.5) +  # 这里设置中心空白洞的大小
-  coord_polar(theta = "y") + 
-  theme_void()
+  geom_bar(color = "white") +           # 绘制每个cut的条形，白色边框
+  xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小
+  coord_polar(theta = "y") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）
+  theme_void()                          # 移除所有背景和坐标轴，突出图形主体
 ```
 
 #### 堆叠条形图(Barstack)

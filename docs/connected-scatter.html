@@ -104,6 +104,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/jquery-1.11.1/jquery.min.js"></script>
+
+<link href="site_libs/dygraphs-1.1.1/dygraph.css" rel="stylesheet">
+
+<script src="site_libs/dygraphs-1.1.1/dygraph-combined.js"></script>
+
+<script src="site_libs/dygraphs-1.1.1/shapes.js"></script>
+
+<script src="site_libs/moment-2.8.4/moment.js"></script>
+
+<script src="site_libs/moment-timezone-0.2.5/moment-timezone-with-data.js"></script>
+
+<script src="site_libs/moment-fquarter-1.0.0/moment-fquarter.min.js"></script>
+
+<script src="site_libs/dygraphs-binding-1.1.1.6/dygraphs.js"></script>
+
+<script src="site_libs/Dygraph.Plugins.Crosshair-1.0/crosshair.js"></script>
+
 
 
 </head>
@@ -265,15 +287,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pkg" id="toc-pkg" class="nav-link active" data-scroll-target="#pkg"><span class="header-section-number">11.1</span> PKG</a></li>
+  <li><a href="#基础" id="toc-基础" class="nav-link" data-scroll-target="#基础"><span class="header-section-number">11.2</span> 基础</a></li>
+  <li><a href="#主题" id="toc-主题" class="nav-link" data-scroll-target="#主题"><span class="header-section-number">11.3</span> 主题</a></li>
+  <li><a href="#演变" id="toc-演变" class="nav-link" data-scroll-target="#演变"><span class="header-section-number">11.4</span> 演变</a></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">11.5</span> Time series</a></li>
+  <li><a href="#base-r" id="toc-base-r" class="nav-link" data-scroll-target="#base-r"><span class="header-section-number">11.6</span> Base R</a>
+  <ul class="collapse">
+  <li><a href="#基础-1" id="toc-基础-1" class="nav-link" data-scroll-target="#基础-1"><span class="header-section-number">11.6.1</span> 基础</a></li>
+  <li><a href="#背景图" id="toc-背景图" class="nav-link" data-scroll-target="#背景图"><span class="header-section-number">11.6.2</span> 背景图</a></li>
+  <li><a href="#lubridate" id="toc-lubridate" class="nav-link" data-scroll-target="#lubridate"><span class="header-section-number">11.6.3</span> <code>lubridate()</code></a></li>
+  </ul></li>
+  <li><a href="#pearl" id="toc-pearl" class="nav-link" data-scroll-target="#pearl"><span class="header-section-number">11.7</span> Pearl</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./correlation.html">Correlation</a></li><li class="breadcrumb-item"><a href="./connected-scatter.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conn-Scatter</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-connected-scatter" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conn-Scatter</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-connected-scatter" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conn-Scatter</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -290,11 +329,348 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>1</p>
+<section id="pkg" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="pkg"><span class="header-section-number">11.1</span> PKG</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes) <span class="co"># 主题</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames) <span class="co"># 数据集</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel) <span class="co"># 标签</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dygraphs)      <span class="co"># 用于绘制交互式时间序列图</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)           <span class="co"># 用于数据框与 xts 格式转换</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)     <span class="co"># 数据处理</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)     <span class="co"># 处理日期时间</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="基础" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="基础"><span class="header-section-number">11.2</span> 基础</h2>
+<p><code>geom_point()</code> 和 <code>geom_line()</code> 组合在一起。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据，并将日期列转换为 Date 类型</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv"</span>, <span class="at">header=</span>T)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 取数据的最后10行，绘制连接散点图</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span>   <span class="co"># 添加连线</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()    <span class="co"># 添加散点</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>连接散点图</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="主题" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="主题"><span class="header-section-number">11.3</span> 主题</h2>
+<p>使用 <code>hrbrthemes::theme_ipsum()</code> 函数自定义主题。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 取数据的最后10行，绘制连接散点图，并自定义主题</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span>  <span class="co"># 添加灰色连线</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#69b3a2"</span>, <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span>  <span class="co"># 添加带填充色的点</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span>  <span class="co"># 应用 hrbrthemes 的主题</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Evolution of bitcoin price"</span>)  <span class="co"># 添加标题</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>theme_ipsum() 定制主题</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="演变" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="演变"><span class="header-section-number">11.4</span> 演变</h2>
+<p>连接散点图也可以是一种强大的技术，用来讲述两个变量演变的故事。</p>
+<p>下面的示例展示了美国名为 <em>Amanda</em> 和 <em>Ashley</em> 的婴儿数量演变。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选1970年后的女性婴儿，名字为 Ashley 或 Amanda 的数据</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> babynames <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ashley"</span>, <span class="st">"Amanda"</span>)) <span class="sc">|&gt;</span> <span class="co"># 只保留 Ashley 和 Amanda</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span> <span class="co"># 只保留女性</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1970</span>) <span class="sc">|&gt;</span> <span class="co"># 只保留1970年后的数据</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, name, n) <span class="sc">|&gt;</span> <span class="co"># 选择年份、名字和数量</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> name, <span class="at">value =</span> n, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># 宽数据格式，每列为一个名字</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘图：x轴为 Amanda，y轴为 Ashley，标签为年份</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amanda, <span class="at">y =</span> Ashley, <span class="at">label =</span> year)) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 绘制散点</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Amanda, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>), <span class="co"># 连接相邻年份的点</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Ashley, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Ashley 和 Amanda 名字在美国的流行演变（1970年后，女婴）</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>再改进一下，在图表中添加箭头和标签来引导读者：</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机选择部分年份用于标签</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tmp_date <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘图</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amanda, <span class="at">y =</span> Ashley, <span class="at">label =</span> year)) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#69b3a2"</span>) <span class="sc">+</span> <span class="co"># 绘制散点</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> tmp_date) <span class="sc">+</span> <span class="co"># 添加年份标签，避免重叠</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#69b3a2"</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Amanda, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>), <span class="co"># 连接相邻年份的点</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Ashley, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>)) <span class="co"># 添加箭头</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="co"># 应用主题</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Ashley 和 Amanda 名字在美国的流行演变（带箭头和标签，1970年后，女婴）</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="time-series" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="time-series"><span class="header-section-number">11.5</span> Time series</h2>
+<p>交互式时间序列图：巴黎 Vélib 自行车租赁数据（前300条）：</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dygraphs)      # 用于绘制交互式时间序列图</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(xts)           # 用于数据框与 xts 格式转换</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)     # 数据处理</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 处理日期时间</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="st">'https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/bike.csv'</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">300</span>) <span class="co"># 取前300行数据</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 将时间列从因子/字符转换为日期时间格式</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(data<span class="sc">$</span>datetime)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 xts 对象，dygraph 需要此格式</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># x = 观测值，order.by = 时间索引</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="at">x =</span> data<span class="sc">$</span>count, <span class="at">order.by =</span> data<span class="sc">$</span>datetime)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制交互式时间序列图</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">dygraph</span>(don) <span class="sc">|&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyOptions</span>(</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">labelsUTC =</span> <span class="cn">TRUE</span>,         <span class="co"># 使用 UTC 时间标签</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillGraph =</span> <span class="cn">TRUE</span>,         <span class="co"># 填充曲线下方区域</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillAlpha =</span> <span class="fl">0.1</span>,          <span class="co"># 填充透明度</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">drawGrid =</span> <span class="cn">FALSE</span>,         <span class="co"># 不显示网格线</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">colors =</span> <span class="st">"#D8AE5A"</span>        <span class="co"># 曲线颜色</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyRangeSelector</span>() <span class="sc">|&gt;</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyCrosshair</span>(<span class="at">direction =</span> <span class="st">"vertical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyHighlight</span>(</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">highlightCircleSize =</span> <span class="dv">5</span>,                  <span class="co"># 鼠标悬停时点的大小</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">highlightSeriesBackgroundAlpha =</span> <span class="fl">0.2</span>,     <span class="co"># 高亮系列的背景透明度</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">hideOnMouseOut =</span> <span class="cn">FALSE</span>                    <span class="co"># 鼠标移出时是否隐藏高亮</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyRoller</span>(<span class="at">rollPeriod =</span> <span class="dv">1</span>)                    <span class="co"># 滚动平均窗口大小</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="dygraphs html-widget html-fill-item" id="htmlwidget-e4e1016ff44f2eba3f14" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-e4e1016ff44f2eba3f14">{"x":{"attrs":{"labels":["hour","V1"],"legend":"auto","retainDateWindow":false,"axes":{"x":{"pixelsPerLabel":60,"drawAxis":true},"y":{"drawAxis":true}},"stackedGraph":false,"fillGraph":true,"fillAlpha":0.1,"stepPlot":false,"drawPoints":false,"pointSize":1,"drawGapEdgePoints":false,"connectSeparatedPoints":false,"strokeWidth":1,"strokeBorderColor":"white","colors":["#D8AE5A"],"colorValue":0.5,"colorSaturation":1,"includeZero":false,"drawAxesAtZero":false,"logscale":false,"axisTickSize":3,"axisLineColor":"black","axisLineWidth":0.3,"axisLabelColor":"black","axisLabelFontSize":14,"axisLabelWidth":60,"drawGrid":false,"gridLineWidth":0.3,"rightGap":5,"digitsAfterDecimal":2,"labelsKMB":false,"labelsKMG2":false,"labelsUTC":true,"maxNumberWidth":6,"animatedZooms":false,"mobileDisableYTouch":true,"disableZoom":false,"showRangeSelector":true,"rangeSelectorHeight":40,"rangeSelectorPlotFillColor":" #A7B1C4","rangeSelectorPlotStrokeColor":"#808FAB","interactionModel":"Dygraph.Interaction.defaultModel","highlightCircleSize":5,"highlightSeriesBackgroundAlpha":0.2,"highlightSeriesOpts":[],"hideOverlayOnMouseOut":false,"showRoller":true,"rollPeriod":1},"scale":"hourly","annotations":[],"shadings":[],"events":[],"format":"date","data":[["2011-01-01T00:00:00.000Z","2011-01-01T01:00:00.000Z","2011-01-01T02:00:00.000Z","2011-01-01T03:00:00.000Z","2011-01-01T04:00:00.000Z","2011-01-01T05:00:00.000Z","2011-01-01T06:00:00.000Z","2011-01-01T07:00:00.000Z","2011-01-01T08:00:00.000Z","2011-01-01T09:00:00.000Z","2011-01-01T10:00:00.000Z","2011-01-01T11:00:00.000Z","2011-01-01T12:00:00.000Z","2011-01-01T13:00:00.000Z","2011-01-01T14:00:00.000Z","2011-01-01T15:00:00.000Z","2011-01-01T16:00:00.000Z","2011-01-01T17:00:00.000Z","2011-01-01T18:00:00.000Z","2011-01-01T19:00:00.000Z","2011-01-01T20:00:00.000Z","2011-01-01T21:00:00.000Z","2011-01-01T22:00:00.000Z","2011-01-01T23:00:00.000Z","2011-01-02T00:00:00.000Z","2011-01-02T01:00:00.000Z","2011-01-02T02:00:00.000Z","2011-01-02T03:00:00.000Z","2011-01-02T04:00:00.000Z","2011-01-02T06:00:00.000Z","2011-01-02T07:00:00.000Z","2011-01-02T08:00:00.000Z","2011-01-02T09:00:00.000Z","2011-01-02T10:00:00.000Z","2011-01-02T11:00:00.000Z","2011-01-02T12:00:00.000Z","2011-01-02T13:00:00.000Z","2011-01-02T14:00:00.000Z","2011-01-02T15:00:00.000Z","2011-01-02T16:00:00.000Z","2011-01-02T17:00:00.000Z","2011-01-02T18:00:00.000Z","2011-01-02T19:00:00.000Z","2011-01-02T20:00:00.000Z","2011-01-02T21:00:00.000Z","2011-01-02T22:00:00.000Z","2011-01-02T23:00:00.000Z","2011-01-03T00:00:00.000Z","2011-01-03T01:00:00.000Z","2011-01-03T04:00:00.000Z","2011-01-03T05:00:00.000Z","2011-01-03T06:00:00.000Z","2011-01-03T07:00:00.000Z","2011-01-03T08:00:00.000Z","2011-01-03T09:00:00.000Z","2011-01-03T10:00:00.000Z","2011-01-03T11:00:00.000Z","2011-01-03T12:00:00.000Z","2011-01-03T13:00:00.000Z","2011-01-03T14:00:00.000Z","2011-01-03T15:00:00.000Z","2011-01-03T16:00:00.000Z","2011-01-03T17:00:00.000Z","2011-01-03T18:00:00.000Z","2011-01-03T19:00:00.000Z","2011-01-03T20:00:00.000Z","2011-01-03T21:00:00.000Z","2011-01-03T22:00:00.000Z","2011-01-03T23:00:00.000Z","2011-01-04T00:00:00.000Z","2011-01-04T01:00:00.000Z","2011-01-04T02:00:00.000Z","2011-01-04T04:00:00.000Z","2011-01-04T05:00:00.000Z","2011-01-04T06:00:00.000Z","2011-01-04T07:00:00.000Z","2011-01-04T08:00:00.000Z","2011-01-04T09:00:00.000Z","2011-01-04T10:00:00.000Z","2011-01-04T11:00:00.000Z","2011-01-04T12:00:00.000Z","2011-01-04T13:00:00.000Z","2011-01-04T14:00:00.000Z","2011-01-04T15:00:00.000Z","2011-01-04T16:00:00.000Z","2011-01-04T17:00:00.000Z","2011-01-04T18:00:00.000Z","2011-01-04T19:00:00.000Z","2011-01-04T20:00:00.000Z","2011-01-04T21:00:00.000Z","2011-01-04T22:00:00.000Z","2011-01-04T23:00:00.000Z","2011-01-05T00:00:00.000Z","2011-01-05T01:00:00.000Z","2011-01-05T02:00:00.000Z","2011-01-05T04:00:00.000Z","2011-01-05T05:00:00.000Z","2011-01-05T06:00:00.000Z","2011-01-05T07:00:00.000Z","2011-01-05T08:00:00.000Z","2011-01-05T09:00:00.000Z","2011-01-05T10:00:00.000Z","2011-01-05T11:00:00.000Z","2011-01-05T12:00:00.000Z","2011-01-05T13:00:00.000Z","2011-01-05T14:00:00.000Z","2011-01-05T15:00:00.000Z","2011-01-05T16:00:00.000Z","2011-01-05T17:00:00.000Z","2011-01-05T18:00:00.000Z","2011-01-05T19:00:00.000Z","2011-01-05T20:00:00.000Z","2011-01-05T21:00:00.000Z","2011-01-05T22:00:00.000Z","2011-01-05T23:00:00.000Z","2011-01-06T00:00:00.000Z","2011-01-06T01:00:00.000Z","2011-01-06T02:00:00.000Z","2011-01-06T04:00:00.000Z","2011-01-06T05:00:00.000Z","2011-01-06T06:00:00.000Z","2011-01-06T07:00:00.000Z","2011-01-06T08:00:00.000Z","2011-01-06T09:00:00.000Z","2011-01-06T10:00:00.000Z","2011-01-06T11:00:00.000Z","2011-01-06T12:00:00.000Z","2011-01-06T13:00:00.000Z","2011-01-06T14:00:00.000Z","2011-01-06T15:00:00.000Z","2011-01-06T16:00:00.000Z","2011-01-06T17:00:00.000Z","2011-01-06T18:00:00.000Z","2011-01-06T19:00:00.000Z","2011-01-06T20:00:00.000Z","2011-01-06T21:00:00.000Z","2011-01-06T22:00:00.000Z","2011-01-06T23:00:00.000Z","2011-01-07T00:00:00.000Z","2011-01-07T01:00:00.000Z","2011-01-07T02:00:00.000Z","2011-01-07T04:00:00.000Z","2011-01-07T05:00:00.000Z","2011-01-07T06:00:00.000Z","2011-01-07T07:00:00.000Z","2011-01-07T08:00:00.000Z","2011-01-07T09:00:00.000Z","2011-01-07T10:00:00.000Z","2011-01-07T11:00:00.000Z","2011-01-07T12:00:00.000Z","2011-01-07T13:00:00.000Z","2011-01-07T14:00:00.000Z","2011-01-07T15:00:00.000Z","2011-01-07T16:00:00.000Z","2011-01-07T17:00:00.000Z","2011-01-07T18:00:00.000Z","2011-01-07T19:00:00.000Z","2011-01-07T20:00:00.000Z","2011-01-07T21:00:00.000Z","2011-01-07T22:00:00.000Z","2011-01-07T23:00:00.000Z","2011-01-08T00:00:00.000Z","2011-01-08T01:00:00.000Z","2011-01-08T02:00:00.000Z","2011-01-08T03:00:00.000Z","2011-01-08T04:00:00.000Z","2011-01-08T05:00:00.000Z","2011-01-08T06:00:00.000Z","2011-01-08T07:00:00.000Z","2011-01-08T08:00:00.000Z","2011-01-08T09:00:00.000Z","2011-01-08T10:00:00.000Z","2011-01-08T11:00:00.000Z","2011-01-08T12:00:00.000Z","2011-01-08T13:00:00.000Z","2011-01-08T14:00:00.000Z","2011-01-08T15:00:00.000Z","2011-01-08T16:00:00.000Z","2011-01-08T17:00:00.000Z","2011-01-08T18:00:00.000Z","2011-01-08T19:00:00.000Z","2011-01-08T20:00:00.000Z","2011-01-08T21:00:00.000Z","2011-01-08T22:00:00.000Z","2011-01-08T23:00:00.000Z","2011-01-09T00:00:00.000Z","2011-01-09T01:00:00.000Z","2011-01-09T02:00:00.000Z","2011-01-09T03:00:00.000Z","2011-01-09T04:00:00.000Z","2011-01-09T05:00:00.000Z","2011-01-09T06:00:00.000Z","2011-01-09T07:00:00.000Z","2011-01-09T08:00:00.000Z","2011-01-09T09:00:00.000Z","2011-01-09T10:00:00.000Z","2011-01-09T11:00:00.000Z","2011-01-09T12:00:00.000Z","2011-01-09T13:00:00.000Z","2011-01-09T14:00:00.000Z","2011-01-09T15:00:00.000Z","2011-01-09T16:00:00.000Z","2011-01-09T17:00:00.000Z","2011-01-09T18:00:00.000Z","2011-01-09T19:00:00.000Z","2011-01-09T20:00:00.000Z","2011-01-09T21:00:00.000Z","2011-01-09T22:00:00.000Z","2011-01-09T23:00:00.000Z","2011-01-10T00:00:00.000Z","2011-01-10T01:00:00.000Z","2011-01-10T02:00:00.000Z","2011-01-10T03:00:00.000Z","2011-01-10T04:00:00.000Z","2011-01-10T05:00:00.000Z","2011-01-10T06:00:00.000Z","2011-01-10T07:00:00.000Z","2011-01-10T08:00:00.000Z","2011-01-10T09:00:00.000Z","2011-01-10T10:00:00.000Z","2011-01-10T11:00:00.000Z","2011-01-10T12:00:00.000Z","2011-01-10T13:00:00.000Z","2011-01-10T14:00:00.000Z","2011-01-10T15:00:00.000Z","2011-01-10T16:00:00.000Z","2011-01-10T17:00:00.000Z","2011-01-10T18:00:00.000Z","2011-01-10T19:00:00.000Z","2011-01-10T20:00:00.000Z","2011-01-10T21:00:00.000Z","2011-01-10T22:00:00.000Z","2011-01-10T23:00:00.000Z","2011-01-11T00:00:00.000Z","2011-01-11T01:00:00.000Z","2011-01-11T02:00:00.000Z","2011-01-11T05:00:00.000Z","2011-01-11T06:00:00.000Z","2011-01-11T07:00:00.000Z","2011-01-11T08:00:00.000Z","2011-01-11T09:00:00.000Z","2011-01-11T10:00:00.000Z","2011-01-11T11:00:00.000Z","2011-01-11T12:00:00.000Z","2011-01-11T13:00:00.000Z","2011-01-11T14:00:00.000Z","2011-01-11T15:00:00.000Z","2011-01-11T16:00:00.000Z","2011-01-11T17:00:00.000Z","2011-01-11T18:00:00.000Z","2011-01-11T19:00:00.000Z","2011-01-11T20:00:00.000Z","2011-01-11T21:00:00.000Z","2011-01-11T22:00:00.000Z","2011-01-11T23:00:00.000Z","2011-01-12T00:00:00.000Z","2011-01-12T01:00:00.000Z","2011-01-12T02:00:00.000Z","2011-01-12T05:00:00.000Z","2011-01-12T06:00:00.000Z","2011-01-12T07:00:00.000Z","2011-01-12T08:00:00.000Z","2011-01-12T09:00:00.000Z","2011-01-12T10:00:00.000Z","2011-01-12T11:00:00.000Z","2011-01-12T12:00:00.000Z","2011-01-12T13:00:00.000Z","2011-01-12T14:00:00.000Z","2011-01-12T15:00:00.000Z","2011-01-12T16:00:00.000Z","2011-01-12T17:00:00.000Z","2011-01-12T18:00:00.000Z","2011-01-12T19:00:00.000Z","2011-01-12T20:00:00.000Z","2011-01-12T21:00:00.000Z","2011-01-12T22:00:00.000Z","2011-01-12T23:00:00.000Z","2011-01-13T00:00:00.000Z","2011-01-13T01:00:00.000Z","2011-01-13T02:00:00.000Z","2011-01-13T03:00:00.000Z","2011-01-13T04:00:00.000Z","2011-01-13T05:00:00.000Z","2011-01-13T06:00:00.000Z","2011-01-13T07:00:00.000Z","2011-01-13T08:00:00.000Z","2011-01-13T09:00:00.000Z","2011-01-13T10:00:00.000Z","2011-01-13T11:00:00.000Z","2011-01-13T12:00:00.000Z","2011-01-13T13:00:00.000Z","2011-01-13T14:00:00.000Z","2011-01-13T15:00:00.000Z","2011-01-13T16:00:00.000Z","2011-01-13T17:00:00.000Z","2011-01-13T18:00:00.000Z","2011-01-13T19:00:00.000Z","2011-01-13T20:00:00.000Z","2011-01-13T21:00:00.000Z","2011-01-13T22:00:00.000Z"],[16,40,32,13,1,1,2,3,8,14,36,56,84,94,106,110,93,67,35,37,36,34,28,39,17,17,9,6,3,2,1,8,20,53,70,93,75,59,74,76,65,53,30,22,31,9,8,5,2,1,3,30,64,154,88,44,51,61,61,77,72,76,157,157,110,52,52,20,12,5,2,1,2,4,36,94,179,100,42,57,78,97,63,65,83,212,182,112,54,48,35,11,6,6,2,2,3,33,88,195,115,57,46,79,71,62,62,89,190,169,132,89,43,42,19,11,4,2,1,4,36,95,219,122,45,59,84,67,70,62,86,172,163,112,69,48,52,23,17,7,1,1,5,34,84,210,134,63,67,59,73,50,72,87,187,123,95,51,39,36,15,25,16,16,7,1,5,2,9,15,20,61,62,98,102,95,74,76,69,55,30,28,37,34,22,25,12,11,4,1,1,1,6,10,19,49,49,83,75,72,82,92,62,48,41,38,20,15,6,5,1,3,1,3,3,31,77,188,94,31,30,52,54,47,45,74,178,155,95,74,38,24,18,12,3,3,6,27,99,217,130,54,35,57,52,63,47,76,136,95,51,32,20,29,19,7,6,1,5,16,54,128,81,39,35,55,49,44,49,68,139,137,83,56,57,33,20,7,2,2,3,4,3,28,72,202,139,38,37,52,83,42,60,78,162,144,99,64,40,30]],"fixedtz":false,"tzone":"UTC","plugins":{"Crosshair":{"direction":"vertical"}}},"evals":["attrs.interactionModel"],"jsHooks":[]}</script>
+<p>交互式时间序列图：巴黎 Vélib 自行车租赁数据（前300条）</p>
+</div>
+</div>
+</section>
+<section id="base-r" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="base-r"><span class="header-section-number">11.6</span> Base R</h2>
+<section id="基础-1" class="level3" data-number="11.6.1">
+<h3 data-number="11.6.1" class="anchored" data-anchor-id="基础-1"><span class="header-section-number">11.6.1</span> 基础</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)                  <span class="co"># x 轴数据，1 到 5</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>)        <span class="co"># 第一组 y 轴数据</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>)        <span class="co"># 第二组 y 轴数据</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制第一组数据的连接散点图</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> a,                    <span class="co"># y ~ x 公式</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>,               <span class="co"># 点和线都显示</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"l"</span>,                <span class="co"># 只显示左和下边框</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"value of a"</span>,      <span class="co"># x 轴标签</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"value of b"</span>,      <span class="co"># y 轴标签</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>), <span class="co"># 线和点的颜色（半透明绿色）</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                  <span class="co"># 线宽</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">17</span>,                 <span class="co"># 点的形状（三角形）</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)            <span class="co"># y 轴范围</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加第二组数据的连接散点图</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    c <span class="sc">~</span> a,                    <span class="co"># y ~ x 公式</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.8</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>), <span class="co"># 线和点的颜色（半透明橙色）</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                  <span class="co"># 线宽</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,                 <span class="co"># 点的形状（实心圆）</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>                <span class="co"># 点和线都显示</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图例</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bottomleft"</span>,             <span class="co"># 图例位置</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Group 1"</span>, <span class="st">"Group 2"</span>), <span class="co"># 图例标签</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>),</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rgb</span>(<span class="fl">0.8</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    ),                        <span class="co"># 图例颜色</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">19</span>),          <span class="co"># 图例点形状</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"n"</span>,                <span class="co"># 不显示图例边框</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt.cex =</span> <span class="dv">2</span>,               <span class="co"># 点的大小</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">1.2</span>,                <span class="co"># 字体大小</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">text.col =</span> <span class="st">"black"</span>,       <span class="co"># 文字颜色</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">horiz =</span> <span class="cn">FALSE</span>,            <span class="co"># 垂直排列</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">inset =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>)       <span class="co"># 图例内边距</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>基础 R 语言绘制连接散点图（两组数据）</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="背景图" class="level3" data-number="11.6.2">
+<h3 data-number="11.6.2" class="anchored" data-anchor-id="背景图"><span class="header-section-number">11.6.2</span> 背景图</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载图片读取包</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jpeg)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取PNG图片作为背景</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>my_image <span class="ot">&lt;-</span> <span class="fu">readPNG</span>(<span class="st">"./image/R_full_medium.png"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置空白绘图区，不画任何点</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">type=</span><span class="st">'n'</span>, <span class="at">main=</span><span class="st">""</span>, <span class="at">xlab=</span><span class="st">"x"</span>, <span class="at">ylab=</span><span class="st">"y"</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取绘图区参数，并将图片填充到指定区域</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>lim <span class="ot">&lt;-</span> <span class="fu">par</span>()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(my_image, </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">xleft=</span><span class="dv">1</span>, <span class="at">xright=</span><span class="dv">2</span>, </span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">ybottom=</span><span class="fl">1.3</span>, <span class="at">ytop=</span><span class="fl">1.7</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加网格线</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 在图片上添加连接散点图</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span>, <span class="fl">1.6</span>, <span class="fl">1.8</span>, <span class="fl">2.0</span>), </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.3</span>, <span class="fl">1.7</span>, <span class="fl">1.6</span>, <span class="fl">1.7</span>, <span class="fl">1.0</span>), </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">"b"</span>, <span class="at">lwd=</span><span class="dv">5</span>, <span class="at">col=</span><span class="st">"black"</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>在背景图片上绘制连接散点图（基础R）</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="lubridate" class="level3" data-number="11.6.3">
+<h3 data-number="11.6.3" class="anchored" data-anchor-id="lubridate"><span class="header-section-number">11.6.3</span> <code>lubridate()</code></h3>
+<p>使用日期前，务必使用 <code>lubridate()</code> 把 “日期” 转化为 日期/时间格式。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置随机种子，保证结果可复现</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">124</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造日期字符串，格式为 "2015/03/XX"，XX为1到31中的随机6个数字</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"2015/03/"</span>, <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">31</span>), <span class="dv">6</span>), <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机生成6个1到100之间的整数，作为数值</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>value <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="dv">6</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 将日期和数值合并为数据框</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(date, value)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 将日期列转换为 Date 类型，便于后续处理和绘图</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 按照日期升序排列数据</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>date), ]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接散点图</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>value <span class="sc">~</span> data<span class="sc">$</span>date,                 <span class="co"># y轴为value，x轴为date</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>,                             <span class="co"># 同时绘制点和线</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                                <span class="co"># 线宽为3</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span>),          <span class="co"># 线和点的颜色（半透明绿色）</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"value of ..."</span>,                  <span class="co"># y轴标签</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"date"</span>,                          <span class="co"># x轴标签</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"l"</span>,                              <span class="co"># 只显示左和下边框</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">20</span>,                               <span class="co"># 点的形状（实心圆）</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">4</span>                                 <span class="co"># 点的大小</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加水平辅助线，y轴从0到100，每隔10画一条灰色线</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connected-scatter_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>使用 lubridate() 处理日期时间</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pearl" class="level2" data-number="11.7">
+<h2 data-number="11.7" class="anchored" data-anchor-id="pearl"><span class="header-section-number">11.7</span> Pearl</h2>
+<p>带有文字标签的散点图，见 <a href="scatter.html#sec-label-pearl" class="quarto-xref"><span>Section 7.7</span></a>。</p>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -759,9 +1135,285 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conn-Scatter {#sec-connected-scatter}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>1</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conn-Scatter {#sec-connected-scatter}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## PKG </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes) <span class="co"># 主题</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(babynames) <span class="co"># 数据集</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel) <span class="co"># 标签</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dygraphs)      <span class="co"># 用于绘制交互式时间序列图</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)           <span class="co"># 用于数据框与 xts 格式转换</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)     <span class="co"># 数据处理</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)     <span class="co"># 处理日期时间</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## 基础</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_point()`</span> 和 <span class="in">`geom_line()`</span> 组合在一起。</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 连接散点图</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据，并将日期列转换为 Date 类型</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv"</span>, <span class="at">header=</span>T)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 取数据的最后10行，绘制连接散点图</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span>   <span class="co"># 添加连线</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()    <span class="co"># 添加散点</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## 主题</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>使用 <span class="in">`hrbrthemes::theme_ipsum()`</span> 函数自定义主题。</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: theme_ipsum() 定制主题</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 取数据的最后10行，绘制连接散点图，并自定义主题</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> value)) <span class="sc">+</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"grey"</span>) <span class="sc">+</span>  <span class="co"># 添加灰色连线</span></span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">21</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#69b3a2"</span>, <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span>  <span class="co"># 添加带填充色的点</span></span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span>  <span class="co"># 应用 hrbrthemes 的主题</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">"Evolution of bitcoin price"</span>)  <span class="co"># 添加标题</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## 演变</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>连接散点图也可以是一种强大的技术，用来讲述两个变量演变的故事。</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>下面的示例展示了美国名为 *Amanda* 和 *Ashley* 的婴儿数量演变。</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Ashley 和 Amanda 名字在美国的流行演变（1970年后，女婴）"</span></span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="#cb10-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 筛选1970年后的女性婴儿，名字为 Ashley 或 Amanda 的数据</span></span>
+<span id="cb10-70"><a href="#cb10-70" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> babynames <span class="sc">|&gt;</span></span>
+<span id="cb10-71"><a href="#cb10-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Ashley"</span>, <span class="st">"Amanda"</span>)) <span class="sc">|&gt;</span> <span class="co"># 只保留 Ashley 和 Amanda</span></span>
+<span id="cb10-72"><a href="#cb10-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span> <span class="co"># 只保留女性</span></span>
+<span id="cb10-73"><a href="#cb10-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">1970</span>) <span class="sc">|&gt;</span> <span class="co"># 只保留1970年后的数据</span></span>
+<span id="cb10-74"><a href="#cb10-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, name, n) <span class="sc">|&gt;</span> <span class="co"># 选择年份、名字和数量</span></span>
+<span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> name, <span class="at">value =</span> n, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># 宽数据格式，每列为一个名字</span></span>
+<span id="cb10-76"><a href="#cb10-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-77"><a href="#cb10-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘图：x轴为 Amanda，y轴为 Ashley，标签为年份</span></span>
+<span id="cb10-78"><a href="#cb10-78" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span></span>
+<span id="cb10-79"><a href="#cb10-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amanda, <span class="at">y =</span> Ashley, <span class="at">label =</span> year)) <span class="sc">+</span></span>
+<span id="cb10-80"><a href="#cb10-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="co"># 绘制散点</span></span>
+<span id="cb10-81"><a href="#cb10-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(</span>
+<span id="cb10-82"><a href="#cb10-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">xend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Amanda, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>), <span class="co"># 连接相邻年份的点</span></span>
+<span id="cb10-83"><a href="#cb10-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">yend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Ashley, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>)</span>
+<span id="cb10-84"><a href="#cb10-84" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb10-85"><a href="#cb10-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-86"><a href="#cb10-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a>再改进一下，在图表中添加箭头和标签来引导读者：</span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-94"><a href="#cb10-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Ashley 和 Amanda 名字在美国的流行演变（带箭头和标签，1970年后，女婴）"</span></span>
+<span id="cb10-95"><a href="#cb10-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-96"><a href="#cb10-96" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机选择部分年份用于标签</span></span>
+<span id="cb10-97"><a href="#cb10-97" aria-hidden="true" tabindex="-1"></a>tmp_date <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.3</span>)</span>
+<span id="cb10-98"><a href="#cb10-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-99"><a href="#cb10-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘图</span></span>
+<span id="cb10-100"><a href="#cb10-100" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb10-101"><a href="#cb10-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Amanda, <span class="at">y =</span> Ashley, <span class="at">label =</span> year)) <span class="sc">+</span></span>
+<span id="cb10-102"><a href="#cb10-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"#69b3a2"</span>) <span class="sc">+</span> <span class="co"># 绘制散点</span></span>
+<span id="cb10-103"><a href="#cb10-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(<span class="at">data =</span> tmp_date) <span class="sc">+</span> <span class="co"># 添加年份标签，避免重叠</span></span>
+<span id="cb10-104"><a href="#cb10-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb10-105"><a href="#cb10-105" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#69b3a2"</span>,</span>
+<span id="cb10-106"><a href="#cb10-106" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb10-107"><a href="#cb10-107" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Amanda, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>), <span class="co"># 连接相邻年份的点</span></span>
+<span id="cb10-108"><a href="#cb10-108" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend =</span> <span class="fu">c</span>(<span class="fu">tail</span>(Ashley, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>), <span class="cn">NA</span>)</span>
+<span id="cb10-109"><a href="#cb10-109" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-110"><a href="#cb10-110" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">"cm"</span>)) <span class="co"># 添加箭头</span></span>
+<span id="cb10-111"><a href="#cb10-111" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-112"><a href="#cb10-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="co"># 应用主题</span></span>
+<span id="cb10-113"><a href="#cb10-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-114"><a href="#cb10-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-115"><a href="#cb10-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## Time series</span></span>
+<span id="cb10-116"><a href="#cb10-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-117"><a href="#cb10-117" aria-hidden="true" tabindex="-1"></a>交互式时间序列图：巴黎 Vélib 自行车租赁数据（前300条）： </span>
+<span id="cb10-118"><a href="#cb10-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-121"><a href="#cb10-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-122"><a href="#cb10-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "交互式时间序列图：巴黎 Vélib 自行车租赁数据（前300条）"</span></span>
+<span id="cb10-123"><a href="#cb10-123" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb10-124"><a href="#cb10-124" aria-hidden="true" tabindex="-1"></a><span class="co"># library(dygraphs)      # 用于绘制交互式时间序列图</span></span>
+<span id="cb10-125"><a href="#cb10-125" aria-hidden="true" tabindex="-1"></a><span class="co"># library(xts)           # 用于数据框与 xts 格式转换</span></span>
+<span id="cb10-126"><a href="#cb10-126" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)     # 数据处理</span></span>
+<span id="cb10-127"><a href="#cb10-127" aria-hidden="true" tabindex="-1"></a><span class="co"># library(lubridate)     # 处理日期时间</span></span>
+<span id="cb10-128"><a href="#cb10-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-129"><a href="#cb10-129" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据</span></span>
+<span id="cb10-130"><a href="#cb10-130" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="st">'https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/bike.csv'</span></span>
+<span id="cb10-131"><a href="#cb10-131" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(path, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">300</span>) <span class="co"># 取前300行数据</span></span>
+<span id="cb10-132"><a href="#cb10-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-133"><a href="#cb10-133" aria-hidden="true" tabindex="-1"></a><span class="co"># 将时间列从因子/字符转换为日期时间格式</span></span>
+<span id="cb10-134"><a href="#cb10-134" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>datetime <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(data<span class="sc">$</span>datetime)</span>
+<span id="cb10-135"><a href="#cb10-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-136"><a href="#cb10-136" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 xts 对象，dygraph 需要此格式</span></span>
+<span id="cb10-137"><a href="#cb10-137" aria-hidden="true" tabindex="-1"></a><span class="co"># x = 观测值，order.by = 时间索引</span></span>
+<span id="cb10-138"><a href="#cb10-138" aria-hidden="true" tabindex="-1"></a>don <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="at">x =</span> data<span class="sc">$</span>count, <span class="at">order.by =</span> data<span class="sc">$</span>datetime)</span>
+<span id="cb10-139"><a href="#cb10-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-140"><a href="#cb10-140" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制交互式时间序列图</span></span>
+<span id="cb10-141"><a href="#cb10-141" aria-hidden="true" tabindex="-1"></a><span class="fu">dygraph</span>(don) <span class="sc">|&gt;</span></span>
+<span id="cb10-142"><a href="#cb10-142" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyOptions</span>(</span>
+<span id="cb10-143"><a href="#cb10-143" aria-hidden="true" tabindex="-1"></a>        <span class="at">labelsUTC =</span> <span class="cn">TRUE</span>,         <span class="co"># 使用 UTC 时间标签</span></span>
+<span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillGraph =</span> <span class="cn">TRUE</span>,         <span class="co"># 填充曲线下方区域</span></span>
+<span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a>        <span class="at">fillAlpha =</span> <span class="fl">0.1</span>,          <span class="co"># 填充透明度</span></span>
+<span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>        <span class="at">drawGrid =</span> <span class="cn">FALSE</span>,         <span class="co"># 不显示网格线</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>        <span class="at">colors =</span> <span class="st">"#D8AE5A"</span>        <span class="co"># 曲线颜色</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyRangeSelector</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyCrosshair</span>(<span class="at">direction =</span> <span class="st">"vertical"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyHighlight</span>(</span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>        <span class="at">highlightCircleSize =</span> <span class="dv">5</span>,                  <span class="co"># 鼠标悬停时点的大小</span></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>        <span class="at">highlightSeriesBackgroundAlpha =</span> <span class="fl">0.2</span>,     <span class="co"># 高亮系列的背景透明度</span></span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a>        <span class="at">hideOnMouseOut =</span> <span class="cn">FALSE</span>                    <span class="co"># 鼠标移出时是否隐藏高亮</span></span>
+<span id="cb10-155"><a href="#cb10-155" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dyRoller</span>(<span class="at">rollPeriod =</span> <span class="dv">1</span>)                    <span class="co"># 滚动平均窗口大小</span></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R</span></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### 基础</span></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "基础 R 语言绘制连接散点图（两组数据）"</span></span>
+<span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造示例数据</span></span>
+<span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)                  <span class="co"># x 轴数据，1 到 5</span></span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>)        <span class="co"># 第一组 y 轴数据</span></span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a>c <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>)        <span class="co"># 第二组 y 轴数据</span></span>
+<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制第一组数据的连接散点图</span></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a>    b <span class="sc">~</span> a,                    <span class="co"># y ~ x 公式</span></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>,               <span class="co"># 点和线都显示</span></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"l"</span>,                <span class="co"># 只显示左和下边框</span></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"value of a"</span>,      <span class="co"># x 轴标签</span></span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"value of b"</span>,      <span class="co"># y 轴标签</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>), <span class="co"># 线和点的颜色（半透明绿色）</span></span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                  <span class="co"># 线宽</span></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">17</span>,                 <span class="co"># 点的形状（三角形）</span></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)            <span class="co"># y 轴范围</span></span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加第二组数据的连接散点图</span></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(</span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>    c <span class="sc">~</span> a,                    <span class="co"># y ~ x 公式</span></span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.8</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>), <span class="co"># 线和点的颜色（半透明橙色）</span></span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                  <span class="co"># 线宽</span></span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">19</span>,                 <span class="co"># 点的形状（实心圆）</span></span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>                <span class="co"># 点和线都显示</span></span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图例</span></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>    <span class="st">"bottomleft"</span>,             <span class="co"># 图例位置</span></span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">"Group 1"</span>, <span class="st">"Group 2"</span>), <span class="co"># 图例标签</span></span>
+<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">c</span>(</span>
+<span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>),</span>
+<span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rgb</span>(<span class="fl">0.8</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.7</span>)</span>
+<span id="cb10-202"><a href="#cb10-202" aria-hidden="true" tabindex="-1"></a>    ),                        <span class="co"># 图例颜色</span></span>
+<span id="cb10-203"><a href="#cb10-203" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">19</span>),          <span class="co"># 图例点形状</span></span>
+<span id="cb10-204"><a href="#cb10-204" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"n"</span>,                <span class="co"># 不显示图例边框</span></span>
+<span id="cb10-205"><a href="#cb10-205" aria-hidden="true" tabindex="-1"></a>    <span class="at">pt.cex =</span> <span class="dv">2</span>,               <span class="co"># 点的大小</span></span>
+<span id="cb10-206"><a href="#cb10-206" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="fl">1.2</span>,                <span class="co"># 字体大小</span></span>
+<span id="cb10-207"><a href="#cb10-207" aria-hidden="true" tabindex="-1"></a>    <span class="at">text.col =</span> <span class="st">"black"</span>,       <span class="co"># 文字颜色</span></span>
+<span id="cb10-208"><a href="#cb10-208" aria-hidden="true" tabindex="-1"></a>    <span class="at">horiz =</span> <span class="cn">FALSE</span>,            <span class="co"># 垂直排列</span></span>
+<span id="cb10-209"><a href="#cb10-209" aria-hidden="true" tabindex="-1"></a>    <span class="at">inset =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>)       <span class="co"># 图例内边距</span></span>
+<span id="cb10-210"><a href="#cb10-210" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-211"><a href="#cb10-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-212"><a href="#cb10-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-213"><a href="#cb10-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-214"><a href="#cb10-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### 背景图</span></span>
+<span id="cb10-215"><a href="#cb10-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-218"><a href="#cb10-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-219"><a href="#cb10-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "在背景图片上绘制连接散点图（基础R）"</span></span>
+<span id="cb10-220"><a href="#cb10-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-221"><a href="#cb10-221" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载图片读取包</span></span>
+<span id="cb10-222"><a href="#cb10-222" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jpeg)</span>
+<span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(png)</span>
+<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取PNG图片作为背景</span></span>
+<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>my_image <span class="ot">&lt;-</span> <span class="fu">readPNG</span>(<span class="st">"./image/R_full_medium.png"</span>)</span>
+<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置空白绘图区，不画任何点</span></span>
+<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">type=</span><span class="st">'n'</span>, <span class="at">main=</span><span class="st">""</span>, <span class="at">xlab=</span><span class="st">"x"</span>, <span class="at">ylab=</span><span class="st">"y"</span>)</span>
+<span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取绘图区参数，并将图片填充到指定区域</span></span>
+<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a>lim <span class="ot">&lt;-</span> <span class="fu">par</span>()</span>
+<span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a><span class="fu">rasterImage</span>(my_image, </span>
+<span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a>            <span class="at">xleft=</span><span class="dv">1</span>, <span class="at">xright=</span><span class="dv">2</span>, </span>
+<span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a>            <span class="at">ybottom=</span><span class="fl">1.3</span>, <span class="at">ytop=</span><span class="fl">1.7</span>)</span>
+<span id="cb10-236"><a href="#cb10-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-237"><a href="#cb10-237" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加网格线</span></span>
+<span id="cb10-238"><a href="#cb10-238" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>()</span>
+<span id="cb10-239"><a href="#cb10-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-240"><a href="#cb10-240" aria-hidden="true" tabindex="-1"></a><span class="co"># 在图片上添加连接散点图</span></span>
+<span id="cb10-241"><a href="#cb10-241" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(</span>
+<span id="cb10-242"><a href="#cb10-242" aria-hidden="true" tabindex="-1"></a>  <span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span>, <span class="fl">1.6</span>, <span class="fl">1.8</span>, <span class="fl">2.0</span>), </span>
+<span id="cb10-243"><a href="#cb10-243" aria-hidden="true" tabindex="-1"></a>  <span class="at">y=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.3</span>, <span class="fl">1.7</span>, <span class="fl">1.6</span>, <span class="fl">1.7</span>, <span class="fl">1.0</span>), </span>
+<span id="cb10-244"><a href="#cb10-244" aria-hidden="true" tabindex="-1"></a>  <span class="at">type=</span><span class="st">"b"</span>, <span class="at">lwd=</span><span class="dv">5</span>, <span class="at">col=</span><span class="st">"black"</span></span>
+<span id="cb10-245"><a href="#cb10-245" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### `lubridate()`</span></span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a>使用日期前，务必使用 <span class="in">`lubridate()`</span> 把 “日期” 转化为 日期/时间格式。</span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 lubridate() 处理日期时间"</span></span>
+<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置随机种子，保证结果可复现</span></span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">124</span>)</span>
+<span id="cb10-260"><a href="#cb10-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-261"><a href="#cb10-261" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造日期字符串，格式为 "2015/03/XX"，XX为1到31中的随机6个数字</span></span>
+<span id="cb10-262"><a href="#cb10-262" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"2015/03/"</span>, <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">31</span>), <span class="dv">6</span>), <span class="at">sep =</span> <span class="st">""</span>)</span>
+<span id="cb10-263"><a href="#cb10-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-264"><a href="#cb10-264" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机生成6个1到100之间的整数，作为数值</span></span>
+<span id="cb10-265"><a href="#cb10-265" aria-hidden="true" tabindex="-1"></a>value <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">100</span>), <span class="dv">6</span>)</span>
+<span id="cb10-266"><a href="#cb10-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-267"><a href="#cb10-267" aria-hidden="true" tabindex="-1"></a><span class="co"># 将日期和数值合并为数据框</span></span>
+<span id="cb10-268"><a href="#cb10-268" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(date, value)</span>
+<span id="cb10-269"><a href="#cb10-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-270"><a href="#cb10-270" aria-hidden="true" tabindex="-1"></a><span class="co"># 将日期列转换为 Date 类型，便于后续处理和绘图</span></span>
+<span id="cb10-271"><a href="#cb10-271" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(data<span class="sc">$</span>date)</span>
+<span id="cb10-272"><a href="#cb10-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-273"><a href="#cb10-273" aria-hidden="true" tabindex="-1"></a><span class="co"># 按照日期升序排列数据</span></span>
+<span id="cb10-274"><a href="#cb10-274" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[<span class="fu">order</span>(data<span class="sc">$</span>date), ]</span>
+<span id="cb10-275"><a href="#cb10-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-276"><a href="#cb10-276" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接散点图</span></span>
+<span id="cb10-277"><a href="#cb10-277" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb10-278"><a href="#cb10-278" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>value <span class="sc">~</span> data<span class="sc">$</span>date,                 <span class="co"># y轴为value，x轴为date</span></span>
+<span id="cb10-279"><a href="#cb10-279" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"b"</span>,                             <span class="co"># 同时绘制点和线</span></span>
+<span id="cb10-280"><a href="#cb10-280" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd =</span> <span class="dv">3</span>,                                <span class="co"># 线宽为3</span></span>
+<span id="cb10-281"><a href="#cb10-281" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="fl">0.8</span>),          <span class="co"># 线和点的颜色（半透明绿色）</span></span>
+<span id="cb10-282"><a href="#cb10-282" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">"value of ..."</span>,                  <span class="co"># y轴标签</span></span>
+<span id="cb10-283"><a href="#cb10-283" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">"date"</span>,                          <span class="co"># x轴标签</span></span>
+<span id="cb10-284"><a href="#cb10-284" aria-hidden="true" tabindex="-1"></a>    <span class="at">bty =</span> <span class="st">"l"</span>,                              <span class="co"># 只显示左和下边框</span></span>
+<span id="cb10-285"><a href="#cb10-285" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">20</span>,                               <span class="co"># 点的形状（实心圆）</span></span>
+<span id="cb10-286"><a href="#cb10-286" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">4</span>                                 <span class="co"># 点的大小</span></span>
+<span id="cb10-287"><a href="#cb10-287" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-288"><a href="#cb10-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-289"><a href="#cb10-289" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加水平辅助线，y轴从0到100，每隔10画一条灰色线</span></span>
+<span id="cb10-290"><a href="#cb10-290" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">10</span>), <span class="at">col =</span> <span class="st">"grey"</span>, <span class="at">lwd =</span> <span class="fl">0.8</span>)</span>
+<span id="cb10-291"><a href="#cb10-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-292"><a href="#cb10-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-293"><a href="#cb10-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-294"><a href="#cb10-294" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pearl</span></span>
+<span id="cb10-295"><a href="#cb10-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-296"><a href="#cb10-296" aria-hidden="true" tabindex="-1"></a>带有文字标签的散点图，见 @sec-label-pearl。</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
