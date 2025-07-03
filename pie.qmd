@@ -130,7 +130,8 @@ data <- data.frame(
 # 绘制饼图
 ggplot(data, aes(x = "", y = value, fill = group)) +
   geom_bar(stat = "identity", width = 1) + # identity 创建堆叠条形图
-  coord_polar("y", start = 0) # 将条形图转换为极坐标系
+  coord_polar("y", start = 0) +  # 将条形图转换为极坐标系
+  scale_fill_brewer(palette = 2) # 设置配色方案
 ```
 
 ### 去坐标轴
@@ -144,6 +145,7 @@ ggplot(data, aes(x = "", y = value, fill = group)) +
 ggplot(data, aes(x = "", y = value, fill = group)) +
   geom_bar(stat = "identity", width = 1) + # identity 创建堆叠条形图
   coord_polar("y", start = 0) + # 将条形图转换为极坐标系
+  scale_fill_brewer(palette = 2) + # 设置配色方案
   theme_void() # 移除背景和坐标轴
 ```
 
@@ -152,9 +154,6 @@ ggplot(data, aes(x = "", y = value, fill = group)) +
 因为使用了 `coord_polar()`，所以计算文本标签的位置比较复杂.
 
 ```{r}
-#| fig-cap: 加上标签的饼图
-
-
 #| fig-cap: 带标签和自定义配色的饼图
 
 # 1. 按 group 降序排列，计算每组所占百分比和标签位置
@@ -169,13 +168,13 @@ data <- data |>
 ggplot(data, aes(x = "", y = prop, fill = group)) +
     geom_bar(stat = "identity", width = 1, color = "white") + # 绘制堆叠条形图
     coord_polar("y", start = 0) +                             # 转换为极坐标系（饼图）
-    theme_void() +                                            # 移除背景和坐标轴
-    theme(legend.position = "none") +                         # 移除图例
     geom_text(
         aes(y = ypos, label = group),                           # 添加标签
         color = "white", size = 6
     ) +
-    scale_fill_brewer(palette = "Set1")                       # 设置配色方案
+    scale_fill_brewer(palette = 2) +                      # 设置配色方案
+    theme_void() +                                            # 移除背景和坐标轴
+    theme(legend.position = "none")                          # 移除图例
 ```
 
 **大功告成!**

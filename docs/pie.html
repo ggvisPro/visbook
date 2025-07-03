@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>23&nbsp; Pie – 数据可视化探索(从入门到放弃)</title>
+<title>22&nbsp; Pie – 数据可视化探索(从入门到放弃)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./dendrogram.html" rel="next">
-<link href="./donut.html" rel="prev">
+<link href="./donut.html" rel="next">
+<link href="./treemap.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-of-a-whole.html">Part of a Whole</a></li><li class="breadcrumb-item"><a href="./pie.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Pie</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-of-a-whole.html">Part of a Whole</a></li><li class="breadcrumb-item"><a href="./pie.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Pie</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -324,14 +324,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./donut.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Donut</span></span></a>
+  <a href="./pie.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Pie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pie.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Pie</span></span></a>
+  <a href="./donut.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Donut</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -376,26 +376,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#pkg" id="toc-pkg" class="nav-link active" data-scroll-target="#pkg"><span class="header-section-number">23.1</span> PKG</a></li>
-  <li><a href="#饼图的问题" id="toc-饼图的问题" class="nav-link" data-scroll-target="#饼图的问题"><span class="header-section-number">23.2</span> 饼图的问题</a>
+  <li><a href="#pkg" id="toc-pkg" class="nav-link active" data-scroll-target="#pkg"><span class="header-section-number">22.1</span> PKG</a></li>
+  <li><a href="#饼图的问题" id="toc-饼图的问题" class="nav-link" data-scroll-target="#饼图的问题"><span class="header-section-number">22.2</span> 饼图的问题</a>
   <ul class="collapse">
-  <li><a href="#bad-by-definition" id="toc-bad-by-definition" class="nav-link" data-scroll-target="#bad-by-definition"><span class="header-section-number">23.2.1</span> Bad by definition</a></li>
-  <li><a href="#even-worse" id="toc-even-worse" class="nav-link" data-scroll-target="#even-worse"><span class="header-section-number">23.2.2</span> Even worse</a></li>
-  <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives"><span class="header-section-number">23.2.3</span> Alternatives</a></li>
+  <li><a href="#bad-by-definition" id="toc-bad-by-definition" class="nav-link" data-scroll-target="#bad-by-definition"><span class="header-section-number">22.2.1</span> Bad by definition</a></li>
+  <li><a href="#even-worse" id="toc-even-worse" class="nav-link" data-scroll-target="#even-worse"><span class="header-section-number">22.2.2</span> Even worse</a></li>
+  <li><a href="#alternatives" id="toc-alternatives" class="nav-link" data-scroll-target="#alternatives"><span class="header-section-number">22.2.3</span> Alternatives</a></li>
   </ul></li>
-  <li><a href="#pie" id="toc-pie" class="nav-link" data-scroll-target="#pie"><span class="header-section-number">23.3</span> <code>pie()</code></a>
+  <li><a href="#pie" id="toc-pie" class="nav-link" data-scroll-target="#pie"><span class="header-section-number">22.3</span> <code>pie()</code></a>
   <ul class="collapse">
-  <li><a href="#基础" id="toc-基础" class="nav-link" data-scroll-target="#基础"><span class="header-section-number">23.3.1</span> 基础</a></li>
-  <li><a href="#labels" id="toc-labels" class="nav-link" data-scroll-target="#labels"><span class="header-section-number">23.3.2</span> <code>labels</code></a></li>
-  <li><a href="#non-circular" id="toc-non-circular" class="nav-link" data-scroll-target="#non-circular"><span class="header-section-number">23.3.3</span> Non-circular</a></li>
-  <li><a href="#shadow" id="toc-shadow" class="nav-link" data-scroll-target="#shadow"><span class="header-section-number">23.3.4</span> Shadow</a></li>
-  <li><a href="#颜色" id="toc-颜色" class="nav-link" data-scroll-target="#颜色"><span class="header-section-number">23.3.5</span> 颜色</a></li>
+  <li><a href="#基础" id="toc-基础" class="nav-link" data-scroll-target="#基础"><span class="header-section-number">22.3.1</span> 基础</a></li>
+  <li><a href="#labels" id="toc-labels" class="nav-link" data-scroll-target="#labels"><span class="header-section-number">22.3.2</span> <code>labels</code></a></li>
+  <li><a href="#non-circular" id="toc-non-circular" class="nav-link" data-scroll-target="#non-circular"><span class="header-section-number">22.3.3</span> Non-circular</a></li>
+  <li><a href="#shadow" id="toc-shadow" class="nav-link" data-scroll-target="#shadow"><span class="header-section-number">22.3.4</span> Shadow</a></li>
+  <li><a href="#颜色" id="toc-颜色" class="nav-link" data-scroll-target="#颜色"><span class="header-section-number">22.3.5</span> 颜色</a></li>
   </ul></li>
-  <li><a href="#geom_bar" id="toc-geom_bar" class="nav-link" data-scroll-target="#geom_bar"><span class="header-section-number">23.4</span> <code>geom_bar()</code></a>
+  <li><a href="#geom_bar" id="toc-geom_bar" class="nav-link" data-scroll-target="#geom_bar"><span class="header-section-number">22.4</span> <code>geom_bar()</code></a>
   <ul class="collapse">
-  <li><a href="#基础-1" id="toc-基础-1" class="nav-link" data-scroll-target="#基础-1"><span class="header-section-number">23.4.1</span> 基础</a></li>
-  <li><a href="#去坐标轴" id="toc-去坐标轴" class="nav-link" data-scroll-target="#去坐标轴"><span class="header-section-number">23.4.2</span> 去坐标轴</a></li>
-  <li><a href="#标签" id="toc-标签" class="nav-link" data-scroll-target="#标签"><span class="header-section-number">23.4.3</span> 标签</a></li>
+  <li><a href="#基础-1" id="toc-基础-1" class="nav-link" data-scroll-target="#基础-1"><span class="header-section-number">22.4.1</span> 基础</a></li>
+  <li><a href="#去坐标轴" id="toc-去坐标轴" class="nav-link" data-scroll-target="#去坐标轴"><span class="header-section-number">22.4.2</span> 去坐标轴</a></li>
+  <li><a href="#标签" id="toc-标签" class="nav-link" data-scroll-target="#标签"><span class="header-section-number">22.4.3</span> 标签</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -403,9 +403,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-of-a-whole.html">Part of a Whole</a></li><li class="breadcrumb-item"><a href="./pie.html"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Pie</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-of-a-whole.html">Part of a Whole</a></li><li class="breadcrumb-item"><a href="./pie.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Pie</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-pie" class="quarto-section-identifier"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Pie</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-pie" class="quarto-section-identifier"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Pie</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -424,8 +424,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.</p>
 <p>谨慎使用饼图，或者，使用 <a href="@sec-bar">条形图</a>、<a href="@sec-lollipop">棒棒糖图</a>、<a href="@sec-treemap">树状图</a> 等替代方案。</p>
-<section id="pkg" class="level2" data-number="23.1">
-<h2 data-number="23.1" class="anchored" data-anchor-id="pkg"><span class="header-section-number">23.1</span> PKG</h2>
+<section id="pkg" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="pkg"><span class="header-section-number">22.1</span> PKG</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -434,10 +434,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="饼图的问题" class="level2" data-number="23.2">
-<h2 data-number="23.2" class="anchored" data-anchor-id="饼图的问题"><span class="header-section-number">23.2</span> <a href="https://www.data-to-viz.com/caveat/pie.html">饼图的问题</a></h2>
-<section id="bad-by-definition" class="level3" data-number="23.2.1">
-<h3 data-number="23.2.1" class="anchored" data-anchor-id="bad-by-definition"><span class="header-section-number">23.2.1</span> Bad by definition</h3>
+<section id="饼图的问题" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="饼图的问题"><span class="header-section-number">22.2</span> <a href="https://www.data-to-viz.com/caveat/pie.html">饼图的问题</a></h2>
+<section id="bad-by-definition" class="level3" data-number="22.2.1">
+<h3 data-number="22.2.1" class="anchored" data-anchor-id="bad-by-definition"><span class="header-section-number">22.2.1</span> Bad by definition</h3>
 <p>饼图是一个被分成扇区的圆，每个扇区代表整体的一部分。它通常用于显示百分比，其中所有扇区的总和等于 100%。</p>
 <p>可读性太差了!，尤其是当扇区的大小相似时。人们很难准确地比较不同扇区的大小。</p>
 <div class="quarto-figure quarto-figure-center">
@@ -454,8 +454,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </section>
-<section id="even-worse" class="level3" data-number="23.2.2">
-<h3 data-number="23.2.2" class="anchored" data-anchor-id="even-worse"><span class="header-section-number">23.2.2</span> Even worse</h3>
+<section id="even-worse" class="level3" data-number="22.2.2">
+<h3 data-number="22.2.2" class="anchored" data-anchor-id="even-worse"><span class="header-section-number">22.2.2</span> Even worse</h3>
 <p>饼图还有一些讨厌的问题:</p>
 <ul>
 <li>3D 版饼图</li>
@@ -464,8 +464,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>爆炸/分散式饼图(exploded pie charts)</li>
 </ul>
 </section>
-<section id="alternatives" class="level3" data-number="23.2.3">
-<h3 data-number="23.2.3" class="anchored" data-anchor-id="alternatives"><span class="header-section-number">23.2.3</span> Alternatives</h3>
+<section id="alternatives" class="level3" data-number="22.2.3">
+<h3 data-number="22.2.3" class="anchored" data-anchor-id="alternatives"><span class="header-section-number">22.2.3</span> Alternatives</h3>
 <p>最好的替代是条形图,如果数据很多,可以使用棒棒糖图,会更优雅一点.</p>
 <p>基于世界上几个国家 <a href="https://www.data-to-viz.com/story/OneNumOneCat.html">武器销售</a> 数量的例子：</p>
 <div class="quarto-figure quarto-figure-center">
@@ -483,11 +483,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="pie" class="level2" data-number="23.3">
-<h2 data-number="23.3" class="anchored" data-anchor-id="pie"><span class="header-section-number">23.3</span> <code>pie()</code></h2>
+<section id="pie" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="pie"><span class="header-section-number">22.3</span> <code>pie()</code></h2>
 <p><code>Base R::pie()</code> 函数用于绘制饼图.</p>
-<section id="基础" class="level3" data-number="23.3.1">
-<h3 data-number="23.3.1" class="anchored" data-anchor-id="基础"><span class="header-section-number">23.3.1</span> 基础</h3>
+<section id="基础" class="level3" data-number="22.3.1">
+<h3 data-number="22.3.1" class="anchored" data-anchor-id="基础"><span class="header-section-number">22.3.1</span> 基础</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -504,8 +504,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="labels" class="level3" data-number="23.3.2">
-<h3 data-number="23.3.2" class="anchored" data-anchor-id="labels"><span class="header-section-number">23.3.2</span> <code>labels</code></h3>
+<section id="labels" class="level3" data-number="22.3.2">
+<h3 data-number="22.3.2" class="anchored" data-anchor-id="labels"><span class="header-section-number">22.3.2</span> <code>labels</code></h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -521,8 +521,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="non-circular" class="level3" data-number="23.3.3">
-<h3 data-number="23.3.3" class="anchored" data-anchor-id="non-circular"><span class="header-section-number">23.3.3</span> Non-circular</h3>
+<section id="non-circular" class="level3" data-number="22.3.3">
+<h3 data-number="22.3.3" class="anchored" data-anchor-id="non-circular"><span class="header-section-number">22.3.3</span> Non-circular</h3>
 <p>可以通过 <code>edges</code> 参数(多边形的边数)来绘制非圆形的饼图, 例如:</p>
 <div class="cell">
 <details class="code-fold">
@@ -539,8 +539,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="shadow" class="level3" data-number="23.3.4">
-<h3 data-number="23.3.4" class="anchored" data-anchor-id="shadow"><span class="header-section-number">23.3.4</span> Shadow</h3>
+<section id="shadow" class="level3" data-number="22.3.4">
+<h3 data-number="22.3.4" class="anchored" data-anchor-id="shadow"><span class="header-section-number">22.3.4</span> Shadow</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -561,8 +561,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="颜色" class="level3" data-number="23.3.5">
-<h3 data-number="23.3.5" class="anchored" data-anchor-id="颜色"><span class="header-section-number">23.3.5</span> 颜色</h3>
+<section id="颜色" class="level3" data-number="22.3.5">
+<h3 data-number="22.3.5" class="anchored" data-anchor-id="颜色"><span class="header-section-number">22.3.5</span> 颜色</h3>
 <p>使用 col 更改组颜色，使用 border 更改边框颜色。</p>
 <div class="cell">
 <details class="code-fold">
@@ -589,16 +589,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="geom_bar" class="level2" data-number="23.4">
-<h2 data-number="23.4" class="anchored" data-anchor-id="geom_bar"><span class="header-section-number">23.4</span> <code>geom_bar()</code></h2>
+<section id="geom_bar" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="geom_bar"><span class="header-section-number">22.4</span> <code>geom_bar()</code></h2>
 <p>由于饼图不受待见, <code>ggplot2</code> 没有提供专门的饼图函数, 但可以使用 <code>geom_bar()</code> 绘制饼图. 核心技术:</p>
 <ul>
 <li>输入数据框有 2 列：group 和 value</li>
 <li><code>geom_bar()</code> 函数创建一个仅包含一个条形的堆叠条形图</li>
 <li><code>coord_polar()</code> 使其呈圆形</li>
 </ul>
-<section id="基础-1" class="level3" data-number="23.4.1">
-<h3 data-number="23.4.1" class="anchored" data-anchor-id="基础-1"><span class="header-section-number">23.4.1</span> 基础</h3>
+<section id="基础-1" class="level3" data-number="22.4.1">
+<h3 data-number="22.4.1" class="anchored" data-anchor-id="基础-1"><span class="header-section-number">22.4.1</span> 基础</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
@@ -610,7 +610,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制饼图</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># identity 创建堆叠条形图</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="co"># 将条形图转换为极坐标系</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>  <span class="co"># 将条形图转换为极坐标系</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="co"># 设置配色方案</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -622,8 +623,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="去坐标轴" class="level3" data-number="23.4.2">
-<h3 data-number="23.4.2" class="anchored" data-anchor-id="去坐标轴"><span class="header-section-number">23.4.2</span> 去坐标轴</h3>
+<section id="去坐标轴" class="level3" data-number="22.4.2">
+<h3 data-number="22.4.2" class="anchored" data-anchor-id="去坐标轴"><span class="header-section-number">22.4.2</span> 去坐标轴</h3>
 <p>上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景:</p>
 <div class="cell">
 <details class="code-fold">
@@ -632,7 +633,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># identity 创建堆叠条形图</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 将条形图转换为极坐标系</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="co"># 移除背景和坐标轴</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># 设置配色方案</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="co"># 移除背景和坐标轴</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -644,39 +646,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="标签" class="level3" data-number="23.4.3">
-<h3 data-number="23.4.3" class="anchored" data-anchor-id="标签"><span class="header-section-number">23.4.3</span> 标签</h3>
+<section id="标签" class="level3" data-number="22.4.3">
+<h3 data-number="22.4.3" class="anchored" data-anchor-id="标签"><span class="header-section-number">22.4.3</span> 标签</h3>
 <p>因为使用了 <code>coord_polar()</code>，所以计算文本标签的位置比较复杂.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show/Hide Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 带标签和自定义配色的饼图</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 按 group 降序排列，计算每组所占百分比和标签位置</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(group)) <span class="sc">|&gt;</span> <span class="co"># 按 group 降序排列</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">prop =</span> value <span class="sc">/</span> <span class="fu">sum</span>(data<span class="sc">$</span>value) <span class="sc">*</span> <span class="dv">100</span>, <span class="co"># 计算百分比</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">ypos =</span> <span class="fu">cumsum</span>(prop) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> prop      <span class="co"># 计算标签位置</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 绘制饼图</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> <span class="co"># 绘制堆叠条形图</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>                             <span class="co"># 转换为极坐标系（饼图）</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span>                                            <span class="co"># 移除背景和坐标轴</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span>                         <span class="co"># 移除图例</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> ypos, <span class="at">label =</span> group),                           <span class="co"># 添加标签</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)                       <span class="co"># 设置配色方案</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 按 group 降序排列，计算每组所占百分比和标签位置</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(group)) <span class="sc">|&gt;</span> <span class="co"># 按 group 降序排列</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">prop =</span> value <span class="sc">/</span> <span class="fu">sum</span>(data<span class="sc">$</span>value) <span class="sc">*</span> <span class="dv">100</span>, <span class="co"># 计算百分比</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">ypos =</span> <span class="fu">cumsum</span>(prop) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> prop      <span class="co"># 计算标签位置</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 绘制饼图</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> <span class="co"># 绘制堆叠条形图</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>                             <span class="co"># 转换为极坐标系（饼图）</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> ypos, <span class="at">label =</span> group),                           <span class="co"># 添加标签</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="sc">+</span>                      <span class="co"># 设置配色方案</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span>                                            <span class="co"># 移除背景和坐标轴</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)                          <span class="co"># 移除图例</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="pie_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>加上标签的饼图</figcaption>
+<figcaption>带标签和自定义配色的饼图</figcaption>
 </figure>
 </div>
 </div>
@@ -1142,13 +1142,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./donut.html" class="pagination-link" aria-label="Donut">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Donut</span></span>
+      <a href="./treemap.html" class="pagination-link" aria-label="Treemap">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Treemap</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./dendrogram.html" class="pagination-link" aria-label="Dendrogram">
-        <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Dendrogram</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./donut.html" class="pagination-link" aria-label="Donut">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Donut</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -1284,55 +1284,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-144"><a href="#cb10-144" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制饼图</span></span>
 <span id="cb10-145"><a href="#cb10-145" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
 <span id="cb10-146"><a href="#cb10-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># identity 创建堆叠条形图</span></span>
-<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="co"># 将条形图转换为极坐标系</span></span>
-<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### 去坐标轴</span></span>
-<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a>上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景: </span>
-<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-156"><a href="#cb10-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 改进后的饼图</span></span>
-<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a><span class="co"># 移除x 轴和 y 轴的标签和背景</span></span>
-<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># identity 创建堆叠条形图</span></span>
-<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 将条形图转换为极坐标系</span></span>
-<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="co"># 移除背景和坐标轴</span></span>
-<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### 标签</span></span>
+<span id="cb10-147"><a href="#cb10-147" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>  <span class="co"># 将条形图转换为极坐标系</span></span>
+<span id="cb10-148"><a href="#cb10-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="co"># 设置配色方案</span></span>
+<span id="cb10-149"><a href="#cb10-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-150"><a href="#cb10-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-151"><a href="#cb10-151" aria-hidden="true" tabindex="-1"></a><span class="fu">### 去坐标轴</span></span>
+<span id="cb10-152"><a href="#cb10-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-153"><a href="#cb10-153" aria-hidden="true" tabindex="-1"></a>上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景: </span>
+<span id="cb10-154"><a href="#cb10-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-157"><a href="#cb10-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-158"><a href="#cb10-158" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 改进后的饼图</span></span>
+<span id="cb10-159"><a href="#cb10-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a><span class="co"># 移除x 轴和 y 轴的标签和背景</span></span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> value, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># identity 创建堆叠条形图</span></span>
+<span id="cb10-163"><a href="#cb10-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span> <span class="co"># 将条形图转换为极坐标系</span></span>
+<span id="cb10-164"><a href="#cb10-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="co"># 设置配色方案</span></span>
+<span id="cb10-165"><a href="#cb10-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="co"># 移除背景和坐标轴</span></span>
+<span id="cb10-166"><a href="#cb10-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-167"><a href="#cb10-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a>因为使用了 <span class="in">`coord_polar()`</span>，所以计算文本标签的位置比较复杂.</span>
+<span id="cb10-168"><a href="#cb10-168" aria-hidden="true" tabindex="-1"></a><span class="fu">### 标签</span></span>
 <span id="cb10-169"><a href="#cb10-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-172"><a href="#cb10-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb10-173"><a href="#cb10-173" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 加上标签的饼图</span></span>
-<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 带标签和自定义配色的饼图</span></span>
-<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 按 group 降序排列，计算每组所占百分比和标签位置</span></span>
-<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(group)) <span class="sc">|&gt;</span> <span class="co"># 按 group 降序排列</span></span>
-<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>        <span class="at">prop =</span> value <span class="sc">/</span> <span class="fu">sum</span>(data<span class="sc">$</span>value) <span class="sc">*</span> <span class="dv">100</span>, <span class="co"># 计算百分比</span></span>
-<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>        <span class="at">ypos =</span> <span class="fu">cumsum</span>(prop) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> prop      <span class="co"># 计算标签位置</span></span>
-<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 绘制饼图</span></span>
-<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> <span class="co"># 绘制堆叠条形图</span></span>
-<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>                             <span class="co"># 转换为极坐标系（饼图）</span></span>
-<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span>                                            <span class="co"># 移除背景和坐标轴</span></span>
-<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span>                         <span class="co"># 移除图例</span></span>
-<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
-<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> ypos, <span class="at">label =</span> group),                           <span class="co"># 添加标签</span></span>
-<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span></span>
-<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)                       <span class="co"># 设置配色方案</span></span>
-<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>**大功告成!**</span>
+<span id="cb10-170"><a href="#cb10-170" aria-hidden="true" tabindex="-1"></a>因为使用了 <span class="in">`coord_polar()`</span>，所以计算文本标签的位置比较复杂.</span>
+<span id="cb10-171"><a href="#cb10-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-174"><a href="#cb10-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-175"><a href="#cb10-175" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 带标签和自定义配色的饼图</span></span>
+<span id="cb10-176"><a href="#cb10-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-177"><a href="#cb10-177" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 按 group 降序排列，计算每组所占百分比和标签位置</span></span>
+<span id="cb10-178"><a href="#cb10-178" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
+<span id="cb10-179"><a href="#cb10-179" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(group)) <span class="sc">|&gt;</span> <span class="co"># 按 group 降序排列</span></span>
+<span id="cb10-180"><a href="#cb10-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb10-181"><a href="#cb10-181" aria-hidden="true" tabindex="-1"></a>        <span class="at">prop =</span> value <span class="sc">/</span> <span class="fu">sum</span>(data<span class="sc">$</span>value) <span class="sc">*</span> <span class="dv">100</span>, <span class="co"># 计算百分比</span></span>
+<span id="cb10-182"><a href="#cb10-182" aria-hidden="true" tabindex="-1"></a>        <span class="at">ypos =</span> <span class="fu">cumsum</span>(prop) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> prop      <span class="co"># 计算标签位置</span></span>
+<span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 绘制饼图</span></span>
+<span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> prop, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb10-187"><a href="#cb10-187" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span> <span class="co"># 绘制堆叠条形图</span></span>
+<span id="cb10-188"><a href="#cb10-188" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span>                             <span class="co"># 转换为极坐标系（饼图）</span></span>
+<span id="cb10-189"><a href="#cb10-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(</span>
+<span id="cb10-190"><a href="#cb10-190" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(<span class="at">y =</span> ypos, <span class="at">label =</span> group),                           <span class="co"># 添加标签</span></span>
+<span id="cb10-191"><a href="#cb10-191" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">6</span></span>
+<span id="cb10-192"><a href="#cb10-192" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb10-193"><a href="#cb10-193" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="dv">2</span>) <span class="sc">+</span>                      <span class="co"># 设置配色方案</span></span>
+<span id="cb10-194"><a href="#cb10-194" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span>                                            <span class="co"># 移除背景和坐标轴</span></span>
+<span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)                          <span class="co"># 移除图例</span></span>
+<span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>**大功告成!**</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

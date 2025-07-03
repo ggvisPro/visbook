@@ -46,8 +46,8 @@ book:
       chapters:
         - group-bar.qmd
         - treemap.qmd
-        - donut.qmd
         - pie.qmd
+        - donut.qmd
         - dendrogram.qmd
         - circular.qmd
         - waffle.qmd

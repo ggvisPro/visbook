@@ -34,7 +34,7 @@
     "href": "quick_start.html#单变量univariate-variable",
     "title": "0 Quick start",
     "section": "单变量(Univariate Variable)",
-    "text": "单变量(Univariate Variable)\n\n分类变量(Categorical Variable)\n对于分类变量，我们主要展示其比例构成。\n\n饼图(Pie)\n不得不说，饼图是最常见的单个分类变量可视化方式，那么直接，又那么简单。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  coord_polar(theta = \"y\") + \n  theme_void()\n\n\n\n\n\n\n\n\n\n\n\n甜甜圈图(Donut)\n甜甜圈图是饼图的变种，去掉了中间的空心部分，形成一个甜甜圈形状。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 2, fill = cut)) + \n  geom_bar(color = \"white\") +           # 绘制每个cut的条形，白色边框\n  xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小\n  coord_polar(theta = \"y\") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）\n  theme_void()                          # 移除所有背景和坐标轴，突出图形主体\n\n\n\n\n\n甜甜圈图\n\n\n\n\n\n\n堆叠条形图(Barstack)\n堆叠条形图是另一种常见的单个分类变量可视化方式(我不喜欢,我觉得它不直观)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n连续性变量（Continuous Variable）\n对于连续变量, 我们主要关注其变化、分布、趋势、典型值、异常值\n\n直方图(Histogram)\n下图是 53900 个钻石的克拉数分布，X轴是克拉数，Y轴是频数。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.5) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat do you notice from the histogram?\n\n\n让我们改变一下 binwidth 的大小，看看会有什么不同。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1) \n\n\n\n\n\n\n\n\n\n好像有些不一样了，继续改变 binwidth 的大小：\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.01) \n\n\n\n\n\n\n\n\n\nAmazing!\n\n\n\n\n\n\n思考题\n\n\n\nWhy are there more diamonds at whole carats and common fractions of carats?\nWhy are there more diamonds slightly to the right of each peak than there are slightly to the left of each peak?\n\n\n\n\n密度曲线图(Density)\n密度曲线图可以帮助我们更好地理解数据的分布情况。下图是钻石克拉数的密度曲线图，X轴是克拉数，Y轴是分布密度\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the density?\nWhat is the relationship between the density curve and the histogram above?\n\n\n\n\n箱线图(Boxplot)\n箱线图是用来展示数据分布的图形，主要用于显示数据的中位数、四分位数、异常值等信息。 \n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this boxplot?\n\n\n\n\n小提琴图(Violin)\n箱线图很好,但仅展示了四分位数等,而小提琴图则显示了数据的分布密度,可以更好地展示数据的分布情况。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() \n\n\n\n\n\n\n\n\n\n小提琴图显示分布密度\n\n\n\n\n\n\n思考题\n\n\n\nwhat is the difference in the three plots(boxplot, density plot, histogram)?\n\n\n下图很地解释了直方图、密度曲线图和箱线图这三者之前的关系\n\n\nShow/Hide Code\n## Left\np_left &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1)\n\n## Middle\np_middle &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n## Right\np_right &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_boxplot()\n\np_left + p_middle + p_right\n\n\n\n\n\n\n\n\n\n\n\n小提琴图(Violin) + 箱线图(Boxplot)\n还有一种把小提琴图和箱线图结合的方式，近年来在科研界比较流行。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1, fill = \"white\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this plot?",
+    "text": "单变量(Univariate Variable)\n\n分类变量(Categorical Variable)\n对于分类变量，我们主要展示其比例构成。\n\n饼图(Pie)\n不得不说，饼图是最常见的单个分类变量可视化方式，那么直接，又那么简单。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  coord_polar(theta = \"y\") + \n  scale_fill_brewer(palette = \"set2\") + # 设置配色方案\n  theme_void()\n\n\n\n\n\n\n\n\n\n\n\n甜甜圈图(Donut)\n甜甜圈图是饼图的变种，去掉了中间的空心部分，形成一个甜甜圈形状。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 2, fill = cut)) + \n  geom_bar(color = \"white\") +           # 绘制每个cut的条形，白色边框\n  xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小\n  coord_polar(theta = \"y\") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）\n  scale_fill_brewer(palette = \"set2\") + # 设置配色方案\n  theme_void()                          # 移除所有背景和坐标轴，突出图形主体\n\n\n\n\n\n甜甜圈图\n\n\n\n\n\n\n堆叠条形图(Barstack)\n堆叠条形图是另一种常见的单个分类变量可视化方式(我不喜欢,我觉得它不直观)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = cut)) + \n  geom_bar(color = \"white\") + \n  scale_fill_brewer(palette = \"set2\") + # 设置配色方案\n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n\n\n连续性变量（Continuous Variable）\n对于连续变量, 我们主要关注其变化、分布、趋势、典型值、异常值\n\n直方图(Histogram)\n下图是 53900 个钻石的克拉数分布，X轴是克拉数，Y轴是频数。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.5) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat do you notice from the histogram?\n\n\n让我们改变一下 binwidth 的大小，看看会有什么不同。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1) \n\n\n\n\n\n\n\n\n\n好像有些不一样了，继续改变 binwidth 的大小：\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.01) \n\n\n\n\n\n\n\n\n\nAmazing!\n\n\n\n\n\n\n思考题\n\n\n\nWhy are there more diamonds at whole carats and common fractions of carats?\nWhy are there more diamonds slightly to the right of each peak than there are slightly to the left of each peak?\n\n\n\n\n密度曲线图(Density)\n密度曲线图可以帮助我们更好地理解数据的分布情况。下图是钻石克拉数的密度曲线图，X轴是克拉数，Y轴是分布密度\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the density?\nWhat is the relationship between the density curve and the histogram above?\n\n\n\n\n箱线图(Boxplot)\n箱线图是用来展示数据分布的图形，主要用于显示数据的中位数、四分位数、异常值等信息。 \n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this boxplot?\n\n\n\n\n小提琴图(Violin)\n箱线图很好,但仅展示了四分位数等,而小提琴图则显示了数据的分布密度,可以更好地展示数据的分布情况。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() \n\n\n\n\n\n\n\n\n\n小提琴图显示分布密度\n\n\n\n\n\n\n思考题\n\n\n\nwhat is the difference in the three plots(boxplot, density plot, histogram)?\n\n\n下图很地解释了直方图、密度曲线图和箱线图这三者之前的关系\n\n\nShow/Hide Code\n## Left\np_left &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_histogram(binwidth = 0.1)\n\n## Middle\np_middle &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_density()\n\n## Right\np_right &lt;- ggplot(diamonds, aes(x = carat)) +\n  geom_boxplot()\n\np_left + p_middle + p_right\n\n\n\n\n\n\n\n\n\n\n\n小提琴图(Violin) + 箱线图(Boxplot)\n还有一种把小提琴图和箱线图结合的方式，近年来在科研界比较流行。\n\n\nShow/Hide Code\nggplot(diamonds |&gt; filter(cut == \"Fair\"), aes(x = cut, y = carat)) +\n  geom_violin() +\n  geom_boxplot(width = 0.1, fill = \"white\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nHow to interpret this plot?",
     "crumbs": [
       "0 Quick start"
     ]
@@ -44,7 +44,7 @@
     "href": "quick_start.html#双变量bivariate-variable",
     "title": "0 Quick start",
     "section": "双变量(Bivariate Variable)",
-    "text": "双变量(Bivariate Variable)\n\n分类-数值变量(A categorical and a numerical variable)\n\n折线图(Line)\n下面是不同切割质量的钻石的价格情况的折线图\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n不好看!\n\n\n\n\n\n\n思考题\n\n\n\nWhy is this plot ugly?\n\n\n\n\n密度曲线图(Density)\n当各组数据差得较多时,纵轴用count不太合适,会造成摩天大厦+小平层,不如把纵轴改为density:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, y = after_stat(density), color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n好多了吧 ●‘◡’● (好吧,还是有点丑)\n分面(facet)会好一点吗?\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, fill = cut)) + \n  geom_density() + \n  facet_wrap(~ cut, nrow = 1) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n山脊图(Ridge)\n近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, y = cut, fill = cut)) + \n  geom_density_ridges(alpha = 0.5) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n并排箱线图(Boxplot)\n箱线图也是一种直观的可视化方式\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\n或许还可以上点颜色, 让它显得花里胡哨:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price, fill = cut)) +\n  geom_boxplot(outlier.shape = NA) +\n  theme(legend.position = \"none\") + \n  coord_cartesian(ylim = c(0, 15000))\n\n\n\n\n\n\n\n\n\n等等,这不对吧,cut越好的钻石价格应该越高才对啊!!!怎么回事呀喂?\n\n\n\n\n\n\n思考题\n\n\n\nWhy does the boxplot show that the price of diamonds with “Fair” cut is higher than those with “Ideal” cut?\n\n\n\n\n折线图(Line)\n还有一种策略,是算出数值的平均数(或其他特征),然后绘制折线图:\n\n\nShow/Hide Code\ndiamonds |&gt;\n  group_by(cut) |&gt;\n  summarise(price = mean(price)) |&gt;\n  ggplot(aes(x = cut, y = price, color = cut)) +\n  geom_point() +\n  geom_line(group = 1) +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n\n两个分类变量(Two categorical variables)\n虽然听起来有点离谱,但有时候确实需要可视化两个分类变量之间的关系.\n\n点图(Dot)\n下图是一个点图，展示了钻石的切割质量和颜色之间的关系。点的大小表示组合的数量\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = color)) +\n  geom_count()\n\n\n\n\n\n\n\n\n\n好看吗? 好像还行。\n\n\n色块图(Tile)\n让我们再来换一种表达形式——色块图,色块的颜色表示组合的数量.\n\n\nShow/Hide Code\ndiamonds |&gt; \n  count(color, cut) |&gt;  \n  ggplot(aes(x = color, y = cut)) +\n  geom_tile(aes(fill = n))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhich one do you prefer, the dot plot or the tile plot? Why?\n\n\n\n\n堆叠条形图(Barstack)\n又到了我不喜欢的堆叠条形图了.\n下面两个图是钻石的颜色和切割质量的堆叠条形图，分别展示了每种颜色的钻石在不同切割质量下的数量分布。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar(position = \"fill\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the difference between the two stacked bar charts?\n\n\n\n\n分面面包圈图(Facet Donut)\n其实就是多个面包圈图组合在一起,用ppt也能做.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = color)) +\n  geom_bar(color = \"white\") + \n  xlim(-0.5, 1.5) + \n  coord_polar(theta = \"y\") + \n  theme_void() + \n  facet_wrap(~ cut, scales=\"free_y\", nrow = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n两个数值变量(Two numerical variables)\n\n散点图(Scatter)\n下图是钻石的克拉数和价格之间的散点图，X轴是克拉数，Y轴是价格。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n黑色一大片,简直丑死了!\n来调整一下点的透明度吧\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.02)\n\n\n\n\n\n\n\n\n\n稍微好一点,但是还有一些更好的策略.\n\n\n分格散点图(bin)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex()\n\n\n\n\n\n\n\n\n\n\n\n排序箱线图(Order Boxplot)\n把其中一个变量分成若干个区间,然后在每个区间内绘制箱线图,可以更好地展示数据的分布情况.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) + \n  geom_boxplot(aes(group = cut_width(carat, 0.1)))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhen do you think a Order Boxplot Plot is useful?\n\n\n\n\n散点图(Scatter) + 线性回归(Linear Regression)\n换一个数据较少的例子,这是一个散点图，展示了汽车的发动机排量和高速公路油耗之间的关系。红色的点表示2座跑车。\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    color = \"red\"\n  ) +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    shape = \"circle open\", size = 3, color = \"red\"\n  )\n\n\n\n\n\n\n\n\n\n我们还可以在散点图上添加线性回归线,来展示两者之间的关系.\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the curve? What is the shadow around it?",
+    "text": "双变量(Bivariate Variable)\n\n分类-数值变量(A categorical and a numerical variable)\n\n折线图(Line)\n下面是不同切割质量的钻石的价格情况的折线图\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n不好看!\n\n\n\n\n\n\n思考题\n\n\n\nWhy is this plot ugly?\n\n\n\n\n密度曲线图(Density)\n当各组数据差得较多时,纵轴用count不太合适,会造成摩天大厦+小平层,不如把纵轴改为density:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, y = after_stat(density), color = cut)) + \n  geom_freqpoly(binwidth = 500, linewidth = 0.75)\n\n\n\n\n\n\n\n\n\n好多了吧 ●‘◡’● (好吧,还是有点丑)\n分面(facet)会好一点吗?\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, fill = cut)) + \n  geom_density() + \n  facet_wrap(~ cut, nrow = 1) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n山脊图(Ridge)\n近年来还流行一种“山脊图(Ridge)”，它可以更好地展示多个分布的重叠情况。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = price, y = cut, fill = cut)) + \n  geom_density_ridges(alpha = 0.5) + \n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n并排箱线图(Boxplot)\n箱线图也是一种直观的可视化方式\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\n或许还可以上点颜色, 让它显得花里胡哨:\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = price, fill = cut)) +\n  geom_boxplot(outlier.shape = NA) +\n  theme(legend.position = \"none\") + \n  coord_cartesian(ylim = c(0, 15000))\n\n\n\n\n\n\n\n\n\n等等,这不对吧,cut越好的钻石价格应该越高才对啊!!!怎么回事呀喂?\n\n\n\n\n\n\n思考题\n\n\n\nWhy does the boxplot show that the price of diamonds with “Fair” cut is higher than those with “Ideal” cut?\n\n\n\n\n折线图(Line)\n还有一种策略,是算出数值的平均数(或其他特征),然后绘制折线图:\n\n\nShow/Hide Code\ndiamonds |&gt;\n  group_by(cut) |&gt;\n  summarise(price = mean(price)) |&gt;\n  ggplot(aes(x = cut, y = price, color = cut)) +\n  geom_point() +\n  geom_line(group = 1) +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\n\n\n两个分类变量(Two categorical variables)\n虽然听起来有点离谱,但有时候确实需要可视化两个分类变量之间的关系.\n\n点图(Dot)\n下图是一个点图，展示了钻石的切割质量和颜色之间的关系。点的大小表示组合的数量\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = cut, y = color)) +\n  geom_count()\n\n\n\n\n\n\n\n\n\n好看吗? 好像还行。\n\n\n色块图(Tile)\n让我们再来换一种表达形式——色块图,色块的颜色表示组合的数量.\n\n\nShow/Hide Code\ndiamonds |&gt; \n  count(color, cut) |&gt;  \n  ggplot(aes(x = color, y = cut)) +\n  geom_tile(aes(fill = n)) \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhich one do you prefer, the dot plot or the tile plot? Why?\n\n\n\n\n堆叠条形图(Barstack)\n又到了我不喜欢的堆叠条形图了.\n下面两个图是钻石的颜色和切割质量的堆叠条形图，分别展示了每种颜色的钻石在不同切割质量下的数量分布。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar() + \n  scale_fill_brewer(palette = \"set2\") # 设置配色方案\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = color, fill = cut)) +\n  geom_bar(position = \"fill\") +\n  scale_fill_brewer(palette = \"set2\") # 设置配色方案\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the difference between the two stacked bar charts?\n\n\n\n\n分面面包圈图(Facet Donut)\n其实就是多个面包圈图组合在一起,用ppt也能做.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 1, fill = color)) +\n  geom_bar(color = \"white\") + \n  xlim(-0.5, 1.5) + \n  coord_polar(theta = \"y\") + \n  theme_void() + \n  facet_wrap(~ cut, scales=\"free_y\", nrow = 2) + \n  scale_fill_brewer(palette = \"set2\") # 设置配色方案\n\n\n\n\n\n\n\n\n\n\n\n\n两个数值变量(Two numerical variables)\n\n散点图(Scatter)\n下图是钻石的克拉数和价格之间的散点图，X轴是克拉数，Y轴是价格。\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n黑色一大片,简直丑死了!\n来调整一下点的透明度吧\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_point(alpha = 0.02) \n\n\n\n\n\n\n\n\n\n稍微好一点,但是还有一些更好的策略.\n\n\n分格散点图(bin)\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_bin2d()\n\n\n\n\n\n\n\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_hex()\n\n\n\n\n\n\n\n\n\n\n\n排序箱线图(Order Boxplot)\n把其中一个变量分成若干个区间,然后在每个区间内绘制箱线图,可以更好地展示数据的分布情况.\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = carat, y = price)) + \n  geom_boxplot(aes(group = cut_width(carat, 0.1)))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhen do you think a Order Boxplot Plot is useful?\n\n\n\n\n散点图(Scatter) + 线性回归(Linear Regression)\n换一个数据较少的例子,这是一个散点图，展示了汽车的发动机排量和高速公路油耗之间的关系。红色的点表示2座跑车。\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    color = \"red\"\n  ) +\n  geom_point(\n    data = mpg |&gt; filter(class == \"2seater\"),\n    shape = \"circle open\", size = 3, color = \"red\"\n  )\n\n\n\n\n\n\n\n\n\n我们还可以在散点图上添加线性回归线,来展示两者之间的关系.\n\n\nShow/Hide Code\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point() +\n  geom_smooth()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n思考题\n\n\n\nWhat is the curve? What is the shadow around it?",
     "crumbs": [
       "0 Quick start"
     ]
@@ -959,58 +959,102 @@
     ]
   },
   {
-    "objectID": "donut.html",
-    "href": "donut.html",
-    "title": "22  Donut",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "Part of a Whole",
-      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Donut</span>"
-    ]
-  },
-  {
     "objectID": "pie.html",
     "href": "pie.html",
-    "title": "23  Pie",
+    "title": "22  Pie",
     "section": "",
-    "text": "23.1 PKG\n饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.\n谨慎使用饼图，或者，使用 条形图、棒棒糖图、树状图 等替代方案。\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(RColorBrewer) # 用于调色板",
+    "text": "22.1 PKG\n饼图在科研数据可视化领域非常不受待见的图形, 但在商业领域仍然有其应用场景.\n谨慎使用饼图，或者，使用 条形图、棒棒糖图、树状图 等替代方案。\nShow/Hide Code\nlibrary(tidyverse)\nlibrary(RColorBrewer) # 用于调色板",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Pie</span>"
     ]
   },
   {
     "objectID": "pie.html#饼图的问题",
     "href": "pie.html#饼图的问题",
-    "title": "23  Pie",
-    "section": "23.2 饼图的问题",
-    "text": "23.2 饼图的问题\n\n23.2.1 Bad by definition\n饼图是一个被分成扇区的圆，每个扇区代表整体的一部分。它通常用于显示百分比，其中所有扇区的总和等于 100%。\n可读性太差了!，尤其是当扇区的大小相似时。人们很难准确地比较不同扇区的大小。\n\n\n\n饼图,你能找出组间趋势吗?\n\n\n同样的数据用条形图表示就清晰多了:\n\n\n\n柱状图看起来比饼图清晰多了\n\n\n\n\n23.2.2 Even worse\n饼图还有一些讨厌的问题:\n\n3D 版饼图\n总和不为 100%\n项目太多\n爆炸/分散式饼图(exploded pie charts)\n\n\n\n23.2.3 Alternatives\n最好的替代是条形图,如果数据很多,可以使用棒棒糖图,会更优雅一点.\n基于世界上几个国家 武器销售 数量的例子：\n\n\n\n世界上部分国家武器销售数量,美国遥遥领先\n\n\n为了描述整体的组成,还可以使用树状图, 例如:\n\n\n\n树状图,武器销售占比",
+    "title": "22  Pie",
+    "section": "22.2 饼图的问题",
+    "text": "22.2 饼图的问题\n\n22.2.1 Bad by definition\n饼图是一个被分成扇区的圆，每个扇区代表整体的一部分。它通常用于显示百分比，其中所有扇区的总和等于 100%。\n可读性太差了!，尤其是当扇区的大小相似时。人们很难准确地比较不同扇区的大小。\n\n\n\n饼图,你能找出组间趋势吗?\n\n\n同样的数据用条形图表示就清晰多了:\n\n\n\n柱状图看起来比饼图清晰多了\n\n\n\n\n22.2.2 Even worse\n饼图还有一些讨厌的问题:\n\n3D 版饼图\n总和不为 100%\n项目太多\n爆炸/分散式饼图(exploded pie charts)\n\n\n\n22.2.3 Alternatives\n最好的替代是条形图,如果数据很多,可以使用棒棒糖图,会更优雅一点.\n基于世界上几个国家 武器销售 数量的例子：\n\n\n\n世界上部分国家武器销售数量,美国遥遥领先\n\n\n为了描述整体的组成,还可以使用树状图, 例如:\n\n\n\n树状图,武器销售占比",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Pie</span>"
     ]
   },
   {
     "objectID": "pie.html#pie",
     "href": "pie.html#pie",
-    "title": "23  Pie",
-    "section": "23.3 pie()",
-    "text": "23.3 pie()\nBase R::pie() 函数用于绘制饼图.\n\n23.3.1 基础\n\n\nShow/Hide Code\nProp &lt;- c(3,7,9,1,2)\npie(Prop)\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n23.3.2 labels\n\n\nShow/Hide Code\npie(Prop , labels = c(\"Gr-A\",\"Gr-B\",\"Gr-C\",\"Gr-D\",\"Gr-E\"))\n\n\n\n\n\n带标签的饼图\n\n\n\n\n\n\n23.3.3 Non-circular\n可以通过 edges 参数(多边形的边数)来绘制非圆形的饼图, 例如:\n\n\nShow/Hide Code\npie(Prop, labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"), edges = 50)\n\n\n\n\n\n非圆形饼图\n\n\n\n\n\n\n23.3.4 Shadow\n\n\nShow/Hide Code\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  density = 10, # 设置阴影密度\n  angle = c(20, 90, 30, 10, 0) # 设置每个扇区的阴影角度\n)\n\n\n\n\n\n带阴影的饼图\n\n\n\n\n\n\n23.3.5 颜色\n使用 col 更改组颜色，使用 border 更改边框颜色。\n\n\nShow/Hide Code\n# library(RColorBrewer) # 用于调色板\n\nmyPalette &lt;- brewer.pal(5, \"Set2\")\n\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  border = \"white\", # 设置边框颜色为白色\n  col = myPalette # 使用调色板\n)\n\n\n\n\n\n定制饼图颜色",
+    "title": "22  Pie",
+    "section": "22.3 pie()",
+    "text": "22.3 pie()\nBase R::pie() 函数用于绘制饼图.\n\n22.3.1 基础\n\n\nShow/Hide Code\nProp &lt;- c(3,7,9,1,2)\npie(Prop)\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n22.3.2 labels\n\n\nShow/Hide Code\npie(Prop , labels = c(\"Gr-A\",\"Gr-B\",\"Gr-C\",\"Gr-D\",\"Gr-E\"))\n\n\n\n\n\n带标签的饼图\n\n\n\n\n\n\n22.3.3 Non-circular\n可以通过 edges 参数(多边形的边数)来绘制非圆形的饼图, 例如:\n\n\nShow/Hide Code\npie(Prop, labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"), edges = 50)\n\n\n\n\n\n非圆形饼图\n\n\n\n\n\n\n22.3.4 Shadow\n\n\nShow/Hide Code\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  density = 10, # 设置阴影密度\n  angle = c(20, 90, 30, 10, 0) # 设置每个扇区的阴影角度\n)\n\n\n\n\n\n带阴影的饼图\n\n\n\n\n\n\n22.3.5 颜色\n使用 col 更改组颜色，使用 border 更改边框颜色。\n\n\nShow/Hide Code\n# library(RColorBrewer) # 用于调色板\n\nmyPalette &lt;- brewer.pal(5, \"Set2\")\n\npie(\n  Prop,\n  labels = c(\"Gr-A\", \"Gr-B\", \"Gr-C\", \"Gr-D\", \"Gr-E\"),\n  border = \"white\", # 设置边框颜色为白色\n  col = myPalette # 使用调色板\n)\n\n\n\n\n\n定制饼图颜色",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Pie</span>"
     ]
   },
   {
     "objectID": "pie.html#geom_bar",
     "href": "pie.html#geom_bar",
-    "title": "23  Pie",
-    "section": "23.4 geom_bar()",
-    "text": "23.4 geom_bar()\n由于饼图不受待见, ggplot2 没有提供专门的饼图函数, 但可以使用 geom_bar() 绘制饼图. 核心技术:\n\n输入数据框有 2 列：group 和 value\ngeom_bar() 函数创建一个仅包含一个条形的堆叠条形图\ncoord_polar() 使其呈圆形\n\n\n23.4.1 基础\n\n\nShow/Hide Code\n# 创建数据框\ndata &lt;- data.frame(\n  group = LETTERS[1:5],\n  value = c(13, 7, 9, 21, 2)\n)\n# 绘制饼图\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) # 将条形图转换为极坐标系\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n23.4.2 去坐标轴\n上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景:\n\n\nShow/Hide Code\n# 移除x 轴和 y 轴的标签和背景\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) + # 将条形图转换为极坐标系\n  theme_void() # 移除背景和坐标轴\n\n\n\n\n\n改进后的饼图\n\n\n\n\n\n\n23.4.3 标签\n因为使用了 coord_polar()，所以计算文本标签的位置比较复杂.\n\n\nShow/Hide Code\n#| fig-cap: 带标签和自定义配色的饼图\n\n# 1. 按 group 降序排列，计算每组所占百分比和标签位置\ndata &lt;- data |&gt; \n    arrange(desc(group)) |&gt; # 按 group 降序排列\n    mutate(\n        prop = value / sum(data$value) * 100, # 计算百分比\n        ypos = cumsum(prop) - 0.5 * prop      # 计算标签位置\n    )\n\n# 2. 绘制饼图\nggplot(data, aes(x = \"\", y = prop, fill = group)) +\n    geom_bar(stat = \"identity\", width = 1, color = \"white\") + # 绘制堆叠条形图\n    coord_polar(\"y\", start = 0) +                             # 转换为极坐标系（饼图）\n    theme_void() +                                            # 移除背景和坐标轴\n    theme(legend.position = \"none\") +                         # 移除图例\n    geom_text(\n        aes(y = ypos, label = group),                           # 添加标签\n        color = \"white\", size = 6\n    ) +\n    scale_fill_brewer(palette = \"Set1\")                       # 设置配色方案\n\n\n\n\n\n加上标签的饼图\n\n\n\n\n大功告成!",
+    "title": "22  Pie",
+    "section": "22.4 geom_bar()",
+    "text": "22.4 geom_bar()\n由于饼图不受待见, ggplot2 没有提供专门的饼图函数, 但可以使用 geom_bar() 绘制饼图. 核心技术:\n\n输入数据框有 2 列：group 和 value\ngeom_bar() 函数创建一个仅包含一个条形的堆叠条形图\ncoord_polar() 使其呈圆形\n\n\n22.4.1 基础\n\n\nShow/Hide Code\n# 创建数据框\ndata &lt;- data.frame(\n  group = LETTERS[1:5],\n  value = c(13, 7, 9, 21, 2)\n)\n# 绘制饼图\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) +  # 将条形图转换为极坐标系\n  scale_fill_brewer(palette = 2) # 设置配色方案\n\n\n\n\n\n基础饼图\n\n\n\n\n\n\n22.4.2 去坐标轴\n上面的图看起来不太对,不像饼图, 继续移除 x 轴和 y 轴的标签,和背景:\n\n\nShow/Hide Code\n# 移除x 轴和 y 轴的标签和背景\nggplot(data, aes(x = \"\", y = value, fill = group)) +\n  geom_bar(stat = \"identity\", width = 1) + # identity 创建堆叠条形图\n  coord_polar(\"y\", start = 0) + # 将条形图转换为极坐标系\n  scale_fill_brewer(palette = 2) + # 设置配色方案\n  theme_void() # 移除背景和坐标轴\n\n\n\n\n\n改进后的饼图\n\n\n\n\n\n\n22.4.3 标签\n因为使用了 coord_polar()，所以计算文本标签的位置比较复杂.\n\n\nShow/Hide Code\n# 1. 按 group 降序排列，计算每组所占百分比和标签位置\ndata &lt;- data |&gt; \n    arrange(desc(group)) |&gt; # 按 group 降序排列\n    mutate(\n        prop = value / sum(data$value) * 100, # 计算百分比\n        ypos = cumsum(prop) - 0.5 * prop      # 计算标签位置\n    )\n\n# 2. 绘制饼图\nggplot(data, aes(x = \"\", y = prop, fill = group)) +\n    geom_bar(stat = \"identity\", width = 1, color = \"white\") + # 绘制堆叠条形图\n    coord_polar(\"y\", start = 0) +                             # 转换为极坐标系（饼图）\n    geom_text(\n        aes(y = ypos, label = group),                           # 添加标签\n        color = \"white\", size = 6\n    ) +\n    scale_fill_brewer(palette = 2) +                      # 设置配色方案\n    theme_void() +                                            # 移除背景和坐标轴\n    theme(legend.position = \"none\")                          # 移除图例\n\n\n\n\n\n带标签和自定义配色的饼图\n\n\n\n\n大功告成!",
     "crumbs": [
       "Part of a Whole",
-      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Pie</span>"
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Pie</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html",
+    "href": "donut.html",
+    "title": "23  Donut",
+    "section": "",
+    "text": "23.1 问题\n与饼图相比，环形图在视觉上更具吸引力，但是也存在饼图的问题,见 Chapter 22",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Donut</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html#pkg",
+    "href": "donut.html#pkg",
+    "title": "23  Donut",
+    "section": "23.2 PKG",
+    "text": "23.2 PKG\n\n\nShow/Hide Code\nlibrary(tidyverse)",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Donut</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html#base-r",
+    "href": "donut.html#base-r",
+    "title": "23  Donut",
+    "section": "23.3 Base R",
+    "text": "23.3 Base R\n先用 pie() 绘制一个饼图，再用Base R::symbols() 叠加略小白色圆形来形成环形效果。\n\n\nShow/Hide Code\n# 定义各部分的比例\nProp &lt;- c(3, 7, 9, 1, 2)\n\n# 绘制饼图\npie(Prop)\n\n# 在饼图中央添加一个白色圆形，形成环形图效果\nsymbols(\n    0,                # x坐标\n    0,                # y坐标\n    circles = 0.5,    # 圆的半径\n    inches = FALSE,   # 使用坐标单位而非英寸\n    add = TRUE,       # 在已有图形上添加\n    bg = \"white\",     # 圆的填充色为白色\n    fg = \"black\"      # 圆的边框色为黑色\n)\n\n\n\n\n\n使用Base R绘制环形图（Donut Chart）示例\n\n\n\n\n更为复杂的 自定义函数 方法,不推荐",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Donut</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html#geom_bar",
+    "href": "donut.html#geom_bar",
+    "title": "23  Donut",
+    "section": "23.4 geom_bar()",
+    "text": "23.4 geom_bar()\n核心思路：\n\ngeom_bar() 绘制堆叠条形图\ncoord_polar() 堆叠的矩形切换到环形\nxlim() 从饼图切换到环形图 (中间添加一个空白圆圈)\n\n\n23.4.1 基础\n\n\nShow/Hide Code\nggplot(diamonds, aes(x = 2, fill = cut)) + \n  geom_bar(color = \"white\") +           # 绘制每个cut的条形，白色边框\n  xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小\n  coord_polar(theta = \"y\") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）\n  scale_fill_brewer(palette = 2) +      # 设置配色方案\n  theme_void()                          # 移除所有背景和坐标轴，突出图形主体\n\n\n\n\n\n使用geom_bar()绘制环形图（Donut Chart）示例\n\n\n\n\n\n\n23.4.2 标签\n\n\nShow/Hide Code\n# 修改label来更改文本\n# 修改aes(label = label, x = 3) 的 X 来控制标签位置\n\n# 计算每个cut的数量和比例\ndiamonds_summary &lt;- diamonds |&gt;\n  count(cut) |&gt;\n  mutate(\n    prop = n / sum(n), # 计算每个cut的比例\n    percentage = round(prop * 100, 1), # 转换为百分比并保留一位小数\n    label = paste0(cut, \": \\n\", n, \" (\", percentage, \"%)\") # 组合标签文本\n  )\n\n# 绘制带标签的环形图\nggplot(diamonds_summary, aes(x = 2, y = n, fill = cut)) +\n  geom_bar(\n    stat = \"identity\", # 使用实际的y值（n）绘制条形\n    color = \"white\", # 条形之间的分隔线为白色\n    width = 1 # 条形宽度\n  ) +\n  xlim(0.5, 3) + # 控制中间空白圆圈的大小  \n  geom_text(\n    aes(label = label, x = 3), # 设置标签内容\n    position = position_stack(vjust = 0.5), # 标签居中显示在每个扇区\n    color = \"black\", # 标签颜色\n    size = 3.5, # 标签字体大小\n    fontface = \"bold\" # 标签字体加粗\n  ) +\n  coord_polar(theta = \"y\") + # 极坐标转换为环形图\n  scale_fill_brewer(palette = 2) + # 设置配色方案\n  theme_void() + # 移除背景和坐标轴\n  theme(legend.position = \"none\") # 隐藏图例，标签已包含信息\n\n\n\n\n\n带标签的环形图（Donut Chart），显示每个cut的数量和百分比",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Donut</span>"
+    ]
+  },
+  {
+    "objectID": "donut.html#厚度",
+    "href": "donut.html#厚度",
+    "title": "23  Donut",
+    "section": "23.5 厚度",
+    "text": "23.5 厚度\nxlim() 函数可以控制环形的厚度, 通过调整 xlim() 的范围来实现。\n看不懂就直接删除coord_polar()，就能看到环形的厚度变化。",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Donut</span>"
     ]
   },
   {

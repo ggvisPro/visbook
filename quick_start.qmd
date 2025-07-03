@@ -57,6 +57,7 @@ which part of the data analysis process is the most interesting? Which part is t
 ggplot(diamonds, aes(x = 1, fill = cut)) + 
   geom_bar(color = "white") + 
   coord_polar(theta = "y") + 
+  scale_fill_brewer(palette = "set2") + # 设置配色方案
   theme_void()
 ```
 
@@ -71,6 +72,7 @@ ggplot(diamonds, aes(x = 2, fill = cut)) +
   geom_bar(color = "white") +           # 绘制每个cut的条形，白色边框
   xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小
   coord_polar(theta = "y") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）
+  scale_fill_brewer(palette = "set2") + # 设置配色方案
   theme_void()                          # 移除所有背景和坐标轴，突出图形主体
 ```
 
@@ -81,6 +83,7 @@ ggplot(diamonds, aes(x = 2, fill = cut)) +
 ```{r}
 ggplot(diamonds, aes(x = 1, fill = cut)) + 
   geom_bar(color = "white") + 
+  scale_fill_brewer(palette = "set2") + # 设置配色方案
   theme_classic()
 ```
 
@@ -302,7 +305,7 @@ ggplot(diamonds, aes(x = cut, y = color)) +
 diamonds |> 
   count(color, cut) |>  
   ggplot(aes(x = color, y = cut)) +
-  geom_tile(aes(fill = n))
+  geom_tile(aes(fill = n)) 
 ```
 
 ::: {.callout-important title="思考题"}
@@ -317,10 +320,12 @@ Which one do you prefer, the dot plot or the tile plot? Why?
 
 ```{r}
 ggplot(diamonds, aes(x = color, fill = cut)) +
-  geom_bar()
+  geom_bar() + 
+  scale_fill_brewer(palette = "set2") # 设置配色方案
 
 ggplot(diamonds, aes(x = color, fill = cut)) +
-  geom_bar(position = "fill")
+  geom_bar(position = "fill") +
+  scale_fill_brewer(palette = "set2") # 设置配色方案
 ```
 
 ::: {.callout-important title="思考题"}
@@ -337,7 +342,8 @@ ggplot(diamonds, aes(x = 1, fill = color)) +
   xlim(-0.5, 1.5) + 
   coord_polar(theta = "y") + 
   theme_void() + 
-  facet_wrap(~ cut, scales="free_y", nrow = 2)
+  facet_wrap(~ cut, scales="free_y", nrow = 2) + 
+  scale_fill_brewer(palette = "set2") # 设置配色方案
 ```
 
 ### 两个数值变量(Two numerical variables)
@@ -357,7 +363,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
 ```{r}
 ggplot(diamonds, aes(x = carat, y = price)) +
-  geom_point(alpha = 0.02)
+  geom_point(alpha = 0.02) 
 ```
 
 稍微好一点,但是还有一些更好的策略.
