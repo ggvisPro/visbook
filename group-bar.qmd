@@ -1,5 +1,7 @@
 # Group bar {#sec-group-bar}
 
+关于堆叠的讲解，见 [data-to-viz](https://www.data-to-viz.com/caveat/stacking.html)
+
 ## PKG
 
 ```{r}
@@ -153,9 +155,6 @@ ggplot(data_long, aes(fill = group, y = value, x = x)) +
   geom_bar(position = "stack", stat = "identity")
 
 ```
-
-
-
 
 
 ## `Base R`

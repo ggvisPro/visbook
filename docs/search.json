@@ -941,7 +941,7 @@
     "href": "group-bar.html",
     "title": "20  Group bar",
     "section": "",
-    "text": "20.1 PKG\nShow/Hide Code\nlibrary(RColorBrewer) # 加载RColorBrewer包用于调色板\nlibrary(tidyverse)\nlibrary(likert) # 加载likert包用于处理分组条形图\nlibrary(viridis) # 加载viridis包用于调色板\nlibrary(hrbrthemes) # 加载hrbrthemes包用于美化图形",
+    "text": "20.1 PKG\n关于堆叠的讲解，见 data-to-viz\nShow/Hide Code\nlibrary(RColorBrewer) # 加载RColorBrewer包用于调色板\nlibrary(tidyverse)\nlibrary(likert) # 加载likert包用于处理分组条形图\nlibrary(viridis) # 加载viridis包用于调色板\nlibrary(hrbrthemes) # 加载hrbrthemes包用于美化图形",
     "crumbs": [
       "Part of a Whole",
       "<span class='chapter-number'>20</span>  <span class='chapter-title'>Group bar</span>"
