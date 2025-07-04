@@ -1,3 +1,187 @@
 # Waffle {#sec-waffle}
 
-1
+Waffle chart 通过一个小方块网格直观地表示分类数据，形状像华夫饼。
+
+每个小方块代表一个单位，每个类别有一种颜色，通常用于展示百分比或比例数据。
+
+`waffle` 包提供两种不同的 API（应用程序编程接口）。第一种类似于基础 R 语法，使用 `waffle()` 函数。第二种 `geom_waffle()` 符合 tidyverse 理念，可以无缝集成到 ggplot2 调用中。
+
+## PKG
+```{r}
+library(waffle)
+library(tidyverse)   
+library(ggtext)    
+library(rnaturalearth) # 获取世界地图数据
+library(sf)           # 处理空间数据
+```
+
+## `Base R`
+
+### 基本
+
+```{r}
+#| fig-cap: "基础 R 语言绘制华夫饼图"
+
+# 构造示例数据
+group <- c("group-1", "group-2", "group-3")
+value <- c(13, 5, 22)
+data <- data.frame(group, value)
+
+# 绘制华夫饼图
+waffle(data)
+```
+
+### `rows`
+
+```{r}
+#| fig-cap: 通过 `rows` 参数设置华夫饼图的行数
+
+waffle(data, rows = 5)
+```
+
+### `colors`
+
+```{r}
+#| fig-cap: 通过 `colors` 参数设置华夫饼图的颜色
+
+waffle(data, rows = 5, colors = c("#fb5607", "#ff006e", "#8338ec"))
+```
+
+### `Legend`
+
+ 通过 `legend_pos` 参数设置图例位置
+
+```{r}
+#| fig-cap: 通过 `legend_pos` 参数设置图例位置
+
+waffle(
+    data,
+    rows = 5,
+    colors = c("#fb5607", "#ff006e", "#8338ec"),
+    legend_pos = "bottom"
+)
+```
+
+## `ggplot2`
+
+`geom_waffle()` 可以在 ggplot2 中使用。
+
+### 基本
+
+```{r}
+#| fig-cap: "使用 ggplot2 绘制华夫饼图"
+
+ggplot(data, aes(fill=group, values=value)) +
+  geom_waffle() +
+  theme_void()
+```
+
+### 颜色
+
+```{r}
+#| fig-cap: "使用 ggplot2 绘制华夫饼图，修改颜色"
+
+ggplot(data, aes(fill=group, values=value)) +
+  geom_waffle(color = "white") + # 添加白色边框
+  scale_fill_brewer(palette = "Set2") + # 使用 Set2 调色板
+  theme_void()
+```
+
+### `Legend`
+
+```{r}
+#| fig-cap: "使用 ggplot2 绘制华夫饼图，修改图例"
+
+ggplot(data, aes(fill=group, values=value)) +
+  geom_waffle() +
+  scale_fill_manual(
+    values = c("#999999", "#E69F00", "#56B4E9"),
+    labels = c("First group", "Second group", "Third group")) +
+  theme_void()
+```
+
+### subgroup
+
+通过对group分面，可以得到每个组的子组分布情况。
+
+```{r}
+#| fig-cap: "使用 ggplot2 绘制华夫饼图，分组显示"
+
+# 构造带有 subgroup 的示例数据
+data <- data.frame(
+    group = c(
+        "First group",
+        "First group",
+        "First group",
+        "First group",
+        "First group",
+        "First group",
+        "Second group",
+        "Second group",
+        "Second group",
+        "Second group",
+        "Third group",
+        "Third group"
+    ),
+    subgroup = c("A", "B", "C", "D", "E", "F", "A", "B", "C", "D", "A", "B"),
+    value = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)
+)
+
+ggplot(data = data, aes(fill = subgroup, values = value)) +
+    geom_waffle(color = "white", size = 1.125, n_rows = 6) +
+    facet_wrap(~group, ncol = 1) + # 关键是分面 facet_wrap
+    theme_void()
+```
+
+
+### 颜色
+
+可以使用 `scale_fill_manual()` 来修改颜色。
+
+```{r}
+#| fig-cap: "scale_fill_manual() 修改颜色"
+
+
+ggplot(data = data, aes(fill = subgroup, values = value)) +
+    geom_waffle(color = "white", size = 1.125, n_rows = 6) +
+    facet_wrap(~group, ncol = 1) +
+    theme_void() +
+    scale_fill_manual(
+        values = c(
+            "#69b3a2",
+            "#404080",
+            "#FFA07A",
+            "#FFD700",
+            "#FF6347",
+            "#4682B4"
+        )
+    )
+```
+
+或者使用我更爱的 `scale_fill_brewer(palette = "Set2")` 来使用预定义的调色板。
+
+```{r}
+#| fig-cap: scale_fill_brewer() 更改颜色
+
+ggplot(data = data, aes(fill = subgroup, values = value)) +
+    geom_waffle(color = "white", size = 1.125, n_rows = 6) +
+    facet_wrap(~group, ncol = 1) +
+    theme_void() +
+    scale_fill_brewer(palette = "Set2")
+```
+
+## Pearl
+
+2010-2020年全球 [各大洲小麦产量](https://r-graph-gallery.com/web-waffle-chart-for-distribution.html) 分布的华夫饼图：
+
+![2010-2020年全球各大洲小麦/玉米产量分布](./image/wheat.png)
+
+
+[大西洋飓风数量](https://r-graph-gallery.com/web-waffle-for-time-evolution.html) 分布的华夫饼图：
+
+![大西洋飓风数量分布的华夫饼图](./image/storms.png)
+
+
+不同大洲作为动物饲料消耗的 [谷物比例](https://r-graph-gallery.com/web-waffle-chart-share.html):
+
+![不同大洲作为动物饲料消耗的谷物比例](./image/cereals.png)
