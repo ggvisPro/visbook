@@ -1,3 +1,701 @@
 # Circular {#sec-circular}
 
-1
+## PKG
+
+```{r}
+library(packcircles) # for packing circles
+library(tidyverse) # for data manipulation and visualization
+library(viridis) # for color palettes
+library(ggiraph) # for interactive plots
+library(ggraph) # for graph visualization
+library(igraph) # for graph manipulation
+library(circlepackeR) # for interactive circle packing
+# remotes::install_github("jeromefroe/circlepackeR")
+library(data.tree)
+```
+
+## One level
+
+### Basic
+
+```{r}
+#| fig-cap: "Circle packing with packcircles"
+
+library(packcircles)  # 加载 packcircles 包，用于圆形打包
+library(ggplot2)      # 加载 ggplot2 包，用于绘图
+
+# 创建数据框，包含分组名称和对应的数值
+data <- data.frame(
+    group = paste("Group", letters[1:20]),   # 生成 20 个分组名
+    value = sample(seq(1, 100), 20)          # 随机生成 20 个 1~100 之间的数值
+)
+
+# 生成圆形打包布局，返回每个圆的中心坐标 (x, y) 和半径 (radius)
+# sizetype='area' 表示半径根据面积成比例分配
+packing <- circleProgressiveLayout(data$value, sizetype = 'area')
+
+# 将打包信息（中心坐标和半径）合并到原始数据框中
+data <- cbind(data, packing)
+
+# 检查半径与数值的关系（可选）
+# plot(data$radius, data$value)
+
+# 根据每个圆的中心和半径，生成用于绘制圆形的多边形顶点坐标
+# npoints=50 表示每个圆用 50 个点近似
+dat.gg <- circleLayoutVertices(packing, npoints = 50)
+
+# 绘制圆形打包图
+ggplot() +
+    # 绘制圆形多边形（气泡）
+    geom_polygon(
+        data = dat.gg,
+        aes(x, y, group = id, fill = as.factor(id)),
+        colour = "black", alpha = 0.6
+    ) +
+    # 在每个圆心添加文本标签，并根据 value 控制字体大小
+    geom_text(
+        data = data,
+        aes(x, y, size = value, label = group)
+    ) +
+    scale_size_continuous(range = c(1, 4)) +  # 设置字体大小范围
+    # 设置主题为无坐标轴、无背景
+    theme_void() +
+    theme(legend.position = "none") +         # 不显示图例
+    coord_equal()                             # 保持 x、y 轴比例相等
+```
+
+### Color 
+
+使用自定义调色板（magma）进行圆形打包可视化: 
+
+```{r}
+#| fig-cap: "使用自定义调色板（magma）进行圆形打包可视化"
+
+# 使用 ggplot2 绘制圆形打包图，并自定义颜色
+ggplot() +
+    # 绘制圆形多边形（气泡），每个圆用不同颜色填充
+    geom_polygon(
+        data = dat.gg,
+        aes(x, y, group = id, fill = as.factor(id)), # 按 id 分组并填充颜色
+        colour = "black",    # 圆边界为黑色
+        alpha = 0.6          # 设置透明度
+    ) +
+    # 使用 viridis 包中的 magma 调色板为每个圆分配颜色
+    scale_fill_manual(values = magma(nrow(data))) +
+    # 在每个圆心添加文本标签，字体大小与 value 成比例
+    geom_text(
+        data = data,
+        aes(x, y, size = value, label = group)
+    ) +
+    scale_size_continuous(range = c(1, 4)) +  # 设置字体大小范围
+    theme_void() +                            # 去除坐标轴和背景
+    theme(legend.position = "none") +         # 不显示图例
+    coord_equal()                             # 保持 x、y 轴比例相等
+
+```
+
+
+使用渐变色（BuPu 调色板）根据 value 显示圆形打包图: 
+
+```{r}
+#| fig-cap: "使用渐变色（BuPu 调色板）根据 value 显示圆形打包图"
+
+# 首先，将每个分组的 value 添加到 dat.gg 数据框中。
+# 由于每个圆形多边形由 51 个点近似（npoints=50，首尾闭合），所以每个 value 需要重复 51 次。
+dat.gg$value <- rep(data$value, each = 51)
+
+# 绘制圆形打包图
+ggplot() + 
+    # 绘制圆形多边形（气泡），根据 value 使用渐变色填充
+    geom_polygon(
+        data = dat.gg,
+        aes(x, y, group = id, fill = value),   # 按 value 渐变填充
+        colour = "black",                      # 边界为黑色
+        alpha = 0.6                            # 设置透明度
+    ) +
+    scale_fill_distiller(palette = "BuPu", direction = 1) +  # 使用 BuPu 调色板
+
+    # 在每个圆心添加文本标签，字体大小与 value 成比例
+    geom_text(
+        data = data,
+        aes(x, y, size = value, label = group)
+    ) +
+    scale_size_continuous(range = c(1, 4)) +  # 设置字体大小范围
+
+    # 设置主题为无坐标轴、无背景
+    theme_void() +
+    theme(legend.position = "none") +         # 不显示图例
+    coord_equal()                             # 保持 x、y 轴比例相等
+```
+
+
+通过 theme() 函数及其 plot.background() 参数更改背景: 
+
+```{r}
+#| fig-cap: "自定义黑色背景的圆形打包图，使用Spectral调色板和标签"
+
+# 使用 ggplot2 绘制圆形打包图，并设置黑色背景和自定义标题
+
+ggplot() + 
+  
+  # 绘制圆形多边形（气泡），根据 value 使用渐变色填充
+  geom_polygon(
+    data = dat.gg, 
+    aes(x, y, group = id, fill = value),   # 按 value 渐变填充
+    colour = "grey",                       # 边界为灰色
+    alpha = 0.6,                           # 设置透明度
+    size = .5                              # 边界线宽
+  ) +
+  scale_fill_distiller(palette = "Spectral", direction = 1 ) +  # 使用 Spectral 调色板
+  
+  # 在每个圆心添加标签，字体大小与 value 成比例
+  geom_label(
+    data = data, 
+    aes(x, y, size = value, label = group) # 标签内容为分组名
+  ) +
+  scale_size_continuous(range = c(1, 4)) + # 设置字体大小范围
+  
+  # 设置主题为无坐标轴、无背景，并自定义背景和标题颜色
+  theme_void()  + 
+  theme(
+    legend.position = "none",                        # 不显示图例
+    plot.background = element_rect(fill = "black"),  # 设置背景为黑色
+    plot.title = element_text(color = "white")       # 标题字体为白色
+  ) + 
+  coord_equal() +                                    # 保持 x、y 轴比例相等
+  ggtitle("A custom circle packing with\nblack background") # 添加标题
+```
+
+### Space
+
+
+```{r}
+#| fig-cap: 使用 viridis 调色板展示圆形打包图
+
+# 创建数据框，包含分组名称和对应的数值
+data <- data.frame(
+  group = paste("Group", letters[1:20]),
+  value = sample(seq(1, 100), 20)
+)
+
+# 生成布局
+packing <- circleProgressiveLayout(data$value, sizetype = 'area')
+packing$radius <- 0.95 * packing$radius # 让直径小于 1, 留有空隙
+data <- cbind(data, packing)
+dat.gg <- circleLayoutVertices(packing, npoints = 50)
+
+
+# 使用 ggplot2 绘制圆形打包图，采用 viridis 调色板
+ggplot() +
+
+    # 绘制圆形多边形（气泡），每个圆用不同颜色填充
+    geom_polygon(
+        data = dat.gg,                           # 多边形顶点数据
+        aes(x, y, group = id, fill = id),        # 按 id 分组并填充颜色
+        colour = "black",                        # 边界为黑色
+        alpha = 0.6                              # 设置透明度
+    ) +
+    scale_fill_viridis() +                     # 使用 viridis 调色板
+
+    # 在每个圆心添加文本标签，字体大小与 value 成比例
+    geom_text(
+        data = data,                             # 圆心及标签数据
+        aes(x, y, size = value, label = group),  # 设置圆心坐标、字体大小和标签内容
+        color = "black"                          # 标签字体颜色为黑色
+    ) +
+    theme_void() +                             # 去除坐标轴和背景
+    theme(legend.position = "none") +          # 不显示图例
+    coord_equal()                              # 保持 x、y 轴比例相等
+
+```
+
+### Interactive
+
+使用 `ggiraph::girafe()` 函数生成交互式圆形打包图，悬停查看详细信息:
+
+```{r}
+#| fig-cap: "交互式圆形打包图（circle packing），可悬停显示详细信息"
+
+# 加载所需包
+library(packcircles)   # 用于圆形打包布局
+library(ggplot2)       # 用于绘图
+library(viridis)       # 用于配色
+library(ggiraph)       # 用于交互式图形
+
+# 创建数据框，包含分组名称和对应的数值
+data <- data.frame(
+    group = paste(
+        "Group_",
+        sample(letters, 70, replace = TRUE),  # 随机生成 70 个字母
+        sample(letters, 70, replace = TRUE),
+        sample(letters, 70, replace = TRUE),
+        sep = ""
+    ),
+    value = sample(seq(1, 70), 70)          # 随机生成 70 个 1~70 之间的数值
+)
+
+# 添加文本列，用于气泡悬停时显示详细信息
+data$text <- paste(
+    "name: ", data$group, "\n",
+    "value: ", data$value, "\n",
+    "You can add a story here!"
+)
+
+# 生成圆形打包布局，返回每个圆的中心坐标 (x, y) 和半径 (radius)
+packing <- circleProgressiveLayout(data$value, sizetype = 'area')
+data <- cbind(data, packing)
+
+# 根据每个圆的中心和半径，生成用于绘制圆形的多边形顶点坐标
+dat.gg <- circleLayoutVertices(packing, npoints = 50)
+
+# 绘制交互式圆形打包图
+p <- ggplot() +
+    # 绘制交互式圆形多边形（气泡），可悬停显示 tooltip
+    geom_polygon_interactive(
+        data = dat.gg,
+        aes(
+            x, y, group = id, fill = id,
+            tooltip = data$text[id],   # 悬停显示的文本
+            data_id = id               # 交互用的唯一标识
+        ),
+        colour = "black",            # 边界为黑色
+        alpha = 0.6                  # 设置透明度
+    ) +
+    scale_fill_viridis() +         # 使用 viridis 调色板
+    # 在每个圆心添加文本标签，去掉 "Group_" 前缀
+    geom_text(
+        data = data,
+        aes(x, y, label = gsub("Group_", "", group)),
+        size = 2,
+        color = "black"
+    ) +
+    theme_void() +                 # 去除坐标轴和背景
+    theme(
+        legend.position = "none", 
+        plot.margin = unit(c(0, 0, 0, 0), "cm")  # 去除边距
+    ) +
+    coord_equal()                  # 保持 x、y 轴比例相等
+
+# 生成交互式图形
+girafe(ggobj = p) # 旧版本用 ggiraph()
+
+```
+
+## Several levels
+
+### `ggraph()`
+
+```{r}
+#| fig-cap: "多层级圆形打包图（circle packing），展示层级结构数据"
+#| fig-height: 8
+#| fig-width: 8
+
+library(ggraph) # 用于图形可视化
+library(igraph) # 用于图形操作
+library(tidyverse)
+
+# 加载 edges 和 vertices 数据，flare 数据集内置于 packcircles 包
+edges <- flare$edges  # 边数据，描述节点之间的父子关系
+
+# 通常我们还会有一个节点信息表，包含每个节点的属性
+vertices <- flare$vertices  # 节点数据，包含节点名称、分组等信息
+
+# 使用 igraph 包将边和节点数据转换为图对象
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
+
+# 使用 ggraph 包绘制多层级圆形打包图
+ggraph(mygraph, layout = 'circlepack') + 
+    geom_node_circle() +         # 绘制每个节点的圆
+    theme_void()                 # 去除坐标轴和背景
+```
+
+### type
+
+```{r}
+#| fig-cap: dendrogram, circle packing
+#| fig-height: 8
+#| fig-width: 8
+
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
+  geom_edge_diagonal() +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| fig-cap: dendrogram, not circle packing
+
+ggraph(mygraph, layout = 'dendrogram', circular = FALSE) +
+  geom_edge_diagonal() +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| fig-cap: treemap
+
+ggraph(mygraph, 'treemap', weight = size) +
+  geom_node_tile(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| fig-cap: partition
+
+ggraph(mygraph, 'partition', circular = TRUE) +
+  geom_node_arc_bar(aes(fill = depth), size = 0.25) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+```{r}
+#| fig-cap: "基础网络图：节点与连线的可视化"
+
+# 使用 ggraph 绘制基础网络图，展示节点与边的关系
+ggraph(mygraph) +
+    # 绘制边（连线），表示节点之间的连接关系
+    geom_edge_link() +
+    # 绘制节点（点），表示网络中的各个实体
+    geom_node_point() +
+    # 去除坐标轴和背景，使图形更简洁
+    theme_void() +
+    # 不显示图例
+    theme(legend.position = "none")
+```
+
+### color
+
+节点颜色根据深度变化: 
+
+```{r}
+#| fig-cap: 圆形打包图：节点颜色根据深度变化
+#| fig-height: 8
+#| fig-width: 8
+
+# 使用 ggraph 绘制圆形打包图，节点颜色根据深度变化
+p <- ggraph(mygraph, layout = 'circlepack', weight=size) + 
+  geom_node_circle(aes(fill = depth)) +
+  theme_void() + 
+  theme(legend.position="FALSE")
+p
+```
+
+```{r}
+#| fig-cap: viridis 调色板应用于圆形打包图
+#| fig-height: 8
+#| fig-width: 8
+
+p + scale_fill_viridis()
+```
+
+```{r}
+#| fig-cap: colorBrewer 调色板应用于圆形打包图
+#| fig-height: 8
+#| fig-width: 8
+
+p + scale_fill_distiller(palette = "RdPu") 
+```
+
+
+### label
+
+适用于层级不特别多的情况
+
+```{r}
+#| fig-cap: "带标签的多层级圆形打包图（circle packing），仅叶节点显示标签"
+#| fig-height: 8
+#| fig-width: 8
+
+# 仅保留有下级的边（即 to 在 from 中出现）
+edges <- flare$edges |>
+    filter(to %in% from) |>
+    droplevels()
+
+# 仅保留参与这些边的节点
+vertices <- flare$vertices |>
+    filter(name %in% c(edges$from, edges$to)) |>
+    droplevels()
+
+# 随机生成每个节点的 size 属性（可根据实际数据调整）
+vertices$size <- runif(nrow(vertices))
+
+# 重新构建 igraph 图对象
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
+
+# 使用 ggraph 绘制多层级圆形打包图
+ggraph(mygraph, layout = 'circlepack', weight = size) +
+    # 绘制每个节点的圆，颜色根据深度变化
+    geom_node_circle(aes(fill = depth)) +
+    # 仅在叶节点（leaf=TRUE）处添加标签，标签内容为 shortName，字体大小与 size 成比例
+    geom_node_text(aes(
+        label = shortName,    # 标签内容
+        filter = leaf,        # 仅叶节点显示
+        fill = depth,         # 标签颜色与深度一致
+        size = size           # 字体大小与 size 成比例
+    )) +
+    theme_void() +                          # 去除坐标轴和背景
+    theme(legend.position = "FALSE") +      # 不显示图例
+    scale_fill_viridis()                    # 使用 viridis 调色板
+```
+
+
+```{r}
+#| fig-cap: "带标签的多层级圆形打包图（circle packing），仅叶节点显示标签"
+#| fig-height: 8
+#| fig-width: 8
+
+# 使用 ggraph 绘制多层级圆形打包图，节点颜色根据深度变化，叶节点显示标签
+ggraph(mygraph, layout = 'circlepack', weight = size) + 
+    # 绘制每个节点的圆，颜色根据深度变化
+    geom_node_circle(aes(fill = depth)) +
+    # 仅在叶节点（leaf=TRUE）处添加标签，标签内容为 shortName，字体大小与 size 成比例
+    geom_node_label(
+        aes(
+            label = shortName,  # 标签内容为节点的 shortName
+            filter = leaf,      # 仅叶节点显示标签
+            size = size         # 字体大小与 size 成比例
+        )
+    ) +
+    theme_void() +                          # 去除坐标轴和背景
+    theme(legend.position = "FALSE") +      # 不显示图例
+    scale_fill_viridis()                    # 使用 viridis 调色板
+```
+
+
+### Hide
+
+隐藏1个或多个外层大圈:
+
+```{r}
+#| fig-cap: "隐藏最外层大圈的多层级圆形打包图（circle packing）"
+#| fig-height: 8
+#| fig-width: 8
+
+# 使用 packcircles 包内置的 flare 数据集，包含层级结构的边和节点信息
+edges = flare$edges         # 边数据，描述父子关系
+vertices = flare$vertices   # 节点数据，包含节点属性
+
+# 构建 igraph 图对象
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
+
+# 绘制多层级圆形打包图，隐藏最外层大圈（depth=0 填充为白色）
+ggraph(mygraph, layout = 'circlepack', weight = size) +
+    # 绘制每个节点的圆，填充和边框颜色根据深度分组
+    geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth))) +
+    # 设置不同深度的填充颜色，最外层（depth=0）为白色，其余用 viridis 调色板
+    scale_fill_manual(
+        values = c(
+            "0" = "white",           # 最外层隐藏
+            "1" = viridis(4)[1],     # 第一层
+            "2" = viridis(4)[2],     # 第二层
+            "3" = viridis(4)[3],     # 第三层
+            "4" = viridis(4)[4]      # 第四层
+        )
+    ) +
+    # 设置不同深度的边框颜色，最外层为白色，其余为黑色
+    scale_color_manual(
+        values = c(
+            "0" = "white",           # 最外层隐藏
+            "1" = "black",
+            "2" = "black",
+            "3" = "black",
+            "4" = "black"
+        )
+    ) +
+    theme_void() +                        # 去除坐标轴和背景
+    theme(legend.position = "FALSE")      # 不显示图例
+```
+
+```{r}
+#| fig-cap: "隐藏前两层大圈的多层级圆形打包图（circle packing）"
+#| fig-height: 8
+#| fig-width: 8
+
+# 使用 ggraph 绘制多层级圆形打包图，隐藏最外层和第二层大圈
+ggraph(mygraph, layout = 'circlepack', weight = size) +
+    # 绘制每个节点的圆，填充和边框颜色根据深度分组
+    geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth))) +
+    # 设置不同深度的填充颜色，前两层（depth=0,1）为白色，其余用 magma 调色板
+    scale_fill_manual(
+        values = c(
+            "0" = "white",           # 最外层隐藏
+            "1" = "white",           # 第二层隐藏
+            "2" = magma(4)[2],       # 第三层
+            "3" = magma(4)[3],       # 第四层
+            "4" = magma(4)[4]        # 第五层
+        )
+    ) +
+    # 设置不同深度的边框颜色，前两层为白色，其余为黑色
+    scale_color_manual(
+        values = c(
+            "0" = "white",           # 最外层隐藏
+            "1" = "white",           # 第二层隐藏
+            "2" = "black",
+            "3" = "black",
+            "4" = "black"
+        )
+    ) +
+    theme_void() +                        # 去除坐标轴和背景
+    theme(legend.position = "FALSE")      # 不显示图例
+```
+
+### 特定 label
+
+```{r}
+#| fig-cap: "仅为特定层级（如 level=2）节点添加标签的多层级圆形打包图"
+#| fig-height: 8
+#| fig-width: 8
+
+# 加载 data.tree 包，用于树结构操作
+library(data.tree)
+
+# 重新加载边和节点数据
+edges <- flare$edges
+vertices <- flare$vertices
+
+# 将边数据转换为树结构，便于获取每个节点的层级信息
+tree <- FromDataFrameNetwork(edges)
+
+# 获取每个节点的名称和层级，并合并到原始节点数据框
+mylevels <- data.frame(
+    name = tree$Get('name'),      # 节点名称
+    level = tree$Get("level")     # 节点层级（根节点为1）
+)
+vertices <- vertices %>%
+    left_join(., mylevels, by = c("name" = "name"))
+
+# 仅为 level=2 的节点添加标签，其余节点标签为 NA
+vertices <- vertices %>%
+    mutate(new_label = ifelse(level == 2, shortName, NA))
+
+# 构建 igraph 图对象
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
+
+# 绘制多层级圆形打包图
+ggraph(mygraph, layout = 'circlepack', weight = size) +
+    # 绘制每个节点的圆，填充和边框颜色根据深度分组
+    geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth))) +
+    # 设置不同深度的填充颜色，最外层为白色，其余用 viridis 调色板
+    scale_fill_manual(values = c(
+        "0" = "white",
+        "1" = viridis(4)[1],
+        "2" = viridis(4)[2],
+        "3" = viridis(4)[3],
+        "4" = viridis(4)[4]
+    )) +
+    # 设置不同深度的边框颜色，最外层为白色，其余为黑色
+    scale_color_manual(values = c(
+        "0" = "white",
+        "1" = "black",
+        "2" = "black",
+        "3" = "black",
+        "4" = "black"
+    )) +
+    # 仅为 new_label 非 NA 的节点添加标签（即 level=2 的节点）
+    geom_node_label(aes(label = new_label), size = 4) +
+    # 去除坐标轴和背景，设置无图例和无边距
+    theme_void() +
+    theme(
+        legend.position = "FALSE",
+        plot.margin = unit(rep(0, 4), "cm")
+    )
+```
+
+### 可缩放
+
+`circlePacker` 包可以用来创建交互式和可缩放圆形堆积图
+
+```{r}
+#| fig-cap: "可缩放交互式多层级圆形打包图（circle packing），使用 circlepackeR 包"
+
+# 加载 circlepackeR 包，用于创建可缩放的交互式圆形打包图
+library(circlepackeR)
+
+# 构建一个嵌套数据框，包含多层级结构信息
+data <- data.frame(
+    root = rep("root", 15),                                 # 根节点
+    group = c(rep("group A", 5), rep("group B", 5), rep("group C", 5)), # 一级分组
+    subgroup = rep(letters[1:5], each = 3),                 # 二级分组
+    subsubgroup = rep(letters[1:3], 5),                     # 三级分组
+    value = sample(seq(1:15), 15)                           # 每个叶节点的数值
+)
+
+# 使用 data.tree 包将数据转换为树结构
+library(data.tree)
+# 构建 pathString 字段，格式为 root/group/subgroup/subsubgroup
+data$pathString <- paste(
+    "world",                # 根节点名称
+    data$group,             # 一级分组
+    data$subgroup,          # 二级分组
+    data$subsubgroup,       # 三级分组
+    sep = "/"
+)
+# 转换为树结构对象
+population <- as.Node(data)
+
+# 绘制可缩放的交互式圆形打包图
+# color_min 和 color_max 可自定义颜色范围
+circlepackeR(
+    population,                 # 层级结构数据
+    size = "value",             # 用于圆面积的数值字段
+    color_min = "hsl(56,80%,80%)",   # 最小值对应的颜色
+    color_max = "hsl(341,30%,40%)"   # 最大值对应的颜色
+)
+
+```
+
+
+```{r}
+#| fig-cap: "将 edge list 转换为嵌套结构并用 circlepackeR 绘制多层级圆形打包图"
+
+# 加载 circlepackeR 包，用于绘制交互式圆形打包图
+library(circlepackeR)
+# 加载 ggraph 包（本例未直接用到，但常用于网络可视化）
+library(ggraph)
+
+# 使用 packcircles 包内置的 flare 数据集，获取边列表
+data_edge <- flare$edges
+
+# 提取每个节点名称的最后一级（去掉前面的分层前缀），便于后续分层
+data_edge$from <- gsub(".*\\.", "", data_edge$from)
+data_edge$to <- gsub(".*\\.", "", data_edge$to)
+# head(data_edge) # 查看处理后的边列表
+
+# 加载 data.tree 包，用于将边列表转换为树结构
+library(data.tree)
+# 将边列表转换为树结构对象
+data_tree <- FromDataFrameNetwork(data_edge)
+
+# 将树结构转换为嵌套数据框，提取每一层的名称
+data_nested <- ToDataFrameTree(
+    data_tree,
+    level1 = function(x) x$path[2], # 第一层
+    level2 = function(x) x$path[3], # 第二层
+    level3 = function(x) x$path[4], # 第三层
+    level4 = function(x) x$path[5]  # 第四层
+)[-1, -1] # 去除根节点和第一列（树结构自带的 name）
+
+# 去除包含 NA 的行，只保留完整路径
+data_nested <- na.omit(data_nested)
+
+# 构建 pathString 字段，格式为 roots/level1/level2/level3/level4
+data_nested$pathString <- paste(
+    "roots",
+    data_nested$level1,
+    data_nested$level2,
+    data_nested$level3,
+    data_nested$level4,
+    sep = "/"
+)
+
+# 设置每个叶节点的 value（圆面积），此处统一为 1
+data_nested$value = 1
+
+# 将嵌套数据框转换为树结构对象
+data_Node <- as.Node(data_nested)
+
+# 使用 circlepackeR 绘制可缩放的多层级圆形打包图
+circlepackeR(data_Node, size = "value")
+
+```
