@@ -287,8 +287,8 @@ girafe(ggobj = p) # 旧版本用 ggiraph()
 
 ```{r}
 #| fig-cap: "多层级圆形打包图（circle packing），展示层级结构数据"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 library(ggraph) # 用于图形可视化
 library(igraph) # 用于图形操作
@@ -313,8 +313,8 @@ ggraph(mygraph, layout = 'circlepack') +
 
 ```{r}
 #| fig-cap: dendrogram, circle packing
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
   geom_edge_diagonal() +
@@ -370,8 +370,8 @@ ggraph(mygraph) +
 
 ```{r}
 #| fig-cap: 圆形打包图：节点颜色根据深度变化
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 使用 ggraph 绘制圆形打包图，节点颜色根据深度变化
 p <- ggraph(mygraph, layout = 'circlepack', weight=size) + 
@@ -383,16 +383,16 @@ p
 
 ```{r}
 #| fig-cap: viridis 调色板应用于圆形打包图
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 p + scale_fill_viridis()
 ```
 
 ```{r}
 #| fig-cap: colorBrewer 调色板应用于圆形打包图
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 p + scale_fill_distiller(palette = "RdPu") 
 ```
@@ -404,8 +404,8 @@ p + scale_fill_distiller(palette = "RdPu")
 
 ```{r}
 #| fig-cap: "带标签的多层级圆形打包图（circle packing），仅叶节点显示标签"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 仅保留有下级的边（即 to 在 from 中出现）
 edges <- flare$edges |>
@@ -442,8 +442,8 @@ ggraph(mygraph, layout = 'circlepack', weight = size) +
 
 ```{r}
 #| fig-cap: "带标签的多层级圆形打包图（circle packing），仅叶节点显示标签"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 使用 ggraph 绘制多层级圆形打包图，节点颜色根据深度变化，叶节点显示标签
 ggraph(mygraph, layout = 'circlepack', weight = size) + 
@@ -469,8 +469,8 @@ ggraph(mygraph, layout = 'circlepack', weight = size) +
 
 ```{r}
 #| fig-cap: "隐藏最外层大圈的多层级圆形打包图（circle packing）"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 使用 packcircles 包内置的 flare 数据集，包含层级结构的边和节点信息
 edges = flare$edges         # 边数据，描述父子关系
@@ -509,8 +509,8 @@ ggraph(mygraph, layout = 'circlepack', weight = size) +
 
 ```{r}
 #| fig-cap: "隐藏前两层大圈的多层级圆形打包图（circle packing）"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 使用 ggraph 绘制多层级圆形打包图，隐藏最外层和第二层大圈
 ggraph(mygraph, layout = 'circlepack', weight = size) +
@@ -544,8 +544,8 @@ ggraph(mygraph, layout = 'circlepack', weight = size) +
 
 ```{r}
 #| fig-cap: "仅为特定层级（如 level=2）节点添加标签的多层级圆形打包图"
-#| fig-height: 8
-#| fig-width: 8
+#| fig-height: 6
+#| fig-width: 6
 
 # 加载 data.tree 包，用于树结构操作
 library(data.tree)
