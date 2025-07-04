@@ -952,7 +952,40 @@
     "href": "treemap.html",
     "title": "21  Treemap",
     "section": "",
-    "text": "1",
+    "text": "21.1 PKG\n树图以嵌套矩形的集合形式展示层次结构数据。每个组由一个矩形表示，其面积与其值成正比。\nShow/Hide Code\nlibrary(treemap) \nlibrary(d3treeR) # 可选，用于交互式树图\n# remotes::install_github(\"timelyportfolio/d3treeR\")",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Treemap</span>"
+    ]
+  },
+  {
+    "objectID": "treemap.html#treemap",
+    "href": "treemap.html#treemap",
+    "title": "21  Treemap",
+    "section": "21.2 Treemap",
+    "text": "21.2 Treemap\n\n21.2.1 基本\n\n\nShow/Hide Code\n# 构建示例数据\ngroup &lt;- c(\"group-1\", \"group-2\", \"group-3\")\nvalue &lt;- c(13, 5, 22)\ndata &lt;- data.frame(group, value)\n\n# 绘制基本的Treemap\ntreemap(data, index = \"group\", vSize = \"value\", type = \"index\")\n\n\n\n\n\n基本的Treemap\n\n\n\n\n\n\n21.2.2 subgroup\n\n\nShow/Hide Code\n# 构建带有subgroup的示例数据\ngroup &lt;- c(rep(\"group-1\", 4), rep(\"group-2\", 2), rep(\"group-3\", 3))\nsubgroup &lt;- paste(\"subgroup\", c(1, 2, 3, 4, 1, 2, 1, 2, 3), sep = \"-\")\nvalue &lt;- c(13, 5, 22, 12, 11, 7, 3, 1, 23)\ndata &lt;- data.frame(group, subgroup, value)\n\n# 绘图\ntreemap(data, index = c(\"group\", \"subgroup\"), vSize = \"value\", type = \"index\")\n\n\n\n\n\n带有subgroup的Treemap\n\n\n\n\n\n\n21.2.3 定制\n\n\nShow/Hide Code\ntreemap(\n    data,\n    index = c(\"group\", \"subgroup\"), # 指定分组和子分组的变量名，决定树图的层次结构\n    vSize = \"value\",                # 指定每个矩形面积对应的数据列\n    type = \"index\",                 # 颜色类型，这里按分组着色\n    fontsize.labels = c(15, 12),    # 标签字体大小，分别对应group和subgroup\n    fontcolor.labels = c(\"white\", \"orange\"), # 标签字体颜色，分别对应group和subgroup\n    fontface.labels = c(2, 1),      # 标签字体样式，2为粗体，1为常规\n    bg.labels = c(\"transparent\"),   # 标签背景色，这里设置为透明\n    align.labels = list(\n        c(\"center\", \"center\"),      # group标签居中对齐\n        c(\"right\", \"bottom\")        # subgroup标签右下对齐\n    ),\n    overlap.labels = 0.5,           # 标签重叠容忍度，0为不允许重叠，1为总是显示\n    inflate.labels = F              # 是否根据矩形大小自动放大标签，F为不放大\n)\n\n\n\n\n\n定制标签的Treemap\n\n\n\n\n\n\nShow/Hide Code\ntreemap(\n    data,\n    index = c(\"group\", \"subgroup\"),    # 指定分组和子分组的变量名，决定树图的层次结构\n    vSize = \"value\",                   # 指定每个矩形面积对应的数据列\n    type = \"index\",                    # 颜色类型，这里按分组着色\n    border.col = c(\"black\", \"white\"),  # 边框颜色，分别对应group和subgroup\n    border.lwds = c(7, 2)              # 边框线宽，分别对应group和subgroup\n)\n\n\n\n\n\n定制边框的Treemap\n\n\n\n\n\n\nShow/Hide Code\ntreemap(\n    data,\n    index = c(\"group\", \"subgroup\"), # 指定分组和子分组的变量名，决定树图的层次结构\n    vSize = \"value\", # 指定每个矩形面积对应的数据列\n    type = \"index\", # 颜色类型，这里按分组着色，更多类型见 help(treemap)\n    palette = \"Set2\", # 选择调色板，这里用RColorBrewer内置的\"Set2\"配色\n    title = \"My Treemap\", # 设置树图的主标题\n    fontsize.title = 12 # 设置主标题的字体大小\n)\n\n\n\n\n\n定制颜色和标题的Treemap",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Treemap</span>"
+    ]
+  },
+  {
+    "objectID": "treemap.html#d3treer",
+    "href": "treemap.html#d3treer",
+    "title": "21  Treemap",
+    "section": "21.3 d3treeR",
+    "text": "21.3 d3treeR\n点击一个组来放大并显示其子组。\n点击顶部的组名可以取消放大并回到之前的状态。\n\n\nShow/Hide Code\n# 加载d3treeR包\nlibrary(d3treeR)\n\n# 绘制treemap对象，设置分组、子分组、面积、颜色、调色板和标签样式\np &lt;- treemap(\n    data,\n    index = c(\"group\", \"subgroup\"), # 指定分组和子分组，决定树图的层次结构\n    vSize = \"value\",                # 指定每个矩形面积对应的数据列\n    type = \"index\",                 # 颜色类型，这里按分组着色\n    palette = \"Set2\",               # 使用RColorBrewer的\"Set2\"配色方案\n    bg.labels = c(\"white\"),         # 标签背景色为白色\n    align.labels = list(\n        c(\"center\", \"center\"),       # group标签居中对齐\n        c(\"right\", \"bottom\")         # subgroup标签右下对齐\n    )\n)\n\n\n\n\n\n使用d3treeR实现可交互的Treemap\n\n\n\n\nShow/Hide Code\n# 使用d3treeR将静态treemap对象转为可交互的HTML小部件\nd3tree2(p, rootname = \"Treemap 示例\")\n\n\n\n\n使用d3treeR实现可交互的Treemap",
+    "crumbs": [
+      "Part of a Whole",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Treemap</span>"
+    ]
+  },
+  {
+    "objectID": "treemap.html#pearl",
+    "href": "treemap.html#pearl",
+    "title": "21  Treemap",
+    "section": "21.4 Pearl",
+    "text": "21.4 Pearl\n自定义注释和标签的树图\n\n\n\n自定义注释和标签的树图",
     "crumbs": [
       "Part of a Whole",
       "<span class='chapter-number'>21</span>  <span class='chapter-title'>Treemap</span>"
