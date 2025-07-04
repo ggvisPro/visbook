@@ -366,7 +366,7 @@ p +
 
 见 R-graph-gallery 的 [scatterplot](https://r-graph-gallery.com/scatterplot.html)
 
-## Interactive
+## Interactive {#sec-scatter-interactive}
 
 ```{r}
 #| fig-cap: 交互式散点图
