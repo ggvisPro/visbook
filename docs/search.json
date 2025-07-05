@@ -975,7 +975,7 @@
     "href": "part-of-a-whole.html",
     "title": "Part of a Whole",
     "section": "",
-    "text": "1",
+    "text": "此部分介绍了几种常用的表示部分与整体关系的图表类型。\n\n\n\nPart of a Whole\n\n\n\n20  Group bar 简单实用的分组条形图\n21  Treemap 直观的矩形树图\n22  Pie 经典的饼图, 没什么用, 不推荐使用\n23  Donut 甜甜圈图, 饼图的变种, 同样不推荐使用\n24  Dendrogram 树状图, 用于展示层级关系\n25  Circular 圆堆图, 用于展示层级关系\n26  Waffle 华夫图, 用于展示比例关系",
     "crumbs": [
       "Part of a Whole"
     ]
