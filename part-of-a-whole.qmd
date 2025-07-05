@@ -5,9 +5,15 @@
 ![Part of a Whole](./image/part-of-a-whole.png)
 
 - @sec-group-bar  简单实用的分组条形图
+  
 - @sec-treemap  直观的矩形树图
+
 - @sec-pie  经典的饼图, 没什么用, 不推荐使用
+
 - @sec-donut  甜甜圈图, 饼图的变种, 同样不推荐使用
+
 - @sec-dendrogram  树状图, 用于展示层级关系
+
 - @sec-circular  圆堆图, 用于展示层级关系
+
 - @sec-waffle  华夫图, 用于展示比例关系
