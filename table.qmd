@@ -25,6 +25,8 @@ library(survival) # 生存分析包
 
 `gt` ([官方文档](https://gt.rstudio.com/)) 是兼容 tidyverse 的表格包: 
 
+#### 基本
+
 ```{r}
 #| fig-cap: "使用 gt 包创建表格"
 
@@ -39,6 +41,8 @@ data = data.frame(
 gt(data)
 
 ```
+
+#### 标题
 
 使用`tab_header()`函数可以添加标题和副标题(兼容markdown / html语法):
 
@@ -68,6 +72,8 @@ data |>
 
 ```
 
+#### 跨列标题
+
 `tab_spanner()` 函数可以创建跨列的标题(合并单元格):
 
 ```{r}
@@ -84,6 +90,8 @@ data |>
   )
 ```
 
+
+#### 脚注
 
 `tab_footnote()` 函数的 `footnote` 和 `locations` 参数添加引用:
 
@@ -136,6 +144,8 @@ data |>
 
 它连接了数据分析与表格创建之间的桥梁，允许用户直接从分析输出中无缝生成摘要表格, 特别适合医学和社会科学领域的研究报告。
 
+#### 回归模型摘要
+
 `tbl_regression()` 函数可以创建回归模型的摘要表格:
 
 ```{r}
@@ -163,6 +173,8 @@ model |>
   add_global_p() 
 ```
 
+#### 多模型合并
+
 ```{r}
 #| fig-cap: "使用 `tbl_merge()` 合并多个模型的回归结果表格"
 data(trial)
@@ -184,8 +196,200 @@ tbl_merge(
 
 `gtExtras` 增强并扩展了 `gt` 包的功能。可以创建更复杂和美观的表格。
 
+#### 汇总原始数据
+
+结合 `grouped by`, 制作 “每个单元格有很多数据” 的表格
+
+```{r}
+#| fig-cap: "结合 `grouped by`, 制作“每个单元格有很多数据”的表格"
+
+data(iris)
+
+# 创建一个包含鸢尾花数据的数据框
+agg_iris = iris |>
+  group_by(Species) |>
+  summarize(
+    Sepal.L = list(Sepal.Length),
+    Sepal.W = list(Sepal.Width),
+    Petal.L = list(Petal.Length),
+    Petal.W = list(Petal.Width)
+  )
+
+# 使用 gtExtras 包创建表格
+agg_iris |>
+  gt()
+
+```
+
+#### 折线图
+
+`gt_plt_sparkline()` 在表格单元格中创建折线图。
+
+使用刚才的 `agg_iris` 汇总数据框:
+
+```{r}
+#| fig-cap: "使用 `gt_plt_sparkline()` 创建折线图"
+
+agg_iris |>
+  gt() |>
+  gt_plt_sparkline(Sepal.L) |> # 在 Sepal.L 列中添加折线图
+  gt_plt_sparkline(Sepal.W) |> # 在 Sepal.W 列中添加折线图
+  gt_plt_sparkline(Petal.L) |> # 在 Petal.L 列中添加折线图
+  gt_plt_sparkline(Petal.W)    # 在 Petal.W 列中添加折线图
+```
+
+#### 分布图
+
+`gt_plt_dist()` 在表格单元中创建分布图。图表类型取决于 type 参数:
+
+还是使用 `agg_iris` 汇总数据框:
+
+```{r}
+#| fig-cap: "使用 `gt_plt_dist()` 创建分布图"
+
+agg_iris |>
+  gt() |>
+  gt_plt_dist(
+    Sepal.L,
+    type = "density" # 密度图
+  ) |>
+  gt_plt_dist(
+    Sepal.W,
+    type = "boxplot" # 箱线图
+  ) |>
+  gt_plt_dist(
+    Petal.L,
+    type = "histogram" # 直方图
+  ) |>
+  gt_plt_dist(
+    Petal.W,
+    type = "rug_strip" # 裸条图
+  ) 
+  
+```
+
+#### 条形图
+
+`gt_plt_bar_pct()` 不需要汇总数据。这个图表实际上是一个得分条形图, 最大值是 100% 
+
+```{r}
+#| fig-cap: "使用 `gt_plt_bar_pct()` 创建得分条形图"
+p <- head(iris) |>
+  gt() |>
+  gt_plt_bar_pct(
+    Sepal.Length,
+    labels = TRUE, # 显示百分比标签
+    # scaled = FALSE # “我提供的是原始数值，它们还没有被处理成百分比，你需要自己动手去计算和缩放。”
+    # scaled = TRUE # “你不需要做任何计算了。我提供给你的数值已经是最终百分比了，请直接使用。”
+
+  ) |>
+  gt_plt_bar_pct(
+    Sepal.Width,
+    labels=FALSE,
+    fill = "forestgreen"
+  )
+p
+```
+
+#### 摘要图表
+
+`gt_plt_summary()` 制作摘要图表,甚至还能交互查看,非常方便和美观
+
+注意需要先指定列类型
+
+```{r}
+#| fig-cap: "使用 `gt_plt_summary()` 制作摘要图表"
+
+iris |>
+  gt_plt_summary()
+```
+
+#### 主题
+
+Excel 主题:
+
+```{r}
+#| fig-cap: "`gt_theme_excel()` Excel 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_excel()
+```
+
+538(FiveThirtyEight) 主题: 
+
+```{r}
+#| fig-cap: "`gt_theme_538()` 538(FiveThirtyEight) 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_538()
+```
+
+ESPN 主题:
+
+```{r}
+#| fig-cap: "`gt_theme_espn()` ESPN 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_espn()
+```
+
+NY Times 主题:
+
+```{r}
+#| fig-cap: "`gt_theme_nytimes()` NY Times 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_nytimes()
+```
+
+
+点阵 (dot matrix) 主题:
+
+```{r}
+#| fig-cap: "`gt_theme_dot_matrix()` 点阵 (dot matrix) 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_dot_matrix()
+```
+
+黑暗主题:
+
+```{r}
+#| fig-cap: "`gt_theme_dark()` 黑暗主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_dark()
+```
+
+PFF 主题:
+
+```{r}
+head(mtcars) |>
+  gt() |>
+  gt_theme_pff()
+```
+
+卫报 Guardian 主题:
+
+```{r}
+#| fig-cap: "`gt_theme_guardian()` 卫报 Guardian 主题"
+
+head(mtcars) |>
+  gt() |>
+  gt_theme_guardian()
+```
 
 ## `kable family`
+
+---------------
+**写到这里了!**
+---------------
 
 
 ## Other
