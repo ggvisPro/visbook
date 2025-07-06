@@ -477,5 +477,163 @@ p
 
 ## Cir-bar
 
+### 基本
+
+```{r}
+# Libraries
+#| fig-cap: "基础极坐标条形图示例"
+
+# 构造数据集
+data <- data.frame(
+    id = seq(1, 60), # 生成1到60的id
+    individual = paste("Mister ", seq(1, 60), sep = ""), # 个体名称
+    value = sample(seq(10, 100), 60, replace = TRUE) # 随机生成数值
+)
+
+# 绘制极坐标条形图
+p <- ggplot(data, aes(x = as.factor(id), y = value)) + # id需转为因子，保证首尾无空隙
+    geom_bar(stat = "identity", fill = alpha("blue", 0.3)) + # 添加条形，设置透明蓝色
+    ylim(-100, 120) + # y轴范围，负值控制内圆比例，正值用于条形高度
+    theme_minimal() + # 极简主题
+    theme(
+        axis.text = element_blank(), # 去除坐标轴文字
+        axis.title = element_blank(), # 去除坐标轴标题
+        panel.grid = element_blank(), # 去除网格线
+        plot.margin = unit(rep(-2, 4), "cm") # 设置负边距，减少空白
+    ) +
+    coord_polar(start = 0) # 转换为极坐标
+p
+
+```
+
+### label
+
+
+```{r}
+#| fig-cap: "带标签的极坐标条形图示例"
+
+# 构造数据集
+data <- data.frame(
+    id = seq(1, 60), # 生成1到60的id
+    individual = paste("Mister ", seq(1, 60), sep = ""), # 个体名称
+    value = sample(seq(10, 100), 60, replace = TRUE) # 随机生成数值
+)
+
+# ----- 下面部分为标签准备数据框 ---- #
+# 获取每个标签的名称和y轴位置
+label_data <- data
+
+# 计算每个标签的角度，使标签位于条形中心
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id - 0.5) / number_of_bar # 减去0.5保证标签居中
+
+# 计算标签的对齐方式：右对齐或左对齐
+# 如果在图的左侧，当前角度小于-90，标签右对齐
+label_data$hjust <- ifelse(angle < -90, 1, 0)
+
+# 翻转角度，使标签可读
+label_data$angle <- ifelse(angle < -90, angle + 180, angle)
+# ----- -------------------------------------- ---- #
+
+# 开始绘图
+p <- ggplot(data, aes(x = as.factor(id), y = value)) + # id需转为因子，保证首尾无空隙
+
+    # 添加条形，设置透明蓝色
+    geom_bar(stat = "identity", fill = alpha("skyblue", 0.7)) +
+
+    # 设置y轴范围，负值控制内圆比例，正值用于条形高度
+    ylim(-100, 120) +
+
+    # 自定义主题：去除坐标轴标题和网格线
+    theme_minimal() +
+    theme(
+        axis.text = element_blank(), # 去除坐标轴文字
+        axis.title = element_blank(), # 去除坐标轴标题
+        panel.grid = element_blank(), # 去除网格线
+        plot.margin = unit(rep(-1, 4), "cm") # 调整边距，避免标签被截断
+    ) +
+
+    # 转换为极坐标
+    coord_polar(start = 0) +
+
+    # 添加标签，使用上面准备的label_data数据框
+    geom_text(
+        data = label_data,
+        aes(x = id, y = value + 10, label = individual, hjust = hjust),
+        color = "black",
+        fontface = "bold",
+        alpha = 0.6,
+        size = 2.5,
+        angle = label_data$angle,
+        inherit.aes = FALSE
+    )
+
+p
+
+```
+
+### gap
+
+```{r}
+
+#| fig-cap: "带间隔的极坐标条形图示例"
+
+# 构造数据集
+data <- data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+
+# 设置空白条数量，用于在条形之间制造间隔
+empty_bar <- 10
+
+# 在原始数据集末尾添加空白行（NA），用于制造条形间隔
+to_add <- matrix(NA, empty_bar, ncol(data)) # 构造空白行矩阵
+colnames(to_add) <- colnames(data)          # 设置列名与原数据一致
+data <- rbind(data, to_add)                 # 合并原数据和空白行
+data$id <- seq(1, nrow(data))               # 为每一行分配唯一id
+
+# 获取每个标签的名称和y轴位置
+label_data <- data
+number_of_bar <- nrow(label_data)           # 总条形数（含空白）
+# 计算每个标签的角度，使标签位于条形中心
+angle <- 90 - 360 * (label_data$id - 0.5) / number_of_bar # -0.5保证标签居中
+# 计算标签的对齐方式：右对齐或左对齐
+label_data$hjust <- ifelse(angle < -90, 1, 0)
+# 翻转角度，使标签可读
+label_data$angle <- ifelse(angle < -90, angle + 180, angle)
+
+# 绘制极坐标条形图
+p <- ggplot(data, aes(x = as.factor(id), y = value)) + # id需转为因子，保证首尾无空隙
+    geom_bar(stat = "identity", fill = alpha("green", 0.3)) + # 添加条形，设置透明绿色
+    ylim(-100, 120) +                                         # y轴范围，负值控制内圆比例
+    theme_minimal() +                                         # 极简主题
+    theme(
+        axis.text = element_blank(),                          # 去除坐标轴文字
+        axis.title = element_blank(),                         # 去除坐标轴标题
+        panel.grid = element_blank(),                         # 去除网格线
+        plot.margin = unit(rep(-1, 4), "cm")                  # 设置负边距，减少空白
+    ) +
+    coord_polar(start = 0) +                                  # 转换为极坐标
+    # 添加标签，使用上面准备的label_data数据框
+    geom_text(
+        data = label_data,
+        aes(x = id, y = value + 10, label = individual, hjust = hjust),
+        color = "black",
+        fontface = "bold",
+        alpha = 0.6,
+        size = 2.5,
+        angle = label_data$angle,
+        inherit.aes = FALSE
+    )
+
+p
+
+```
+
+组间空白
+
+
 
 ## Pearl
