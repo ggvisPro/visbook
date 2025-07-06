@@ -10,15 +10,15 @@
 遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.
 
 ```{r}
+#| eval: false
 #| fig-cap: 右上角的封面是这段代码画的位图
 # 彩蛋 右上角的封面是这段代码画的位图
 library(ggplot2)
 df <- read.csv('https://raw.githubusercontent.com/ggvisPro/data/refs/heads/main/img_df2.csv')
-p <- ggplot(df, aes(x = x, y = y, color = color)) +
+ggplot(df, aes(x = x, y = y, color = color)) +
   geom_point() +
   scale_colour_identity() + #控制颜色映射
   theme_void() #删除坐标轴
-# p # 显示图形
 ```
 
 王师傅强烈推荐 [r graph gallery](https://r-graph-gallery.com/index.html) 的数据可视化思路:![data2viz](./image/data2viz.png)

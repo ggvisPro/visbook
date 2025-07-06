@@ -574,6 +574,8 @@ p
 
 ### gap
 
+末尾空白: 
+
 ```{r}
 
 #| fig-cap: "带间隔的极坐标条形图示例"
@@ -635,5 +637,294 @@ p
 组间空白
 
 
+```{r}
+#| fig-cap: "带组间空白的极坐标条形图"
+
+# 构造数据集
+data <- data.frame(
+    individual = paste("Mister ", seq(1, 60), sep = ""), # 个体名称
+    group = as.factor(c(rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6))), # 分组变量（必须为因子）
+    value = sample(seq(10, 100), 60, replace = TRUE) # 随机生成数值
+)
+
+# 设置每组末尾添加的空白条数量，用于分隔分组
+empty_bar <- 4
+to_add <- data.frame(matrix(NA, empty_bar * nlevels(data$group), ncol(data))) # 构造空白行
+colnames(to_add) <- colnames(data) # 设置空白行的列名与原数据一致
+to_add$group <- rep(levels(data$group), each = empty_bar) # 每组添加空白条
+data <- rbind(data, to_add) # 合并数据和空白条
+data <- data |> arrange(group) # 按分组排序（新管道写法）
+data$id <- seq(1, nrow(data)) # 为每一行添加唯一id
+
+# 获取每个标签的名称和y轴位置
+label_data <- data
+number_of_bar <- nrow(label_data) # 总条形数（含空白）
+# 计算每个标签的角度，使标签位于条形中心
+angle <- 90 - 360 * (label_data$id - 0.5) / number_of_bar # -0.5保证标签居中
+# 计算标签的对齐方式：右对齐或左对齐
+label_data$hjust <- ifelse(angle < -90, 1, 0)
+# 翻转角度，使标签可读
+label_data$angle <- ifelse(angle < -90, angle + 180, angle)
+
+# 绘制极坐标条形图
+p <- ggplot(data, aes(x = as.factor(id), y = value, fill = group)) + # id需转为因子，保证首尾无空隙
+    geom_bar(stat = "identity", alpha = 0.5) + # 添加条形，设置透明度
+    ylim(-100, 120) + # y轴范围，负值控制内圆比例
+    theme_minimal() + # 极简主题
+    theme(
+        legend.position = "none", # 不显示图例
+        axis.text = element_blank(), # 去除坐标轴文字
+        axis.title = element_blank(), # 去除坐标轴标题
+        panel.grid = element_blank(), # 去除网格线
+        plot.margin = unit(rep(-1, 4), "cm") # 设置负边距，减少空白
+    ) +
+    coord_polar() + # 转换为极坐标
+    # 添加标签，使用上面准备的label_data数据框
+    geom_text(
+        data = label_data,
+        aes(x = id, y = value + 10, label = individual, hjust = hjust),
+        color = "black",
+        fontface = "bold",
+        alpha = 0.6,
+        size = 2.5,
+        angle = label_data$angle,
+        inherit.aes = FALSE
+    )
+
+p
+
+```
+
+
+
+
+
+### 排序
+
+```{r}
+#| fig-cap: "带组间空白的极坐标条形图(排序)"
+
+# 创建数据后用 data = data |> arrange(group, value) 排序
+
+# 构造数据集
+data <- data.frame(
+  individual = paste("Mister ", seq(1, 60), sep = ""), # 个体名称
+  group = as.factor(c(rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6))), # 分组变量（必须为因子）
+  value = sample(seq(10, 100), 60, replace = TRUE) # 随机生成数值
+)
+
+data = data |> arrange(group, value) # <-- 就是这里, 组内排序
+
+# 设置每组末尾添加的空白条数量，用于分隔分组
+empty_bar <- 4
+to_add <- data.frame(matrix(NA, empty_bar * nlevels(data$group), ncol(data))) # 构造空白行
+colnames(to_add) <- colnames(data) # 设置空白行的列名与原数据一致
+to_add$group <- rep(levels(data$group), each = empty_bar) # 每组添加空白条
+data <- rbind(data, to_add) # 合并数据和空白条
+data <- data |> arrange(group) # 按分组排序（新管道写法）
+data$id <- seq(1, nrow(data)) # 为每一行添加唯一id
+
+# 获取每个标签的名称和y轴位置
+label_data <- data
+number_of_bar <- nrow(label_data) # 总条形数（含空白）
+# 计算每个标签的角度，使标签位于条形中心
+angle <- 90 - 360 * (label_data$id - 0.5) / number_of_bar # -0.5保证标签居中
+# 计算标签的对齐方式：右对齐或左对齐
+label_data$hjust <- ifelse(angle < -90, 1, 0)
+# 翻转角度，使标签可读
+label_data$angle <- ifelse(angle < -90, angle + 180, angle)
+
+# 绘制极坐标条形图
+p <- ggplot(data, aes(x = as.factor(id), y = value, fill = group)) + # id需转为因子，保证首尾无空隙
+    geom_bar(stat = "identity", alpha = 0.5) + # 添加条形，设置透明度
+    ylim(-100, 120) + # y轴范围，负值控制内圆比例
+    theme_minimal() + # 极简主题
+    theme(
+        legend.position = "none", # 不显示图例
+        axis.text = element_blank(), # 去除坐标轴文字
+        axis.title = element_blank(), # 去除坐标轴标题
+        panel.grid = element_blank(), # 去除网格线
+        plot.margin = unit(rep(-1, 4), "cm") # 设置负边距，减少空白
+    ) +
+    coord_polar() + # 转换为极坐标
+    # 添加标签，使用上面准备的label_data数据框
+    geom_text(
+        data = label_data,
+        aes(x = id, y = value + 10, label = individual, hjust = hjust),
+        color = "black",
+        fontface = "bold",
+        alpha = 0.6,
+        size = 2.5,
+        angle = label_data$angle,
+        inherit.aes = FALSE
+    )
+
+p
+
+```
+
+### 定制
+
+加入了刻度线和分组标记:
+
+```{r}
+#| fig-cap: "带组间空白的极坐标条形图"
+
+# 构造数据集
+data <- data.frame(
+  individual = paste("Mister ", seq(1, 60), sep = ""), # 个体名称
+  group = as.factor(c(rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6))), # 分组变量（必须为因子）
+  value = sample(seq(10, 100), 60, replace = TRUE) # 随机生成数值
+)
+
+
+# 设置每组末尾添加的空白条数量，用于分隔分组
+empty_bar <- 3
+to_add <- data.frame(matrix(NA, empty_bar * nlevels(data$group), ncol(data))) # 构造空白行
+
+
+colnames(to_add) <- colnames(data) # 设置空白行的列名与原数据一致
+to_add$group <- rep(levels(data$group), each = empty_bar) # 每组添加空白条, each 不循环添加
+data <- rbind(data, to_add) # 合并数据和空白条
+data <- data |> arrange(group) # 按分组排序
+data$id <- seq(1, nrow(data)) # 为每一行添加唯一id
+
+# 获取每个标签的名称和y轴位置
+label_data <- data
+number_of_bar <- nrow(label_data) # 总条形数（含空白）
+# 计算每个标签的角度，使标签位于条形中心
+angle <- 90 - 360 * (label_data$id - 0.5) / number_of_bar # -0.5保证标签居中
+# 计算标签的对齐方式：右对齐或左对齐
+label_data$hjust <- ifelse(angle < -90, 1, 0)
+# 翻转角度，使标签可读
+label_data$angle <- ifelse(angle < -90, angle + 180, angle)
+
+# 构造分组基线数据，用于分组底部的线和分组标签
+base_data <- data |>
+  group_by(group) |>
+  summarize(start = min(id), end = max(id) - empty_bar) |>
+  rowwise() |>
+  mutate(title = mean(c(start, end)))
+
+# 构造网格线数据，用于绘制圆环上的刻度线
+grid_data <- base_data
+grid_data$end <- grid_data$end[c(nrow(grid_data), 1:nrow(grid_data) - 1)] + 1
+grid_data$start <- grid_data$start - 1
+grid_data <- grid_data[-1, ]
+
+# 绘制极坐标条形图
+ggplot(data, aes(x = as.factor(id), y = value, fill = group)) + # id需转为因子，保证首尾无空隙
+
+  # 添加条形，设置透明度
+  geom_bar(
+    aes(x = as.factor(id), y = value, fill = group),
+    stat = "identity",
+    alpha = 0.5
+  ) + 
+
+  # 添加圆环的刻度线（y=80/60/40/20）
+  geom_segment(
+    data = grid_data,
+    aes(x = end, y = 80, xend = start, yend = 80),
+    colour = "grey",
+    alpha = 1,
+    linewidth = 0.3,
+    inherit.aes = FALSE
+  ) +
+  geom_segment(
+    data = grid_data,
+    aes(x = end, y = 60, xend = start, yend = 60),
+    colour = "grey",
+    alpha = 1,
+    linewidth = 0.3,
+    inherit.aes = FALSE
+  ) + 
+  geom_segment(
+    data = grid_data,
+    aes(x = end, y = 40, xend = start, yend = 40),
+    colour = "grey",
+    alpha = 1,
+    linewidth = 0.3,
+    inherit.aes = FALSE
+  ) +
+  geom_segment(
+    data = grid_data,
+    aes(x = end, y = 20, xend = start, yend = 20),
+    colour = "grey",
+    alpha = 1,
+    linewidth = 0.3,
+    inherit.aes = FALSE
+  ) +
+
+  # 添加刻度值文本
+  annotate(
+    "text",
+    x = rep(max(data$id), 4),
+    y = c(20, 40, 60, 80),
+    label = c("20", "40", "60", "80"),
+    color = "grey",
+    size = 3,
+    angle = 0,
+    fontface = "bold",
+    hjust = 1
+  ) + 
+
+  # 再次添加条形，保证条形在刻度线上方
+  geom_bar(
+    aes(x = as.factor(id), y = value, fill = group),
+    stat = "identity",
+    alpha = 0.5
+  ) +
+
+  ylim(-100, 120) + # y轴范围，负值控制内圆比例
+  theme_minimal() + # 极简主题
+  theme(
+    legend.position = "none", # 不显示图例
+    axis.text = element_blank(), # 去除坐标轴文字
+    axis.title = element_blank(), # 去除坐标轴标题
+    panel.grid = element_blank(), # 去除网格线
+    plot.margin = unit(rep(-1, 4), "cm") # 设置负边距，减少空白
+  ) + 
+  coord_polar() +  # 转换为极坐标
+
+  # 添加标签，使用上面准备的label_data数据框
+  geom_text(
+    data = label_data,
+    aes(x = id, y = value + 10, label = individual, hjust = hjust),
+    color = "black",
+    fontface = "bold",
+    alpha = 0.6,
+    size = 2.5,
+    angle = label_data$angle,
+    inherit.aes = FALSE
+  ) + 
+
+  # 添加分组底部基线
+  geom_segment(
+    data = base_data,
+    aes(x = start, y = -5, xend = end, yend = -5),
+    colour = "black",
+    alpha = 0.8,
+    linewidth = 0.6,
+    inherit.aes = FALSE
+  ) + 
+  # 添加分组标签
+  geom_text(
+    data = base_data,
+    aes(x = title, y = -18, label = group),
+    hjust = c(1, 1, 0, 0),
+    colour = "black",
+    alpha = 0.8,
+    size = 4,
+    fontface = "bold",
+    inherit.aes = FALSE
+  )
+
+```
 
 ## Pearl
+
+[![Hiking Locations in Washington](./image/washington.png)](https://r-graph-gallery.com/web-circular-barplot-with-R-and-ggplot2.html)
+
+
+[![环形棒棒糖图](./image/circular-lollipop.png)](https://r-graph-gallery.com/web-circular-lollipop-plot-with-ggplot2.html)
