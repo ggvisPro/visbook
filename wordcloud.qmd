@@ -23,6 +23,7 @@ embed_widget <- function(widget, height = "400px", width = "100%") {
   filename <- paste0("./wordcloud/wc-", chunk_label, ".html")
   
   # 步骤 2: 将小部件保存为一个独立的、自包含的HTML文件
+  library(htmlwidgets)
   saveWidget(widget, filename, selfcontained = TRUE)
   
   # 步骤 3: 创建并返回一个指向该文件的 iframe HTML 标签

@@ -997,7 +997,7 @@
     "href": "wordcloud.html",
     "title": "15  Wordcloud",
     "section": "",
-    "text": "15.1 PKG\n在 R 中，有两个包可以用来创建词云： wordcloud 和 wordcloud2 。\nShow/Hide Code\nlibrary(wordcloud)\nlibrary(wordcloud2)\n由于 wordcloud2 生成的词云无法被 quarto正确渲染，因此需要使用 htmltools 包来处理。\nShow/Hide Code\nlibrary(htmltools)\nlibrary(knitr) # 需要 knitr 来获取代码块标签\n\nembed_widget &lt;- function(widget, height = \"400px\", width = \"100%\") {\n  # 步骤 1: 生成一个基于当前代码块标签的、独一无二的文件名\n  # 这样可以防止多个小部件相互覆盖文件\n  chunk_label &lt;- opts_current$get('label')\n  filename &lt;- paste0(\"./wordcloud/wc-\", chunk_label, \".html\")\n  \n  # 步骤 2: 将小部件保存为一个独立的、自包含的HTML文件\n  saveWidget(widget, filename, selfcontained = TRUE)\n  \n  # 步骤 3: 创建并返回一个指向该文件的 iframe HTML 标签\n  tags$iframe(\n    src = filename,\n    height = height,\n    width = width,\n    style = \"border:none;\"\n  )\n}",
+    "text": "15.1 PKG\n在 R 中，有两个包可以用来创建词云： wordcloud 和 wordcloud2 。\nShow/Hide Code\nlibrary(wordcloud)\nlibrary(wordcloud2)\n由于 wordcloud2 生成的词云无法被 quarto正确渲染，因此需要使用 htmltools 包来处理。\nShow/Hide Code\nlibrary(htmltools)\nlibrary(knitr) # 需要 knitr 来获取代码块标签\n\nembed_widget &lt;- function(widget, height = \"400px\", width = \"100%\") {\n  # 步骤 1: 生成一个基于当前代码块标签的、独一无二的文件名\n  # 这样可以防止多个小部件相互覆盖文件\n  chunk_label &lt;- opts_current$get('label')\n  filename &lt;- paste0(\"./wordcloud/wc-\", chunk_label, \".html\")\n  \n  # 步骤 2: 将小部件保存为一个独立的、自包含的HTML文件\n  library(htmlwidgets)\n  saveWidget(widget, filename, selfcontained = TRUE)\n  \n  # 步骤 3: 创建并返回一个指向该文件的 iframe HTML 标签\n  tags$iframe(\n    src = filename,\n    height = height,\n    width = width,\n    style = \"border:none;\"\n  )\n}",
     "crumbs": [
       "Ranking",
       "<span class='chapter-number'>15</span>  <span class='chapter-title'>Wordcloud</span>"
