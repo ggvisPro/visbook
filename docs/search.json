@@ -1195,7 +1195,62 @@
     "href": "table.html",
     "title": "19  Table",
     "section": "",
-    "text": "1",
+    "text": "19.1 PKG\nShow/Hide Code\nlibrary(tidyverse) # 数据处理和可视化\nlibrary(gt) # 表格包\nlibrary(gtsummary) # 表格包\nlibrary(gtExtras) # gt 扩展包\nlibrary(htmltools) # HTML 工具包\n# install.packages('cardx') \nlibrary(survival) # 生存分析包\nR 的表格包有很多, 主要分为以下几类:",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
+    "objectID": "table.html#pkg",
+    "href": "table.html#pkg",
+    "title": "19  Table",
+    "section": "",
+    "text": "Table Package",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
+    "objectID": "table.html#gt-family",
+    "href": "table.html#gt-family",
+    "title": "19  Table",
+    "section": "19.2 gt family",
+    "text": "19.2 gt family\n包括 gt、gtsummary 和 gtExtras.\n\n19.2.1 gt\ngt (官方文档) 是兼容 tidyverse 的表格包:\n\n\nShow/Hide Code\n# 创建一个简单的数据框\ndata = data.frame(\n  Country = c(\"USA\", \"China\", \"India\", \"Brazil\"), # 国家名称\n  Capitals = c(\"Washington D.C.\", \"Beijing\", \"New Delhi\", \"Brasília\"), # 首都\n  Population = c(331, 1441, 1393, 212), # 人口（百万）\n  GDP = c(21.43, 14.34, 2.87, 1.49) # GDP（万亿美元）\n)\n\ngt(data)\n\n\n\n\n\n\n\n\nCountry\nCapitals\nPopulation\nGDP\n\n\n\n\nUSA\nWashington D.C.\n331\n21.43\n\n\nChina\nBeijing\n1441\n14.34\n\n\nIndia\nNew Delhi\n1393\n2.87\n\n\nBrazil\nBrasília\n212\n1.49\n\n\n\n\n\n使用 gt 包创建表格\n\n\n使用tab_header()函数可以添加标题和副标题(兼容markdown / html语法):\n\n\nShow/Hide Code\ndata |&gt;\n  gt() |&gt;\n  tab_header(\n    title = html(\"&lt;span style='color:red;'&gt;A red title&lt;/span&gt;\"), # 使用 html 语法\n    subtitle = md(\"Pretty *cool subtitle* too, `isn't it?`\") # 使用 markdown 语法\n  )\n\n\n\n\n\n\n\n\nA red title\n\n\nPretty cool subtitle too, isn't it?\n\n\nCountry\nCapitals\nPopulation\nGDP\n\n\n\n\nUSA\nWashington D.C.\n331\n21.43\n\n\nChina\nBeijing\n1441\n14.34\n\n\nIndia\nNew Delhi\n1393\n2.87\n\n\nBrazil\nBrasília\n212\n1.49\n\n\n\n\n\n使用 gt 包创建表格并添加标题和副标题(markdown 语法)\n\n\n甚至还可以用图像作为标题:\n\n\nShow/Hide Code\ndata |&gt;\n  gt() |&gt;\n  tab_header(\n    title = md(\"**A table with an image as title**\"),\n    subtitle = html(\n      \"&lt;div style='text-align:center;'&gt;&lt;img src='./image/Rlogo.png' height='60'&gt;&lt;/div&gt;\"\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA table with an image as title\n\n\n\n\n\n\n\nCountry\nCapitals\nPopulation\nGDP\n\n\n\n\nUSA\nWashington D.C.\n331\n21.43\n\n\nChina\nBeijing\n1441\n14.34\n\n\nIndia\nNew Delhi\n1393\n2.87\n\n\nBrazil\nBrasília\n212\n1.49\n\n\n\n\n\n使用 gt 包创建表格并添加图像作为标题\n\n\ntab_spanner() 函数可以创建跨列的标题(合并单元格):\n\n\nShow/Hide Code\ndata |&gt;\n  gt() |&gt;\n   tab_spanner(\n    label = \"Number\",\n    columns = c(GDP, Population)) |&gt;\n  tab_spanner(\n    label = \"Label\",\n    columns = c(Country, Capitals)\n  )\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLabel\n\n\nNumber\n\n\n\nCountry\nCapitals\nGDP\nPopulation\n\n\n\n\nUSA\nWashington D.C.\n21.43\n331\n\n\nChina\nBeijing\n14.34\n1441\n\n\nIndia\nNew Delhi\n2.87\n1393\n\n\nBrazil\nBrasília\n1.49\n212\n\n\n\n\n\n使用 gt 包创建表格并添加跨列标题\n\n\ntab_footnote() 函数的 footnote 和 locations 参数添加引用:\n\n\nShow/Hide Code\n# 创建一个包含行星信息的数据框\ndata = data.frame(\n    Planet = c(\"Earth\", \"Mars\", \"Jupiter\", \"Venus\"), # 行星名称\n    Moons = c(1, 2, 79, 0), # 卫星数量\n    Distance_from_Sun = c(149.6, 227.9, 778.3, 108.2), # 距离太阳距离（百万公里）\n    Diameter = c(12742, 6779, 139822, 12104) # 直径（公里）\n)\n\ndata |&gt;\n  gt() |&gt;\n  tab_footnote(\n    footnote = md(\"Measured in **millions** of Km\"),\n    locations = cells_column_labels(columns = Distance_from_Sun)\n  )\n\n\n\n\n\n\n\n\nPlanet\nMoons\nDistance_from_Sun1\nDiameter\n\n\n\n\nEarth\n1\n149.6\n12742\n\n\nMars\n2\n227.9\n6779\n\n\nJupiter\n79\n778.3\n139822\n\n\nVenus\n0\n108.2\n12104\n\n\n\n1 Measured in millions of Km\n\n\n\n\n\n\n使用 gt 包为表格添加脚注\n\n\n还可以添加多个角注:\n\n\nShow/Hide Code\n# 使用 gt 包创建表格，并为不同的列和表格整体添加多个脚注\ndata |&gt;\n    gt() |&gt;\n    tab_footnote(\n        footnote = md(\"Measured in **millions** of Km\"), # 为 Distance_from_Sun 列添加脚注\n        locations = cells_column_labels(columns = Distance_from_Sun)\n    ) |&gt;\n    tab_footnote(\n        footnote = md(\"Measured in **Km**\"), # 为 Diameter 列添加脚注\n        locations = cells_column_labels(columns = Diameter)\n    ) |&gt;\n    tab_footnote(\n        footnote = md(\"The original data are from *Some Organization*\") # 为整个表格添加脚注\n    ) |&gt;\n    opt_footnote_marks(marks = \"LETTERS\") # 设置脚注标记为大写字母\n\n\n\n\n\n\n\n\nPlanet\nMoons\nDistance_from_SunA\nDiameterB\n\n\n\n\nEarth\n1\n149.6\n12742\n\n\nMars\n2\n227.9\n6779\n\n\nJupiter\n79\n778.3\n139822\n\n\nVenus\n0\n108.2\n12104\n\n\n\nThe original data are from Some Organization\n\n\nA Measured in millions of Km\n\n\nB Measured in Km\n\n\n\n\n\n\n使用 gt 包为表格添加多个脚注\n\n\n\n\n19.2.2 gtsummary\ngtsummary 是 gt 的一个扩展包, 主要用于创建统计摘要表格.\n它连接了数据分析与表格创建之间的桥梁，允许用户直接从分析输出中无缝生成摘要表格, 特别适合医学和社会科学领域的研究报告。\ntbl_regression() 函数可以创建回归模型的摘要表格:\n\n\nShow/Hide Code\n# 示例数据\ndata(\"Titanic\")\ndf = as.data.frame(Titanic)\n\n# 建立logistics回归模型\nmodel = glm(Survived ~ Age + Class + Sex + Freq, family = binomial, data = df)\n\n# 使用 gtsummary 包创建表格\nmodel |&gt;\n  tbl_regression()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nlog(OR)\n95% CI\np-value\n\n\n\n\nAge\n\n\n\n\n\n\n\n\n    Child\n—\n—\n\n\n\n\n    Adult\n0.62\n-1.0, 2.4\n0.5\n\n\nClass\n\n\n\n\n\n\n\n\n    1st\n—\n—\n\n\n\n\n    2nd\n-0.03\n-2.0, 2.0\n&gt;0.9\n\n\n    3rd\n0.25\n-1.8, 2.4\n0.8\n\n\n    Crew\n0.27\n-1.8, 2.4\n0.8\n\n\nSex\n\n\n\n\n\n\n\n\n    Male\n—\n—\n\n\n\n\n    Female\n-0.37\n-1.9, 1.1\n0.6\n\n\nFreq\n-0.01\n-0.02, 0.00\n0.3\n\n\n\nAbbreviations: CI = Confidence Interval, OR = Odds Ratio\n\n\n\n\n\n\n使用 tbl_regression() 创建回归模型摘要表格\n\n\n增加更多统计量:\n\n\nShow/Hide Code\nmodel |&gt;\n  tbl_regression(intercept = TRUE, conf.level = 0.9) |&gt; # 增加截距和置信区间\n  add_glance_source_note() |&gt; # 添加模型摘要信息\n  add_global_p() \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nlog(OR)\n90% CI\np-value\n\n\n\n\n(Intercept)\n0.10\n-1.4, 1.6\n&gt;0.9\n\n\nAge\n\n\n\n\n0.5\n\n\n    Child\n—\n—\n\n\n\n\n    Adult\n0.62\n-0.78, 2.1\n\n\n\n\nClass\n\n\n\n\n&gt;0.9\n\n\n    1st\n—\n—\n\n\n\n\n    2nd\n-0.03\n-1.7, 1.7\n\n\n\n\n    3rd\n0.25\n-1.5, 2.0\n\n\n\n\n    Crew\n0.27\n-1.5, 2.0\n\n\n\n\nSex\n\n\n\n\n0.6\n\n\n    Male\n—\n—\n\n\n\n\n    Female\n-0.37\n-1.7, 0.89\n\n\n\n\nFreq\n-0.01\n-0.02, 0.00\n0.2\n\n\n\nAbbreviations: CI = Confidence Interval, OR = Odds Ratio\n\n\nNull deviance = 44.4; Null df = 31; Log-likelihood = -21.3; AIC = 56.5; BIC = 66.8; Deviance = 42.5; Residual df = 25; No. Obs. = 32\n\n\n\n\n\n\n使用 tbl_regression() 创建回归模型摘要表格并增加统计量\n\n\n\n\nShow/Hide Code\ndata(trial)\n\nmodel_reglog &lt;- glm(response ~ trt + grade, data = trial, family = binomial) |&gt;\n  tbl_regression()\n\nmodel_cox  &lt;- coxph(Surv(ttdeath, death) ~ trt + grade, data = trial) |&gt;\n  tbl_regression()\n\ntbl_merge(\n  list(model_reglog, model_cox),\n  tab_spanner = c(\"**Tumor Response**\", \"**Time to Death**\")\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\n\nTumor Response\n\n\nTime to Death\n\n\n\nlog(OR)\n95% CI\np-value\nlog(HR)\n95% CI\np-value\n\n\n\n\nChemotherapy Treatment\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    Drug A\n—\n—\n\n\n—\n—\n\n\n\n\n    Drug B\n0.19\n-0.41, 0.81\n0.5\n0.22\n-0.15, 0.59\n0.2\n\n\nGrade\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    I\n—\n—\n\n\n—\n—\n\n\n\n\n    II\n-0.06\n-0.82, 0.68\n0.9\n0.25\n-0.22, 0.72\n0.3\n\n\n    III\n0.08\n-0.66, 0.82\n0.8\n0.52\n0.07, 0.98\n0.024\n\n\n\nAbbreviations: CI = Confidence Interval, HR = Hazard Ratio, OR = Odds Ratio\n\n\n\n\n\n\n使用 tbl_merge() 合并多个模型的回归结果表格\n\n\n\n\n19.2.3 gtExtras\ngtExtras 增强并扩展了 gt 包的功能。可以创建更复杂和美观的表格。",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
+    "objectID": "table.html#kable-family",
+    "href": "table.html#kable-family",
+    "title": "19  Table",
+    "section": "19.3 kable family",
+    "text": "19.3 kable family",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
+    "objectID": "table.html#other",
+    "href": "table.html#other",
+    "title": "19  Table",
+    "section": "19.4 Other",
+    "text": "19.4 Other",
+    "crumbs": [
+      "Ranking",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"
+    ]
+  },
+  {
+    "objectID": "table.html#interactive",
+    "href": "table.html#interactive",
+    "title": "19  Table",
+    "section": "19.5 Interactive",
+    "text": "19.5 Interactive",
     "crumbs": [
       "Ranking",
       "<span class='chapter-number'>19</span>  <span class='chapter-title'>Table</span>"

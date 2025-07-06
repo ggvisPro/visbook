@@ -1,3 +1,194 @@
 # Table {#sec-table}
 
-1
+## PKG
+
+```{r}
+library(tidyverse) # 数据处理和可视化
+library(gt) # 表格包
+library(gtsummary) # 表格包
+library(gtExtras) # gt 扩展包
+library(htmltools) # HTML 工具包
+# install.packages('cardx') 
+library(survival) # 生存分析包
+```
+
+`R` 的表格包有很多, 主要分为以下几类:
+
+![Table Package](./image/table-package.png)
+
+
+## `gt family`
+
+包括 `gt`、`gtsummary` 和 `gtExtras`.
+
+### `gt`
+
+`gt` ([官方文档](https://gt.rstudio.com/)) 是兼容 tidyverse 的表格包: 
+
+```{r}
+#| fig-cap: "使用 gt 包创建表格"
+
+# 创建一个简单的数据框
+data = data.frame(
+  Country = c("USA", "China", "India", "Brazil"), # 国家名称
+  Capitals = c("Washington D.C.", "Beijing", "New Delhi", "Brasília"), # 首都
+  Population = c(331, 1441, 1393, 212), # 人口（百万）
+  GDP = c(21.43, 14.34, 2.87, 1.49) # GDP（万亿美元）
+)
+
+gt(data)
+
+```
+
+使用`tab_header()`函数可以添加标题和副标题(兼容markdown / html语法):
+
+```{r}
+#| fig-cap: "使用 gt 包创建表格并添加标题和副标题(markdown 语法)"
+data |>
+  gt() |>
+  tab_header(
+    title = html("<span style='color:red;'>A red title</span>"), # 使用 html 语法
+    subtitle = md("Pretty *cool subtitle* too, `isn't it?`") # 使用 markdown 语法
+  )
+```
+
+甚至还可以用图像作为标题:
+
+```{r}
+#| fig-cap: "使用 gt 包创建表格并添加图像作为标题"
+
+data |>
+  gt() |>
+  tab_header(
+    title = md("**A table with an image as title**"),
+    subtitle = html(
+      "<div style='text-align:center;'><img src='./image/Rlogo.png' height='60'></div>"
+    )
+  )
+
+```
+
+`tab_spanner()` 函数可以创建跨列的标题(合并单元格):
+
+```{r}
+#| fig-cap: "使用 gt 包创建表格并添加跨列标题"
+
+data |>
+  gt() |>
+   tab_spanner(
+    label = "Number",
+    columns = c(GDP, Population)) |>
+  tab_spanner(
+    label = "Label",
+    columns = c(Country, Capitals)
+  )
+```
+
+
+`tab_footnote()` 函数的 `footnote` 和 `locations` 参数添加引用:
+
+```{r}
+#| fig-cap: "使用 gt 包为表格添加脚注"
+
+# 创建一个包含行星信息的数据框
+data = data.frame(
+    Planet = c("Earth", "Mars", "Jupiter", "Venus"), # 行星名称
+    Moons = c(1, 2, 79, 0), # 卫星数量
+    Distance_from_Sun = c(149.6, 227.9, 778.3, 108.2), # 距离太阳距离（百万公里）
+    Diameter = c(12742, 6779, 139822, 12104) # 直径（公里）
+)
+
+data |>
+  gt() |>
+  tab_footnote(
+    footnote = md("Measured in **millions** of Km"),
+    locations = cells_column_labels(columns = Distance_from_Sun)
+  )
+
+```
+
+还可以添加多个角注:
+
+```{r}
+#| fig-cap: "使用 gt 包为表格添加多个脚注"
+
+# 使用 gt 包创建表格，并为不同的列和表格整体添加多个脚注
+data |>
+    gt() |>
+    tab_footnote(
+        footnote = md("Measured in **millions** of Km"), # 为 Distance_from_Sun 列添加脚注
+        locations = cells_column_labels(columns = Distance_from_Sun)
+    ) |>
+    tab_footnote(
+        footnote = md("Measured in **Km**"), # 为 Diameter 列添加脚注
+        locations = cells_column_labels(columns = Diameter)
+    ) |>
+    tab_footnote(
+        footnote = md("The original data are from *Some Organization*") # 为整个表格添加脚注
+    ) |>
+    opt_footnote_marks(marks = "LETTERS") # 设置脚注标记为大写字母
+
+```
+
+### `gtsummary`
+
+`gtsummary` 是 `gt` 的一个扩展包, 主要用于创建统计摘要表格.
+
+它连接了数据分析与表格创建之间的桥梁，允许用户直接从分析输出中无缝生成摘要表格, 特别适合医学和社会科学领域的研究报告。
+
+`tbl_regression()` 函数可以创建回归模型的摘要表格:
+
+```{r}
+#| fig-cap: "使用 `tbl_regression()` 创建回归模型摘要表格"
+# 示例数据
+data("Titanic")
+df = as.data.frame(Titanic)
+
+# 建立logistics回归模型
+model = glm(Survived ~ Age + Class + Sex + Freq, family = binomial, data = df)
+
+# 使用 gtsummary 包创建表格
+model |>
+  tbl_regression()
+```
+
+
+增加更多统计量:
+
+```{r}
+#| fig-cap: "使用 `tbl_regression()` 创建回归模型摘要表格并增加统计量"
+model |>
+  tbl_regression(intercept = TRUE, conf.level = 0.9) |> # 增加截距和置信区间
+  add_glance_source_note() |> # 添加模型摘要信息
+  add_global_p() 
+```
+
+```{r}
+#| fig-cap: "使用 `tbl_merge()` 合并多个模型的回归结果表格"
+data(trial)
+
+model_reglog <- glm(response ~ trt + grade, data = trial, family = binomial) |>
+  tbl_regression()
+
+model_cox  <- coxph(Surv(ttdeath, death) ~ trt + grade, data = trial) |>
+  tbl_regression()
+
+tbl_merge(
+  list(model_reglog, model_cox),
+  tab_spanner = c("**Tumor Response**", "**Time to Death**")
+)
+```
+
+
+### `gtExtras`
+
+`gtExtras` 增强并扩展了 `gt` 包的功能。可以创建更复杂和美观的表格。
+
+
+## `kable family`
+
+
+## Other
+
+
+## Interactive
