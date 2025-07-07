@@ -153,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./bar.html">Ranking</a></li><li class="breadcrumb-item"><a href="./table.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ranking.html">Ranking</a></li><li class="breadcrumb-item"><a href="./table.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -286,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+            <a href="./ranking.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ranking</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -390,6 +390,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">evolution</span></span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
@@ -444,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./bar.html">Ranking</a></li><li class="breadcrumb-item"><a href="./table.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ranking.html">Ranking</a></li><li class="breadcrumb-item"><a href="./table.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></a></li></ol></nav>
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span id="sec-table" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
@@ -13861,7 +13865,8 @@ Medicine
 <h4 data-number="19.4.3.1" class="anchored" data-anchor-id="基础"><span class="header-section-number">19.4.3.1</span> 基础</h4>
 <p><code>formattable</code> 提供了几种典型的可格式化对象，如 <code>percent</code>、<code>comma</code>、<code>currency</code>、<code>accounting</code> 和 <code>scientific</code> 。</p>
 <p>这些对象本质上是在预定义格式规则和参数下的数值向量</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比</span></span>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.02</span>, <span class="fl">0.03</span>, <span class="fl">0.12</span>))</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 10.00% 2.00%  3.00%  12.00%</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -13889,13 +13894,25 @@ Medicine
 <span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">balance =</span> <span class="fu">accounting</span>(<span class="fu">c</span>(<span class="dv">52500</span>, <span class="dv">36150</span>, <span class="dv">25000</span>, <span class="dv">18300</span>, <span class="dv">7600</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
 <span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">growth =</span> <span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.15</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
 <span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">ready =</span> <span class="fu">formattable</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id name balance growth ready</span></span>
-<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1   A1  52,500    30%   yes</span></span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2   A2  36,150    30%   yes</span></span>
-<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3   B1  25,000    10%    no</span></span>
-<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  4   B2  18,300    15%    no</span></span>
-<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  5   C1   7,600    15%   yes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="huxtable" data-quarto-disable-processing="true" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:formattable-basic">
+<colgroup><col><col><col><col><col></colgroup><tbody><tr>
+<th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">id</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">name</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">balance</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">growth</th><th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">ready</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">A1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">52500</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.3</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">TRUE</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">2</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">A2</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">36150</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.3</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">TRUE</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">3</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">B1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">25000</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">FALSE</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">4</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">B2</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">18300</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0.15</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">FALSE</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">5</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">C1</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">7600</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0.15</td><td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">TRUE</td></tr>
+</tbody></table>
+<p>使用 formattable 包创建格式化对象</p>
+</div>
+</div>
 </section>
 <section id="表格" class="level4" data-number="19.4.3.2">
 <h4 data-number="19.4.3.2" class="anchored" data-anchor-id="表格"><span class="header-section-number">19.4.3.2</span> 表格</h4>
@@ -16643,414 +16660,409 @@ Lee
 <span id="cb61-1164"><a href="#cb61-1164" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1165"><a href="#cb61-1165" aria-hidden="true" tabindex="-1"></a>这些对象本质上是在预定义格式规则和参数下的数值向量</span>
 <span id="cb61-1166"><a href="#cb61-1166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1167"><a href="#cb61-1167" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb61-1168"><a href="#cb61-1168" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比</span></span>
-<span id="cb61-1169"><a href="#cb61-1169" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.02</span>, <span class="fl">0.03</span>, <span class="fl">0.12</span>))</span>
-<span id="cb61-1170"><a href="#cb61-1170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 10.00% 2.00%  3.00%  12.00%</span></span>
-<span id="cb61-1171"><a href="#cb61-1171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1172"><a href="#cb61-1172" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比可运算</span></span>
-<span id="cb61-1173"><a href="#cb61-1173" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.02</span>, <span class="fl">0.03</span>, <span class="fl">0.12</span>)) <span class="sc">+</span> <span class="fl">0.05</span></span>
-<span id="cb61-1174"><a href="#cb61-1174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 15.00% 7.00%  8.00%  17.00%</span></span>
+<span id="cb61-1169"><a href="#cb61-1169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1170"><a href="#cb61-1170" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: "formattable-basic"</span></span>
+<span id="cb61-1171"><a href="#cb61-1171" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 formattable 包创建格式化对象"</span></span>
+<span id="cb61-1172"><a href="#cb61-1172" aria-hidden="true" tabindex="-1"></a><span class="co">#| comment: "#&gt;"</span></span>
+<span id="cb61-1173"><a href="#cb61-1173" aria-hidden="true" tabindex="-1"></a><span class="co">#| collapse: TRUE</span></span>
+<span id="cb61-1174"><a href="#cb61-1174" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
 <span id="cb61-1175"><a href="#cb61-1175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1176"><a href="#cb61-1176" aria-hidden="true" tabindex="-1"></a><span class="co"># 货币</span></span>
-<span id="cb61-1177"><a href="#cb61-1177" aria-hidden="true" tabindex="-1"></a>balance <span class="ot">&lt;-</span> <span class="fu">accounting</span>(<span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">500</span>, <span class="dv">200</span>, <span class="sc">-</span><span class="dv">150</span>, <span class="dv">0</span>, <span class="dv">1200</span>))</span>
-<span id="cb61-1178"><a href="#cb61-1178" aria-hidden="true" tabindex="-1"></a>balance</span>
-<span id="cb61-1179"><a href="#cb61-1179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1,000.00 500.00   200.00   (150.00) 0.00     1,200.00</span></span>
-<span id="cb61-1180"><a href="#cb61-1180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1181"><a href="#cb61-1181" aria-hidden="true" tabindex="-1"></a><span class="co"># 货币可运算</span></span>
-<span id="cb61-1182"><a href="#cb61-1182" aria-hidden="true" tabindex="-1"></a>balance <span class="sc">+</span> <span class="dv">1000</span></span>
-<span id="cb61-1183"><a href="#cb61-1183" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2,000.00 1,500.00 1,200.00 850.00   1,000.00 2,200.00</span></span>
-<span id="cb61-1184"><a href="#cb61-1184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1185"><a href="#cb61-1185" aria-hidden="true" tabindex="-1"></a><span class="co"># 布尔</span></span>
-<span id="cb61-1186"><a href="#cb61-1186" aria-hidden="true" tabindex="-1"></a><span class="fu">formattable</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
-<span id="cb61-1187"><a href="#cb61-1187" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] yes yes no  no  yes</span></span>
+<span id="cb61-1176"><a href="#cb61-1176" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比</span></span>
+<span id="cb61-1177"><a href="#cb61-1177" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.02</span>, <span class="fl">0.03</span>, <span class="fl">0.12</span>))</span>
+<span id="cb61-1178"><a href="#cb61-1178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1179"><a href="#cb61-1179" aria-hidden="true" tabindex="-1"></a><span class="co"># 百分比可运算</span></span>
+<span id="cb61-1180"><a href="#cb61-1180" aria-hidden="true" tabindex="-1"></a><span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.02</span>, <span class="fl">0.03</span>, <span class="fl">0.12</span>)) <span class="sc">+</span> <span class="fl">0.05</span></span>
+<span id="cb61-1181"><a href="#cb61-1181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1182"><a href="#cb61-1182" aria-hidden="true" tabindex="-1"></a><span class="co"># 货币</span></span>
+<span id="cb61-1183"><a href="#cb61-1183" aria-hidden="true" tabindex="-1"></a>balance <span class="ot">&lt;-</span> <span class="fu">accounting</span>(<span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">500</span>, <span class="dv">200</span>, <span class="sc">-</span><span class="dv">150</span>, <span class="dv">0</span>, <span class="dv">1200</span>))</span>
+<span id="cb61-1184"><a href="#cb61-1184" aria-hidden="true" tabindex="-1"></a>balance</span>
+<span id="cb61-1185"><a href="#cb61-1185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1186"><a href="#cb61-1186" aria-hidden="true" tabindex="-1"></a><span class="co"># 货币可运算</span></span>
+<span id="cb61-1187"><a href="#cb61-1187" aria-hidden="true" tabindex="-1"></a>balance <span class="sc">+</span> <span class="dv">1000</span></span>
 <span id="cb61-1188"><a href="#cb61-1188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1189"><a href="#cb61-1189" aria-hidden="true" tabindex="-1"></a><span class="co"># 格式化后的表格</span></span>
-<span id="cb61-1190"><a href="#cb61-1190" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb61-1191"><a href="#cb61-1191" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
-<span id="cb61-1192"><a href="#cb61-1192" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"B1"</span>, <span class="st">"B2"</span>, <span class="st">"C1"</span>),</span>
-<span id="cb61-1193"><a href="#cb61-1193" aria-hidden="true" tabindex="-1"></a>  <span class="at">balance =</span> <span class="fu">accounting</span>(<span class="fu">c</span>(<span class="dv">52500</span>, <span class="dv">36150</span>, <span class="dv">25000</span>, <span class="dv">18300</span>, <span class="dv">7600</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
-<span id="cb61-1194"><a href="#cb61-1194" aria-hidden="true" tabindex="-1"></a>  <span class="at">growth =</span> <span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.15</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
-<span id="cb61-1195"><a href="#cb61-1195" aria-hidden="true" tabindex="-1"></a>  <span class="at">ready =</span> <span class="fu">formattable</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
-<span id="cb61-1196"><a href="#cb61-1196" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1197"><a href="#cb61-1197" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    id name balance growth ready</span></span>
-<span id="cb61-1198"><a href="#cb61-1198" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1   A1  52,500    30%   yes</span></span>
-<span id="cb61-1199"><a href="#cb61-1199" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  2   A2  36,150    30%   yes</span></span>
-<span id="cb61-1200"><a href="#cb61-1200" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  3   B1  25,000    10%    no</span></span>
-<span id="cb61-1201"><a href="#cb61-1201" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  4   B2  18,300    15%    no</span></span>
-<span id="cb61-1202"><a href="#cb61-1202" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  5   C1   7,600    15%   yes</span></span>
-<span id="cb61-1203"><a href="#cb61-1203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1204"><a href="#cb61-1204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1205"><a href="#cb61-1205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1206"><a href="#cb61-1206" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 表格</span></span>
-<span id="cb61-1207"><a href="#cb61-1207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1210"><a href="#cb61-1210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1211"><a href="#cb61-1211" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "用于 `formattable` 的原始数据"</span></span>
-<span id="cb61-1212"><a href="#cb61-1212" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb61-1213"><a href="#cb61-1213" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
-<span id="cb61-1214"><a href="#cb61-1214" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(</span>
-<span id="cb61-1215"><a href="#cb61-1215" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bob"</span>,</span>
-<span id="cb61-1216"><a href="#cb61-1216" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ashley"</span>,</span>
-<span id="cb61-1217"><a href="#cb61-1217" aria-hidden="true" tabindex="-1"></a>    <span class="st">"James"</span>,</span>
-<span id="cb61-1218"><a href="#cb61-1218" aria-hidden="true" tabindex="-1"></a>    <span class="st">"David"</span>,</span>
-<span id="cb61-1219"><a href="#cb61-1219" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Jenny"</span>,</span>
-<span id="cb61-1220"><a href="#cb61-1220" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Hans"</span>,</span>
-<span id="cb61-1221"><a href="#cb61-1221" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Leo"</span>,</span>
-<span id="cb61-1222"><a href="#cb61-1222" aria-hidden="true" tabindex="-1"></a>    <span class="st">"John"</span>,</span>
-<span id="cb61-1223"><a href="#cb61-1223" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Emily"</span>,</span>
-<span id="cb61-1224"><a href="#cb61-1224" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lee"</span></span>
-<span id="cb61-1225"><a href="#cb61-1225" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb61-1226"><a href="#cb61-1226" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">27</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">27</span>, <span class="dv">27</span>, <span class="dv">31</span>, <span class="dv">30</span>),</span>
-<span id="cb61-1227"><a href="#cb61-1227" aria-hidden="true" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>),</span>
-<span id="cb61-1228"><a href="#cb61-1228" aria-hidden="true" tabindex="-1"></a>  <span class="at">test1_score =</span> <span class="fu">c</span>(<span class="fl">8.9</span>, <span class="fl">9.5</span>, <span class="fl">9.6</span>, <span class="fl">8.9</span>, <span class="fl">9.1</span>, <span class="fl">9.3</span>, <span class="fl">9.3</span>, <span class="fl">9.9</span>, <span class="fl">8.5</span>, <span class="fl">8.6</span>),</span>
-<span id="cb61-1229"><a href="#cb61-1229" aria-hidden="true" tabindex="-1"></a>  <span class="at">test2_score =</span> <span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">9.1</span>, <span class="fl">9.2</span>, <span class="fl">9.1</span>, <span class="fl">8.9</span>, <span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">9.3</span>, <span class="fl">9.1</span>, <span class="fl">8.8</span>),</span>
-<span id="cb61-1230"><a href="#cb61-1230" aria-hidden="true" tabindex="-1"></a>  <span class="at">final_score =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="fl">9.3</span>, <span class="fl">9.4</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="fl">8.9</span>, <span class="fl">9.25</span>, <span class="fl">9.6</span>, <span class="fl">8.8</span>, <span class="fl">8.7</span>),</span>
-<span id="cb61-1231"><a href="#cb61-1231" aria-hidden="true" tabindex="-1"></a>  <span class="at">registered =</span> <span class="fu">c</span>(</span>
-<span id="cb61-1232"><a href="#cb61-1232" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
-<span id="cb61-1233"><a href="#cb61-1233" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
+<span id="cb61-1189"><a href="#cb61-1189" aria-hidden="true" tabindex="-1"></a><span class="co"># 布尔</span></span>
+<span id="cb61-1190"><a href="#cb61-1190" aria-hidden="true" tabindex="-1"></a><span class="fu">formattable</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
+<span id="cb61-1191"><a href="#cb61-1191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1192"><a href="#cb61-1192" aria-hidden="true" tabindex="-1"></a><span class="co"># 格式化后的表格</span></span>
+<span id="cb61-1193"><a href="#cb61-1193" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb61-1194"><a href="#cb61-1194" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb61-1195"><a href="#cb61-1195" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(<span class="st">"A1"</span>, <span class="st">"A2"</span>, <span class="st">"B1"</span>, <span class="st">"B2"</span>, <span class="st">"C1"</span>),</span>
+<span id="cb61-1196"><a href="#cb61-1196" aria-hidden="true" tabindex="-1"></a>  <span class="at">balance =</span> <span class="fu">accounting</span>(<span class="fu">c</span>(<span class="dv">52500</span>, <span class="dv">36150</span>, <span class="dv">25000</span>, <span class="dv">18300</span>, <span class="dv">7600</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
+<span id="cb61-1197"><a href="#cb61-1197" aria-hidden="true" tabindex="-1"></a>  <span class="at">growth =</span> <span class="fu">percent</span>(<span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.15</span>), <span class="at">format =</span> <span class="st">"d"</span>),</span>
+<span id="cb61-1198"><a href="#cb61-1198" aria-hidden="true" tabindex="-1"></a>  <span class="at">ready =</span> <span class="fu">formattable</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>), <span class="st">"yes"</span>, <span class="st">"no"</span>)</span>
+<span id="cb61-1199"><a href="#cb61-1199" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1200"><a href="#cb61-1200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1201"><a href="#cb61-1201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1202"><a href="#cb61-1202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1203"><a href="#cb61-1203" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 表格</span></span>
+<span id="cb61-1204"><a href="#cb61-1204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1207"><a href="#cb61-1207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1208"><a href="#cb61-1208" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "用于 `formattable` 的原始数据"</span></span>
+<span id="cb61-1209"><a href="#cb61-1209" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb61-1210"><a href="#cb61-1210" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb61-1211"><a href="#cb61-1211" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">c</span>(</span>
+<span id="cb61-1212"><a href="#cb61-1212" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bob"</span>,</span>
+<span id="cb61-1213"><a href="#cb61-1213" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Ashley"</span>,</span>
+<span id="cb61-1214"><a href="#cb61-1214" aria-hidden="true" tabindex="-1"></a>    <span class="st">"James"</span>,</span>
+<span id="cb61-1215"><a href="#cb61-1215" aria-hidden="true" tabindex="-1"></a>    <span class="st">"David"</span>,</span>
+<span id="cb61-1216"><a href="#cb61-1216" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Jenny"</span>,</span>
+<span id="cb61-1217"><a href="#cb61-1217" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Hans"</span>,</span>
+<span id="cb61-1218"><a href="#cb61-1218" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Leo"</span>,</span>
+<span id="cb61-1219"><a href="#cb61-1219" aria-hidden="true" tabindex="-1"></a>    <span class="st">"John"</span>,</span>
+<span id="cb61-1220"><a href="#cb61-1220" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Emily"</span>,</span>
+<span id="cb61-1221"><a href="#cb61-1221" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Lee"</span></span>
+<span id="cb61-1222"><a href="#cb61-1222" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb61-1223"><a href="#cb61-1223" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">27</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">29</span>, <span class="dv">27</span>, <span class="dv">27</span>, <span class="dv">31</span>, <span class="dv">30</span>),</span>
+<span id="cb61-1224"><a href="#cb61-1224" aria-hidden="true" tabindex="-1"></a>  <span class="at">grade =</span> <span class="fu">c</span>(<span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"C"</span>),</span>
+<span id="cb61-1225"><a href="#cb61-1225" aria-hidden="true" tabindex="-1"></a>  <span class="at">test1_score =</span> <span class="fu">c</span>(<span class="fl">8.9</span>, <span class="fl">9.5</span>, <span class="fl">9.6</span>, <span class="fl">8.9</span>, <span class="fl">9.1</span>, <span class="fl">9.3</span>, <span class="fl">9.3</span>, <span class="fl">9.9</span>, <span class="fl">8.5</span>, <span class="fl">8.6</span>),</span>
+<span id="cb61-1226"><a href="#cb61-1226" aria-hidden="true" tabindex="-1"></a>  <span class="at">test2_score =</span> <span class="fu">c</span>(<span class="fl">9.1</span>, <span class="fl">9.1</span>, <span class="fl">9.2</span>, <span class="fl">9.1</span>, <span class="fl">8.9</span>, <span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">9.3</span>, <span class="fl">9.1</span>, <span class="fl">8.8</span>),</span>
+<span id="cb61-1227"><a href="#cb61-1227" aria-hidden="true" tabindex="-1"></a>  <span class="at">final_score =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="fl">9.3</span>, <span class="fl">9.4</span>, <span class="dv">9</span>, <span class="dv">9</span>, <span class="fl">8.9</span>, <span class="fl">9.25</span>, <span class="fl">9.6</span>, <span class="fl">8.8</span>, <span class="fl">8.7</span>),</span>
+<span id="cb61-1228"><a href="#cb61-1228" aria-hidden="true" tabindex="-1"></a>  <span class="at">registered =</span> <span class="fu">c</span>(</span>
+<span id="cb61-1229"><a href="#cb61-1229" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
+<span id="cb61-1230"><a href="#cb61-1230" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
+<span id="cb61-1231"><a href="#cb61-1231" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
+<span id="cb61-1232"><a href="#cb61-1232" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
+<span id="cb61-1233"><a href="#cb61-1233" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
 <span id="cb61-1234"><a href="#cb61-1234" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
-<span id="cb61-1235"><a href="#cb61-1235" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
-<span id="cb61-1236"><a href="#cb61-1236" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
-<span id="cb61-1237"><a href="#cb61-1237" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
-<span id="cb61-1238"><a href="#cb61-1238" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
-<span id="cb61-1239"><a href="#cb61-1239" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
-<span id="cb61-1240"><a href="#cb61-1240" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
-<span id="cb61-1241"><a href="#cb61-1241" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span></span>
-<span id="cb61-1242"><a href="#cb61-1242" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb61-1243"><a href="#cb61-1243" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span> <span class="co"># 避免自动转化为因子</span></span>
-<span id="cb61-1244"><a href="#cb61-1244" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1245"><a href="#cb61-1245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1246"><a href="#cb61-1246" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">formattable</span>(<span class="at">caption =</span> <span class="st">"用于 `formattable` 的格式化前的数据"</span>)</span>
-<span id="cb61-1247"><a href="#cb61-1247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1248"><a href="#cb61-1248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1249"><a href="#cb61-1249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1250"><a href="#cb61-1250" aria-hidden="true" tabindex="-1"></a>终于要来了！ 用 <span class="in">`formattable()`</span> 创建一个漂亮的表格</span>
-<span id="cb61-1251"><a href="#cb61-1251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1254"><a href="#cb61-1254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1255"><a href="#cb61-1255" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 formattable 包创建带有条件格式和图标的交互式表格"</span></span>
-<span id="cb61-1256"><a href="#cb61-1256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1257"><a href="#cb61-1257" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(formattable) </span>
-<span id="cb61-1258"><a href="#cb61-1258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1259"><a href="#cb61-1259" aria-hidden="true" tabindex="-1"></a><span class="fu">formattable</span>(</span>
-<span id="cb61-1260"><a href="#cb61-1260" aria-hidden="true" tabindex="-1"></a>  df,</span>
-<span id="cb61-1261"><a href="#cb61-1261" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
-<span id="cb61-1262"><a href="#cb61-1262" aria-hidden="true" tabindex="-1"></a>    <span class="co"># age 列：使用 color_tile() 为单元格添加从白色到橙色的渐变色背景</span></span>
-<span id="cb61-1263"><a href="#cb61-1263" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">color_tile</span>(<span class="st">"white"</span>, <span class="st">"orange"</span>),</span>
-<span id="cb61-1264"><a href="#cb61-1264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1265"><a href="#cb61-1265" aria-hidden="true" tabindex="-1"></a>    <span class="co"># grade 列：A 等级为绿色加粗，其余不变</span></span>
-<span id="cb61-1266"><a href="#cb61-1266" aria-hidden="true" tabindex="-1"></a>    <span class="at">grade =</span> <span class="fu">formatter</span>(</span>
-<span id="cb61-1267"><a href="#cb61-1267" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
-<span id="cb61-1268"><a href="#cb61-1268" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span></span>
-<span id="cb61-1269"><a href="#cb61-1269" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(x <span class="sc">==</span> <span class="st">"A"</span>, formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="st">"green"</span>, <span class="at">font.weight =</span> <span class="st">"bold"</span>), <span class="cn">NA</span>)</span>
-<span id="cb61-1270"><a href="#cb61-1270" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb61-1235"><a href="#cb61-1235" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>,</span>
+<span id="cb61-1236"><a href="#cb61-1236" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
+<span id="cb61-1237"><a href="#cb61-1237" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>,</span>
+<span id="cb61-1238"><a href="#cb61-1238" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span></span>
+<span id="cb61-1239"><a href="#cb61-1239" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb61-1240"><a href="#cb61-1240" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span> <span class="co"># 避免自动转化为因子</span></span>
+<span id="cb61-1241"><a href="#cb61-1241" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1242"><a href="#cb61-1242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1243"><a href="#cb61-1243" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">formattable</span>(<span class="at">caption =</span> <span class="st">"用于 `formattable` 的格式化前的数据"</span>)</span>
+<span id="cb61-1244"><a href="#cb61-1244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1245"><a href="#cb61-1245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1246"><a href="#cb61-1246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1247"><a href="#cb61-1247" aria-hidden="true" tabindex="-1"></a>终于要来了！ 用 <span class="in">`formattable()`</span> 创建一个漂亮的表格</span>
+<span id="cb61-1248"><a href="#cb61-1248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1251"><a href="#cb61-1251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1252"><a href="#cb61-1252" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 formattable 包创建带有条件格式和图标的交互式表格"</span></span>
+<span id="cb61-1253"><a href="#cb61-1253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1254"><a href="#cb61-1254" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(formattable) </span>
+<span id="cb61-1255"><a href="#cb61-1255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1256"><a href="#cb61-1256" aria-hidden="true" tabindex="-1"></a><span class="fu">formattable</span>(</span>
+<span id="cb61-1257"><a href="#cb61-1257" aria-hidden="true" tabindex="-1"></a>  df,</span>
+<span id="cb61-1258"><a href="#cb61-1258" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb61-1259"><a href="#cb61-1259" aria-hidden="true" tabindex="-1"></a>    <span class="co"># age 列：使用 color_tile() 为单元格添加从白色到橙色的渐变色背景</span></span>
+<span id="cb61-1260"><a href="#cb61-1260" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">color_tile</span>(<span class="st">"white"</span>, <span class="st">"orange"</span>),</span>
+<span id="cb61-1261"><a href="#cb61-1261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1262"><a href="#cb61-1262" aria-hidden="true" tabindex="-1"></a>    <span class="co"># grade 列：A 等级为绿色加粗，其余不变</span></span>
+<span id="cb61-1263"><a href="#cb61-1263" aria-hidden="true" tabindex="-1"></a>    <span class="at">grade =</span> <span class="fu">formatter</span>(</span>
+<span id="cb61-1264"><a href="#cb61-1264" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
+<span id="cb61-1265"><a href="#cb61-1265" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span></span>
+<span id="cb61-1266"><a href="#cb61-1266" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ifelse</span>(x <span class="sc">==</span> <span class="st">"A"</span>, formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="st">"green"</span>, <span class="at">font.weight =</span> <span class="st">"bold"</span>), <span class="cn">NA</span>)</span>
+<span id="cb61-1267"><a href="#cb61-1267" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb61-1268"><a href="#cb61-1268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1269"><a href="#cb61-1269" aria-hidden="true" tabindex="-1"></a>    <span class="co"># test1_score 和 test2_score 列：normalize_bar() 添加粉色条形图，宽度最小为 0.2</span></span>
+<span id="cb61-1270"><a href="#cb61-1270" aria-hidden="true" tabindex="-1"></a>    <span class="fu">area</span>(<span class="at">col =</span> <span class="fu">c</span>(test1_score, test2_score)) <span class="sc">~</span> <span class="fu">normalize_bar</span>(<span class="st">"pink"</span>, <span class="fl">0.2</span>),</span>
 <span id="cb61-1271"><a href="#cb61-1271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1272"><a href="#cb61-1272" aria-hidden="true" tabindex="-1"></a>    <span class="co"># test1_score 和 test2_score 列：normalize_bar() 添加粉色条形图，宽度最小为 0.2</span></span>
-<span id="cb61-1273"><a href="#cb61-1273" aria-hidden="true" tabindex="-1"></a>    <span class="fu">area</span>(<span class="at">col =</span> <span class="fu">c</span>(test1_score, test2_score)) <span class="sc">~</span> <span class="fu">normalize_bar</span>(<span class="st">"pink"</span>, <span class="fl">0.2</span>),</span>
-<span id="cb61-1274"><a href="#cb61-1274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1275"><a href="#cb61-1275" aria-hidden="true" tabindex="-1"></a>    <span class="co"># final_score 列：前 3 名为绿色，其余为灰色，并显示分数和排名</span></span>
-<span id="cb61-1276"><a href="#cb61-1276" aria-hidden="true" tabindex="-1"></a>    <span class="at">final_score =</span> <span class="fu">formatter</span>(</span>
-<span id="cb61-1277"><a href="#cb61-1277" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
-<span id="cb61-1278"><a href="#cb61-1278" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span> formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(<span class="fu">rank</span>(<span class="sc">-</span>x) <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">"green"</span>, <span class="st">"gray"</span>)),</span>
-<span id="cb61-1279"><a href="#cb61-1279" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">~</span> <span class="fu">sprintf</span>(<span class="st">"%.2f (rank: %02d)"</span>, x, <span class="fu">rank</span>(<span class="sc">-</span>x))</span>
-<span id="cb61-1280"><a href="#cb61-1280" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb61-1281"><a href="#cb61-1281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1282"><a href="#cb61-1282" aria-hidden="true" tabindex="-1"></a>    <span class="co"># registered 列：TRUE 为绿色“ok”图标和 Yes，FALSE 为红色“remove”图标和 No</span></span>
-<span id="cb61-1283"><a href="#cb61-1283" aria-hidden="true" tabindex="-1"></a>    <span class="at">registered =</span> <span class="fu">formatter</span>(</span>
-<span id="cb61-1284"><a href="#cb61-1284" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
-<span id="cb61-1285"><a href="#cb61-1285" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span> formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(x, <span class="st">"green"</span>, <span class="st">"red"</span>)),</span>
-<span id="cb61-1286"><a href="#cb61-1286" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">~</span> <span class="fu">icontext</span>(<span class="fu">ifelse</span>(x, <span class="st">"ok"</span>, <span class="st">"remove"</span>), <span class="fu">ifelse</span>(x, <span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
-<span id="cb61-1287"><a href="#cb61-1287" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb61-1288"><a href="#cb61-1288" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb61-1289"><a href="#cb61-1289" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1290"><a href="#cb61-1290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1272"><a href="#cb61-1272" aria-hidden="true" tabindex="-1"></a>    <span class="co"># final_score 列：前 3 名为绿色，其余为灰色，并显示分数和排名</span></span>
+<span id="cb61-1273"><a href="#cb61-1273" aria-hidden="true" tabindex="-1"></a>    <span class="at">final_score =</span> <span class="fu">formatter</span>(</span>
+<span id="cb61-1274"><a href="#cb61-1274" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
+<span id="cb61-1275"><a href="#cb61-1275" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span> formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(<span class="fu">rank</span>(<span class="sc">-</span>x) <span class="sc">&lt;=</span> <span class="dv">3</span>, <span class="st">"green"</span>, <span class="st">"gray"</span>)),</span>
+<span id="cb61-1276"><a href="#cb61-1276" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">~</span> <span class="fu">sprintf</span>(<span class="st">"%.2f (rank: %02d)"</span>, x, <span class="fu">rank</span>(<span class="sc">-</span>x))</span>
+<span id="cb61-1277"><a href="#cb61-1277" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb61-1278"><a href="#cb61-1278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1279"><a href="#cb61-1279" aria-hidden="true" tabindex="-1"></a>    <span class="co"># registered 列：TRUE 为绿色“ok”图标和 Yes，FALSE 为红色“remove”图标和 No</span></span>
+<span id="cb61-1280"><a href="#cb61-1280" aria-hidden="true" tabindex="-1"></a>    <span class="at">registered =</span> <span class="fu">formatter</span>(</span>
+<span id="cb61-1281"><a href="#cb61-1281" aria-hidden="true" tabindex="-1"></a>      <span class="st">"span"</span>,</span>
+<span id="cb61-1282"><a href="#cb61-1282" aria-hidden="true" tabindex="-1"></a>      <span class="at">style =</span> x <span class="sc">~</span> formattable<span class="sc">::</span><span class="fu">style</span>(<span class="at">color =</span> <span class="fu">ifelse</span>(x, <span class="st">"green"</span>, <span class="st">"red"</span>)),</span>
+<span id="cb61-1283"><a href="#cb61-1283" aria-hidden="true" tabindex="-1"></a>      x <span class="sc">~</span> <span class="fu">icontext</span>(<span class="fu">ifelse</span>(x, <span class="st">"ok"</span>, <span class="st">"remove"</span>), <span class="fu">ifelse</span>(x, <span class="st">"Yes"</span>, <span class="st">"No"</span>))</span>
+<span id="cb61-1284"><a href="#cb61-1284" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb61-1285"><a href="#cb61-1285" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb61-1286"><a href="#cb61-1286" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1287"><a href="#cb61-1287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1288"><a href="#cb61-1288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1289"><a href="#cb61-1289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1290"><a href="#cb61-1290" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other</span></span>
 <span id="cb61-1291"><a href="#cb61-1291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1292"><a href="#cb61-1292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1293"><a href="#cb61-1293" aria-hidden="true" tabindex="-1"></a><span class="fu">## Other</span></span>
+<span id="cb61-1292"><a href="#cb61-1292" aria-hidden="true" tabindex="-1"></a><span class="fu">### `flextable`</span></span>
+<span id="cb61-1293"><a href="#cb61-1293" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1294"><a href="#cb61-1294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1295"><a href="#cb61-1295" aria-hidden="true" tabindex="-1"></a><span class="fu">### `flextable`</span></span>
+<span id="cb61-1295"><a href="#cb61-1295" aria-hidden="true" tabindex="-1"></a><span class="in">`flextable`</span> （<span class="co">[</span><span class="ot">官方文档</span><span class="co">](https://github.com/davidgohel/flextable)</span>） 是创建非常精致静态表格的另一个可靠选项。它支持多种格式选项，包括合并单元格、旋转文本和条件格式化。</span>
 <span id="cb61-1296"><a href="#cb61-1296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1297"><a href="#cb61-1297" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1298"><a href="#cb61-1298" aria-hidden="true" tabindex="-1"></a><span class="in">`flextable`</span> （<span class="co">[</span><span class="ot">官方文档</span><span class="co">](https://github.com/davidgohel/flextable)</span>） 是创建非常精致静态表格的另一个可靠选项。它支持多种格式选项，包括合并单元格、旋转文本和条件格式化。</span>
+<span id="cb61-1297"><a href="#cb61-1297" aria-hidden="true" tabindex="-1"></a>它的独特之处在于与多种 R Markdown 格式的兼容性，包括 Word、PowerPoint 和 HTML。</span>
+<span id="cb61-1298"><a href="#cb61-1298" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1299"><a href="#cb61-1299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1300"><a href="#cb61-1300" aria-hidden="true" tabindex="-1"></a>它的独特之处在于与多种 R Markdown 格式的兼容性，包括 Word、PowerPoint 和 HTML。</span>
-<span id="cb61-1301"><a href="#cb61-1301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1302"><a href="#cb61-1302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1300"><a href="#cb61-1300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1301"><a href="#cb61-1301" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb61-1302"><a href="#cb61-1302" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码不会被执行</span></span>
 <span id="cb61-1303"><a href="#cb61-1303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1304"><a href="#cb61-1304" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb61-1305"><a href="#cb61-1305" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码不会被执行</span></span>
-<span id="cb61-1306"><a href="#cb61-1306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1307"><a href="#cb61-1307" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(iris) <span class="sc">|&gt;</span> </span>
-<span id="cb61-1308"><a href="#cb61-1308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_vanilla</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb61-1309"><a href="#cb61-1309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_as_docx</span>(<span class="at">path =</span> <span class="st">"mytable.docx"</span>) <span class="co"># 导出为word文档</span></span>
-<span id="cb61-1310"><a href="#cb61-1310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1311"><a href="#cb61-1311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1314"><a href="#cb61-1314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1315"><a href="#cb61-1315" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包创建精致的静态表格，并自定义字体、字号、边框颜色等样式"</span></span>
-<span id="cb61-1316"><a href="#cb61-1316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1317"><a href="#cb61-1317" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
-<span id="cb61-1318"><a href="#cb61-1318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1319"><a href="#cb61-1319" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置 flextable 的默认参数</span></span>
-<span id="cb61-1320"><a href="#cb61-1320" aria-hidden="true" tabindex="-1"></a><span class="fu">set_flextable_defaults</span>(</span>
-<span id="cb61-1321"><a href="#cb61-1321" aria-hidden="true" tabindex="-1"></a>  <span class="at">font.family =</span> <span class="st">"Arial"</span>,   <span class="co"># 设置字体为 Arial</span></span>
-<span id="cb61-1322"><a href="#cb61-1322" aria-hidden="true" tabindex="-1"></a>  <span class="at">font.size =</span> <span class="dv">10</span>,          <span class="co"># 设置字体大小为 10</span></span>
-<span id="cb61-1323"><a href="#cb61-1323" aria-hidden="true" tabindex="-1"></a>  <span class="at">border.color =</span> <span class="st">"gray"</span>,   <span class="co"># 设置边框颜色为灰色</span></span>
-<span id="cb61-1324"><a href="#cb61-1324" aria-hidden="true" tabindex="-1"></a>  <span class="at">big.mark =</span> <span class="st">""</span>            <span class="co"># 千分位分隔符为空</span></span>
-<span id="cb61-1325"><a href="#cb61-1325" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1326"><a href="#cb61-1326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1327"><a href="#cb61-1327" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 flextable 表格对象</span></span>
-<span id="cb61-1328"><a href="#cb61-1328" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(<span class="fu">head</span>(mtcars)) <span class="sc">|&gt;</span></span>
-<span id="cb61-1329"><a href="#cb61-1329" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>)    <span class="co"># 表头加粗</span></span>
+<span id="cb61-1304"><a href="#cb61-1304" aria-hidden="true" tabindex="-1"></a><span class="fu">flextable</span>(iris) <span class="sc">|&gt;</span> </span>
+<span id="cb61-1305"><a href="#cb61-1305" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_vanilla</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb61-1306"><a href="#cb61-1306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_as_docx</span>(<span class="at">path =</span> <span class="st">"mytable.docx"</span>) <span class="co"># 导出为word文档</span></span>
+<span id="cb61-1307"><a href="#cb61-1307" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1308"><a href="#cb61-1308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1311"><a href="#cb61-1311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1312"><a href="#cb61-1312" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包创建精致的静态表格，并自定义字体、字号、边框颜色等样式"</span></span>
+<span id="cb61-1313"><a href="#cb61-1313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1314"><a href="#cb61-1314" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(flextable)</span>
+<span id="cb61-1315"><a href="#cb61-1315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1316"><a href="#cb61-1316" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置 flextable 的默认参数</span></span>
+<span id="cb61-1317"><a href="#cb61-1317" aria-hidden="true" tabindex="-1"></a><span class="fu">set_flextable_defaults</span>(</span>
+<span id="cb61-1318"><a href="#cb61-1318" aria-hidden="true" tabindex="-1"></a>  <span class="at">font.family =</span> <span class="st">"Arial"</span>,   <span class="co"># 设置字体为 Arial</span></span>
+<span id="cb61-1319"><a href="#cb61-1319" aria-hidden="true" tabindex="-1"></a>  <span class="at">font.size =</span> <span class="dv">10</span>,          <span class="co"># 设置字体大小为 10</span></span>
+<span id="cb61-1320"><a href="#cb61-1320" aria-hidden="true" tabindex="-1"></a>  <span class="at">border.color =</span> <span class="st">"gray"</span>,   <span class="co"># 设置边框颜色为灰色</span></span>
+<span id="cb61-1321"><a href="#cb61-1321" aria-hidden="true" tabindex="-1"></a>  <span class="at">big.mark =</span> <span class="st">""</span>            <span class="co"># 千分位分隔符为空</span></span>
+<span id="cb61-1322"><a href="#cb61-1322" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1323"><a href="#cb61-1323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1324"><a href="#cb61-1324" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 flextable 表格对象</span></span>
+<span id="cb61-1325"><a href="#cb61-1325" aria-hidden="true" tabindex="-1"></a>ft <span class="ot">&lt;-</span> <span class="fu">flextable</span>(<span class="fu">head</span>(mtcars)) <span class="sc">|&gt;</span></span>
+<span id="cb61-1326"><a href="#cb61-1326" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">bold</span>(<span class="at">part =</span> <span class="st">"header"</span>)    <span class="co"># 表头加粗</span></span>
+<span id="cb61-1327"><a href="#cb61-1327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1328"><a href="#cb61-1328" aria-hidden="true" tabindex="-1"></a>ft</span>
+<span id="cb61-1329"><a href="#cb61-1329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb61-1330"><a href="#cb61-1330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1331"><a href="#cb61-1331" aria-hidden="true" tabindex="-1"></a>ft</span>
-<span id="cb61-1332"><a href="#cb61-1332" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1333"><a href="#cb61-1333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1336"><a href="#cb61-1336" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1337"><a href="#cb61-1337" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包创建精致的静态表格，并自定义高亮、背景色和添加脚注"</span></span>
-<span id="cb61-1338"><a href="#cb61-1338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1339"><a href="#cb61-1339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1340"><a href="#cb61-1340" aria-hidden="true" tabindex="-1"></a>ft <span class="sc">|&gt;</span></span>
-<span id="cb61-1341"><a href="#cb61-1341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">highlight</span>(</span>
-<span id="cb61-1342"><a href="#cb61-1342" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> <span class="sc">~</span> mpg <span class="sc">&lt;</span> <span class="dv">22</span>,                <span class="co"># 选择 mpg 小于 22 的行</span></span>
-<span id="cb61-1343"><a href="#cb61-1343" aria-hidden="true" tabindex="-1"></a>    <span class="at">j =</span> <span class="st">"disp"</span>,                    <span class="co"># 仅对 disp 列进行高亮</span></span>
-<span id="cb61-1344"><a href="#cb61-1344" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#ffe842"</span>              <span class="co"># 设置高亮颜色为黄色</span></span>
-<span id="cb61-1345"><a href="#cb61-1345" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb61-1346"><a href="#cb61-1346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bg</span>(</span>
-<span id="cb61-1347"><a href="#cb61-1347" aria-hidden="true" tabindex="-1"></a>    <span class="at">j =</span> <span class="fu">c</span>(<span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span>),     <span class="co"># 对 hp、drat、wt 三列设置背景色</span></span>
-<span id="cb61-1348"><a href="#cb61-1348" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg =</span> scales<span class="sc">::</span><span class="fu">col_quantile</span>(     <span class="co"># 使用分位数调色板自动分配背景色</span></span>
-<span id="cb61-1349"><a href="#cb61-1349" aria-hidden="true" tabindex="-1"></a>      <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"wheat"</span>, <span class="st">"red"</span>), <span class="co"># 渐变色从 wheat 到 red</span></span>
-<span id="cb61-1350"><a href="#cb61-1350" aria-hidden="true" tabindex="-1"></a>      <span class="at">domain =</span> <span class="cn">NULL</span>                <span class="co"># 自动根据数据范围计算分位数</span></span>
-<span id="cb61-1351"><a href="#cb61-1351" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb61-1352"><a href="#cb61-1352" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb61-1353"><a href="#cb61-1353" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_footer_lines</span>(</span>
-<span id="cb61-1354"><a href="#cb61-1354" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The 'mtcars' dataset"</span>         <span class="co"># 在表格底部添加脚注说明</span></span>
-<span id="cb61-1355"><a href="#cb61-1355" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb61-1333"><a href="#cb61-1333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1334"><a href="#cb61-1334" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包创建精致的静态表格，并自定义高亮、背景色和添加脚注"</span></span>
+<span id="cb61-1335"><a href="#cb61-1335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1336"><a href="#cb61-1336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1337"><a href="#cb61-1337" aria-hidden="true" tabindex="-1"></a>ft <span class="sc">|&gt;</span></span>
+<span id="cb61-1338"><a href="#cb61-1338" aria-hidden="true" tabindex="-1"></a>  <span class="fu">highlight</span>(</span>
+<span id="cb61-1339"><a href="#cb61-1339" aria-hidden="true" tabindex="-1"></a>    <span class="at">i =</span> <span class="sc">~</span> mpg <span class="sc">&lt;</span> <span class="dv">22</span>,                <span class="co"># 选择 mpg 小于 22 的行</span></span>
+<span id="cb61-1340"><a href="#cb61-1340" aria-hidden="true" tabindex="-1"></a>    <span class="at">j =</span> <span class="st">"disp"</span>,                    <span class="co"># 仅对 disp 列进行高亮</span></span>
+<span id="cb61-1341"><a href="#cb61-1341" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#ffe842"</span>              <span class="co"># 设置高亮颜色为黄色</span></span>
+<span id="cb61-1342"><a href="#cb61-1342" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb61-1343"><a href="#cb61-1343" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bg</span>(</span>
+<span id="cb61-1344"><a href="#cb61-1344" aria-hidden="true" tabindex="-1"></a>    <span class="at">j =</span> <span class="fu">c</span>(<span class="st">"hp"</span>, <span class="st">"drat"</span>, <span class="st">"wt"</span>),     <span class="co"># 对 hp、drat、wt 三列设置背景色</span></span>
+<span id="cb61-1345"><a href="#cb61-1345" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg =</span> scales<span class="sc">::</span><span class="fu">col_quantile</span>(     <span class="co"># 使用分位数调色板自动分配背景色</span></span>
+<span id="cb61-1346"><a href="#cb61-1346" aria-hidden="true" tabindex="-1"></a>      <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"wheat"</span>, <span class="st">"red"</span>), <span class="co"># 渐变色从 wheat 到 red</span></span>
+<span id="cb61-1347"><a href="#cb61-1347" aria-hidden="true" tabindex="-1"></a>      <span class="at">domain =</span> <span class="cn">NULL</span>                <span class="co"># 自动根据数据范围计算分位数</span></span>
+<span id="cb61-1348"><a href="#cb61-1348" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb61-1349"><a href="#cb61-1349" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb61-1350"><a href="#cb61-1350" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_footer_lines</span>(</span>
+<span id="cb61-1351"><a href="#cb61-1351" aria-hidden="true" tabindex="-1"></a>    <span class="st">"The 'mtcars' dataset"</span>         <span class="co"># 在表格底部添加脚注说明</span></span>
+<span id="cb61-1352"><a href="#cb61-1352" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb61-1353"><a href="#cb61-1353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1354"><a href="#cb61-1354" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1355"><a href="#cb61-1355" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1356"><a href="#cb61-1356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1357"><a href="#cb61-1357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1358"><a href="#cb61-1358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1359"><a href="#cb61-1359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1362"><a href="#cb61-1362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1363"><a href="#cb61-1363" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包对 diamonds 数据集按 cut 分组汇总并美观展示"</span></span>
-<span id="cb61-1364"><a href="#cb61-1364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1365"><a href="#cb61-1365" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds[, <span class="fu">c</span>(<span class="st">"cut"</span>, <span class="st">"carat"</span>, <span class="st">"price"</span>, <span class="st">"clarity"</span>, <span class="st">"table"</span>)] <span class="sc">|&gt;</span></span>
-<span id="cb61-1366"><a href="#cb61-1366" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarizor</span>(<span class="at">by =</span> <span class="fu">c</span>(<span class="st">"cut"</span>)) <span class="sc">|&gt;</span> <span class="co"># summarizor: 按 cut 分组汇总数据</span></span>
-<span id="cb61-1367"><a href="#cb61-1367" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">as_flextable</span>(<span class="at">spread_first_col =</span> <span class="cn">TRUE</span>) <span class="co"># as_flextable: 转为 flextable 表格，spread_first_col=TRUE 将第一列展开为分组标签</span></span>
-<span id="cb61-1368"><a href="#cb61-1368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1359"><a href="#cb61-1359" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1360"><a href="#cb61-1360" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 flextable 包对 diamonds 数据集按 cut 分组汇总并美观展示"</span></span>
+<span id="cb61-1361"><a href="#cb61-1361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1362"><a href="#cb61-1362" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds[, <span class="fu">c</span>(<span class="st">"cut"</span>, <span class="st">"carat"</span>, <span class="st">"price"</span>, <span class="st">"clarity"</span>, <span class="st">"table"</span>)] <span class="sc">|&gt;</span></span>
+<span id="cb61-1363"><a href="#cb61-1363" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarizor</span>(<span class="at">by =</span> <span class="fu">c</span>(<span class="st">"cut"</span>)) <span class="sc">|&gt;</span> <span class="co"># summarizor: 按 cut 分组汇总数据</span></span>
+<span id="cb61-1364"><a href="#cb61-1364" aria-hidden="true" tabindex="-1"></a>  flextable<span class="sc">::</span><span class="fu">as_flextable</span>(<span class="at">spread_first_col =</span> <span class="cn">TRUE</span>) <span class="co"># as_flextable: 转为 flextable 表格，spread_first_col=TRUE 将第一列展开为分组标签</span></span>
+<span id="cb61-1365"><a href="#cb61-1365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1366"><a href="#cb61-1366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1367"><a href="#cb61-1367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1368"><a href="#cb61-1368" aria-hidden="true" tabindex="-1"></a><span class="fu">### `rhandsontable`</span></span>
 <span id="cb61-1369"><a href="#cb61-1369" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1370"><a href="#cb61-1370" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1371"><a href="#cb61-1371" aria-hidden="true" tabindex="-1"></a><span class="fu">### `rhandsontable`</span></span>
+<span id="cb61-1371"><a href="#cb61-1371" aria-hidden="true" tabindex="-1"></a><span class="in">`Rhandsontable`</span> 提供了一个交互式表格界面，允许在 <span class="in">`Shiny`</span> 应用或 <span class="in">`R Markdown`</span> 文档中直接编辑表格。它通过下拉菜单、复选框和日历辅助工具等特性，区别于其他工具，强调交互性和用户输入。</span>
 <span id="cb61-1372"><a href="#cb61-1372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1373"><a href="#cb61-1373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1374"><a href="#cb61-1374" aria-hidden="true" tabindex="-1"></a><span class="in">`Rhandsontable`</span> 提供了一个交互式表格界面，允许在 <span class="in">`Shiny`</span> 应用或 <span class="in">`R Markdown`</span> 文档中直接编辑表格。它通过下拉菜单、复选框和日历辅助工具等特性，区别于其他工具，强调交互性和用户输入。</span>
+<span id="cb61-1373"><a href="#cb61-1373" aria-hidden="true" tabindex="-1"></a>它最适合需要在网页界面中交互式编辑和操作数据的场景，例如 <span class="in">`Shiny`</span> 应用程序。</span>
+<span id="cb61-1374"><a href="#cb61-1374" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1375"><a href="#cb61-1375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1376"><a href="#cb61-1376" aria-hidden="true" tabindex="-1"></a>它最适合需要在网页界面中交互式编辑和操作数据的场景，例如 <span class="in">`Shiny`</span> 应用程序。</span>
-<span id="cb61-1377"><a href="#cb61-1377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1378"><a href="#cb61-1378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1381"><a href="#cb61-1381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1382"><a href="#cb61-1382" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: "rhandsontable-basic"</span></span>
-<span id="cb61-1383"><a href="#cb61-1383" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 rhandsontable 包创建可交互编辑的表格，并在 'chart' 列中嵌入 sparkline 迷你图"</span></span>
-<span id="cb61-1384"><a href="#cb61-1384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1385"><a href="#cb61-1385" aria-hidden="true" tabindex="-1"></a><span class="co"># 由于Quarto渲染问题，所以不执行这段代码</span></span>
-<span id="cb61-1386"><a href="#cb61-1386" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb61-1387"><a href="#cb61-1387" aria-hidden="true" tabindex="-1"></a>  <span class="at">int =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="co"># 整数列</span></span>
-<span id="cb61-1388"><a href="#cb61-1388" aria-hidden="true" tabindex="-1"></a>  <span class="at">numeric =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="co"># 正态分布的数值列</span></span>
-<span id="cb61-1389"><a href="#cb61-1389" aria-hidden="true" tabindex="-1"></a>  <span class="at">logical =</span> <span class="cn">TRUE</span>, <span class="co"># 逻辑值列，全部为 TRUE</span></span>
-<span id="cb61-1390"><a href="#cb61-1390" aria-hidden="true" tabindex="-1"></a>  <span class="at">character =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="co"># 字符型列，A~J</span></span>
-<span id="cb61-1391"><a href="#cb61-1391" aria-hidden="true" tabindex="-1"></a>  <span class="at">fact =</span> <span class="fu">factor</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]), <span class="co"># 因子型列，a~j</span></span>
-<span id="cb61-1392"><a href="#cb61-1392" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">Sys.Date</span>(), <span class="at">by =</span> <span class="st">"days"</span>, <span class="at">length.out =</span> <span class="dv">10</span>), <span class="co"># 日期列，从今天起连续10天</span></span>
-<span id="cb61-1393"><a href="#cb61-1393" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span> <span class="co"># 不自动转为因子</span></span>
-<span id="cb61-1394"><a href="#cb61-1394" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1378"><a href="#cb61-1378" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1379"><a href="#cb61-1379" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: "rhandsontable-basic"</span></span>
+<span id="cb61-1380"><a href="#cb61-1380" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 rhandsontable 包创建可交互编辑的表格，并在 'chart' 列中嵌入 sparkline 迷你图"</span></span>
+<span id="cb61-1381"><a href="#cb61-1381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1382"><a href="#cb61-1382" aria-hidden="true" tabindex="-1"></a><span class="co"># 由于Quarto渲染问题，所以不执行这段代码</span></span>
+<span id="cb61-1383"><a href="#cb61-1383" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb61-1384"><a href="#cb61-1384" aria-hidden="true" tabindex="-1"></a>  <span class="at">int =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="co"># 整数列</span></span>
+<span id="cb61-1385"><a href="#cb61-1385" aria-hidden="true" tabindex="-1"></a>  <span class="at">numeric =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>), <span class="co"># 正态分布的数值列</span></span>
+<span id="cb61-1386"><a href="#cb61-1386" aria-hidden="true" tabindex="-1"></a>  <span class="at">logical =</span> <span class="cn">TRUE</span>, <span class="co"># 逻辑值列，全部为 TRUE</span></span>
+<span id="cb61-1387"><a href="#cb61-1387" aria-hidden="true" tabindex="-1"></a>  <span class="at">character =</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="co"># 字符型列，A~J</span></span>
+<span id="cb61-1388"><a href="#cb61-1388" aria-hidden="true" tabindex="-1"></a>  <span class="at">fact =</span> <span class="fu">factor</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]), <span class="co"># 因子型列，a~j</span></span>
+<span id="cb61-1389"><a href="#cb61-1389" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">Sys.Date</span>(), <span class="at">by =</span> <span class="st">"days"</span>, <span class="at">length.out =</span> <span class="dv">10</span>), <span class="co"># 日期列，从今天起连续10天</span></span>
+<span id="cb61-1390"><a href="#cb61-1390" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span> <span class="co"># 不自动转为因子</span></span>
+<span id="cb61-1391"><a href="#cb61-1391" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1392"><a href="#cb61-1392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1393"><a href="#cb61-1393" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加 sparkline 迷你图数据列，每行生成一个包含10个正态分布随机数的 JSON</span></span>
+<span id="cb61-1394"><a href="#cb61-1394" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>chart <span class="ot">=</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(x) jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">values =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>))))</span>
 <span id="cb61-1395"><a href="#cb61-1395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1396"><a href="#cb61-1396" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加 sparkline 迷你图数据列，每行生成一个包含10个正态分布随机数的 JSON</span></span>
-<span id="cb61-1397"><a href="#cb61-1397" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>chart <span class="ot">=</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(x) jsonlite<span class="sc">::</span><span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">values =</span> <span class="fu">rnorm</span>(<span class="dv">10</span>))))</span>
-<span id="cb61-1398"><a href="#cb61-1398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1399"><a href="#cb61-1399" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 rhandsontable 交互式表格</span></span>
-<span id="cb61-1400"><a href="#cb61-1400" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rhandsontable</span>(df, <span class="at">rowHeaders =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span> <span class="co"># rowHeaders = NULL 不显示行名</span></span>
-<span id="cb61-1401"><a href="#cb61-1401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hot_col</span>(</span>
-<span id="cb61-1402"><a href="#cb61-1402" aria-hidden="true" tabindex="-1"></a>    <span class="st">"chart"</span>, <span class="co"># 指定 chart 列</span></span>
-<span id="cb61-1403"><a href="#cb61-1403" aria-hidden="true" tabindex="-1"></a>    <span class="at">renderer =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(<span class="st">"renderSparkline"</span>) <span class="co"># 使用 JS 渲染 sparkline 迷你图</span></span>
-<span id="cb61-1404"><a href="#cb61-1404" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb61-1405"><a href="#cb61-1405" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1406"><a href="#cb61-1406" aria-hidden="true" tabindex="-1"></a><span class="fu">embed_widget</span>(p, <span class="at">height =</span> <span class="st">"300px"</span>)</span>
-<span id="cb61-1407"><a href="#cb61-1407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1408"><a href="#cb61-1408" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1409"><a href="#cb61-1409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1410"><a href="#cb61-1410" aria-hidden="true" tabindex="-1"></a><span class="fu">### `modelsummary`</span></span>
-<span id="cb61-1411"><a href="#cb61-1411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1412"><a href="#cb61-1412" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 介绍</span></span>
-<span id="cb61-1413"><a href="#cb61-1413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1414"><a href="#cb61-1414" aria-hidden="true" tabindex="-1"></a>官方文档: <span class="co">[</span><span class="ot">modelsummary</span><span class="co">](https://github.com/vincentarelbundock/modelsummary?tab=readme-ov-file)</span></span>
-<span id="cb61-1415"><a href="#cb61-1415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1416"><a href="#cb61-1416" aria-hidden="true" tabindex="-1"></a>主要有两个系列函数：</span>
-<span id="cb61-1417"><a href="#cb61-1417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1418"><a href="#cb61-1418" aria-hidden="true" tabindex="-1"></a>**`Model Summary` 模型摘要**</span>
+<span id="cb61-1396"><a href="#cb61-1396" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建 rhandsontable 交互式表格</span></span>
+<span id="cb61-1397"><a href="#cb61-1397" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rhandsontable</span>(df, <span class="at">rowHeaders =</span> <span class="cn">NULL</span>) <span class="sc">|&gt;</span> <span class="co"># rowHeaders = NULL 不显示行名</span></span>
+<span id="cb61-1398"><a href="#cb61-1398" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hot_col</span>(</span>
+<span id="cb61-1399"><a href="#cb61-1399" aria-hidden="true" tabindex="-1"></a>    <span class="st">"chart"</span>, <span class="co"># 指定 chart 列</span></span>
+<span id="cb61-1400"><a href="#cb61-1400" aria-hidden="true" tabindex="-1"></a>    <span class="at">renderer =</span> htmlwidgets<span class="sc">::</span><span class="fu">JS</span>(<span class="st">"renderSparkline"</span>) <span class="co"># 使用 JS 渲染 sparkline 迷你图</span></span>
+<span id="cb61-1401"><a href="#cb61-1401" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb61-1402"><a href="#cb61-1402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1403"><a href="#cb61-1403" aria-hidden="true" tabindex="-1"></a><span class="fu">embed_widget</span>(p, <span class="at">height =</span> <span class="st">"300px"</span>)</span>
+<span id="cb61-1404"><a href="#cb61-1404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1405"><a href="#cb61-1405" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1406"><a href="#cb61-1406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1407"><a href="#cb61-1407" aria-hidden="true" tabindex="-1"></a><span class="fu">### `modelsummary`</span></span>
+<span id="cb61-1408"><a href="#cb61-1408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1409"><a href="#cb61-1409" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 介绍</span></span>
+<span id="cb61-1410"><a href="#cb61-1410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1411"><a href="#cb61-1411" aria-hidden="true" tabindex="-1"></a>官方文档: <span class="co">[</span><span class="ot">modelsummary</span><span class="co">](https://github.com/vincentarelbundock/modelsummary?tab=readme-ov-file)</span></span>
+<span id="cb61-1412"><a href="#cb61-1412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1413"><a href="#cb61-1413" aria-hidden="true" tabindex="-1"></a>主要有两个系列函数：</span>
+<span id="cb61-1414"><a href="#cb61-1414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1415"><a href="#cb61-1415" aria-hidden="true" tabindex="-1"></a>**`Model Summary` 模型摘要**</span>
+<span id="cb61-1416"><a href="#cb61-1416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1417"><a href="#cb61-1417" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`modelsummary`</span> : 并列模型回归表。</span>
+<span id="cb61-1418"><a href="#cb61-1418" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`modelplot`</span> : 系数图。</span>
 <span id="cb61-1419"><a href="#cb61-1419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1420"><a href="#cb61-1420" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`modelsummary`</span> : 并列模型回归表。</span>
-<span id="cb61-1421"><a href="#cb61-1421" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`modelplot`</span> : 系数图。</span>
-<span id="cb61-1422"><a href="#cb61-1422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1423"><a href="#cb61-1423" aria-hidden="true" tabindex="-1"></a>**`Data Summary` 数据摘要**</span>
-<span id="cb61-1424"><a href="#cb61-1424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1425"><a href="#cb61-1425" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary`</span> : 创建（多级）交叉表和数据摘要的强大工具。</span>
-<span id="cb61-1426"><a href="#cb61-1426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_crosstab`</span> : 交叉表。</span>
-<span id="cb61-1427"><a href="#cb61-1427" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_balance`</span> : 基线表，包含子组统计和均值差异（又名 “*table 1*” ）。</span>
-<span id="cb61-1428"><a href="#cb61-1428" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_correlation`</span> : 相关性表格。</span>
-<span id="cb61-1429"><a href="#cb61-1429" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_skim`</span> : 数据集的快速概览（“skim”）。</span>
-<span id="cb61-1430"><a href="#cb61-1430" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_df`</span> : 将数据框转换为带有标题、注释等的漂亮表格。</span>
-<span id="cb61-1431"><a href="#cb61-1431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1432"><a href="#cb61-1432" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 特点</span></span>
-<span id="cb61-1433"><a href="#cb61-1433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1434"><a href="#cb61-1434" aria-hidden="true" tabindex="-1"></a>**简单**：</span>
-<span id="cb61-1435"><a href="#cb61-1435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1438"><a href="#cb61-1438" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1439"><a href="#cb61-1439" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
-<span id="cb61-1440"><a href="#cb61-1440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1441"><a href="#cb61-1441" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Width <span class="sc">~</span> Sepal.Length, iris) <span class="co"># 建模</span></span>
-<span id="cb61-1442"><a href="#cb61-1442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1443"><a href="#cb61-1443" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">output =</span> <span class="st">"markdown"</span>) <span class="co"># 输出为 markdown 格式，还可以输出docx / tex 格式</span></span>
-<span id="cb61-1444"><a href="#cb61-1444" aria-hidden="true" tabindex="-1"></a><span class="co"># modelsummary(mod, output = "table.docx")</span></span>
-<span id="cb61-1445"><a href="#cb61-1445" aria-hidden="true" tabindex="-1"></a><span class="co"># modelsummary(mod, output = "table.tex")</span></span>
-<span id="cb61-1446"><a href="#cb61-1446" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1447"><a href="#cb61-1447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1448"><a href="#cb61-1448" aria-hidden="true" tabindex="-1"></a>**灵活**：</span>
-<span id="cb61-1449"><a href="#cb61-1449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1450"><a href="#cb61-1450" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>信息：该软件包提供了许多直观且强大的工具，用于自定义摘要表中报告的信息。</span>
-<span id="cb61-1451"><a href="#cb61-1451" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>外观：无线定制</span>
-<span id="cb61-1452"><a href="#cb61-1452" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>支持的模型：得益于 <span class="in">`broom`</span> 和 <span class="in">`parameters`</span> ， <span class="in">`modelsummary`</span> 默认支持数百种统计模型。</span>
-<span id="cb61-1453"><a href="#cb61-1453" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出格式： <span class="in">`HTML`</span>、<span class="in">`LaTeX`</span>、文本 / <span class="in">`Markdown`</span>、<span class="in">`Word`</span>、<span class="in">`Powerpoint`</span>、<span class="in">`RTF`</span>、<span class="in">`JPG`</span> 或 <span class="in">`PNG`</span> 格式</span>
+<span id="cb61-1420"><a href="#cb61-1420" aria-hidden="true" tabindex="-1"></a>**`Data Summary` 数据摘要**</span>
+<span id="cb61-1421"><a href="#cb61-1421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1422"><a href="#cb61-1422" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary`</span> : 创建（多级）交叉表和数据摘要的强大工具。</span>
+<span id="cb61-1423"><a href="#cb61-1423" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_crosstab`</span> : 交叉表。</span>
+<span id="cb61-1424"><a href="#cb61-1424" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_balance`</span> : 基线表，包含子组统计和均值差异（又名 “*table 1*” ）。</span>
+<span id="cb61-1425"><a href="#cb61-1425" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_correlation`</span> : 相关性表格。</span>
+<span id="cb61-1426"><a href="#cb61-1426" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_skim`</span> : 数据集的快速概览（“skim”）。</span>
+<span id="cb61-1427"><a href="#cb61-1427" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`datasummary_df`</span> : 将数据框转换为带有标题、注释等的漂亮表格。</span>
+<span id="cb61-1428"><a href="#cb61-1428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1429"><a href="#cb61-1429" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 特点</span></span>
+<span id="cb61-1430"><a href="#cb61-1430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1431"><a href="#cb61-1431" aria-hidden="true" tabindex="-1"></a>**简单**：</span>
+<span id="cb61-1432"><a href="#cb61-1432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1435"><a href="#cb61-1435" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1436"><a href="#cb61-1436" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<span id="cb61-1437"><a href="#cb61-1437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1438"><a href="#cb61-1438" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Sepal.Width <span class="sc">~</span> Sepal.Length, iris) <span class="co"># 建模</span></span>
+<span id="cb61-1439"><a href="#cb61-1439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1440"><a href="#cb61-1440" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">output =</span> <span class="st">"markdown"</span>) <span class="co"># 输出为 markdown 格式，还可以输出docx / tex 格式</span></span>
+<span id="cb61-1441"><a href="#cb61-1441" aria-hidden="true" tabindex="-1"></a><span class="co"># modelsummary(mod, output = "table.docx")</span></span>
+<span id="cb61-1442"><a href="#cb61-1442" aria-hidden="true" tabindex="-1"></a><span class="co"># modelsummary(mod, output = "table.tex")</span></span>
+<span id="cb61-1443"><a href="#cb61-1443" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1444"><a href="#cb61-1444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1445"><a href="#cb61-1445" aria-hidden="true" tabindex="-1"></a>**灵活**：</span>
+<span id="cb61-1446"><a href="#cb61-1446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1447"><a href="#cb61-1447" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>信息：该软件包提供了许多直观且强大的工具，用于自定义摘要表中报告的信息。</span>
+<span id="cb61-1448"><a href="#cb61-1448" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>外观：无线定制</span>
+<span id="cb61-1449"><a href="#cb61-1449" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>支持的模型：得益于 <span class="in">`broom`</span> 和 <span class="in">`parameters`</span> ， <span class="in">`modelsummary`</span> 默认支持数百种统计模型。</span>
+<span id="cb61-1450"><a href="#cb61-1450" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>输出格式： <span class="in">`HTML`</span>、<span class="in">`LaTeX`</span>、文本 / <span class="in">`Markdown`</span>、<span class="in">`Word`</span>、<span class="in">`Powerpoint`</span>、<span class="in">`RTF`</span>、<span class="in">`JPG`</span> 或 <span class="in">`PNG`</span> 格式</span>
+<span id="cb61-1451"><a href="#cb61-1451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1452"><a href="#cb61-1452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1453"><a href="#cb61-1453" aria-hidden="true" tabindex="-1"></a>**危险**</span>
 <span id="cb61-1454"><a href="#cb61-1454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1455"><a href="#cb61-1455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1456"><a href="#cb61-1456" aria-hidden="true" tabindex="-1"></a>**危险**</span>
-<span id="cb61-1457"><a href="#cb61-1457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1458"><a href="#cb61-1458" aria-hidden="true" tabindex="-1"></a>甚至可以把松鼠插到整个表格：</span>
-<span id="cb61-1459"><a href="#cb61-1459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1460"><a href="#cb61-1460" aria-hidden="true" tabindex="-1"></a><span class="al">![表格中有一只松鼠](./image/squirrel.png)</span>{width="65%"}</span>
-<span id="cb61-1461"><a href="#cb61-1461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1462"><a href="#cb61-1462" aria-hidden="true" tabindex="-1"></a>**可靠**</span>
+<span id="cb61-1455"><a href="#cb61-1455" aria-hidden="true" tabindex="-1"></a>甚至可以把松鼠插到整个表格：</span>
+<span id="cb61-1456"><a href="#cb61-1456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1457"><a href="#cb61-1457" aria-hidden="true" tabindex="-1"></a><span class="al">![表格中有一只松鼠](./image/squirrel.png)</span>{width="65%"}</span>
+<span id="cb61-1458"><a href="#cb61-1458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1459"><a href="#cb61-1459" aria-hidden="true" tabindex="-1"></a>**可靠**</span>
+<span id="cb61-1460"><a href="#cb61-1460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1461"><a href="#cb61-1461" aria-hidden="true" tabindex="-1"></a>很少会崩溃</span>
+<span id="cb61-1462"><a href="#cb61-1462" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-1463"><a href="#cb61-1463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1464"><a href="#cb61-1464" aria-hidden="true" tabindex="-1"></a>很少会崩溃</span>
-<span id="cb61-1465"><a href="#cb61-1465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1464"><a href="#cb61-1464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1465"><a href="#cb61-1465" aria-hidden="true" tabindex="-1"></a><span class="fu">### `huxtable`</span></span>
 <span id="cb61-1466"><a href="#cb61-1466" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1467"><a href="#cb61-1467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1468"><a href="#cb61-1468" aria-hidden="true" tabindex="-1"></a><span class="fu">### `huxtable`</span></span>
-<span id="cb61-1469"><a href="#cb61-1469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1470"><a href="#cb61-1470" aria-hidden="true" tabindex="-1"></a>用于 <span class="in">`LaTeX`</span> 输出</span>
-<span id="cb61-1471"><a href="#cb61-1471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1472"><a href="#cb61-1472" aria-hidden="true" tabindex="-1"></a>官方文档：<span class="co">[</span><span class="ot">huxtable</span><span class="co">](https://github.com/hughjonesd/huxtable)</span></span>
-<span id="cb61-1473"><a href="#cb61-1473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1474"><a href="#cb61-1474" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 基本</span></span>
-<span id="cb61-1475"><a href="#cb61-1475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1478"><a href="#cb61-1478" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1479"><a href="#cb61-1479" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包创建 `LaTeX` 表格并自定义样式"</span></span>
-<span id="cb61-1480"><a href="#cb61-1480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1481"><a href="#cb61-1481" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(huxtable)</span>
-<span id="cb61-1482"><a href="#cb61-1482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1483"><a href="#cb61-1483" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb61-1484"><a href="#cb61-1484" aria-hidden="true" tabindex="-1"></a>  <span class="at">Employee =</span> <span class="fu">c</span>(<span class="st">"John Smith"</span>, <span class="st">"Jane Doe"</span>, <span class="st">"David Hugh-Jones"</span>),</span>
-<span id="cb61-1485"><a href="#cb61-1485" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">50000</span>, <span class="dv">40000</span>),</span>
-<span id="cb61-1486"><a href="#cb61-1486" aria-hidden="true" tabindex="-1"></a>  <span class="at">add_colnames =</span> <span class="cn">TRUE</span></span>
-<span id="cb61-1487"><a href="#cb61-1487" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1488"><a href="#cb61-1488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1489"><a href="#cb61-1489" aria-hidden="true" tabindex="-1"></a>ht <span class="ot">&lt;-</span> <span class="fu">hux</span>(df)</span>
+<span id="cb61-1467"><a href="#cb61-1467" aria-hidden="true" tabindex="-1"></a>用于 <span class="in">`LaTeX`</span> 输出</span>
+<span id="cb61-1468"><a href="#cb61-1468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1469"><a href="#cb61-1469" aria-hidden="true" tabindex="-1"></a>官方文档：<span class="co">[</span><span class="ot">huxtable</span><span class="co">](https://github.com/hughjonesd/huxtable)</span></span>
+<span id="cb61-1470"><a href="#cb61-1470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1471"><a href="#cb61-1471" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 基本</span></span>
+<span id="cb61-1472"><a href="#cb61-1472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1475"><a href="#cb61-1475" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1476"><a href="#cb61-1476" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包创建 `LaTeX` 表格并自定义样式"</span></span>
+<span id="cb61-1477"><a href="#cb61-1477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1478"><a href="#cb61-1478" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(huxtable)</span>
+<span id="cb61-1479"><a href="#cb61-1479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1480"><a href="#cb61-1480" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb61-1481"><a href="#cb61-1481" aria-hidden="true" tabindex="-1"></a>  <span class="at">Employee =</span> <span class="fu">c</span>(<span class="st">"John Smith"</span>, <span class="st">"Jane Doe"</span>, <span class="st">"David Hugh-Jones"</span>),</span>
+<span id="cb61-1482"><a href="#cb61-1482" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">50000</span>, <span class="dv">40000</span>),</span>
+<span id="cb61-1483"><a href="#cb61-1483" aria-hidden="true" tabindex="-1"></a>  <span class="at">add_colnames =</span> <span class="cn">TRUE</span></span>
+<span id="cb61-1484"><a href="#cb61-1484" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1485"><a href="#cb61-1485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1486"><a href="#cb61-1486" aria-hidden="true" tabindex="-1"></a>ht <span class="ot">&lt;-</span> <span class="fu">hux</span>(df)</span>
+<span id="cb61-1487"><a href="#cb61-1487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1488"><a href="#cb61-1488" aria-hidden="true" tabindex="-1"></a><span class="co"># 将第一行（表头）加粗</span></span>
+<span id="cb61-1489"><a href="#cb61-1489" aria-hidden="true" tabindex="-1"></a><span class="fu">bold</span>(ht)[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
 <span id="cb61-1490"><a href="#cb61-1490" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1491"><a href="#cb61-1491" aria-hidden="true" tabindex="-1"></a><span class="co"># 将第一行（表头）加粗</span></span>
-<span id="cb61-1492"><a href="#cb61-1492" aria-hidden="true" tabindex="-1"></a><span class="fu">bold</span>(ht)[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb61-1491"><a href="#cb61-1491" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置第一行底部边框宽度为 0.4</span></span>
+<span id="cb61-1492"><a href="#cb61-1492" aria-hidden="true" tabindex="-1"></a><span class="fu">bottom_border</span>(ht)[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
 <span id="cb61-1493"><a href="#cb61-1493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1494"><a href="#cb61-1494" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置第一行底部边框宽度为 0.4</span></span>
-<span id="cb61-1495"><a href="#cb61-1495" aria-hidden="true" tabindex="-1"></a><span class="fu">bottom_border</span>(ht)[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb61-1494"><a href="#cb61-1494" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置第二列（Salary）右对齐</span></span>
+<span id="cb61-1495"><a href="#cb61-1495" aria-hidden="true" tabindex="-1"></a><span class="fu">align</span>(ht)[, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"right"</span></span>
 <span id="cb61-1496"><a href="#cb61-1496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1497"><a href="#cb61-1497" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置第二列（Salary）右对齐</span></span>
-<span id="cb61-1498"><a href="#cb61-1498" aria-hidden="true" tabindex="-1"></a><span class="fu">align</span>(ht)[, <span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"right"</span></span>
+<span id="cb61-1497"><a href="#cb61-1497" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格右侧内边距为 10</span></span>
+<span id="cb61-1498"><a href="#cb61-1498" aria-hidden="true" tabindex="-1"></a><span class="fu">right_padding</span>(ht) <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb61-1499"><a href="#cb61-1499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1500"><a href="#cb61-1500" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格右侧内边距为 10</span></span>
-<span id="cb61-1501"><a href="#cb61-1501" aria-hidden="true" tabindex="-1"></a><span class="fu">right_padding</span>(ht) <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb61-1500"><a href="#cb61-1500" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格左侧内边距为 10</span></span>
+<span id="cb61-1501"><a href="#cb61-1501" aria-hidden="true" tabindex="-1"></a><span class="fu">left_padding</span>(ht) <span class="ot">&lt;-</span> <span class="dv">10</span></span>
 <span id="cb61-1502"><a href="#cb61-1502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1503"><a href="#cb61-1503" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格左侧内边距为 10</span></span>
-<span id="cb61-1504"><a href="#cb61-1504" aria-hidden="true" tabindex="-1"></a><span class="fu">left_padding</span>(ht) <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb61-1503"><a href="#cb61-1503" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置表格宽度为 0.35（相对于页面宽度）</span></span>
+<span id="cb61-1504"><a href="#cb61-1504" aria-hidden="true" tabindex="-1"></a><span class="fu">width</span>(ht) <span class="ot">&lt;-</span> <span class="fl">0.35</span></span>
 <span id="cb61-1505"><a href="#cb61-1505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1506"><a href="#cb61-1506" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置表格宽度为 0.35（相对于页面宽度）</span></span>
-<span id="cb61-1507"><a href="#cb61-1507" aria-hidden="true" tabindex="-1"></a><span class="fu">width</span>(ht) <span class="ot">&lt;-</span> <span class="fl">0.35</span></span>
+<span id="cb61-1506"><a href="#cb61-1506" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格数字格式为保留 2 位小数</span></span>
+<span id="cb61-1507"><a href="#cb61-1507" aria-hidden="true" tabindex="-1"></a><span class="fu">number_format</span>(ht) <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb61-1508"><a href="#cb61-1508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1509"><a href="#cb61-1509" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置所有单元格数字格式为保留 2 位小数</span></span>
-<span id="cb61-1510"><a href="#cb61-1510" aria-hidden="true" tabindex="-1"></a><span class="fu">number_format</span>(ht) <span class="ot">&lt;-</span> <span class="dv">2</span></span>
-<span id="cb61-1511"><a href="#cb61-1511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1512"><a href="#cb61-1512" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看表格</span></span>
-<span id="cb61-1513"><a href="#cb61-1513" aria-hidden="true" tabindex="-1"></a>ht</span>
-<span id="cb61-1514"><a href="#cb61-1514" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1515"><a href="#cb61-1515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1516"><a href="#cb61-1516" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 管道</span></span>
-<span id="cb61-1517"><a href="#cb61-1517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1520"><a href="#cb61-1520" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1521"><a href="#cb61-1521" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包管道风格创建 `LaTeX` 表格并自定义样式"</span></span>
-<span id="cb61-1522"><a href="#cb61-1522" aria-hidden="true" tabindex="-1"></a>ht <span class="ot">&lt;-</span> <span class="fu">hux</span>(</span>
-<span id="cb61-1523"><a href="#cb61-1523" aria-hidden="true" tabindex="-1"></a>  <span class="at">Employee =</span> <span class="fu">c</span>(<span class="st">"John Smith"</span>, <span class="st">"Jane Doe"</span>, <span class="st">"David Hugh-Jones"</span>), <span class="co"># 员工姓名</span></span>
-<span id="cb61-1524"><a href="#cb61-1524" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">50000</span>, <span class="dv">40000</span>) <span class="co"># 薪资</span></span>
-<span id="cb61-1525"><a href="#cb61-1525" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1526"><a href="#cb61-1526" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1527"><a href="#cb61-1527" aria-hidden="true" tabindex="-1"></a>ht <span class="sc">|&gt;</span></span>
-<span id="cb61-1528"><a href="#cb61-1528" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bold</span>(<span class="dv">1</span>, everywhere) <span class="sc">|&gt;</span> <span class="co"># 第一行（表头）加粗，everywhere 表示所有列</span></span>
-<span id="cb61-1529"><a href="#cb61-1529" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bottom_border</span>(<span class="dv">1</span>, everywhere) <span class="sc">|&gt;</span> <span class="co"># 第一行底部加边框</span></span>
-<span id="cb61-1530"><a href="#cb61-1530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_align</span>(everywhere, <span class="dv">2</span>, <span class="st">"right"</span>) <span class="sc">|&gt;</span> <span class="co"># 第二列（薪资）右对齐</span></span>
-<span id="cb61-1531"><a href="#cb61-1531" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_lr_padding</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="co"># 左右内边距均为10</span></span>
-<span id="cb61-1532"><a href="#cb61-1532" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_width</span>(<span class="fl">0.35</span>) <span class="sc">|&gt;</span> <span class="co"># 表格宽度为页面的0.35</span></span>
-<span id="cb61-1533"><a href="#cb61-1533" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_number_format</span>(<span class="dv">2</span>) <span class="co"># 数字保留2位小数</span></span>
-<span id="cb61-1534"><a href="#cb61-1534" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1535"><a href="#cb61-1535" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1536"><a href="#cb61-1536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1537"><a href="#cb61-1537" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 格式化</span></span>
-<span id="cb61-1538"><a href="#cb61-1538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1541"><a href="#cb61-1541" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1542"><a href="#cb61-1542" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包格式化 `LaTeX` 表格：文本颜色、背景色、斜体和边框"</span></span>
-<span id="cb61-1543"><a href="#cb61-1543" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="sc">|&gt;</span></span>
-<span id="cb61-1544"><a href="#cb61-1544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_huxtable</span>(<span class="at">add_rownames =</span> <span class="st">"Model"</span>) <span class="sc">|&gt;</span> <span class="co"># 将数据框转换为 huxtable，并添加行名列“Model”</span></span>
-<span id="cb61-1545"><a href="#cb61-1545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bold</span>(<span class="dv">1</span>, everywhere, <span class="cn">TRUE</span>) <span class="sc">|&gt;</span>       <span class="co"># 第一行（表头）所有列加粗</span></span>
-<span id="cb61-1546"><a href="#cb61-1546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_all_borders</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>                  <span class="co"># 所有单元格加边框，宽度为1</span></span>
-<span id="cb61-1547"><a href="#cb61-1547" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_text_color</span>(everywhere, <span class="st">"mpg"</span>, <span class="fu">by_colorspace</span>(<span class="st">"navy"</span>, <span class="st">"red"</span>, <span class="st">"yellow"</span>)) <span class="sc">|&gt;</span> <span class="co"># mpg 列根据数值映射文本颜色（深蓝-红-黄渐变）</span></span>
-<span id="cb61-1548"><a href="#cb61-1548" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_background_color</span>(</span>
-<span id="cb61-1549"><a href="#cb61-1549" aria-hidden="true" tabindex="-1"></a>    everywhere,</span>
-<span id="cb61-1550"><a href="#cb61-1550" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hp"</span>,</span>
-<span id="cb61-1551"><a href="#cb61-1551" aria-hidden="true" tabindex="-1"></a>    <span class="fu">by_quantiles</span>(<span class="fl">0.8</span>, <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"yellow"</span>)) <span class="co"># hp 列按分位数映射背景色（白-黄）</span></span>
-<span id="cb61-1552"><a href="#cb61-1552" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb61-1553"><a href="#cb61-1553" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_italic</span>(everywhere, <span class="st">"Model"</span>, <span class="fu">by_regex</span>(<span class="st">"Merc.*"</span> <span class="ot">=</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="co"># Model 列名以 Merc 开头的行斜体</span></span>
-<span id="cb61-1554"><a href="#cb61-1554" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">12</span>) <span class="co"># 取前12行</span></span>
-<span id="cb61-1555"><a href="#cb61-1555" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1556"><a href="#cb61-1556" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1557"><a href="#cb61-1557" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1558"><a href="#cb61-1558" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 多回归表</span></span>
-<span id="cb61-1559"><a href="#cb61-1559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1562"><a href="#cb61-1562" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-1563"><a href="#cb61-1563" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包的 `huxreg()` 创建多模型回归结果表格，并详细注释各参数"</span></span>
-<span id="cb61-1564"><a href="#cb61-1564" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diamonds, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
-<span id="cb61-1565"><a href="#cb61-1565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1566"><a href="#cb61-1566" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> carat, diamonds) <span class="co"># 线性回归模型1：以 carat 预测 log(price)</span></span>
-<span id="cb61-1567"><a href="#cb61-1567" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> depth, diamonds) <span class="co"># 线性回归模型2：以 depth 预测 log(price)</span></span>
-<span id="cb61-1568"><a href="#cb61-1568" aria-hidden="true" tabindex="-1"></a>lm3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> carat <span class="sc">+</span> depth, diamonds) <span class="co"># 线性回归模型3：以 carat 和 depth 预测 log(price)</span></span>
-<span id="cb61-1569"><a href="#cb61-1569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1570"><a href="#cb61-1570" aria-hidden="true" tabindex="-1"></a><span class="co"># huxreg() 用于并排展示多个回归模型结果</span></span>
-<span id="cb61-1571"><a href="#cb61-1571" aria-hidden="true" tabindex="-1"></a><span class="co"># 参数说明：</span></span>
-<span id="cb61-1572"><a href="#cb61-1572" aria-hidden="true" tabindex="-1"></a><span class="co">#   lm1, lm2, lm3：要比较的多个回归模型对象</span></span>
-<span id="cb61-1573"><a href="#cb61-1573" aria-hidden="true" tabindex="-1"></a><span class="co">#   statistics：自定义底部统计量，N 表示样本量（nobs），R2 表示决定系数（r.squared）</span></span>
-<span id="cb61-1574"><a href="#cb61-1574" aria-hidden="true" tabindex="-1"></a><span class="fu">huxreg</span>(</span>
-<span id="cb61-1575"><a href="#cb61-1575" aria-hidden="true" tabindex="-1"></a>  lm1,</span>
-<span id="cb61-1576"><a href="#cb61-1576" aria-hidden="true" tabindex="-1"></a>  lm2,</span>
-<span id="cb61-1577"><a href="#cb61-1577" aria-hidden="true" tabindex="-1"></a>  lm3,</span>
-<span id="cb61-1578"><a href="#cb61-1578" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistics =</span> <span class="fu">c</span>(<span class="st">"N"</span> <span class="ot">=</span> <span class="st">"nobs"</span>, <span class="st">"R2"</span> <span class="ot">=</span> <span class="st">"r.squared"</span>)</span>
-<span id="cb61-1579"><a href="#cb61-1579" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb61-1580"><a href="#cb61-1580" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1581"><a href="#cb61-1581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1582"><a href="#cb61-1582" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 快速文档</span></span>
+<span id="cb61-1509"><a href="#cb61-1509" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看表格</span></span>
+<span id="cb61-1510"><a href="#cb61-1510" aria-hidden="true" tabindex="-1"></a>ht</span>
+<span id="cb61-1511"><a href="#cb61-1511" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1512"><a href="#cb61-1512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1513"><a href="#cb61-1513" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 管道</span></span>
+<span id="cb61-1514"><a href="#cb61-1514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1517"><a href="#cb61-1517" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1518"><a href="#cb61-1518" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包管道风格创建 `LaTeX` 表格并自定义样式"</span></span>
+<span id="cb61-1519"><a href="#cb61-1519" aria-hidden="true" tabindex="-1"></a>ht <span class="ot">&lt;-</span> <span class="fu">hux</span>(</span>
+<span id="cb61-1520"><a href="#cb61-1520" aria-hidden="true" tabindex="-1"></a>  <span class="at">Employee =</span> <span class="fu">c</span>(<span class="st">"John Smith"</span>, <span class="st">"Jane Doe"</span>, <span class="st">"David Hugh-Jones"</span>), <span class="co"># 员工姓名</span></span>
+<span id="cb61-1521"><a href="#cb61-1521" aria-hidden="true" tabindex="-1"></a>  <span class="at">Salary =</span> <span class="fu">c</span>(<span class="dv">50000</span>, <span class="dv">50000</span>, <span class="dv">40000</span>) <span class="co"># 薪资</span></span>
+<span id="cb61-1522"><a href="#cb61-1522" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1523"><a href="#cb61-1523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1524"><a href="#cb61-1524" aria-hidden="true" tabindex="-1"></a>ht <span class="sc">|&gt;</span></span>
+<span id="cb61-1525"><a href="#cb61-1525" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bold</span>(<span class="dv">1</span>, everywhere) <span class="sc">|&gt;</span> <span class="co"># 第一行（表头）加粗，everywhere 表示所有列</span></span>
+<span id="cb61-1526"><a href="#cb61-1526" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bottom_border</span>(<span class="dv">1</span>, everywhere) <span class="sc">|&gt;</span> <span class="co"># 第一行底部加边框</span></span>
+<span id="cb61-1527"><a href="#cb61-1527" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_align</span>(everywhere, <span class="dv">2</span>, <span class="st">"right"</span>) <span class="sc">|&gt;</span> <span class="co"># 第二列（薪资）右对齐</span></span>
+<span id="cb61-1528"><a href="#cb61-1528" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_lr_padding</span>(<span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="co"># 左右内边距均为10</span></span>
+<span id="cb61-1529"><a href="#cb61-1529" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_width</span>(<span class="fl">0.35</span>) <span class="sc">|&gt;</span> <span class="co"># 表格宽度为页面的0.35</span></span>
+<span id="cb61-1530"><a href="#cb61-1530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_number_format</span>(<span class="dv">2</span>) <span class="co"># 数字保留2位小数</span></span>
+<span id="cb61-1531"><a href="#cb61-1531" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1532"><a href="#cb61-1532" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1533"><a href="#cb61-1533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1534"><a href="#cb61-1534" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 格式化</span></span>
+<span id="cb61-1535"><a href="#cb61-1535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1538"><a href="#cb61-1538" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1539"><a href="#cb61-1539" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包格式化 `LaTeX` 表格：文本颜色、背景色、斜体和边框"</span></span>
+<span id="cb61-1540"><a href="#cb61-1540" aria-hidden="true" tabindex="-1"></a>mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>] <span class="sc">|&gt;</span></span>
+<span id="cb61-1541"><a href="#cb61-1541" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_huxtable</span>(<span class="at">add_rownames =</span> <span class="st">"Model"</span>) <span class="sc">|&gt;</span> <span class="co"># 将数据框转换为 huxtable，并添加行名列“Model”</span></span>
+<span id="cb61-1542"><a href="#cb61-1542" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_bold</span>(<span class="dv">1</span>, everywhere, <span class="cn">TRUE</span>) <span class="sc">|&gt;</span>       <span class="co"># 第一行（表头）所有列加粗</span></span>
+<span id="cb61-1543"><a href="#cb61-1543" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_all_borders</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>                  <span class="co"># 所有单元格加边框，宽度为1</span></span>
+<span id="cb61-1544"><a href="#cb61-1544" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_text_color</span>(everywhere, <span class="st">"mpg"</span>, <span class="fu">by_colorspace</span>(<span class="st">"navy"</span>, <span class="st">"red"</span>, <span class="st">"yellow"</span>)) <span class="sc">|&gt;</span> <span class="co"># mpg 列根据数值映射文本颜色（深蓝-红-黄渐变）</span></span>
+<span id="cb61-1545"><a href="#cb61-1545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_background_color</span>(</span>
+<span id="cb61-1546"><a href="#cb61-1546" aria-hidden="true" tabindex="-1"></a>    everywhere,</span>
+<span id="cb61-1547"><a href="#cb61-1547" aria-hidden="true" tabindex="-1"></a>    <span class="st">"hp"</span>,</span>
+<span id="cb61-1548"><a href="#cb61-1548" aria-hidden="true" tabindex="-1"></a>    <span class="fu">by_quantiles</span>(<span class="fl">0.8</span>, <span class="fu">c</span>(<span class="st">"white"</span>, <span class="st">"yellow"</span>)) <span class="co"># hp 列按分位数映射背景色（白-黄）</span></span>
+<span id="cb61-1549"><a href="#cb61-1549" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb61-1550"><a href="#cb61-1550" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_italic</span>(everywhere, <span class="st">"Model"</span>, <span class="fu">by_regex</span>(<span class="st">"Merc.*"</span> <span class="ot">=</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> <span class="co"># Model 列名以 Merc 开头的行斜体</span></span>
+<span id="cb61-1551"><a href="#cb61-1551" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">12</span>) <span class="co"># 取前12行</span></span>
+<span id="cb61-1552"><a href="#cb61-1552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1553"><a href="#cb61-1553" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1554"><a href="#cb61-1554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1555"><a href="#cb61-1555" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 多回归表</span></span>
+<span id="cb61-1556"><a href="#cb61-1556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1559"><a href="#cb61-1559" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-1560"><a href="#cb61-1560" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用 `huxtable` 包的 `huxreg()` 创建多模型回归结果表格，并详细注释各参数"</span></span>
+<span id="cb61-1561"><a href="#cb61-1561" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diamonds, <span class="at">package =</span> <span class="st">"ggplot2"</span>)</span>
+<span id="cb61-1562"><a href="#cb61-1562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1563"><a href="#cb61-1563" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> carat, diamonds) <span class="co"># 线性回归模型1：以 carat 预测 log(price)</span></span>
+<span id="cb61-1564"><a href="#cb61-1564" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> depth, diamonds) <span class="co"># 线性回归模型2：以 depth 预测 log(price)</span></span>
+<span id="cb61-1565"><a href="#cb61-1565" aria-hidden="true" tabindex="-1"></a>lm3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> carat <span class="sc">+</span> depth, diamonds) <span class="co"># 线性回归模型3：以 carat 和 depth 预测 log(price)</span></span>
+<span id="cb61-1566"><a href="#cb61-1566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1567"><a href="#cb61-1567" aria-hidden="true" tabindex="-1"></a><span class="co"># huxreg() 用于并排展示多个回归模型结果</span></span>
+<span id="cb61-1568"><a href="#cb61-1568" aria-hidden="true" tabindex="-1"></a><span class="co"># 参数说明：</span></span>
+<span id="cb61-1569"><a href="#cb61-1569" aria-hidden="true" tabindex="-1"></a><span class="co">#   lm1, lm2, lm3：要比较的多个回归模型对象</span></span>
+<span id="cb61-1570"><a href="#cb61-1570" aria-hidden="true" tabindex="-1"></a><span class="co">#   statistics：自定义底部统计量，N 表示样本量（nobs），R2 表示决定系数（r.squared）</span></span>
+<span id="cb61-1571"><a href="#cb61-1571" aria-hidden="true" tabindex="-1"></a><span class="fu">huxreg</span>(</span>
+<span id="cb61-1572"><a href="#cb61-1572" aria-hidden="true" tabindex="-1"></a>  lm1,</span>
+<span id="cb61-1573"><a href="#cb61-1573" aria-hidden="true" tabindex="-1"></a>  lm2,</span>
+<span id="cb61-1574"><a href="#cb61-1574" aria-hidden="true" tabindex="-1"></a>  lm3,</span>
+<span id="cb61-1575"><a href="#cb61-1575" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistics =</span> <span class="fu">c</span>(<span class="st">"N"</span> <span class="ot">=</span> <span class="st">"nobs"</span>, <span class="st">"R2"</span> <span class="ot">=</span> <span class="st">"r.squared"</span>)</span>
+<span id="cb61-1576"><a href="#cb61-1576" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb61-1577"><a href="#cb61-1577" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1578"><a href="#cb61-1578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1579"><a href="#cb61-1579" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 快速文档</span></span>
+<span id="cb61-1580"><a href="#cb61-1580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1581"><a href="#cb61-1581" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb61-1582"><a href="#cb61-1582" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码不会被执行</span></span>
 <span id="cb61-1583"><a href="#cb61-1583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1584"><a href="#cb61-1584" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
-<span id="cb61-1585"><a href="#cb61-1585" aria-hidden="true" tabindex="-1"></a><span class="co"># 这段代码不会被执行</span></span>
-<span id="cb61-1586"><a href="#cb61-1586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1587"><a href="#cb61-1587" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_pdf</span>(mtcars)</span>
-<span id="cb61-1588"><a href="#cb61-1588" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_docx</span>(mtcars)</span>
-<span id="cb61-1589"><a href="#cb61-1589" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_html</span>(mtcars)</span>
-<span id="cb61-1590"><a href="#cb61-1590" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_xlsx</span>(mtcars)</span>
-<span id="cb61-1591"><a href="#cb61-1591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1592"><a href="#cb61-1592" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-1593"><a href="#cb61-1593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1594"><a href="#cb61-1594" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pearl</span></span>
-<span id="cb61-1595"><a href="#cb61-1595" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-1596"><a href="#cb61-1596" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Tidyverse in Numbers</span><span class="co">](https://r-graph-gallery.com/web-interactive-table-with-inline-labels-images-and-charts.html)</span> 美观的带有图片的交互式表格。</span>
+<span id="cb61-1584"><a href="#cb61-1584" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_pdf</span>(mtcars)</span>
+<span id="cb61-1585"><a href="#cb61-1585" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_docx</span>(mtcars)</span>
+<span id="cb61-1586"><a href="#cb61-1586" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_html</span>(mtcars)</span>
+<span id="cb61-1587"><a href="#cb61-1587" aria-hidden="true" tabindex="-1"></a><span class="fu">quick_xlsx</span>(mtcars)</span>
+<span id="cb61-1588"><a href="#cb61-1588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1589"><a href="#cb61-1589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-1590"><a href="#cb61-1590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1591"><a href="#cb61-1591" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pearl</span></span>
+<span id="cb61-1592"><a href="#cb61-1592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-1593"><a href="#cb61-1593" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Tidyverse in Numbers</span><span class="co">](https://r-graph-gallery.com/web-interactive-table-with-inline-labels-images-and-charts.html)</span> 美观的带有图片的交互式表格。</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

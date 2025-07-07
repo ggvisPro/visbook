@@ -1,0 +1,19 @@
+# Ranking
+
+此部分探索数据排名（有序数据）的不同方法。
+
+![Ranking](./image/ranking.png)
+
+- @sec-bar : 条形图, 简单又好用的可视化方法
+
+- @sec-spider : 雷达图, 适合展示多维数据
+
+- @sec-wordcloud : 词云图，花里胡哨
+
+- @sec-parallel : 平行坐标图，雷达图的改进，适合展示多维数据
+
+- @sec-lollipop : 棒棒糖图，条形图的改进
+
+- @sec-cir-bar : 圆形条形图，条形图的改进，适合展示超多组数据
+
+- @sec-heatmap : 热力图

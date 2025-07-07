@@ -31,7 +31,7 @@ book:
         - connected-scatter.qmd
         - density2d.qmd
 
-    - part: Ranking
+    - part: ranking.qmd
       chapters:
         - bar.qmd
         - spider.qmd
@@ -40,7 +40,6 @@ book:
         - lollipop.qmd
         - cir-bar.qmd
         - table.qmd
-
 
     - part: part-of-a-whole.qmd
       chapters:
@@ -52,6 +51,7 @@ book:
         - circular.qmd
         - waffle.qmd
 
+    - part: evolution
 
     - summary.qmd
     - references.qmd

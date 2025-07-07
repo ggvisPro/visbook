@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Part of a Whole – 数据可视化探索(从入门到放弃)</title>
+<title>Ranking – 数据可视化探索(从入门到放弃)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,8 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./group-bar.html" rel="next">
-<link href="./table.html" rel="prev">
+<link href="./bar.html" rel="next">
+<link href="./density2d.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -117,7 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part-of-a-whole.html">Part of a Whole</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ranking.html">Ranking</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./ranking.html" class="sidebar-item-text sidebar-link">
+            <a href="./ranking.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Ranking</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part-of-a-whole.html" class="sidebar-item-text sidebar-link active">
+            <a href="./part-of-a-whole.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Part of a Whole</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -383,7 +383,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Part of a Whole</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Ranking</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -400,21 +400,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>此部分介绍了几种常用的表示部分与整体关系的图表类型。</p>
+<p>此部分探索数据排名（有序数据）的不同方法。</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./image/part-of-a-whole.png" class="img-fluid figure-img"></p>
-<figcaption>Part of a Whole</figcaption>
+<p><img src="./image/ranking.png" class="img-fluid figure-img"></p>
+<figcaption>Ranking</figcaption>
 </figure>
 </div>
 <ul>
-<li><p><a href="group-bar.html" class="quarto-xref"><span>20&nbsp; Group bar</span></a> 简单实用的分组条形图</p></li>
-<li><p><a href="treemap.html" class="quarto-xref"><span>21&nbsp; Treemap</span></a> 直观的矩形树图</p></li>
-<li><p><a href="pie.html" class="quarto-xref"><span>22&nbsp; Pie</span></a> 经典的饼图, 没什么用, 不推荐使用</p></li>
-<li><p><a href="donut.html" class="quarto-xref"><span>23&nbsp; Donut</span></a> 甜甜圈图, 饼图的变种, 同样不推荐使用</p></li>
-<li><p><a href="dendrogram.html" class="quarto-xref"><span>24&nbsp; Dendrogram</span></a> 树状图, 用于展示层级关系</p></li>
-<li><p><a href="circular.html" class="quarto-xref"><span>25&nbsp; Circular</span></a> 圆堆图, 用于展示层级关系</p></li>
-<li><p><a href="waffle.html" class="quarto-xref"><span>26&nbsp; Waffle</span></a> 华夫图, 用于展示比例关系</p></li>
+<li><p><a href="bar.html" class="quarto-xref"><span>13&nbsp; Bar</span></a> : 条形图, 简单又好用的可视化方法</p></li>
+<li><p><a href="spider.html" class="quarto-xref"><span>14&nbsp; Spider</span></a> : 雷达图, 适合展示多维数据</p></li>
+<li><p><a href="wordcloud.html" class="quarto-xref"><span>15&nbsp; Wordcloud</span></a> : 词云图，花里胡哨</p></li>
+<li><p><a href="parallel.html" class="quarto-xref"><span>16&nbsp; Parallel</span></a> : 平行坐标图，雷达图的改进，适合展示多维数据</p></li>
+<li><p><a href="lollipop.html" class="quarto-xref"><span>17&nbsp; Lollipop</span></a> : 棒棒糖图，条形图的改进</p></li>
+<li><p><a href="cir-bar.html" class="quarto-xref"><span>18&nbsp; Cir-bar</span></a> : 圆形条形图，条形图的改进，适合展示超多组数据</p></li>
+<li><p><a href="heatmap.html" class="quarto-xref"><span>8&nbsp; Heatmap</span></a> : 热力图</p></li>
 </ul>
 
 
@@ -874,35 +874,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./table.html" class="pagination-link" aria-label="Table">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Table</span></span>
+      <a href="./density2d.html" class="pagination-link" aria-label="Density 2D">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Density 2D</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./group-bar.html" class="pagination-link" aria-label="Group bar">
-        <span class="nav-page-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Group bar</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./bar.html" class="pagination-link" aria-label="Bar">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Bar</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Part of a Whole</span></span>
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Ranking</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>此部分介绍了几种常用的表示部分与整体关系的图表类型。</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>此部分探索数据排名（有序数据）的不同方法。</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="al">![Part of a Whole](./image/part-of-a-whole.png)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="al">![Ranking](./image/ranking.png)</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-group-bar  简单实用的分组条形图</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-treemap  直观的矩形树图</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-bar : 条形图, 简单又好用的可视化方法</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-spider : 雷达图, 适合展示多维数据</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-pie  经典的饼图, 没什么用, 不推荐使用</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-wordcloud : 词云图，花里胡哨</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-donut  甜甜圈图, 饼图的变种, 同样不推荐使用</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-parallel : 平行坐标图，雷达图的改进，适合展示多维数据</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-dendrogram  树状图, 用于展示层级关系</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-lollipop : 棒棒糖图，条形图的改进</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-circular  圆堆图, 用于展示层级关系</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-cir-bar : 圆形条形图，条形图的改进，适合展示超多组数据</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-waffle  华夫图, 用于展示比例关系</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@sec-heatmap : 热力图</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
