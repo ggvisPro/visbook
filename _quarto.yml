@@ -51,7 +51,13 @@ book:
         - circular.qmd
         - waffle.qmd
 
-    - part: evolution
+    - part: evolution.qmd
+      chapters:
+        - line.qmd
+        - area.qmd
+        - stacked-area.qmd
+        - stream.qmd
+        - time.qmd
 
     - summary.qmd
     - references.qmd

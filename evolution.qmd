@@ -1,0 +1,15 @@
+# Evolution
+
+此部分展示数据随时间的变化趋势
+
+![Evolution](./image/evolution.png)
+
+- @sec-line : 线图
+
+- @sec-area : 区域图
+
+- @sec-stacked-area : 堆叠区域图
+
+- @sec-stream : 流图
+
+- @sec-time : 时间序列图
