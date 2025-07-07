@@ -9,8 +9,8 @@ library(viridis) # for color palettes
 library(ggiraph) # for interactive plots
 library(ggraph) # for graph visualization
 library(igraph) # for graph manipulation
-library(circlepackeR) # for interactive circle packing
 # remotes::install_github("jeromefroe/circlepackeR")
+library(circlepackeR) # for interactive circle packing
 library(data.tree)
 ```
 
