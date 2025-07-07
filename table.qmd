@@ -24,7 +24,35 @@ library(flextable) # Word/PPT 表格
 library(rhandsontable) # 交互式编辑表格
 library(modelsummary) # 模型摘要表格
 library(huxtable) # LaTeX 表格
+
 ```
+
+
+因为有的交互式表格，`Quarto` 无法正确加载，所有包装了函数，也放在了 wordcloud文件夹内: 
+```{r}
+# 因为有的交互式表格，无法正确加载，所有包装了函数，也放在了 wordcloud文件夹内
+# 用法是embed_widget()包装一下，记得区块要写label
+
+embed_widget <- function(widget, height = "400px", width = "100%") {
+  # 步骤 1: 生成一个基于当前代码块标签的、独一无二的文件名
+  # 这样可以防止多个小部件相互覆盖文件
+  chunk_label <- opts_current$get('label')
+  filename <- paste0("./wordcloud/wc-", chunk_label, ".html")
+  
+  # 步骤 2: 将小部件保存为一个独立的、自包含的HTML文件
+  library(htmlwidgets)
+  saveWidget(widget, filename, selfcontained = TRUE)
+  
+  # 步骤 3: 创建并返回一个指向该文件的 iframe HTML 标签
+  tags$iframe(
+    src = filename,
+    height = height,
+    width = width,
+    style = "border:none;"
+  )
+}
+```
+
 
 `R` 的表格包有很多, 主要分为以下几类:
 
@@ -405,7 +433,6 @@ head(mtcars) |>
 
 
 
-
 ### `kable()`
 
 ```r
@@ -422,7 +449,7 @@ kable(
 ```
 
 ```{r}
-#| fig-cap: "使用 kable() 创建表格"
+#| fig-cap: "使用 `kable()` 创建表格"
 
 # 创建一个简单的数据框
 df = data.frame(
@@ -433,7 +460,6 @@ df = data.frame(
 df |>
   kable() # 创建一个简单的表格
 ```
-
 
 
 ### `kableExtra()`
@@ -465,7 +491,6 @@ df |>
   row_spec(3, color = "blue") |> # 第三行字体颜色设为蓝色
   row_spec(4, background = "yellow") # 第四行背景色设为黄色
 ```
-
 
 
 `color` 和 `background` 参数也可以接受颜色向量：
@@ -556,15 +581,13 @@ df |>
 
 
 
-
-
 ## Interactive
 
 `DT`、`reactable` 或 `formattable` 制作交互式表格
 
 ### `DT`
 
-`DT`（{[官方文档](https://github.com/rstudio/DT)}），即DataTables，基于 Javascript，DT 以其高效处理大型数据集的能力和丰富的功能（如搜索、排序和分页）而突出。
+`DT`（[官方文档](https://github.com/rstudio/DT)），即DataTables，基于 Javascript，DT 以其高效处理大型数据集的能力和丰富的功能（如搜索、排序和分页）而突出。
 
 #### 基本
 
@@ -693,10 +716,10 @@ table # 显示表格
 
 也非常适合设计具有可扩展行的表格，使其成为以用户友好方式汇总和展示复杂数据集的理想选择。
 
-
 #### 基本
 
 ```{r}
+#| label: "reactable-basic"
 #| fig-cap: "使用 `reactable()` 创建交互式表格：基本用法"
 
 df = data.frame(
@@ -709,8 +732,9 @@ df = data.frame(
   percentage = c(0.12, 0.23, 0.34)
 )
 
-reactable(df)
+tab <- (reactable(df))
 
+embed_widget(tab, height = "300px")
 ```
 
 #### 日期
@@ -720,7 +744,8 @@ reactable(df)
 `format` 参数来自定义日期格式，有三种日期格式： `datetime`、`date`和 `time`。
 
 ```{r}
-#| fig-cap: "使用 reactable::colFormat() 格式化日期、时间和本地化显示"
+#| label: "reactable-datetime"
+#| fig-cap: "使用 `reactable::colFormat()` 格式化日期、时间和本地化显示"
 
 # 创建一个包含不同时间格式的数据框
 datetimes <- as.POSIXct(
@@ -749,7 +774,7 @@ tab <- reactable(
   )
 )
 
-tab
+embed_widget(tab, height = "300px")
 
 ```
 
@@ -757,7 +782,8 @@ tab
 #### 货币
 
 ```{r}
-#| fig-cap: "使用 reactable::colFormat() 格式化多种货币并本地化显示"
+#| label: "reactable-currency"
+#| fig-cap: "使用 `reactable::colFormat()` 格式化多种货币并本地化显示"
 
 # 创建一个包含多种货币的数据框
 data = data.frame(
@@ -795,7 +821,7 @@ tab = reactable(
   )
 )
 
-tab
+embed_widget(tab, height = "300px")
 
 ```
 
@@ -803,7 +829,8 @@ tab
 #### 数字
 
 ```{r}
-#| fig-cap: "使用 reactable::colFormat() 格式化数字列"
+#| label: "reactable-num"
+#| fig-cap: "使用 `reactable::colFormat()` 格式化数字列"
 
 # 创建一个包含温度和百分比的数据框
 df <- data.frame(
@@ -824,13 +851,14 @@ tab <- reactable(
   )
 )
 
-tab
+embed_widget(tab, height = "200px")
 
 ```
 
 #### 图片表格
 
 ```{r}
+#| label: "reactable-image"
 #| fig-cap: "使用 reactable 和 reactablefmtr 制作带图片和数据条的网球冠军表格"
 library(tidyverse) # 数据处理与可视化
 library(reactablefmtr) # reactable 扩展包，用于数据条、色阶等
@@ -1033,7 +1061,7 @@ table_final <- table |>
     )
   )
 
-table_final
+embed_widget(table_final)
 
 ```
 
@@ -1042,6 +1070,7 @@ table_final
 ### `formattable`
 
 `formattable` 是另一个创建交互式表格的 R 包。
+
 
 #### 基础
 
@@ -1126,7 +1155,7 @@ df <- data.frame(
   stringsAsFactors = FALSE # 避免自动转化为因子
 )
 
-df |> kable(caption = "用于 `formattable` 的格式化前的数据")
+df |> formattable(caption = "用于 `formattable` 的格式化前的数据")
 
 ```
 
@@ -1134,6 +1163,9 @@ df |> kable(caption = "用于 `formattable` 的格式化前的数据")
 
 ```{r}
 #| fig-cap: "使用 formattable 包创建带有条件格式和图标的交互式表格"
+
+library(formattable) 
+
 formattable(
   df,
   list(
@@ -1144,7 +1176,7 @@ formattable(
     grade = formatter(
       "span",
       style = x ~
-        ifelse(x == "A", style(color = "green", font.weight = "bold"), NA)
+        ifelse(x == "A", formattable::style(color = "green", font.weight = "bold"), NA)
     ),
 
     # test1_score 和 test2_score 列：normalize_bar() 添加粉色条形图，宽度最小为 0.2
@@ -1153,14 +1185,14 @@ formattable(
     # final_score 列：前 3 名为绿色，其余为灰色，并显示分数和排名
     final_score = formatter(
       "span",
-      style = x ~ style(color = ifelse(rank(-x) <= 3, "green", "gray")),
+      style = x ~ formattable::style(color = ifelse(rank(-x) <= 3, "green", "gray")),
       x ~ sprintf("%.2f (rank: %02d)", x, rank(-x))
     ),
 
     # registered 列：TRUE 为绿色“ok”图标和 Yes，FALSE 为红色“remove”图标和 No
     registered = formatter(
       "span",
-      style = x ~ style(color = ifelse(x, "green", "red")),
+      style = x ~ formattable::style(color = ifelse(x, "green", "red")),
       x ~ icontext(ifelse(x, "ok", "remove"), ifelse(x, "Yes", "No"))
     )
   )
@@ -1180,6 +1212,8 @@ formattable(
 
 
 ```r
+# 这段代码不会被执行
+
 flextable(iris) |> 
   theme_vanilla() |> 
   save_as_docx(path = "mytable.docx") # 导出为word文档
@@ -1188,7 +1222,7 @@ flextable(iris) |>
 ```{r}
 #| fig-cap: "使用 flextable 包创建精致的静态表格，并自定义字体、字号、边框颜色等样式"
 
-# library(flextable)
+library(flextable)
 
 # 设置 flextable 的默认参数
 set_flextable_defaults(
@@ -1200,7 +1234,7 @@ set_flextable_defaults(
 
 # 创建 flextable 表格对象
 ft <- flextable(head(mtcars)) |>
-  bold(part = "header")    # 表头加粗
+  flextable::bold(part = "header")    # 表头加粗
 
 ft
 ```
@@ -1234,8 +1268,9 @@ ft |>
 
 ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |>
   summarizor(by = c("cut")) |> # summarizor: 按 cut 分组汇总数据
-  as_flextable(spread_first_col = TRUE) # as_flextable: 转为 flextable 表格，spread_first_col=TRUE 将第一列展开为分组标签
+  flextable::as_flextable(spread_first_col = TRUE) # as_flextable: 转为 flextable 表格，spread_first_col=TRUE 将第一列展开为分组标签
 ```
+
 
 ### `rhandsontable`
 
@@ -1245,7 +1280,8 @@ ggplot2::diamonds[, c("cut", "carat", "price", "clarity", "table")] |>
 它最适合需要在网页界面中交互式编辑和操作数据的场景，例如 `Shiny` 应用程序。
 
 
-```r
+```{r}
+#| label: "rhandsontable-basic"
 #| fig-cap: "使用 rhandsontable 包创建可交互编辑的表格，并在 'chart' 列中嵌入 sparkline 迷你图"
 
 # 由于Quarto渲染问题，所以不执行这段代码
@@ -1268,8 +1304,9 @@ p <- rhandsontable(df, rowHeaders = NULL) |> # rowHeaders = NULL 不显示行名
     "chart", # 指定 chart 列
     renderer = htmlwidgets::JS("renderSparkline") # 使用 JS 渲染 sparkline 迷你图
   )
-  
-p
+
+embed_widget(p, height = "300px")
+
 ```
 
 ### `modelsummary`
@@ -1282,18 +1319,17 @@ p
 
 **`Model Summary` 模型摘要**
 
-- modelsummary : 并列模型回归表。
-- modelplot: 系数图。
+- `modelsummary` : 并列模型回归表。
+- `modelplot` : 系数图。
 
 **`Data Summary` 数据摘要**
 
-- datasummary : 创建（多级）交叉表和数据摘要的强大工具。
-- datasummary_crosstab : 交叉表。
-- datasummary_balance : 基线表，包含子组统计和均值差异（又名 “*table 1*” ）。
-- datasummary_correlation: Correlation tables.
-- datasummary_correlation : 相关性表格。
-- datasummary_skim : 数据集的快速概览（“skim”）。
-- datasummary_df : 将数据框转换为带有标题、注释等的漂亮表格。
+- `datasummary` : 创建（多级）交叉表和数据摘要的强大工具。
+- `datasummary_crosstab` : 交叉表。
+- `datasummary_balance` : 基线表，包含子组统计和均值差异（又名 “*table 1*” ）。
+- `datasummary_correlation` : 相关性表格。
+- `datasummary_skim` : 数据集的快速概览（“skim”）。
+- `datasummary_df` : 将数据框转换为带有标题、注释等的漂亮表格。
 
 #### 特点
 
@@ -1437,13 +1473,14 @@ huxreg(
 
 #### 快速文档
 
-```r.
+```r
 # 这段代码不会被执行
 
 quick_pdf(mtcars)
 quick_docx(mtcars)
 quick_html(mtcars)
 quick_xlsx(mtcars)
+
 ```
 
 ## Pearl
