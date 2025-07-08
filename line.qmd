@@ -303,7 +303,7 @@ tmp |>
 ```
 
 
-通过交互来解决意大利面：
+通过交互来解决意大利面 (部分交互效果 Quarto 中没有正确加载):
 
 ```{r}
 #| fig-cap: "交互式意大利面图：展示多个国家消费者信心指数随时间的变化（可悬停高亮）"
@@ -1286,4 +1286,3 @@ doubleYScale(
 
 
 [![近几年全球消费者信心的演变](./image/line-mult.png)](https://r-graph-gallery.com/web-line-chart-small-multiple-all-group-greyed-out.html)
-
