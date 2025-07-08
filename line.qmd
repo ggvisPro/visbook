@@ -9,7 +9,14 @@ library(plotly) # 交互式图表
 library(patchwork) # 用于组合多个ggplot2图表
 library(babynames) # 包含美国婴儿姓名数据集
 library(viridis) # 提供色盲友好的配色方案
+library(latticeExtra) # 提供额外的lattice图形功能
+library(gghighlight) # 用于高亮显示ggplot2图形中的特定数据点
+library(ggiraph) # 用于创建交互式ggplot2图形
+library(RColorBrewer) # 提供调色板
+library(plotrix) # 提供绘图功能
 ```
+
+
 ## What
 
 ### Definition  
@@ -55,11 +62,11 @@ don <- babynames |>
 # 绘制折线图，展示不同名字随年份的变化趋势
 don |>
     ggplot(aes(x = year, y = n, group = name, color = name)) + # x轴为年份，y轴为人数，按名字分组和着色
-        geom_line() + # 绘制折线
-        scale_color_viridis(discrete = TRUE) + # 使用色盲友好的配色方案
-        ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
-        hrbrthemes::theme_ipsum() + # 应用 hrbrthemes 主题
-        labs(y = "Number of babies born") # 设置 y 轴标签
+    geom_line() + # 绘制折线
+    scale_color_viridis(discrete = TRUE) + # 使用色盲友好的配色方案
+    ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
+    hrbrthemes::theme_ipsum() + # 应用 hrbrthemes 主题
+    labs(y = "Number of babies born") # 设置 y 轴标签
 ```
 
 但是这种情况其实仅适用于**分组不多**的情况。
@@ -71,16 +78,16 @@ don |>
 ```{r}
 #| fig-cap: 展示比特币价格最后10天的折线与散点图
 
-data |>
+df |>
     tail(10) |> # 取数据的最后10行
     ggplot(aes(x = date, y = value)) + # 设置x轴为日期，y轴为比特币价格
-        geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
-        geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
-        labs(
-            x = "Date", # 设置x轴标签
-            y = "Bitcoin Price ($)", # 设置y轴标签
-            title = "Bitcoin Price Evolution in the Last 10 Days" # 设置图表标题
-        )
+    geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
+    geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
+    labs(
+        x = "Date", # 设置x轴标签
+        y = "Bitcoin Price ($)", # 设置y轴标签
+        title = "Bitcoin Price Evolution in the Last 10 Days" # 设置图表标题
+    )
 ```
 
 在散点图中，线也用于显示趋势:
@@ -89,9 +96,9 @@ data |>
 #| fig-cap: 给散点图加上拟合线
 
 ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  geom_smooth(color="#69b3a2") +
-  theme_ipsum()
+    geom_point() +
+    geom_smooth(color = "#69b3a2") +
+    theme_ipsum()
 ```
 
 ### 注意
@@ -110,32 +117,366 @@ df |>
     mutate(date = as.Date(date)) |> # 转换日期格式
     tail(10) |>
     ggplot(aes(x = date, y = value)) + # 设置x轴为日期，y轴为比特币价格
-        geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
-        geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
-        ggtitle("Not cuting") + # 设置图表标题
-        ylab("bitcoin price ($)") + # 设置y轴标签
-        theme_ipsum() + # 应用hrbrthemes主题
-        ylim(0, 10000) # 设置y轴范围从0到10000
+    geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
+    geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
+    ggtitle("Not cuting") + # 设置图表标题
+    ylab("bitcoin price ($)") + # 设置y轴标签
+    theme_ipsum() + # 应用hrbrthemes主题
+    ylim(0, 10000) # 设置y轴范围从0到10000
 
 # 右图：Y轴截断
 df |>
     mutate(date = as.Date(date)) |> # 转换日期格式
     tail(10) |>
     ggplot(aes(x = date, y = value)) + # 设置x轴为日期，y轴为比特币价格
-        geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
-        geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
-        ggtitle("Cuting") + # 设置图表标题
-        ylab("bitcoin price ($)") + # 设置y轴标签
-        theme_ipsum() # 应用hrbrthemes主题
+    geom_line(color = "#69b3a2") + # 绘制折线，颜色为#69b3a2
+    geom_point(color = "#69b3a2", size = 4) + # 绘制散点，颜色为#69b3a2，点大小为4
+    ggtitle("Cuting") + # 设置图表标题
+    ylab("bitcoin price ($)") + # 设置y轴标签
+    theme_ipsum() # 应用hrbrthemes主题
 
 ```
 
 - 比较两个不同变量的变化趋势，不要使用双轴。（双轴会根据你应用在轴上的范围显示非常不同的结果）
-- 警惕意大利面条图（线条太多难以阅读）
 - 选择合适的宽高比，极端比例会使图表难以阅读。
-- 
+- 警惕意大利面条图（线条太多难以阅读）
 
-## `ggplot`
+
+### 意大利面
+
+```{r}
+#| fig-cap: "意大利面图：展示 1880-2015 年间美国多个女性婴儿名字的流行趋势"
+
+# 加载所需包
+library(tidyverse) # 数据处理与可视化核心包
+library(hrbrthemes) # 美化主题
+library(viridis) # 色盲友好配色
+library(babynames) # 美国婴儿名字数据集
+
+# 从 babynames 数据集中筛选指定的女性名字
+data <- babynames |>
+    filter(
+        name %in% # 只保留以下名字
+            c(
+                "Mary",
+                "Emma",
+                "Ida",
+                "Ashley",
+                "Amanda",
+                "Jessica",
+                "Patricia",
+                "Linda",
+                "Deborah",
+                "Dorothy",
+                "Betty",
+                "Helen"
+            )
+    ) |>
+    filter(sex == "F") # 只保留女性
+
+# 绘制意大利面图（多线折线图）
+data |>
+    ggplot(aes(
+        x = year, # x 轴为年份
+        y = n, # y 轴为出生人数
+        group = name, # 按名字分组
+        color = name # 按名字着色
+    )) +
+    geom_line() + # 绘制折线
+    scale_color_viridis(discrete = TRUE) + # 使用 viridis 配色
+    theme(
+        legend.position = "none", # 不显示图例
+        plot.title = element_text(size = 14) # 设置标题字体大小
+    ) +
+    ggtitle("A spaghetti chart of baby names popularity") + # 添加标题
+    theme_ipsum() # 应用 hrbrthemes 主题
+
+```
+
+通过高亮来突出重点：
+
+```{r}
+#| fig-cap: "高亮 Amanda 名字的流行趋势，并添加注释"
+
+data |> # 数据集，包含婴儿名字及年份、数量等信息
+    mutate(
+        highlight = ifelse(name == "Amanda", "Amanda", "Other") # 新增 highlight 列，Amanda 为 "Amanda"，其他为 "Other"
+    ) |>
+    ggplot(aes(
+        x = year, # x 轴为年份
+        y = n, # y 轴为出生人数
+        group = name, # 按名字分组
+        color = highlight # 按 highlight 分组着色
+    )) +
+    geom_line(aes(size = highlight)) + # 绘制折线，线宽根据 highlight 分组
+    scale_color_manual(
+        values = c("#69b3a2", "lightgrey") # 手动设置颜色：Amanda 为绿色，其他为浅灰
+    ) +
+    scale_size_manual(
+        values = c(1.5, 0.2) # 手动设置线宽：Amanda 为 1.5，其它为 0.2
+    ) +
+    theme(legend.position = "none") + # 不显示图例
+    ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
+    theme_ipsum() + # 应用 hrbrthemes 主题
+    geom_label(
+        x = 1990, # 注释标签的 x 坐标（年份）
+        y = 55000, # 注释标签的 y 坐标（人数）
+        label = "Amanda reached 3550\nbabies in 1970", # 注释内容，\n 换行
+        size = 4, # 注释字体大小
+        color = "#69b3a2" # 注释字体颜色
+    ) +
+    theme(
+        legend.position = "none", # 不显示图例
+        plot.title = element_text(size = 14) # 设置标题字体大小
+    )
+
+```
+
+
+通过分面来突出重点：
+
+
+```{r}
+#| fig-cap: " 1880-2015 年间美国多个女性婴儿名字的流行趋势（每个名字单独分面）"
+
+data |> # 数据集，包含婴儿名字及年份、数量等信息
+    ggplot(
+        aes(
+            x = year, # x 轴为年份
+            y = n, # y 轴为出生人数
+            group = name, # 按名字分组
+            fill = name # 按名字填充颜色
+        )
+    ) +
+    geom_area() + # 绘制面积图
+    scale_fill_viridis(discrete = TRUE) + # 使用 viridis 色盲友好配色方案，discrete = TRUE 表示离散型变量
+    theme(legend.position = "none") + # 不显示图例
+    ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
+    theme_ipsum() + # 应用 hrbrthemes 主题
+    theme(
+        legend.position = "none", # 不显示图例
+        panel.spacing = unit(0.1, "lines"), # 分面之间的间距
+        strip.text.x = element_text(size = 8), # 分面标题字体大小
+        plot.title = element_text(size = 14) # 图表标题字体大小
+    ) +
+    facet_wrap(~name) # 按名字分面，每个名字一个子图
+
+```
+
+
+通过高亮+分面来突出重点：
+
+```{r}
+#| fig-cap: "1880-2015 年间美国多个女性婴儿名字的流行趋势，灰色为其他名字，高亮绿色为当前分面名字"
+
+# tmp 数据集：复制 data，并新增 name2 列（等于 name），用于后续分组
+tmp <- data |>
+    mutate(name2 = name)
+
+# 绘制意大利面图
+tmp |>
+    ggplot(aes(x = year, y = n)) + # year 为 x 轴，n 为 y 轴
+    # 绘制所有名字的灰色线（去掉 name，按 name2 分组）
+    geom_line(
+        data = tmp |> dplyr::select(-name), # 去除 name 列，避免颜色映射
+        aes(group = name2), # 按 name2 分组
+        color = "grey", # 线条颜色为灰色
+        size = 0.5, # 线宽为 0.5
+        alpha = 0.5 # 透明度为 0.5
+    ) +
+    # 绘制当前分面名字的高亮线
+    geom_line(
+        aes(color = name), # 按 name 着色（用于 facet_wrap 高亮）
+        color = "#69b3a2", # 线条颜色为绿色
+        size = 1.2 # 线宽为 1.2
+    ) +
+    scale_color_viridis(discrete = TRUE) + # 使用 viridis 色盲友好配色方案
+    theme_ipsum() + # 应用 hrbrthemes 主题
+    theme(
+        legend.position = "none", # 不显示图例
+        plot.title = element_text(size = 14), # 标题字体大小
+        panel.grid = element_blank() # 去除网格线
+    ) +
+    ggtitle("A spaghetti chart of baby names popularity") + # 添加标题
+    facet_wrap(~name) # 按名字分面，每个名字一个子图
+
+```
+
+
+通过交互来解决意大利面：
+
+```{r}
+#| fig-cap: "交互式意大利面图：展示多个国家消费者信心指数随时间的变化（可悬停高亮）"
+
+# library
+library(ggplot2) # 用于数据可视化
+library(ggiraph) # 用于生成交互式 ggplot2 图形
+library(tidyverse) # 数据处理与可视化核心包
+
+# 读取数据
+data <- read.csv(
+    "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/dataConsumerConfidence.csv"
+) |>
+    mutate(date = lubridate::my(Time)) |>
+    select(-Time) |>
+    pivot_longer(!date, names_to = "country", values_to = "value") |>
+    na.omit() |>
+    mutate(country = as.factor(country))
+
+# 绘制交互式折线图
+plot <- data |>
+    ggplot(
+        mapping = aes(
+            x = date, # x 轴为日期
+            y = value, # y 轴为消费者信心指数
+            color = country, # 按国家分组着色
+            tooltip = country, # 鼠标悬停时显示国家名
+            data_id = country # 交互高亮的分组依据
+        )
+    ) +
+    geom_line_interactive(hover_nearest = TRUE) + # 绘制可交互折线，hover_nearest=TRUE 表示悬停高亮最近的线
+    theme_classic() # 使用经典主题
+
+
+interactive_plot <- girafe(ggobj = plot) # 输出交互式图形
+interactive_plot
+
+```
+
+
+定制 CSS：
+
+```{r}
+#| fig-cap: "自定义交互式意大利面图的悬停和选中样式，禁用保存为 PNG 工具按钮"
+
+interactive_plot2 <- girafe_options(
+    interactive_plot,
+
+    # 设置鼠标悬停时的样式：填充色为浅黄色，描边为黑色，鼠标为指针
+    opts_hover(css = "fill:#ffe7a6;stroke:black;cursor:pointer;"),
+
+    # 设置选中时的样式：单选，填充色为红色，描边为黑色
+    opts_selection(type = "single", css = "fill:red;stroke:black;"),
+    opts_toolbar(saveaspng = FALSE) # 工具栏设置：禁用“保存为 PNG”按钮
+)
+interactive_plot2
+```
+
+
+高亮某条线：
+
+```{r}
+#| fig-cap: "自定义交互式意大利面图的高亮线样式，鼠标悬停时线条加粗变色，未悬停线条变淡，禁用保存为 PNG 工具按钮"
+
+interactive_plot2 <- girafe_options(
+    interactive_plot,
+    # opts_hover: 设置鼠标悬停时的 CSS 样式
+    #   css = "stroke:#69B3A2; stroke-width: 3px; transition: all 0.3s ease;"
+    #   - stroke: 线条颜色为 #69B3A2
+    #   - stroke-width: 线宽加粗为 3px
+    #   - transition: 所有变化 0.3 秒内平滑过渡
+    opts_hover(css = "stroke:#69B3A2; stroke-width: 3px; transition: all 0.3s ease;"),
+    # opts_hover_inv: 设置未悬停（非高亮）线条的 CSS 样式
+    #   "opacity:0.5;filter:saturate(10%);"
+    #   - opacity: 透明度降低为 0.5
+    #   - filter:saturate(10%): 饱和度降低为 10%
+    opts_hover_inv("opacity:0.5;filter:saturate(10%);"),
+    # opts_toolbar: 工具栏设置
+    #   saveaspng = FALSE 禁用“保存为 PNG”按钮
+    opts_toolbar(saveaspng = FALSE)
+)
+interactive_plot2
+```
+
+更进一步：
+
+```{r}
+#| fig-cap: "自定义交互式意大利面图的悬停样式，鼠标悬停时线条变色加粗并添加阴影，禁用保存为 PNG 工具按钮"
+
+hover_css <- "
+    fill: #ffe7a6;                      # 鼠标悬停时填充色为浅黄色
+    fill-opacity: 0.5;                  # 填充透明度为0.5
+    stroke: black;                      # 描边颜色为黑色
+    stroke-width: 7px;                  # 描边宽度为7像素
+    stroke-dasharray: 5,5;              # 虚线样式，5像素实线+5像素空白
+    transition: fill-opacity 0.5s, stroke-width 0.5s, stroke-dasharray 0.5s, filter 0.5s; # 平滑过渡动画
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5)); # 添加阴影效果
+"
+
+interactive_plot2 <- girafe_options(
+    interactive_plot,
+    opts_hover(css = hover_css), # 设置鼠标悬停时的CSS样式
+    opts_toolbar(saveaspng = FALSE) # 工具栏设置：禁用“保存为 PNG”按钮
+)
+interactive_plot2
+```
+
+把 CSS 和其它的 `ggiraph` 特性组合：
+
+```{r}
+plot <- data |>
+    ggplot(mapping = aes(
+        x = date,
+        y = value,
+        color = country,
+        group = country,
+        tooltip = paste("Country:", country, "<br>Date:", date, "<br>Value:", round(value, 2)),
+        data_id = country
+    )) +
+    geom_line_interactive(size = 1.2, hover_nearest = TRUE) +
+    geom_point_interactive(aes(size = value), alpha = 0.7) +
+    scale_color_viridis_d() +
+    scale_size_continuous(range = c(1, 2)) +
+    theme_minimal(base_size = 14) +
+    labs(
+        title = "Interactive Country Data Visualization",
+        subtitle = "Try to hover and click on the lines!",
+        caption = "R-Graph-Gallery.com",
+        x = "Date",
+        y = "Consumer Confidence"
+    ) +
+    theme(
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 16, face = "italic"),
+        legend.position = "none",
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill = "ivory", color = NA),
+        plot.background = element_rect(fill = "ivory", color = NA)
+    )
+
+interactive_plot <- girafe(ggobj = plot)
+
+hover_css <- "
+  stroke: black;
+  stroke-width: 1px;
+  r: 8px;
+  transition: all 0.3s ease;
+"
+
+tooltip_css <- "
+  background-color: #2C3E50;
+  color: #ECF0F1;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+"
+
+interactive_plot <- girafe_options(
+    interactive_plot,
+    opts_hover(css = hover_css),
+    opts_tooltip(css = tooltip_css, use_fill = TRUE),
+    opts_selection(type = "multiple", only_shiny = FALSE),
+    opts_zoom(min = 0.5, max = 2),
+    opts_toolbar(saveaspng = TRUE, position = "topright", pngname = "country_data_plot"),
+    opts_sizing(rescale = TRUE)
+)
+interactive_plot
+```
+
+
+## `ggplot2`
 
 ### 基本
 
@@ -149,7 +490,7 @@ data <- data.frame(xValue, yValue)
 
 # 绘图
 ggplot(data, aes(x = xValue, y = yValue)) +
-  geom_line()
+    geom_line()
 ```
 
 
@@ -159,17 +500,17 @@ ggplot(data, aes(x = xValue, y = yValue)) +
 #| fig-cap: 使用 `geom_line()`绘制带有自定义线条样式的折线图
 
 ggplot(data, aes(x = xValue, y = yValue)) +
-  geom_line(
-    color = "#69b3a2",  # 线条颜色
-    linewidth = 2,  # 线条粗细，旧版是 size
-    alpha = 0.9,  # 线条透明度
-    linetype = 2  # 线条类型
-  ) +
-  theme_ipsum()
+    geom_line(
+        color = "#69b3a2", # 线条颜色
+        linewidth = 2, # 线条粗细，旧版是 size
+        alpha = 0.9, # 线条透明度
+        linetype = 2 # 线条类型
+    ) +
+    theme_ipsum()
 
 ```
 
-### log
+### 对数
 
 `scale_y_log10()` 可以将 y 轴进行 log10 变换，适用于数据范围较大或呈指数增长的情况。
 
@@ -188,7 +529,7 @@ data <- data.frame(
 
 # 绘制普通折线图
 ggplot(data, aes(x = x, y = y)) +
-  geom_line()
+    geom_line()
 
 # 绘制对数折线图
 ggplot(data, aes(x = x, y = y)) +
@@ -206,13 +547,13 @@ ggplot(data, aes(x = x, y = y)) +
 
 # df 是前文从 github 加载的数据
 df |>
-  mutate(date = as.Date(date)) |>  # 转化为时间
-  tail(10) |>
-  ggplot(aes(x = date, y = value)) +
-  geom_line(color = "grey") +
-  geom_point(shape = 21, color = "black", fill = "#69b3a2", size = 6) +
-  theme_ipsum() +
-  ggtitle("Evolution of bitcoin price")
+    mutate(date = as.Date(date)) |> # 转化为时间
+    tail(10) |>
+    ggplot(aes(x = date, y = value)) +
+    geom_line(color = "grey") +
+    geom_point(shape = 21, color = "black", fill = "#69b3a2", size = 6) +
+    theme_ipsum() +
+    ggtitle("Evolution of bitcoin price")
 
 ```
 
@@ -229,13 +570,14 @@ don <- babynames |>
 # 绘制分组折线图
 don |>
     ggplot(aes(
-        x = year,         # x 轴为年份
-        y = n,            # y 轴为出生人数
+        x = year, # x 轴为年份
+        y = n, # y 轴为出生人数
         # group = name,     # 按名字分组，有color设置就不需要这句
-        color = name      # 按名字着色
+        color = name # 按名字着色
     )) +
-    geom_line()         # 绘制折线
+    geom_line() # 绘制折线
 ```
+
 
 ```{r}
 #| fig-cap: "美化的分组折线图：展示 1880 年至 2015 年间美国女性婴儿名字 Ashley、Patricia、Helen 的流行趋势"
@@ -243,17 +585,17 @@ don |>
 don |>
     ggplot(
         aes(
-            x = year,          # x 轴为年份
-            y = n,             # y 轴为出生人数
-            group = name,      # 按名字分组
-            color = name       # 按名字着色
+            x = year, # x 轴为年份
+            y = n, # y 轴为出生人数
+            group = name, # 按名字分组
+            color = name # 按名字着色
         )
     ) +
-        geom_line() + # 绘制折线
-        scale_color_viridis(discrete = TRUE) + # 使用色盲友好的配色方案
-        ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
-        theme_ipsum() + # 应用 hrbrthemes 主题
-        ylab("Number of babies born") # 设置 y 轴标签
+    geom_line() + # 绘制折线
+    scale_color_viridis(discrete = TRUE) + # 使用色盲友好的配色方案
+    ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
+    theme_ipsum() + # 应用 hrbrthemes 主题
+    ylab("Number of babies born") # 设置 y 轴标签
 ```
 
 ### Linear model
@@ -268,9 +610,9 @@ don |>
 
 # 创建示例数据
 data <- data.frame(
-  cond = rep(c("condition_1", "condition_2"), each=10), 
-  my_x = 1:100 + rnorm(100,sd=9), 
-  my_y = 1:100 + rnorm(100,sd=16) 
+    cond = rep(c("condition_1", "condition_2"), each = 10),
+    my_x = 1:100 + rnorm(100, sd = 9),
+    my_y = 1:100 + rnorm(100, sd = 16)
 )
 
 # 绘制散点图，展示数据分布
@@ -300,45 +642,375 @@ ggplot(data, aes(x = my_x, y = my_y)) +
 df |>
     mutate(date = as.Date(date)) |> # 转换日期格式
     ggplot(aes(x = date, y = value)) + # 设置 x 轴为日期，y 轴为价格
-        geom_line(color = "#69b3a2") + # 绘制折线，颜色为 #69b3a2
-        ylim(0, 22000) + # 设置 y 轴范围为 0 到 22000
-        annotate(
-            geom = "text", # 添加文本注释
-            x = as.Date("2017-01-01"), # 注释文本的 x 坐标（日期）
-            y = 20089, # 注释文本的 y 坐标（价格）
-            label = "Bitcoin price reached 20k $\nat the end of 2017" # 注释内容，\n 表示换行
-        ) +
-        annotate(
-            geom = "point", # 添加点注释
-            x = as.Date("2017-12-17"), # 点的 x 坐标（日期）
-            y = 20089, # 点的 y 坐标（价格）
-            size = 10, # 点的大小
-            shape = 21, # 点的形状（圆形，带边框）
-            fill = "transparent" # 填充色为透明
-        ) +
-        geom_hline(
-            yintercept = 5000, # 添加水平线，y=5000
-            color = "orange", # 水平线颜色为橙色
-            size = .5 # 水平线宽度
-        ) +
-        theme_ipsum() # 应用 hrbrthemes 主题
+    geom_line(color = "#69b3a2") + # 绘制折线，颜色为 #69b3a2
+    ylim(0, 22000) + # 设置 y 轴范围为 0 到 22000
+    annotate(
+        geom = "text", # 添加文本注释
+        x = as.Date("2017-01-01"), # 注释文本的 x 坐标（日期）
+        y = 20089, # 注释文本的 y 坐标（价格）
+        label = "Bitcoin price reached 20k $\nat the end of 2017" # 注释内容，\n 表示换行
+    ) +
+    annotate(
+        geom = "point", # 添加点注释
+        x = as.Date("2017-12-17"), # 点的 x 坐标（日期）
+        y = 20089, # 点的 y 坐标（价格）
+        size = 10, # 点的大小
+        shape = 21, # 点的形状（圆形，带边框）
+        fill = "transparent" # 填充色为透明
+    ) +
+    geom_hline(
+        yintercept = 5000, # 添加水平线，y=5000
+        color = "orange", # 水平线颜色为橙色
+        size = .5 # 水平线宽度
+    ) +
+    theme_ipsum() # 应用 hrbrthemes 主题
+```
+
+### Highlight 
+
+```{r}
+#| fig-cap: "`ggplot2` 默认线条"
+
+library(gghighlight)
+
+# 构造示例数据
+set.seed(1)
+period <- 100
+df <- data.frame(
+    Date = seq(as.Date("2020-01-01"), by = "day", length.out = period),
+    Value = c(
+        cumsum(rnorm(period)),
+        cumsum(rnorm(period)),
+        cumsum(rnorm(period))
+    ),
+    Type = c(rep("a", period), rep("b", period), rep("c", period))
+)
+
+
+df |>
+    ggplot(aes(x = Date, y = Value, color = Type)) +
+    geom_line()
+
+```
+
+```{r}
+#| fig-cap: "使用 `gghighlight` 高亮显示特定线"
+
+df |>
+    ggplot(aes(x = Date, y = Value, color = Type)) +
+    geom_line() +
+    gghighlight(max(Value) > 10)
 ```
 
 
+```{r}
+#| fig-cap: "自定义未高亮线的样式"
+
+ggplot(df) +
+    geom_line(
+        aes(Date, Value, colour = Type), # 映射：x轴为Date，y轴为Value，按Type着色
+        linewidth = 1 # 线宽为1
+    ) +
+    gghighlight(
+        max(Value) > 10, # 仅高亮 Value 最大值大于10的线
+        unhighlighted_params = list(
+            linewidth = 0.3, # 未高亮线宽为0.3
+            colour = alpha("blue", 0.7), # 未高亮线为蓝色，透明度0.7
+            linetype = "dashed" # 未高亮线为虚线
+        )
+    )
+
+```
 
 
+```{r}
+#| fig-cap: "gghighlight 高亮线示例：上图高亮最大值大于10的线，下图高亮最小值小于-10的线"
+
+library(hrbrthemes)
+library(patchwork)
+
+# plot1：高亮最大值大于10的线
+plot1 <- ggplot(df) +
+    geom_line(
+        aes(Date, Value, colour = Type), # 映射：x轴为Date，y轴为Value，按Type着色
+        linewidth = 0.4, # 线宽为0.4
+        color = "#4393C3" # 线条颜色为#4393C3
+    ) +
+    gghighlight(
+        max(Value) > 10, # 仅高亮 Value 最大值大于10的线
+        unhighlighted_params = list(
+            linewidth = 0.3, # 未高亮线宽为0.3
+            colour = alpha("darkred", 0.7), # 未高亮线为深红色，透明度0.7
+            linetype = "dotted" # 未高亮线为点状线
+        ),
+        use_direct_label = FALSE # 不直接标注高亮线
+    ) +
+    theme_bw() +
+    xlab("") +
+    ylab("")
+
+# plot2：高亮最小值小于-10的线
+plot2 <- ggplot(df) +
+    geom_line(
+        aes(Date, Value, colour = Type), # 映射：x轴为Date，y轴为Value，按Type着色
+        linewidth = 0.4, # 线宽为0.4
+        color = "#4393C3" # 线条颜色为#4393C3
+    ) +
+    gghighlight(
+        min(Value) < -10, # 仅高亮 Value 最小值小于-10的线
+        unhighlighted_params = list(
+            linewidth = 0.3, # 未高亮线宽为0.3
+            colour = alpha("darkred", 0.7), # 未高亮线为深红色，透明度0.7
+            linetype = "dotted" # 未高亮线为点状线
+        ),
+        use_direct_label = FALSE # 不直接标注高亮线
+    ) +
+    theme_bw()
+
+# 上下拼接两个图，并添加总标题
+plot1 / plot2 + plot_annotation(title = "This chart is built with gghighlight")
+
+```
 
 
+### `geom_ribbon()`
+
+与 `geom_smooth() `类似（可自动计算阴影面积），但是 `geom_ribbon()` 需要自己输入阴影部分。
+
+```{r}
+#| fig-cap: "使用 `geom_ribbon()` 绘制带阴影的折线图"
 
 
-
-
-
-
+huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
+ggplot(huron, aes(x = year)) +
+    geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
+    geom_line(aes(y = level))
+```
 
 
 ## `Base R`
 
+### 彩虹线
+
+```{r}
+#| fig-cap: "使用 Base R 的 `plotrix::clplot()` 绘制分段彩色折线图，展示 x 与 y 的关系"
+
+# 加载 plotrix 包，提供 clplot 分段彩色折线图函数
+library(plotrix)
+
+# 加载 RColorBrewer 包，生成配色方案
+library(RColorBrewer)
+my_colors <- brewer.pal(8, "Set2") # 生成 8 种 Set2 调色板颜色
+
+# 创建数据
+x <- seq(1, 100) # x 变量，取值为 1 到 100 的等差数列
+y <- sin(x / 5) + x / 20 # y 变量，包含正弦波动和线性增长
+
+# 绘制分段彩色折线图
+par(mar = c(4, 4, 2, 2)) # 设置图形边距，下、左、上、右分别为 4,4,2,2
+clplot(
+    x, # x 轴数据
+    y, # y 轴数据
+    main = "", # 图表标题为空
+    lwd = 5, # 线宽为 5
+    levels = c(1, 2, 3, 4, 5), # 分段水平，决定颜色分段的区间
+    col = my_colors, # 使用自定义的颜色向量
+    showcuts = T, # 是否显示分段的切割线（TRUE 显示）
+    bty = "n" # 不绘制边框（box type = "none"）
+)
+
+```
+
+
+### 图例
+
+```{r}
+#| fig-cap: "基础折线图：两组数据随 a 变化的趋势，并添加图例"
+
+
+# 创建数据:
+a <- c(1:5)
+b <- c(5, 3, 4, 5, 5)
+c <- c(4, 5, 4, 3, 1)
+
+# 绘制基础折线图
+plot(
+    b ~ a, # y ~ x，b 随 a 变化
+    type = "b", # "b" 表示点和线都画
+    bty = "l", # 只画左和下边框
+    xlab = "value of a", # x 轴标签
+    ylab = "value of b", # y 轴标签
+    col = rgb(0.2, 0.4, 0.1, 0.7), # 线和点的颜色（带透明度）
+    lwd = 3, # 线宽
+    pch = 17, # 点的形状（17为实心三角）
+    ylim = c(1, 5) # y 轴范围
+)
+lines(
+    c ~ a, # 第二组数据 c 随 a 变化
+    col = rgb(0.8, 0.4, 0.1, 0.7), # 线和点的颜色
+    lwd = 3, # 线宽
+    pch = 19, # 点的形状（19为实心圆）
+    type = "b" # 点和线都画
+)
+
+# 添加图例
+legend(
+    "bottomleft", # 图例位置：左下角
+    legend = c("Group 1", "Group 2"), # 图例标签
+    col = c(rgb(0.2, 0.4, 0.1, 0.7), rgb(0.8, 0.4, 0.1, 0.7)), # 每组颜色
+    pch = c(17, 19), # 每组点的形状
+    bty = "n", # 图例无边框
+    pt.cex = 2, # 点的大小
+    cex = 1.2, # 字体大小
+    text.col = "black", # 文字颜色
+    horiz = F, # 垂直排列
+    inset = c(0.1, 0.1) # 图例与边界的距离
+)
+
+```
+
+
+### Y 轴反向
+
+```{r}
+#| fig-cap: "基础折线图：y 轴反向显示，展示 y 随 x 递减趋势，并添加竖向灰色参考线"
+
+x <- seq(1, 29)^2 + runif(29, 0.98)
+y <- abs(seq(1, 29) + 4 * runif(29, 0.4))
+
+# 绘制基础折线图
+plot(
+    y ~ x, # y ~ x，y 随 x 变化
+    ylim = rev(range(y)), # y 轴范围反转（递减显示）
+    lwd = 4, # 线宽为 4
+    type = "l", # "l" 表示只画线
+    bty = "n", # 不绘制边框（box type = "none"）
+    ylab = "value of y (decreasing)", # y 轴标签
+    col = rgb(0.2, 0.4, 0.6, 0.8) # 线条颜色（带透明度）
+)
+
+# 添加竖向灰色参考线
+abline(
+    v = seq(0, 900, 100), # v 指定竖线位置（从0到900，每隔100）
+    col = "grey", # 线条颜色为灰色
+    lwd = 0.6 # 线宽为0.6
+)
+```
+
+### 拟合
+
+```{r}
+#| fig-cap: "多项式拟合示例：三次多项式拟合散点数据，并在图中显示拟合公式和拟合优度"
+
+
+x <- runif(300, min = -10, max = 10) # 生成300个均匀分布的随机数，范围[-10, 10]
+y <- 0.1 * x^3 - 0.5 * x^2 - x + 10 + rnorm(length(x), 0, 8) # 构造三次多项式关系并加上正态噪声
+
+# 绘制散点图
+plot(
+    x, y,
+    col = rgb(0.4, 0.4, 0.8, 0.6), # 点的颜色（带透明度）
+    pch = 16, # 点的形状（16为实心圆）
+    cex = 1.3 # 点的大小
+)
+
+# 用三次多项式拟合数据
+model <- lm(y ~ x + I(x^2) + I(x^3))
+
+# 可以查看模型特征
+# summary(model)
+# model$coefficients
+# summary(model)$adj.r.squared
+
+# 预测每个x对应的y拟合值，并添加拟合曲线到图中
+myPredict <- predict(model)
+ix <- sort(x, index.return = TRUE)$ix # 获取x排序后的索引
+lines(
+    x[ix], myPredict[ix],
+    col = 2, # 拟合曲线颜色（2为红色）
+    lwd = 2 # 线宽为2
+)
+
+# 在图中添加模型公式和拟合优度
+coeff <- round(model$coefficients, 2) # 四舍五入系数
+text(
+    3, -70,
+    paste(
+        "Model : ", coeff[1], " + ", coeff[2], "*x", "+", coeff[3], "*x^2", "+", coeff[4], "*x^3", "\n\n",
+        "P-value adjusted = ", round(summary(model)$adj.r.squared, 2)
+    )
+)
+```
+
+
+### cheatsheet
+
+```{r}
+#| fig-cap: "基础 R 绘图参数演示：pch、col、cex、lty、type、lwd 的效果"
+
+
+# initialization
+par(mar = c(3, 3, 3, 3)) # 设置图形边距，下、左、上、右分别为3
+num <- 0
+num1 <- 0
+plot(
+    0, # x 坐标
+    0, # y 坐标
+    xlim = c(0, 21), # x 轴范围
+    ylim = c(0.5, 6.5), # y 轴范围
+    col = "white", # 点颜色为白色（背景）
+    yaxt = "n", # 不绘制 y 轴刻度
+    ylab = "", # y 轴标签为空
+    xlab = "" # x 轴标签为空
+)
+
+# 填充图形内容
+for (i in seq(1, 20)) {
+    points(i, 1, pch = i, cex = 3) # pch 不同点形状
+    points(i, 2, col = i, pch = 16, cex = 3) # col 不同颜色
+    points(i, 3, col = "black", pch = 16, cex = i * 0.25) # cex 不同点大小
+
+    # lty 线型
+    if (i %in% c(seq(1, 18, 3))) {
+        num <- num + 1
+        points(c(i, i + 2), c(4, 4), col = "black", lty = num, type = "l", lwd = 2) # lty 不同线型
+        text(i + 1.1, 4.15, num) # 标注线型编号
+    }
+
+    # type 和 lwd
+    if (i %in% c(seq(1, 20, 5))) {
+        num1 <- num1 + 1
+        points(
+            c(i, i + 1, i + 2, i + 3),
+            c(5, 5, 5, 5),
+            col = "black",
+            type = c("p", "l", "b", "o")[num1], # type 不同类型（点、线、点线、重叠）
+            lwd = 2
+        )
+        text(i + 1.1, 5.2, c("p", "l", "b", "o")[num1]) # 标注 type 类型
+        points(
+            c(i, i + 1, i + 2, i + 3),
+            c(6, 6, 6, 6),
+            col = "black",
+            type = "l",
+            lwd = num1 # lwd 不同线宽
+        )
+        text(i + 1.1, 6.2, num1) # 标注线宽
+    }
+}
+
+# 添加 y 轴标签
+axis(
+    2, # y 轴
+    at = c(1, 2, 3, 4, 5, 6), # 位置
+    labels = c("pch", "col", "cex", "lty", "type", "lwd"), # 标签
+    tick = TRUE, # 显示刻度线
+    col = "black", # 轴颜色
+    las = 1, # 标签水平显示
+    cex.axis = 0.8 # 轴标签大小
+)
+
+```
 
 
 ## 双 Y 轴
@@ -372,6 +1044,9 @@ ggplot(data, aes(x = day, y = price)) + # x轴为日期，y轴为价格
     theme_ipsum() # 应用hrbrthemes主题
 ```
 
+
+### `ggplot2`
+
 `sec.axis()` 添加第二个 Y 轴
 
 在下面的示例中，第二个 Y 轴简单地表示第一个 Y 轴乘以 10，这得益于 `trans` 参数提供的 `~.*10` 数学关系。
@@ -399,19 +1074,18 @@ ggplot(data, aes(x = day, y = temperature)) +
 coeff <- 10
 
 ggplot(data, aes(x = day)) +
-  
-  geom_line(aes(y = temperature)) + # 绘制温度折线，y 轴为 temperature
-  geom_line(aes(y = price / coeff)) + # 绘制价格折线，y 轴为 price/10，使其与温度在同一范围
-  
-  scale_y_continuous(
-    # 主 Y 轴设置
-    name = "First Axis", # 主 Y 轴名称
-    # 添加第二个 Y 轴
-    sec.axis = sec_axis(
-      ~ . * coeff, # 副轴为主轴数值的 10 倍
-      name = "Second Axis" # 副 Y 轴名称
+    geom_line(aes(y = temperature)) + # 绘制温度折线，y 轴为 temperature
+    geom_line(aes(y = price / coeff)) + # 绘制价格折线，y 轴为 price/10，使其与温度在同一范围
+
+    scale_y_continuous(
+        # 主 Y 轴设置
+        name = "First Axis", # 主 Y 轴名称
+        # 添加第二个 Y 轴
+        sec.axis = sec_axis(
+            ~ . * coeff, # 副轴为主轴数值的 10 倍
+            name = "Second Axis" # 副 Y 轴名称
+        )
     )
-  )
 ```
 
 再美化一下：
@@ -455,38 +1129,161 @@ temperatureColor <- "#69b3a2" # 温度条形颜色
 priceColor <- rgb(0.2, 0.6, 0.9, 1) # 价格折线颜色
 
 ggplot(head(data, 80), aes(x = day)) +
-  
-  # 绘制温度的条形图
-  geom_bar(
-    aes(y = temperature),         # y 轴为温度
-    stat = "identity",            # 使用原始数值绘制条形
-    size = .1,                    # 边框线宽
-    fill = temperatureColor,      # 填充色
-    color = "black",              # 边框颜色
-    alpha = .4                    # 透明度
-  ) +
-  # 绘制价格的折线图（已缩放）
-  geom_line(
-    aes(y = price / coeff),       # y 轴为价格/系数
-    size = 2,                     # 线宽
-    color = priceColor            # 线条颜色
-  ) +
-  
-  # 设置主 y 轴和副 y 轴
-  scale_y_continuous(
-    name = "Temperature (Celsius °)",                # 主 y 轴名称
-    sec.axis = sec_axis(~ . * coeff, name = "Price ($)") # 副 y 轴为主轴数值的 coeff 倍，名称为 Price ($)
-  ) +
-  
-  theme_ipsum() + # 应用 hrbrthemes 主题
 
-  # 自定义 y 轴标题颜色和字号
-  theme(
-    axis.title.y = element_text(color = temperatureColor, size = 13),         # 主 y 轴标题样式
-    axis.title.y.right = element_text(color = priceColor, size = 13)          # 副 y 轴标题样式
-  ) +
+    # 绘制温度的条形图
+    geom_bar(
+        aes(y = temperature), # y 轴为温度
+        stat = "identity", # 使用原始数值绘制条形
+        size = .1, # 边框线宽
+        fill = temperatureColor, # 填充色
+        color = "black", # 边框颜色
+        alpha = .4 # 透明度
+    ) +
+    # 绘制价格的折线图（已缩放）
+    geom_line(
+        aes(y = price / coeff), # y 轴为价格/系数
+        size = 2, # 线宽
+        color = priceColor # 线条颜色
+    ) +
 
-  ggtitle("Temperature down, price up") # 添加标题
+    # 设置主 y 轴和副 y 轴
+    scale_y_continuous(
+        name = "Temperature (Celsius °)", # 主 y 轴名称
+        sec.axis = sec_axis(~ . * coeff, name = "Price ($)") # 副 y 轴为主轴数值的 coeff 倍，名称为 Price ($)
+    ) +
+    theme_ipsum() + # 应用 hrbrthemes 主题
+
+    # 自定义 y 轴标题颜色和字号
+    theme(
+        axis.title.y = element_text(color = temperatureColor, size = 13), # 主 y 轴标题样式
+        axis.title.y.right = element_text(color = priceColor, size = 13) # 副 y 轴标题样式
+    ) +
+    ggtitle("Temperature down, price up") # 添加标题
 ```
 
+
+### `latticeExtra`
+
+```{r}
+#| fig-cap: "latticeExtra 双变量折线图：展示 var1 和 var2 随 x 的变化趋势"
+
+library(latticeExtra)
+
+# 创建数据
+set.seed(1) # 设置随机种子，保证结果可复现
+x <- 1:100 # x 变量，取值为 1 到 100
+var1 <- cumsum(rnorm(100)) # var1，正态分布随机数累加，模拟随机游走
+var2 <- var1^2 # var2，var1 的平方
+data <- data.frame(x, var1, var2) # 合并为数据框
+
+# 绘制基础折线图
+xyplot(
+    var1 + var2 ~ x, # 公式，表示 var1 和 var2 都随 x 变化
+    data, # 数据来源
+    type = "l", # type = "l" 表示折线图（line）
+    col = c("steelblue", "#69b3a2"), # 线条颜色
+    lwd = 2 # 线条宽度
+)
+
+```
+
+
+```{r}
+#| fig-cap: "latticeExtra 双 Y 轴折线图：分别展示 var1 和 var2 随 x 的变化趋势，并在右侧添加第二个 Y 轴"
+
+# 加载 latticeExtra 包，支持双 Y 轴绘图
+library(latticeExtra)
+
+# 创建数据
+set.seed(1) # 设置随机种子，保证结果可复现
+x <- 1:100 # x 变量，取值为 1 到 100
+var1 <- cumsum(rnorm(100)) # var1，正态分布随机数累加，模拟随机游走
+var2 <- var1^2 # var2，var1 的平方
+data <- data.frame(x, var1, var2) # 合并为数据框
+
+# 分别为 var1 和 var2 构建单独的折线图对象
+obj1 <- xyplot(
+    var1 ~ x, # 公式，y 轴为 var1，x 轴为 x
+    data, # 数据来源
+    type = "l", # type = "l" 表示折线图（line）
+    lwd = 2, # lwd = 2 设置线宽为 2
+    col = "steelblue" # col 设置线条颜色为 steelblue
+)
+obj2 <- xyplot(
+    var2 ~ x, # 公式，y 轴为 var2，x 轴为 x
+    data, # 数据来源
+    type = "l", # 折线图
+    lwd = 2, # 线宽为 2
+    col = "#69b3a2" # 线条颜色为 #69b3a2
+)
+
+# 使用 doubleYScale 绘制双 Y 轴图
+doubleYScale(
+    obj1, # 主 Y 轴图层（左侧，var1）
+    obj2, # 副 Y 轴图层（右侧，var2）
+    add.ylab2 = TRUE, # 是否添加第二个 Y 轴标签（TRUE 表示添加）
+    use.style = FALSE # 是否使用 latticeExtra 默认样式（FALSE 表示不使用）
+)
+
+```
+
+这个图表非常具有误导性：很容易得出两个变量都遵循相同模式的结论，这完全错误。
+
+在双轴图表中，一定要仔细检查哪个轴才是真正的轴。
+
+Conclusion: don’t do it!
+
+如果你坚持，以下是添加图例到图表的方法：
+
+```{r}
+#| fig-cap: "latticeExtra 双 Y 轴折线图（含图例）：分别展示 var1 和 var2 随 x 的变化趋势，并在右侧添加第二个 Y 轴和图例"
+
+# 加载 latticeExtra 包，支持双 Y 轴绘图
+library(latticeExtra)
+
+# 创建数据
+set.seed(1) # 设置随机种子，保证结果可复现
+x <- 1:100 # x 变量，取值为 1 到 100
+var1 <- cumsum(rnorm(100)) # var1，正态分布随机数累加，模拟随机游走
+var2 <- var1^2 # var2，var1 的平方
+data <- data.frame(x, var1, var2) # 合并为数据框
+
+# 分别为 var1 和 var2 构建单独的折线图对象
+obj1 <- xyplot(
+    var1 ~ x, # 公式，y 轴为 var1，x 轴为 x
+    data, # 数据来源
+    type = "l", # type = "l" 表示折线图（line）
+    lwd = 2 # lwd = 2 设置线宽为 2
+)
+obj2 <- xyplot(
+    var2 ~ x, # 公式，y 轴为 var2，x 轴为 x
+    data, # 数据来源
+    type = "l", # 折线图
+    lwd = 2 # 线宽为 2
+)
+
+# 使用 doubleYScale 绘制双 Y 轴图，并添加图例
+doubleYScale(
+    obj1, # 主 Y 轴图层（左侧，var1）
+    obj2, # 副 Y 轴图层（右侧，var2）
+    text = c("obj1", "obj2"), # 图例文本，分别对应 obj1 和 obj2
+    add.ylab2 = TRUE # 是否添加第二个 Y 轴标签（TRUE 表示添加）
+)
+```
+
+
 ## Pearl
+
+[![每条线末端有精美标签](./image/line-label.png)](https://r-graph-gallery.com/web-line-chart-with-labels-at-end-of-line.html)
+
+[![折线图和堆叠面积图](./image/line-stack.png)](https://r-graph-gallery.com/web-lineplots-and-area-chart-the-economist.html)
+
+
+[![1976 年至今美国众议院中的政党优势](./image/line-vertical.png)](https://r-graph-gallery.com/web-vertical-line-chart-with-ggplot2.html)
+
+
+[![伦敦不同区域能动物救助的演变](./image/line-area.png)](https://r-graph-gallery.com/web-time-series-and-facetting.html)
+
+
+[![近几年全球消费者信心的演变](./image/line-mult.png)](https://r-graph-gallery.com/web-line-chart-small-multiple-all-group-greyed-out.html)
+
