@@ -1,3 +1,386 @@
 # Area {#sec-area}
 
-1
+跟折线图实在是很像, 区别是下面加了阴影(面积)
+
+## PKG
+
+```{r}
+library(tidyverse)    # 加载tidyverse，包含数据处理和可视化常用包
+# library(dygraph)      # 加载dygraph，交互式时间序列可视化
+library(dygraphs)     # 加载dygraphs，dygraph的扩展包
+library(xts)          # 加载xts，处理时间序列数据
+library(lubridate)    # 加载lubridate，处理日期和时间
+library(babynames)   # 加载babynames，包含美国婴儿名字数据
+library(ggpattern)   # 加载ggpattern，ggplot2的扩展包，用于添加图案填充
+library(hrbrthemes)  # 加载hrbrthemes，提供美观的ggplot2主题
+```
+
+
+## `ggplot2`
+
+### 基本
+
+`geom_area()` 是用来绘制面积图的函数。
+
+```{r}
+#| fig-cap: "`geom_area()` 绘制面积图"
+
+
+library(ggplot2)
+
+# 创建示例数据
+xValue <- 1:50
+yValue <- cumsum(rnorm(50))
+data <- data.frame(xValue,yValue)
+
+# 绘制面积图
+ggplot(data, aes(x=xValue, y=yValue)) +
+  geom_area()
+
+```
+
+```{r}
+#| fig-cap: "使用 geom_area() 绘制带有线条和点的面积图，并应用 hrbrthemes 主题"
+
+library(ggplot2)      # 加载 ggplot2 包用于数据可视化
+library(hrbrthemes)   # 加载 hrbrthemes 包用于美化图表主题
+
+# 创建数据
+xValue <- 1:10
+yValue <- abs(cumsum(rnorm(10)))  # 生成 10 个正的累积正态分布随机数
+data <- data.frame(xValue, yValue)  # 合并为数据框
+
+# 绘制面积图
+ggplot(data, aes(x = xValue, y = yValue)) +           # 指定数据和映射关系
+    geom_area(fill = "#69b3a2", alpha = 0.4) +          # 添加半透明的面积
+    geom_line(color = "#69b3a2", size = 2) +            # 添加线条
+    geom_point(size = 3, color = "#69b3a2") +           # 添加数据点
+    theme_ipsum() +                                     # 应用 hrbrthemes 主题
+    ggtitle("Evolution of something")                   # 添加标题
+```
+
+### 对数
+
+```{r}
+#| fig-cap: "使用对数坐标轴绘制面积图，展示 scale_y_log10 的用法"
+#| layout-ncol: 2
+#| fig-subcap:
+#|   - "原始数据,无对数转换"
+#|   - "对数坐标轴面积图"
+
+# 加载 ggplot2 包用于数据可视化
+library(ggplot2)
+
+# 创建示例数据框，x 从 10 到 100，y 是 x/2 加上正态分布噪声
+data <- data.frame(
+    x = seq(10, 100),                       # x 变量，取值从 10 到 100
+    y = seq(10, 100) / 2 + rnorm(90)        # y 变量，x/2 加上正态噪声
+)
+
+# 绘制面积图(原始数据)
+ggplot(data, aes(x = x, y = y)) +
+  geom_line() 
+
+# 绘制面积图(对数)
+ggplot(data, aes(x = x, y = y)) +         # 指定数据和映射关系
+    geom_line() +                           # 添加折线
+    scale_y_log10(                          # y 轴使用对数刻度
+        breaks = c(1, 5, 10, 15, 20, 50, 100),# 指定对数刻度的断点
+        limits = c(1, 100)                    # y 轴范围限制在 1 到 100
+    )
+```
+
+
+### 堆叠
+
+```{r}
+#| fig-cap: "使用 geom_area() 绘制堆叠面积图，展示不同分组的面积堆叠效果"
+
+library(ggplot2)      # 加载 ggplot2 包用于数据可视化
+library(dplyr)        # 加载 dplyr 包用于数据处理
+
+# 创建数据
+time <- as.numeric(rep(seq(1,7), each=7))   # x 轴变量，1 到 7，每个重复 7 次
+value <- runif(49, 10, 100)                 # y 轴变量，49 个 10 到 100 之间的随机数
+group <- rep(LETTERS[1:7], times=7)         # 分组变量，A 到 G，每组 7 个
+data <- data.frame(time, value, group)      # 合并为数据框
+
+# 绘制堆叠面积图
+ggplot(data, aes(x = time, y = value, fill = group)) +  # 指定数据和映射关系，fill 按 group 分组
+    geom_area()                                         # 绘制堆叠面积
+```
+
+
+控制堆叠顺序:
+
+```{r}
+#| fig-cap: "控制堆叠面积图的分组顺序，并演示如何按指定顺序、字母顺序和特定时间点的数值排序"
+#| layout-ncol: 3
+#| fig-height: 8
+#| fig-subcap:
+#|   - "指定分组顺序"
+#|   - "按字母顺序分组"
+#|   - "按特定时间点的数值排序分组"
+
+
+# 给定特定顺序：将 group 列转换为因子，并指定分组顺序
+data$group <- factor(data$group, levels = c("B", "A", "D", "E", "G", "F", "C"))
+
+# 再次绘制面积图，分组顺序按照上面指定的 levels
+ggplot(data, aes(x = time, y = value, fill = group)) +
+  geom_area() + 
+  theme(legend.position = "bottom") # 将图例放在底部, 为了排版
+
+# 也可以按字母顺序排序分组
+myLevels <- levels(data$group) # 获取当前分组的 levels
+data$group <- factor(data$group, levels = sort(myLevels)) # 按字母顺序排序
+ggplot(data, aes(x = time, y = value, fill = group)) +
+  geom_area() + 
+  theme(legend.position = "bottom") # 将图例放在底部, 为了排版
+
+# 按某一时间点（如 time = 6）对应的 value 值进行排序
+myLevels <- data |>
+  dplyr::filter(time == 6) |> # 过滤出 time 等于 6 的数据
+  dplyr::arrange(value) # 按 value 升序排列
+data$group <- factor(data$group, levels = myLevels$group) # 按 value 排序后的分组顺序设置因子 levels
+ggplot(data, aes(x = time, y = value, fill = group)) +
+  geom_area() + 
+  theme(legend.position = "bottom") # 将图例放在底部, 为了排版
+```
+
+
+比例堆叠面积图(每组的总和都是100): 
+
+```{r}
+#| fig-cap: "使用新管道 |> 语法绘制比例堆叠面积图，并详细注释每一步数据处理"
+
+library(dplyr)
+
+# 按 time 和 group 分组，计算每组的 value 总和，并计算每组所占比例
+data <- data |>
+  group_by(time, group) |> # 按时间和分组分组
+  summarise(n = sum(value)) |> # 计算每组的 value 总和，命名为 n
+  mutate(percentage = n / sum(n)) # 计算每组所占比例
+
+# # 注意：如果不用 dplyr 也可以这样计算百分比
+# my_fun <- function(vec){
+#     as.numeric(vec[2]) / sum(data$value[data$time == vec[1]]) * 100   # 计算每一行 value 占该时间点总和的百分比
+# }
+# data$percentage <- apply(data, 1, my_fun)   # 对每一行应用函数，得到百分比
+
+# 绘制比例堆叠面积图
+ggplot(data, aes(x = time, y = percentage, fill = group)) +
+  geom_area(alpha = 0.6, size = 1, colour = "black") # 绘制面积图，设置透明度、线宽和边框颜色
+
+```
+
+再更改一下颜色和样式:
+
+```{r}
+#| fig-cap: "使用 viridis 调色板和 hrbrthemes 主题美化堆叠面积图"
+# 加载所需包
+library(viridis)      # 提供高可读性的配色方案
+library(hrbrthemes)   # 提供美观的 ggplot2 主题
+
+# 绘制堆叠面积图
+ggplot(data, aes(x = time, y = value, fill = group)) +   # 指定数据和映射关系，fill 按 group 分组
+    geom_area(alpha = 0.6, size = .5, colour = "white") + # 绘制面积，设置透明度、边框宽度和颜色
+    scale_fill_viridis(discrete = TRUE) +                 # 使用 viridis 离散色板填充
+    theme_ipsum() +                                       # 应用 hrbrthemes 主题
+    ggtitle("The race between ...")                       # 添加标题
+```
+
+
+分面:
+
+```{r}
+#| fig-cap: "使用 facet_wrap 分面展示美国不同女性名字在过去 30 年的流行度变化"
+
+library(babynames) # 加载 babynames 包，包含美国婴儿名字数据
+
+# 过滤出感兴趣的名字和性别为女性的数据
+data <- babynames |>
+    dplyr::filter(name %in% c("Amanda", "Jessica", "Patricia", "Deborah", "Dorothy", "Helen")) |> # 只保留指定名字
+    dplyr::filter(sex == "F") # 只保留女性
+
+# 绘制分面堆叠面积图
+data |>
+    ggplot(aes(x = year, y = n, group = name, fill = name)) +   # year为x轴，n为y轴，按name分组和填充
+        geom_area() +                                           # 绘制面积图
+        scale_fill_viridis(discrete = TRUE) +                   # 使用viridis调色板
+        theme(legend.position = "none") +                       # 不显示图例
+        ggtitle("Popularity of American names in the previous 30 years") + # 添加标题
+        theme_ipsum() +                                         # 应用hrbrthemes主题
+        theme(
+            legend.position = "none",                             # 再次确保不显示图例
+            panel.spacing = unit(0.1, "lines"),                   # 分面之间的间距
+            strip.text.x = element_text(size = 8)                 # 分面标题字体大小
+        ) +
+        facet_wrap(~name, scale = "free_y")                     # 按名字分面，y轴自适应
+```
+
+
+### 渐变色
+
+```{r}
+#| fig-cap: "使用 ggpattern 绘制带有渐变色填充的面积图，演示不同渐变色和叠加线条、点的效果"
+#| layout-ncol: 2
+#| fig-subcap:
+#|  - "浅蓝色填充，黑色边框" 
+#|  - "渐变填充，白色到红色"
+#|  - "渐变填充，透明到蓝色"
+#|  - "渐变填充，完全透明到品红色，并叠加线条和点"
+
+library(ggplot2)
+library(ggpattern)
+library(hrbrthemes)
+
+# 构造数据
+set.seed(0)
+n = 10
+x = 1:n
+y = x + rnorm(n = n, mean = 100, sd = 20)
+df = data.frame(xValue = x, yValue = y)
+
+# 基础面积图，填充为浅蓝色，边框为黑色
+ggplot(df, aes(x = xValue, y = yValue)) +
+    geom_area(colour = 'black', fill = 'lightblue')
+
+# 使用 ggpattern 的渐变填充，白色到红色
+ggplot(df, aes(xValue, yValue)) +
+    geom_area_pattern(
+        data = df,
+        pattern = "gradient",         # 使用渐变填充
+        pattern_fill = "white",       # 渐变起始色为白色
+        pattern_fill2 = "red"         # 渐变结束色为红色
+    )
+
+# 使用 ggpattern 的渐变填充，透明到蓝色
+ggplot(df, aes(xValue, yValue)) +
+    geom_area_pattern(
+        data = df,
+        pattern = "gradient",         # 使用渐变填充
+        fill = "#00000010",           # 主体填充为半透明黑色
+        pattern_fill = "#00000010",   # 渐变起始色为半透明黑色
+        pattern_fill2 = "blue"        # 渐变结束色为蓝色
+    )
+
+# 使用 ggpattern 的渐变填充，完全透明到品红色，并叠加线条和点
+ggplot(df, aes(xValue, yValue)) +
+    geom_area_pattern(
+        data = df,
+        pattern = "gradient",         # 使用渐变填充
+        fill = "#00000000",           # 主体填充为完全透明
+        pattern_fill = "#00000000",   # 渐变起始色为完全透明
+        pattern_fill2 = "magenta"     # 渐变结束色为品红色
+    ) +
+    geom_line(data = df, colour = "black", linewidth = 0.8) + # 添加黑色线条
+    geom_point(shape = 16, size = 4.5, colour = "purple") +   # 添加紫色大点
+    geom_point(shape = 16, size = 2.5, colour = "white") +    # 添加白色小点覆盖
+    ggtitle("Area chart with a color gradient and line with data points") + # 添加标题
+    theme_bw() +                                              # 使用黑白主题
+    theme(
+        plot.title = element_text(size = 14),                   # 标题字体大小
+        panel.border = element_blank(),                         # 去除面板边框
+        axis.line.x = element_line(),                           # x轴线
+        text = element_text(size = 12),                         # 全局字体大小
+        axis.ticks = element_blank(),                           # 去除坐标轴刻度
+        axis.text.y = element_text(margin = margin(0, 15, 0, 0, unit = "pt")) # y轴文字右侧留白
+    ) +
+    scale_alpha_identity() +                                  # 保持透明度
+    labs(x = "", y = "")                                      # 去除坐标轴标题
+```
+
+
+
+## Interactive
+
+```{r}
+#| fig-cap: "使用 dygraphs 包绘制交互式面积图"
+
+# 加载所需的 R 包
+library(dygraphs)      # 加载 dygraphs 包用于交互式时间序列可视化
+library(xts)           # 加载 xts 包用于数据框与 xts 格式转换
+library(tidyverse)     # 加载 tidyverse 包用于数据处理
+library(lubridate)     # 加载 lubridate 包用于处理日期和时间
+
+# 读取数据
+path = 'https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/bike.csv'
+data <- read.table(path, header=TRUE, sep=",") |> head(300) # 读取前 300 行数据
+
+# 检查变量类型（可选）
+# str(data)
+
+# 将 datetime 列从因子类型转换为日期时间格式
+data$datetime <- ymd_hms(data$datetime)
+
+# 创建 xts 对象，dygraphs 需要 xts 格式的数据
+don <- xts(x = data$count, order.by = data$datetime)
+
+# 绘制交互式面积图
+p <- dygraph(don) |>
+    dyOptions(
+        labelsUTC = TRUE,         # 使用 UTC 时间标签
+        fillGraph = TRUE,         # 填充面积
+        fillAlpha = 0.1,          # 填充透明度
+        drawGrid = FALSE,         # 不显示网格线
+        colors = "#D8AE5A"        # 设置线条颜色
+    ) |>
+    dyRangeSelector() |>        # 添加范围选择器
+    dyCrosshair(direction = "vertical") |> # 添加垂直十字准线
+    dyHighlight(
+        highlightCircleSize = 5,                # 高亮时圆圈大小
+        highlightSeriesBackgroundAlpha = 0.2,   # 高亮系列背景透明度
+        hideOnMouseOut = FALSE                  # 鼠标移出时不隐藏高亮
+    ) |>
+    dyRoller(rollPeriod = 1)   # 添加滚动平均选择器，默认窗口为 1
+
+p
+```
+
+## `Base R`
+
+```{r}
+#| fig-cap: "使用 Base R 绘制面积图，先绘制折线图，再用 polygon 填充面积"
+
+# 创建数据框，x 从 1 到 10，y 为 1 到 15 的随机排列
+data <- data.frame(x=seq(1,10), y=sample(seq(1,15),10))
+
+# 先绘制折线图，type="o" 表示点和线都画，lwd=3 线宽，pch=20 实心圆点
+plot(
+    data, 
+    col=rgb(0.2,0.1,0.5,0.9), # 设置颜色为半透明深紫色
+    type="o",                 # o 表示点和线都画
+    lwd=3,                    # 线宽为3
+    xlab="",                  # 不显示x轴标题
+    ylab="size",              # y轴标题为 size
+    pch=20                    # 点的形状为实心圆
+)
+
+# 用 polygon 填充面积
+# c(min(data$x), data$x, max(data$x))：x 轴从最小值到最大值，首尾闭合
+# c(min(data$y), data$y, min(data$y))：y 轴从最小值到最大值，首尾闭合
+polygon(
+    c(min(data$x), data$x, max(data$x)),   # x 坐标，首尾闭合
+    c(min(data$y), data$y, min(data$y)),   # y 坐标，首尾闭合
+    col=rgb(0.2,0.1,0.5,0.2),              # 填充为更透明的紫色
+    border=FALSE                           # 不显示边框
+)
+```
+
+
+## Pearl
+
+
+[![每条线末端有精美标签](./image/line-label.png)](https://r-graph-gallery.com/web-line-chart-with-labels-at-end-of-line.html)
+
+[![折线图和堆叠面积图](./image/line-stack.png)](https://r-graph-gallery.com/web-lineplots-and-area-chart-the-economist.html)
+
+
+[![1976 年至今美国众议院中的政党优势](./image/line-vertical.png)](https://r-graph-gallery.com/web-vertical-line-chart-with-ggplot2.html)
+
+
+[![伦敦不同区域能动物救助的演变](./image/line-area.png)](https://r-graph-gallery.com/web-time-series-and-facetting.html)
+
+
+[![近几年全球消费者信心的演变](./image/line-mult.png)](https://r-graph-gallery.com/web-line-chart-small-multiple-all-group-greyed-out.html)

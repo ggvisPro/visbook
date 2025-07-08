@@ -943,7 +943,7 @@ text(
 ```
 
 
-### cheatsheet
+### Cheatsheet
 
 ```{r}
 #| fig-cap: "基础 R 绘图参数演示：pch、col、cex、lty、type、lwd 的效果"
