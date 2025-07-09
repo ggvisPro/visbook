@@ -17,8 +17,270 @@ library(ggExtra) # ggExtra 用于 ggplot2 散点图的边际图
 箱线图又叫盒须图，展示数据的中位数(median)、上下四分位数(Quartiles)、四分位距(IQR)、须线(Whiskers)和异常值(outlier)。
 
 这是说明箱线图构成的示意图：
-![](./image/boxplot_explanation_1.png)
-![](./image/boxplot_explanation_2.png)
+![*R for data science* 对箱线图的介绍](./image/boxplot_explanation_2.png)
+![r-graph-gallery 对箱线图的介绍](./image/boxplot_explanation_1.png)
+
+但是，r-graph-gallery 这个图的上下须比例不太对，我用 `Base R` 重新画了一个：
+
+```{r}
+#| fig-cap: 箱线图的构成 (由 `Base R` 绘制)
+#| fig-width: 10
+
+
+# --- 1. 参数设置 ---
+# par(bg = "#eff8fc") # 背景
+
+# 创建一个空白的绘图区域
+plot(
+    NA,
+    xlim = c(-45, 145),
+    ylim = c(2, 8),
+    axes = FALSE,
+    xlab = "",
+    ylab = ""
+)
+
+# --- 2. 定义箱形图的统计值和位置 ---
+y_center <- 5 # 图形在Y轴上的中心位置
+box_height <- 2 # 箱体的高度
+text_color <- "#000000" # 文本和箭头的颜色
+
+# 定义关键的统计数值
+q1 <- 35 # 第1四分位数 (Q1)
+median_val <- 50 # 中位数 (Q2)
+q3 <- 65 # 第3四分位数 (Q3)
+iqr <- q3 - q1 # 四分位距 (IQR)
+
+# 根据IQR定义须的末端位置（内限）
+whisker_low <- q1 - 1.5 * iqr
+whisker_high <- q3 + 1.5 * iqr
+
+# 定义一些离群点 (outliers)
+outliers_low <- whisker_low - c(8, 12, 15)
+outliers_high <- whisker_high + c(8, 12, 15)
+
+# --- 3. 绘制图形元素 ---
+# 绘制箱体 (Box)
+rect(
+    q1,
+    y_center - box_height / 2,
+    q3,
+    y_center + box_height / 2,
+    border = "red",
+    lwd = 3
+)
+
+# 绘制中位数线
+segments(
+    median_val,
+    y_center - box_height / 2,
+    median_val,
+    y_center + box_height / 2,
+    col = "red",
+    lwd = 3
+)
+
+# 绘制上下须 (Whiskers)
+segments(whisker_low, y_center, q1, y_center, col = "red", lwd = 3)
+segments(q3, y_center, whisker_high, y_center, col = "red", lwd = 3)
+
+# 绘制离群点
+points(c(outliers_low, outliers_high), rep(y_center, 6), pch = 19, col = "red")
+
+# --- 4. 添加注解和箭头 ---
+# 中位数 (Median)
+arrows(
+    x0 = median_val,
+    y0 = y_center + 2,
+    x1 = median_val,
+    y1 = y_center + box_height / 2 + 0.1,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = median_val,
+    y = y_center + 2.5,
+    labels = "Median\n(Q2)",
+    col = text_color
+)
+
+# Q1
+arrows(
+    x0 = q1 - 10,
+    y0 = y_center + 2,
+    x1 = q1,
+    y1 = y_center + box_height / 2 + 0.1,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = q1 - 10,
+    y = y_center + 2.5,
+    labels = "25th Percentile \n (Q1)",
+    col = text_color
+)
+
+# Q3
+arrows(
+    x0 = q3 + 10,
+    y0 = y_center + 2,
+    x1 = q3,
+    y1 = y_center + box_height / 2 + 0.1,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = q3 + 10,
+    y = y_center + 2.5,
+    labels = "75th Percentile \n (Q3)",
+    col = text_color
+)
+
+# 四分位距 (IQR)
+segments(
+    x0 = q1,
+    y0 = y_center - 1.5,
+    x1 = q3,
+    y1 = y_center - 1.5,
+    col = "red",
+    lwd = 1.5
+)
+text(
+    x = (q1 + q3) / 2,
+    y = y_center - 2,
+    labels = "Interquartile Range\n(IQR)",
+    col = text_color
+)
+
+# 左侧离群点
+arrows(
+    x0 = mean(outliers_low) + 1,
+    y0 = y_center - 1,
+    x1 = outliers_low[2],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+arrows(
+    x0 = mean(outliers_low) + 1,
+    y0 = y_center - 1,
+    x1 = outliers_low[1],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+arrows(
+    x0 = mean(outliers_low) + 1,
+    y0 = y_center - 1,
+    x1 = outliers_low[3],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+text(
+    mean(outliers_low) + 1,
+    y_center - 1.3,
+    "Potential\nOutliers",
+    col = text_color
+)
+
+# 右侧离群点
+arrows(
+    x0 = mean(outliers_high) - 1,
+    y0 = y_center - 1,
+    x1 = outliers_high[2],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+arrows(
+    x0 = mean(outliers_high) - 1,
+    y0 = y_center - 1,
+    x1 = outliers_high[1],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+arrows(
+    x0 = mean(outliers_high) - 1,
+    y0 = y_center - 1,
+    x1 = outliers_high[3],
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+text(
+    mean(outliers_high) - 1,
+    y_center - 1.3,
+    "Potential\nOutliers",
+    col = text_color
+)
+
+# 最小值标签 (Whisker end)
+arrows(
+    x0 = whisker_low,
+    y0 = y_center - 2,
+    x1 = whisker_low,
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = whisker_low,
+    y = y_center - 2.5,
+    labels = "Minimum \n (Minimum Value in the Data, Q1 – 1.5*IQR)",
+    col = text_color
+)
+
+# 最大值标签 (Whisker end)
+arrows(
+    x0 = whisker_high,
+    y0 = y_center - 2,
+    x1 = whisker_high,
+    y1 = y_center - 0.15,
+    col = text_color,
+    length = 0.1
+)
+text(
+    whisker_high,
+    y_center - 2.5,
+    "Maximum \n (Maximum Value in the Data, Q3 + 1.5*IQR)",
+    col = text_color
+)
+
+# 数据中的真实最小值
+arrows(
+    x0 = min(outliers_low),
+    y0 = y_center + 2,
+    x1 = min(outliers_low),
+    y1 = y_center + 0.15,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = min(outliers_low),
+    y = y_center + 2.5,
+    labels = "Minimum Value \n in the Data",
+    col = text_color
+)
+
+# 数据中的真实最大值
+arrows(
+    x0 = max(outliers_high),
+    y0 = y_center + 2,
+    x1 = max(outliers_high),
+    y1 = y_center,
+    col = text_color,
+    length = 0.1
+)
+text(
+    x = max(outliers_high),
+    y = y_center + 2.5,
+    labels = "Maximum Value \n in the Data",
+    col = text_color
+)
+
+```
 
 
 但是，这种信息的总结也有个大问题——**无法显示数据的分布情况**。例如：正态分布可能看起来与双峰分布完全相同。因此，考虑用小提琴图或脊线图。
@@ -27,30 +289,30 @@ library(ggExtra) # ggExtra 用于 ggplot2 散点图的边际图
 
 # 创建数据集
 data1 <- data.frame(
-  name = c(
-    rep("A", 500),
-    rep("B", 250),
-    rep("B", 250),
-    rep("C", 20),
-    rep('D', 100)
-  ),
-  value = c(
-    rnorm(500, 10, 5),
-    rnorm(250, 13, 1),
-    rnorm(250, 18, 1),
-    rnorm(20, 25, 4),
-    rnorm(100, 12, 1)
-  )
+    name = c(
+        rep("A", 500),
+        rep("B", 250),
+        rep("B", 250),
+        rep("C", 20),
+        rep("D", 100)
+    ),
+    value = c(
+        rnorm(500, 10, 5),
+        rnorm(250, 13, 1),
+        rnorm(250, 18, 1),
+        rnorm(20, 25, 4),
+        rnorm(100, 12, 1)
+    )
 )
 
-data1 |> 
-  ggplot(aes(x = name, y = value, fill = name)) +
-  geom_boxplot() +
-  scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量
-  theme_ipsum() +
-  theme(legend.position = "none") + 
-  labs(x = "") + 
-  ggtitle("A somewhat misleading boxplot") 
+data1 |>
+    ggplot(aes(x = name, y = value, fill = name)) +
+    geom_boxplot() +
+    scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量
+    theme_ipsum() +
+    theme(legend.position = "none") +
+    labs(x = "") +
+    ggtitle("A somewhat misleading boxplot")
 
 ```
 
@@ -62,14 +324,14 @@ data1 |>
 
 ```{r}
 #| fig-cap: 添加抖动(jitter)的箱线图
-data1 |> 
-  ggplot( aes(x=name, y=value, fill=name)) +
+data1 |>
+    ggplot(aes(x = name, y = value, fill = name)) +
     geom_boxplot() +
-    scale_fill_viridis(discrete = TRUE) +  # 好看的色盲友好型颜色,离散变量
-    geom_jitter(color="grey", size=0.5, alpha=0.5) +
-    theme_ipsum() + 
-    theme(legend.position="none") +
-    labs(x = "") + 
+    scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量
+    geom_jitter(color = "grey", size = 0.5, alpha = 0.5) +
+    theme_ipsum() +
+    theme(legend.position = "none") +
+    labs(x = "") +
     ggtitle("A boxplot with jitter")
 ```
 
@@ -82,19 +344,21 @@ data1 |>
 ### 小提琴图(Violin)
 ```{r}
 # 显示样本量
-sample_size = data1 |> group_by(name) |> summarize(num = n())
+sample_size <- data1 |>
+    group_by(name) |>
+    summarize(num = n())
 
-data1  |>
-  left_join(sample_size) |>
-  mutate(myaxis = paste0(name, "\n", "n=", num)) |>
-  ggplot(aes(x = myaxis, y = value, fill = name)) +
-  geom_violin(width = 1.4) +
-  geom_boxplot(width = 0.1, color = "grey", alpha = 0.2) +
-  scale_fill_viridis(discrete = TRUE) +
-  theme_ipsum() +
-  theme(legend.position = "none") +
-  labs(x = "") + 
-  ggtitle("A violin plot")
+data1 |>
+    left_join(sample_size) |>
+    mutate(myaxis = paste0(name, "\n", "n=", num)) |>
+    ggplot(aes(x = myaxis, y = value, fill = name)) +
+    geom_violin(width = 1.4) +
+    geom_boxplot(width = 0.1, color = "grey", alpha = 0.2) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(legend.position = "none") +
+    labs(x = "") +
+    ggtitle("A violin plot")
 ```
 
 ### 云雨图(Raincloud)
@@ -124,9 +388,9 @@ data1 |>
     # 设置色盲友好型配色
     scale_fill_viridis(discrete = TRUE) +
     theme_ipsum() +
-    theme(legend.position = "none") + 
+    theme(legend.position = "none") +
     labs(x = "") +
-    ggtitle("A raincloud plot example") 
+    ggtitle("A raincloud plot example")
 ```
 
 把**头顺时针旋转90度**(或交换R代码X轴和Y轴)，就更像云雨了
@@ -163,9 +427,9 @@ data1 |>
     # 设置色盲友好型配色
     scale_fill_viridis(discrete = TRUE) +
     theme_ipsum() +
-    theme(legend.position = "none") + 
+    theme(legend.position = "none") +
     labs(x = "") +
-    ggtitle("A raincloud plot example") 
+    ggtitle("A raincloud plot example")
 ```
 
 ## ggplot2
@@ -176,26 +440,26 @@ data1 |>
 
 ```{r}
 #| fig-cap: 最基础的箱线图
-ggplot(mpg, aes(x = class, y = hwy)) + 
+ggplot(mpg, aes(x = class, y = hwy)) +
     geom_boxplot()
 ```
 
 
 ```{r}
 #| fig-cap: 有细腰的箱线图
-ggplot(mpg, aes(x=class, y=hwy)) + 
-  geom_boxplot(
-    color="blue",         # 箱线图边框颜色为蓝色
-    fill="blue",          # 箱体填充颜色为蓝色
-    alpha=0.2,            # 箱体透明度为0.2，便于观察重叠部分
-    
-    notch=TRUE,           # 显示缺口，用于比较中位数是否有显著差异
-    notchwidth = 0.8,     # 缺口的宽度
-    
-    outlier.colour="red", # 异常值点的边框颜色为红色
-    outlier.fill="red",   # 异常值点的填充颜色为红色
-    outlier.size=1        # 异常值点的大小为3
-  )
+ggplot(mpg, aes(x = class, y = hwy)) +
+    geom_boxplot(
+        color = "blue", # 箱线图边框颜色为蓝色
+        fill = "blue", # 箱体填充颜色为蓝色
+        alpha = 0.2, # 箱体透明度为0.2，便于观察重叠部分
+
+        notch = TRUE, # 显示缺口，用于比较中位数是否有显著差异
+        notchwidth = 0.8, # 缺口的宽度
+
+        outlier.colour = "red", # 异常值点的边框颜色为红色
+        outlier.fill = "red", # 异常值点的填充颜色为红色
+        outlier.size = 1 # 异常值点的大小为3
+    )
 ```
 
 ### 排序
@@ -203,8 +467,8 @@ ggplot(mpg, aes(x=class, y=hwy)) +
 ```{r}
 #| fig-cap: 用均值排序箱线图
 mpg |>
-  # fct_reorder() 函数排序
-  ggplot( aes(x=fct_reorder(class, hwy, .fun='median'), y=hwy)) + 
+    # fct_reorder() 函数排序
+    ggplot(aes(x = fct_reorder(class, hwy, .fun = "median"), y = hwy)) +
     geom_boxplot()
 ```
 
@@ -212,23 +476,23 @@ mpg |>
 
 ```{r}
 #| fig-cap: 改变颜色
- 
-p1 <- ggplot(mpg, aes(x=class, y=hwy)) + 
-    geom_boxplot(color="red", fill="orange", alpha=0.2)
- 
-p2 <- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + 
-    geom_boxplot(alpha=0.3) +
-    theme(legend.position="none")
 
-p3 <- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + 
-    geom_boxplot(alpha=0.3) +
-    theme(legend.position="none") +
-    scale_fill_brewer(palette="BuPu") # 调色板
- 
-p4 <- ggplot(mpg, aes(x=class, y=hwy, fill=class)) + 
-    geom_boxplot(alpha=0.3) +
-    theme(legend.position="none") +
-    scale_fill_brewer(palette="Dark2") # 调色板
+p1 <- ggplot(mpg, aes(x = class, y = hwy)) +
+    geom_boxplot(color = "red", fill = "orange", alpha = 0.2)
+
+p2 <- ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
+    geom_boxplot(alpha = 0.3) +
+    theme(legend.position = "none")
+
+p3 <- ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
+    geom_boxplot(alpha = 0.3) +
+    theme(legend.position = "none") +
+    scale_fill_brewer(palette = "BuPu") # 调色板
+
+p4 <- ggplot(mpg, aes(x = class, y = hwy, fill = class)) +
+    geom_boxplot(alpha = 0.3) +
+    theme(legend.position = "none") +
+    scale_fill_brewer(palette = "Dark2") # 调色板
 
 p1 + p2 + p3 + p4
 ```
@@ -237,12 +501,11 @@ p1 + p2 + p3 + p4
 ```{r}
 #| fig-cap: 高亮某个组
 
-mpg |> 
-  # 添加一列 'type'，用于标记是否高亮某个组
-  mutate(type = ifelse(class == "subcompact", "Highlighted", "Normal")) |>
-  
-  ggplot(aes(x = class, y = hwy, fill = type, alpha = type)) + 
-    geom_boxplot() + 
+mpg |>
+    # 添加一列 'type'，用于标记是否高亮某个组
+    mutate(type = ifelse(class == "subcompact", "Highlighted", "Normal")) |>
+    ggplot(aes(x = class, y = hwy, fill = type, alpha = type)) +
+    geom_boxplot() +
     scale_fill_manual(values = c("#69b3a2", "grey")) + # 手动设置填充色，高亮组为绿色，其余为灰色
     scale_alpha_manual(values = c(1, 0.1)) + # 手动设置透明度，高亮组为不透明，其余为半透明
     theme_ipsum() + # 使用 hrbrthemes 包的排版主题
@@ -256,24 +519,24 @@ mpg |>
 ```{r}
 #| fig-cap: 分组箱线图与分面箱线图
 # 构造数据
-variety = rep(LETTERS[1:7], each = 40) # 7种品种，每种40个观测
-treatment = rep(c("high", "low"), each = 20) # 处理分为high和low，每组20个观测
-note = seq(1:280) + sample(1:150, 280, replace = TRUE) # 生成note变量，添加一定随机性
-data2 = data.frame(variety, treatment, note) # 组合成数据框
+variety <- rep(LETTERS[1:7], each = 40) # 7种品种，每种40个观测
+treatment <- rep(c("high", "low"), each = 20) # 处理分为high和low，每组20个观测
+note <- seq(1:280) + sample(1:150, 280, replace = TRUE) # 生成note变量，添加一定随机性
+data2 <- data.frame(variety, treatment, note) # 组合成数据框
 
 # 分组箱线图
-ggplot(data2, aes(x = variety, y = note, fill = treatment)) + 
-  geom_boxplot()
+ggplot(data2, aes(x = variety, y = note, fill = treatment)) +
+    geom_boxplot()
 
 # 少分面箱线图
-ggplot(data2, aes(x=variety, y=note, fill=treatment)) + 
+ggplot(data2, aes(x = variety, y = note, fill = treatment)) +
     geom_boxplot() +
     facet_wrap(~treatment)
 
 # 多分面箱线图
-ggplot(data2, aes(x=variety, y=note, fill=treatment)) + 
+ggplot(data2, aes(x = variety, y = note, fill = treatment)) +
     geom_boxplot() +
-    facet_wrap(~variety, scale="free") # 自由y轴
+    facet_wrap(~variety, scale = "free") # 自由y轴
 ```
 
 ### 不等宽
@@ -283,13 +546,13 @@ ggplot(data2, aes(x=variety, y=note, fill=treatment)) +
 ```{r}
 #| fig-cap: 不等宽箱线图(宽带是样本量)
 # 转换为因子类型
-mpg$drv <- as.factor(mpg$drv) 
+mpg$drv <- as.factor(mpg$drv)
 # 创建x轴标签，包含每个drv水平的名称及其对应的样本量
 n_xlab <- str_glue("{levels(mpg$drv)}\n(N={table(mpg$drv)})")
 
-ggplot(mpg, aes(x = drv, y = hwy, fill = drv)) + 
+ggplot(mpg, aes(x = drv, y = hwy, fill = drv)) +
     geom_boxplot(varwidth = TRUE, alpha = 0.2) + # varwidth = TRUE 不等宽
-    scale_x_discrete(labels = n_xlab) + 
+    scale_x_discrete(labels = n_xlab) +
     theme(legend.position = "none")
 ```
 
@@ -300,19 +563,19 @@ ggplot(mpg, aes(x = drv, y = hwy, fill = drv)) +
 ```{r}
 #| fig-cap: 连续变量箱线图
 diamonds |>
-  mutate(bin = cut_width(carat, width = 0.5, boundary = 0)) |>
-  ggplot(aes(x = bin, y = price)) +
-  geom_boxplot() 
+    mutate(bin = cut_width(carat, width = 0.5, boundary = 0)) |>
+    ggplot(aes(x = bin, y = price)) +
+    geom_boxplot()
 ```
 
 ### 添加均值点
 
 ```{r}
 #| fig-cap: 添加均值点
-ggplot(mpg, aes(x=drv, y=hwy, fill=drv)) +
-    geom_boxplot(alpha=0.7) +
-    stat_summary(fun=mean, geom="point", shape=1, size=2, color = 'red') +
-    theme(legend.position="none") 
+ggplot(mpg, aes(x = drv, y = hwy, fill = drv)) +
+    geom_boxplot(alpha = 0.7) +
+    stat_summary(fun = mean, geom = "point", shape = 1, size = 2, color = "red") +
+    theme(legend.position = "none")
 ```
 
 ### 带数据点
@@ -320,14 +583,14 @@ ggplot(mpg, aes(x=drv, y=hwy, fill=drv)) +
 ```{r}
 #| fig-cap: 带抖动的箱线图
 # data1 是之前创建的数据集
-data1 |> 
-  ggplot( aes(x=name, y=value, fill=name)) +
+data1 |>
+    ggplot(aes(x = name, y = value, fill = name)) +
     geom_boxplot() +
-    scale_fill_viridis(discrete = TRUE) +  # 好看的色盲友好型颜色,离散变量
-    geom_jitter(color="grey", size=0.5, alpha=0.5) +
+    scale_fill_viridis(discrete = TRUE) + # 好看的色盲友好型颜色,离散变量
+    geom_jitter(color = "grey", size = 0.5, alpha = 0.5) +
     theme_ipsum() + # 更适合排版的主题
-    theme(legend.position="none") +
-    labs(x = "") + 
+    theme(legend.position = "none") +
+    labs(x = "") +
     ggtitle("A boxplot with jitter")
 ```
 
@@ -340,8 +603,8 @@ ggExtra包来实现更复杂（花哨）的图形，在ggplot2散点图的基础
 
 # 创建ggplot散点图
 p <- ggplot(mtcars, aes(x = wt, y = mpg, color = cyl, size = cyl)) +
-  geom_point() +
-  theme(legend.position = "none")
+    geom_point() +
+    theme(legend.position = "none")
 
 ggMarginal(p, type = "histogram")
 ```
@@ -373,7 +636,7 @@ ggMarginal(p, type = "histogram", fill = "slateblue", xparams = list(bins = 10))
 ```{r}
 #| fig-cap: ggMarginal定制化样式-颜色和尺寸
 # 只在x轴添加边际图，边际图颜色为紫色，尺寸为4
-ggMarginal(p, margins = 'x', color = "purple", size = 4)
+ggMarginal(p, margins = "x", color = "purple", size = 4)
 ```
 
 
@@ -391,23 +654,23 @@ ggMarginal(p, margins = 'x', color = "purple", size = 4)
 #| fig-cap: 带有统计的小提琴箱线图
 
 # 自动安装packages
-if(!require(ggstatsplot)) {
-  install.packages(
-    "ggstatsplot",
-    repos = "https://cloud.r-project.org"
+if (!require(ggstatsplot)) {
+    install.packages(
+        "ggstatsplot",
+        repos = "https://cloud.r-project.org"
     )
-  }
+}
 
-if(!require(palmerpenguins)) {
-  install.packages(
-    "palmerpenguins", 
-    repos = "https://cloud.r-project.org"
+if (!require(palmerpenguins)) {
+    install.packages(
+        "palmerpenguins",
+        repos = "https://cloud.r-project.org"
     )
-  }
+}
 
 palmerpenguins::penguins |>
-  drop_na() |>
-  ggstatsplot::ggbetweenstats(x = species, y = flipper_length_mm, 1)
+    drop_na() |>
+    ggstatsplot::ggbetweenstats(x = species, y = flipper_length_mm, 1)
 ```
 
 在 [ggstatsplot](https://r-graph-gallery.com/web-violinplot-with-ggstatsplot.html) 可以看到进一步美化。
