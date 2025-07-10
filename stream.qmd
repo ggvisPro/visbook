@@ -1,3 +1,300 @@
 # Stream {#sec-stream}
 
-1
+
+
+## PKG
+
+```{r}
+library(tidyverse)      # 数据处理和可视化相关的包
+library(babynames)      # 美国婴儿名字数据集
+# remotes::install_github("hrbrmstr/streamgraph")
+library(streamgraph)    # 流图可视化包
+```
+
+
+## Streamgraph
+
+流图是一种堆叠面积图。
+
+与堆叠面积图不同，流图没有尖角：边缘是圆滑的，给人一种流动的优美感觉。此外，面积通常围绕中心轴偏移，形成流动的有机形状。
+
+```{r}
+#| fig-cap: "使用 streamgraph 展示不同女性名字随年份变化的趋势"
+
+# 从 github 加载数据集，并筛选指定的女性名字
+data <- babynames |>
+    filter(
+        name %in%
+            c(
+                "Ashley",
+                "Amanda",
+                "Jessica",
+                "Patricia",
+                "Linda",
+                "Deborah",
+                "Dorothy",
+                "Betty",
+                "Helen"
+            )
+    ) |>
+    filter(sex == "F")
+
+# 绘制流图，展示不同名字随年份的数量变化
+data |>
+    streamgraph(key = "name", value = "n", date = "year") |>
+    sg_fill_brewer("BuPu")
+
+```
+
+Streamchart 适合研究整体情况。但它们不适合研究每个个体的变化：很难在各个时间点上减去其他组别的高度。
+
+若要获得更准确但吸引力稍低的图表，可以考虑使用小多图的小型线图或面积图。
+
+Streamchart 在交互模式下非常实用：突出显示一个组别能直接让你了解其发展情况。
+
+
+仅显示在 X 轴上方：
+
+```{r}
+#| fig-cap: "仅显示在 X 轴上方的 streamgraph"
+
+# 从数据中绘制流图，offset="zero" 使所有面积都堆叠在 X 轴上方
+data |>
+    streamgraph(key = "name", value = "n", date = "year", offset = "zero") |>
+    sg_fill_brewer("BuPu")
+```
+
+
+顶格百分比：
+
+```{r}
+#| fig-cap: "顶格百分比 streamgraph，显示各名字占比随时间变化"
+
+# 使用 babynames 数据，绘制顶格百分比流图
+# offset = "expand" 参数将每年各名字数量标准化为百分比
+data |>
+    streamgraph(key = "name", value = "n", date = "year", offset = "expand") |>
+    sg_fill_brewer("BuPu")
+```
+
+## `streamgraph`
+
+### 基本
+
+```{r}
+#| fig-cap: "基本 streamgraph 示例，展示不同类别随年份变化的趋势"
+#| fig-width: 8
+
+library(streamgraph)  # 加载 streamgraph 包，用于绘制流图
+
+# 创建示例数据框，包含年份、类别名称和对应的数值
+data <- data.frame(
+    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别
+    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复
+    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值
+)
+
+# 基本流图：指定类别、数值和年份三个参数
+pp <- data |>
+    streamgraph(key = "name", value = "value", date = "year", height = "300px", width = "1000px")
+
+pp  # 显示流图
+```
+
+### 基线
+
+```{r}
+#| fig-cap: "不同基线类型的 streamgraph 示例，展示 offset 参数的效果"
+#| layout-ncol: 1
+#| fig-subcap: 
+#|   - "类型1：offset='silhouette'，面积围绕中心轴对称分布"
+#|   - "类型2：offset='zero'，所有面积堆叠在X轴上方"
+#|   - "类型3：offset='expand'，每年各类别标准化为百分比，显示占比变化"
+
+# 加载 streamgraph 包
+library(streamgraph)
+
+# 创建示例数据框，包含年份、类别名称和对应的数值
+data <- data.frame(
+    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别
+    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复
+    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值
+)
+
+# 类型1（默认）：offset="silhouette"，面积围绕中心轴对称分布
+p1 <- data |>
+    streamgraph(key = "name", value = "value", date = "year",
+                            offset = "silhouette",
+                            width = "400px", height = "300px"
+    )
+p1
+
+# 类型2：offset="zero"，所有面积堆叠在X轴上方
+p2 <- data |>
+    streamgraph(key = "name", value = "value", date = "year",
+                            offset = "zero",
+                            width = "400px", height = "300px"
+    )
+p2
+
+# 类型3：offset="expand"，每年各类别标准化为百分比，显示占比变化
+p3 <- data |>
+    streamgraph(key = "name", value = "value", date = "year",
+                            offset = "expand",
+                            width = "400px", height = "300px"
+    )
+p3
+
+```
+
+### shape
+
+
+```{r}
+#| fig-cap: "不同 shape 类型的 streamgraph 示例，展示 interpolate 参数的效果"
+#| layout-ncol: 1
+#| fig-subcap: 
+#|   - "shape1：经典流图（默认插值）"
+#|   - "shape2：堆叠面积图（线性插值）"
+#|   - "shape3：堆叠条形图（阶梯插值）"
+
+library(streamgraph) # 加载 streamgraph 包
+
+# 创建示例数据框，包含年份、类别名称和对应的数值
+data <- data.frame(
+    year = rep(seq(1990, 2016), each = 10), # 年份从1990到2016，每年10个类别
+    name = rep(letters[1:10], 27), # 10个类别（a到j），每年重复
+    value = sample(seq(0, 1, 0.0001), 270) # 随机生成270个数值
+)
+
+# shape1：经典流图（默认插值，曲线平滑）
+p1 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        width = "400px",
+        height = "300px"
+    )
+p1
+
+# shape2：堆叠面积图（线性插值，边缘为直线）
+p2 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        interpolate = "linear",
+        width = "400px",
+        height = "300px"
+    )
+p2
+
+# shape3：堆叠条形图（阶梯插值，边缘为阶梯状）
+p3 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        interpolate = "step",
+        width = "400px",
+        height = "300px"
+    )
+p3
+
+```
+
+
+### color
+
+```{r}
+#| fig-cap: "不同配色方式的 streamgraph 示例，展示 sg_fill_brewer 和 sg_fill_manual 的用法"
+
+# 加载 streamgraph 包
+library(streamgraph)
+
+# 创建示例数据框，包含年份、类别名称和对应的数值
+data <- data.frame(
+    year = rep(seq(1990, 2016), each = 10), # 年份从1990到2016，每年10个类别
+    name = rep(letters[1:10], 27), # 10个类别（a到j），每年重复
+    value = sample(seq(0, 1, 0.0001), 270) # 随机生成270个数值
+)
+
+# 图1：使用 RColorBrewer 连续型调色板 "Blues"
+p1 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        width = "400px",
+        height = "300px"
+    ) |>
+    sg_fill_brewer("Blues") # 设置填充色为连续型调色板
+p1
+
+# 图2：使用 RColorBrewer 分类调色板 "Pastel1"
+p2 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        width = "400px",
+        height = "300px"
+    ) |>
+    sg_fill_brewer("Pastel1") # 设置填充色为分类调色板
+p2
+
+# 图3：手动指定颜色（可用数字、颜色名、rgb等）
+p3 <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        width = "400px",
+        height = "300px"
+    ) |>
+    sg_fill_manual(c(1:10)) # 手动指定颜色
+p3
+
+
+```
+
+
+## Interactivity 
+
+```{r}
+#| fig-cap: "带有图例的 streamgraph 示例，展示如何添加图例并自定义标签"
+
+# 加载 streamgraph 包
+library(streamgraph)
+
+# 创建示例数据框，包含年份、类别名称和对应的数值
+data <- data.frame(
+    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别
+    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复
+    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值
+)
+
+# 绘制带图例的流图
+# sg_legend(show = TRUE, label = "names: ") 用于显示图例并设置图例标签
+pp <- data |>
+    streamgraph(
+        key = "name",
+        value = "value",
+        date = "year",
+        height = "300px",
+        width = "1000px"
+    ) |>
+    sg_legend(show = TRUE, label = "names: ")
+
+pp  # 显示流图
+
+```
+
+
+## Pearl
+
+[![Aggregated Household Wealth 有行内标签](./image/line-inline-label.png)](https://r-graph-gallery.com/web-stacked-area-chart-inline-labels.html)
+
+
+[![X max](./image/streamchart.png)](https://r-graph-gallery.com/web-streamchart-with-ggstream.html)

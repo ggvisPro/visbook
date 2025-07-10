@@ -1797,7 +1797,51 @@
     "href": "stream.html",
     "title": "30  Stream",
     "section": "",
-    "text": "1",
+    "text": "30.1 PKG\nShow/Hide Code\nlibrary(tidyverse)      # 数据处理和可视化相关的包\nlibrary(babynames)      # 美国婴儿名字数据集\n# remotes::install_github(\"hrbrmstr/streamgraph\")\nlibrary(streamgraph)    # 流图可视化包",
+    "crumbs": [
+      "Evolution",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Stream</span>"
+    ]
+  },
+  {
+    "objectID": "stream.html#streamgraph",
+    "href": "stream.html#streamgraph",
+    "title": "30  Stream",
+    "section": "30.2 Streamgraph",
+    "text": "30.2 Streamgraph\n流图是一种堆叠面积图。\n与堆叠面积图不同，流图没有尖角：边缘是圆滑的，给人一种流动的优美感觉。此外，面积通常围绕中心轴偏移，形成流动的有机形状。\n\n\nShow/Hide Code\n# 从 github 加载数据集，并筛选指定的女性名字\ndata &lt;- babynames |&gt;\n    filter(\n        name %in%\n            c(\n                \"Ashley\",\n                \"Amanda\",\n                \"Jessica\",\n                \"Patricia\",\n                \"Linda\",\n                \"Deborah\",\n                \"Dorothy\",\n                \"Betty\",\n                \"Helen\"\n            )\n    ) |&gt;\n    filter(sex == \"F\")\n\n# 绘制流图，展示不同名字随年份的数量变化\ndata |&gt;\n    streamgraph(key = \"name\", value = \"n\", date = \"year\") |&gt;\n    sg_fill_brewer(\"BuPu\")\n\n\n\n\n\n使用 streamgraph 展示不同女性名字随年份变化的趋势\n\n\nStreamchart 适合研究整体情况。但它们不适合研究每个个体的变化：很难在各个时间点上减去其他组别的高度。\n若要获得更准确但吸引力稍低的图表，可以考虑使用小多图的小型线图或面积图。\nStreamchart 在交互模式下非常实用：突出显示一个组别能直接让你了解其发展情况。\n仅显示在 X 轴上方：\n\n\nShow/Hide Code\n# 从数据中绘制流图，offset=\"zero\" 使所有面积都堆叠在 X 轴上方\ndata |&gt;\n    streamgraph(key = \"name\", value = \"n\", date = \"year\", offset = \"zero\") |&gt;\n    sg_fill_brewer(\"BuPu\")\n\n\n\n\n\n仅显示在 X 轴上方的 streamgraph\n\n\n顶格百分比：\n\n\nShow/Hide Code\n# 使用 babynames 数据，绘制顶格百分比流图\n# offset = \"expand\" 参数将每年各名字数量标准化为百分比\ndata |&gt;\n    streamgraph(key = \"name\", value = \"n\", date = \"year\", offset = \"expand\") |&gt;\n    sg_fill_brewer(\"BuPu\")\n\n\n\n\n\n顶格百分比 streamgraph，显示各名字占比随时间变化",
+    "crumbs": [
+      "Evolution",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Stream</span>"
+    ]
+  },
+  {
+    "objectID": "stream.html#streamgraph-1",
+    "href": "stream.html#streamgraph-1",
+    "title": "30  Stream",
+    "section": "30.3 streamgraph",
+    "text": "30.3 streamgraph\n\n30.3.1 基本\n\n\nShow/Hide Code\nlibrary(streamgraph)  # 加载 streamgraph 包，用于绘制流图\n\n# 创建示例数据框，包含年份、类别名称和对应的数值\ndata &lt;- data.frame(\n    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别\n    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复\n    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值\n)\n\n# 基本流图：指定类别、数值和年份三个参数\npp &lt;- data |&gt;\n    streamgraph(key = \"name\", value = \"value\", date = \"year\", height = \"300px\", width = \"1000px\")\n\npp  # 显示流图\n\n\n\n\n\n基本 streamgraph 示例，展示不同类别随年份变化的趋势\n\n\n\n\n30.3.2 基线\n\nShow/Hide Code\n# 加载 streamgraph 包\nlibrary(streamgraph)\n\n# 创建示例数据框，包含年份、类别名称和对应的数值\ndata &lt;- data.frame(\n    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别\n    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复\n    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值\n)\n\n# 类型1（默认）：offset=\"silhouette\"，面积围绕中心轴对称分布\np1 &lt;- data |&gt;\n    streamgraph(key = \"name\", value = \"value\", date = \"year\",\n                            offset = \"silhouette\",\n                            width = \"400px\", height = \"300px\"\n    )\np1\n# 类型2：offset=\"zero\"，所有面积堆叠在X轴上方\np2 &lt;- data |&gt;\n    streamgraph(key = \"name\", value = \"value\", date = \"year\",\n                            offset = \"zero\",\n                            width = \"400px\", height = \"300px\"\n    )\np2\n# 类型3：offset=\"expand\"，每年各类别标准化为百分比，显示占比变化\np3 &lt;- data |&gt;\n    streamgraph(key = \"name\", value = \"value\", date = \"year\",\n                            offset = \"expand\",\n                            width = \"400px\", height = \"300px\"\n    )\np3\n\n\n\n\n\n\n\n\n\n\n\n类型1：offset=‘silhouette’，面积围绕中心轴对称分布\n\n\n\n\n\n\n\n\n\n\n\n类型2：offset=‘zero’，所有面积堆叠在X轴上方\n\n\n\n\n\n\n\n\n\n\n\n类型3：offset=‘expand’，每年各类别标准化为百分比，显示占比变化\n\n\n\n\n不同基线类型的 streamgraph 示例，展示 offset 参数的效果\n\n\n\n\n\n30.3.3 shape\n\nShow/Hide Code\nlibrary(streamgraph) # 加载 streamgraph 包\n\n# 创建示例数据框，包含年份、类别名称和对应的数值\ndata &lt;- data.frame(\n    year = rep(seq(1990, 2016), each = 10), # 年份从1990到2016，每年10个类别\n    name = rep(letters[1:10], 27), # 10个类别（a到j），每年重复\n    value = sample(seq(0, 1, 0.0001), 270) # 随机生成270个数值\n)\n\n# shape1：经典流图（默认插值，曲线平滑）\np1 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        width = \"400px\",\n        height = \"300px\"\n    )\np1\n# shape2：堆叠面积图（线性插值，边缘为直线）\np2 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        interpolate = \"linear\",\n        width = \"400px\",\n        height = \"300px\"\n    )\np2\n# shape3：堆叠条形图（阶梯插值，边缘为阶梯状）\np3 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        interpolate = \"step\",\n        width = \"400px\",\n        height = \"300px\"\n    )\np3\n\n\n\n\n\n\n\n\n\n\n\nshape1：经典流图（默认插值）\n\n\n\n\n\n\n\n\n\n\n\nshape2：堆叠面积图（线性插值）\n\n\n\n\n\n\n\n\n\n\n\nshape3：堆叠条形图（阶梯插值）\n\n\n\n\n不同 shape 类型的 streamgraph 示例，展示 interpolate 参数的效果\n\n\n\n\n\n30.3.4 color\n\n\nShow/Hide Code\n# 加载 streamgraph 包\nlibrary(streamgraph)\n\n# 创建示例数据框，包含年份、类别名称和对应的数值\ndata &lt;- data.frame(\n    year = rep(seq(1990, 2016), each = 10), # 年份从1990到2016，每年10个类别\n    name = rep(letters[1:10], 27), # 10个类别（a到j），每年重复\n    value = sample(seq(0, 1, 0.0001), 270) # 随机生成270个数值\n)\n\n# 图1：使用 RColorBrewer 连续型调色板 \"Blues\"\np1 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        width = \"400px\",\n        height = \"300px\"\n    ) |&gt;\n    sg_fill_brewer(\"Blues\") # 设置填充色为连续型调色板\np1\n\n\n\n\n\n不同配色方式的 streamgraph 示例，展示 sg_fill_brewer 和 sg_fill_manual 的用法\n\n\nShow/Hide Code\n# 图2：使用 RColorBrewer 分类调色板 \"Pastel1\"\np2 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        width = \"400px\",\n        height = \"300px\"\n    ) |&gt;\n    sg_fill_brewer(\"Pastel1\") # 设置填充色为分类调色板\np2\n\n\n\n\n\n不同配色方式的 streamgraph 示例，展示 sg_fill_brewer 和 sg_fill_manual 的用法\n\n\nShow/Hide Code\n# 图3：手动指定颜色（可用数字、颜色名、rgb等）\np3 &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        width = \"400px\",\n        height = \"300px\"\n    ) |&gt;\n    sg_fill_manual(c(1:10)) # 手动指定颜色\np3\n\n\n\n\n\n不同配色方式的 streamgraph 示例，展示 sg_fill_brewer 和 sg_fill_manual 的用法",
+    "crumbs": [
+      "Evolution",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Stream</span>"
+    ]
+  },
+  {
+    "objectID": "stream.html#interactivity",
+    "href": "stream.html#interactivity",
+    "title": "30  Stream",
+    "section": "30.4 Interactivity",
+    "text": "30.4 Interactivity\n\n\nShow/Hide Code\n# 加载 streamgraph 包\nlibrary(streamgraph)\n\n# 创建示例数据框，包含年份、类别名称和对应的数值\ndata &lt;- data.frame(\n    year = rep(seq(1990, 2016), each = 10),      # 年份从1990到2016，每年10个类别\n    name = rep(letters[1:10], 27),               # 10个类别（a到j），每年重复\n    value = sample(seq(0, 1, 0.0001), 270)       # 随机生成270个数值\n)\n\n# 绘制带图例的流图\n# sg_legend(show = TRUE, label = \"names: \") 用于显示图例并设置图例标签\npp &lt;- data |&gt;\n    streamgraph(\n        key = \"name\",\n        value = \"value\",\n        date = \"year\",\n        height = \"300px\",\n        width = \"1000px\"\n    ) |&gt;\n    sg_legend(show = TRUE, label = \"names: \")\n\npp  # 显示流图\n\n\n\n\n\n带有图例的 streamgraph 示例，展示如何添加图例并自定义标签",
+    "crumbs": [
+      "Evolution",
+      "<span class='chapter-number'>30</span>  <span class='chapter-title'>Stream</span>"
+    ]
+  },
+  {
+    "objectID": "stream.html#pearl",
+    "href": "stream.html#pearl",
+    "title": "30  Stream",
+    "section": "30.5 Pearl",
+    "text": "30.5 Pearl\n\n\n\nAggregated Household Wealth 有行内标签\n\n\n\n\n\nX max",
     "crumbs": [
       "Evolution",
       "<span class='chapter-number'>30</span>  <span class='chapter-title'>Stream</span>"
