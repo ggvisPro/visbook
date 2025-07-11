@@ -3,7 +3,20 @@
 ## PKG
 
 ```{r}
-library(tidyverse) # 数据处理与可视化核心包
+library(tidyverse)   # 数据处理与可视化核心包
+library(ggplot2)     # 数据可视化
+library(dplyr)       # 数据处理
+library(lubridate)   # 用于处理日期和时间
+library(hrbrthemes)  # 提供额外的主题样式
+library(plotly)      # 用于创建交互式图表
+library(patchwork)   # 用于组合图表
+library(dygraphs)    # 用于创建交互式时间序列图
+library(xts)         # 用于数据框和xts格式的转换
+library(countrycode) # 国家代码转换包
+library(rdbnomics)   # 从 DB.nomics 获取数据的包
+library(ggbump)      # 用于绘制排名变化的 Bump 图
+library(MetBrewer)   # 提供艺术风格的调色板
+library(scales)      # 提供图形比例尺功能
 
 ```
 

@@ -1852,7 +1852,7 @@
     "href": "time.html",
     "title": "31  Time",
     "section": "",
-    "text": "31.1 PKG\nShow/Hide Code\nlibrary(tidyverse) # 数据处理与可视化核心包",
+    "text": "31.1 PKG\nShow/Hide Code\nlibrary(tidyverse)   # 数据处理与可视化核心包\nlibrary(ggplot2)     # 数据可视化\nlibrary(dplyr)       # 数据处理\nlibrary(lubridate)   # 用于处理日期和时间\nlibrary(hrbrthemes)  # 提供额外的主题样式\nlibrary(plotly)      # 用于创建交互式图表\nlibrary(patchwork)   # 用于组合图表\nlibrary(dygraphs)    # 用于创建交互式时间序列图\nlibrary(xts)         # 用于数据框和xts格式的转换\nlibrary(countrycode) # 国家代码转换包\nlibrary(rdbnomics)   # 从 DB.nomics 获取数据的包\nlibrary(ggbump)      # 用于绘制排名变化的 Bump 图\nlibrary(MetBrewer)   # 提供艺术风格的调色板\nlibrary(scales)      # 提供图形比例尺功能",
     "crumbs": [
       "Evolution",
       "<span class='chapter-number'>31</span>  <span class='chapter-title'>Time</span>"
