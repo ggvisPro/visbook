@@ -1,3 +1,797 @@
 # Time {#sec-time}
 
-1
+## PKG
+
+```{r}
+library(tidyverse) # 数据处理与可视化核心包
+
+```
+
+## `ggplot2`
+
+`tidyverse::lubridate`是处理日期和时间数据的核心包, YYDS。
+
+### 基本
+
+```{r}
+#| fig-cap: "最基础的`ggplot2`折线图"
+#| 
+library(ggplot2) # 数据可视化
+library(dplyr)   # 数据处理
+
+# 构造示例数据框
+data <- data.frame(
+  day = as.Date("2017-06-14") - 0:364, # 生成 365 天的日期
+  value = runif(365) + seq(-140, 224)^2 / 10000 # 随机生成数值并添加趋势
+)
+
+# 绘制最基础的折线图
+p <- ggplot(data, aes(x = day, y = value)) +
+  geom_line() + # 添加折线
+  xlab("")      # 不显示 x 轴标题
+p
+```
+
+
+### X 轴格式
+
+```{r}
+#| fig-cap: "X 轴格式"
+#| layout-ncol: 2
+#| fig-width: 8
+#| fig-subcap: 
+#|   - "月"
+#|   - "年月日"
+#|   - "周"
+#|   - "月-年"
+
+p+scale_x_date(date_labels = "%b")        # 月
+p+scale_x_date(date_labels = "%Y %b %d")  # 年月日
+p+scale_x_date(date_labels = "%W")        # 周
+p+scale_x_date(date_labels = "%m-%Y")     # 月-年
+```
+
+### Breaks
+
+使用 `date_breaks` 和 `date_minor_breaks` 控制显示的刻度间隔和次级刻度间隔。
+
+```{r}
+#| fig-cap: "更改 X 轴刻度间隔"
+#| layout-ncol: 2
+#| fig-width: 8
+#| fig-subcap: 
+#|   - "X 轴: 1 周"
+#|   - "X 轴: 2 天"
+
+p + scale_x_date(date_breaks = "1 week", date_labels = "%W") # 1 周
+p + scale_x_date(date_minor_breaks = "2 day")                # 2 天
+```
+
+
+```{r}
+#| fig-cap: "带有美化主题和旋转 X 轴标签的折线图"
+
+
+library(ggplot2)      # 加载ggplot2用于数据可视化
+library(dplyr)        # 加载dplyr用于数据处理
+library(hrbrthemes)   # 加载hrbrthemes用于美化主题
+
+# 构造示例数据框：包含365天的日期和带趋势的随机数值
+数据 <- data.frame(
+  day = as.Date("2017-06-14") - 0:364, # 生成从2017-06-14起的365天日期
+  value = runif(365) - seq(-140, 224)^2 / 10000 # 生成带趋势的随机数值
+)
+
+# 绘制基础折线图，并美化主题和旋转X轴标签
+p <- ggplot(数据, aes(x = day, y = value)) +
+  geom_line(color = "#69b3a2") +         # 添加绿色折线
+  xlab("") +                             # 不显示X轴标题
+  theme_ipsum() +                        # 应用hrbrthemes美化主题
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) # 旋转X轴标签
+
+p
+```
+
+### 筛选时间
+
+使用 scale_x_date() 函数的 limit 选项来选择数据中的时间范围
+
+```{r}
+#| fig-cap: "限制 X 轴时间范围的折线点图"
+
+
+library(ggplot2) # 加载ggplot2用于数据可视化
+library(dplyr) # 加载dplyr用于数据处理
+library(hrbrthemes) # 加载hrbrthemes用于美化主题
+
+# 构造示例数据框：包含365天的日期和带趋势的随机数值
+数据 <- data.frame(
+  day = as.Date("2017-06-14") - 0:364, # 生成从2017-06-14起的365天日期
+  value = runif(365) + seq(-140, 224)^2 / 10000 # 生成带趋势的随机数值
+)
+
+# 绘制带点的折线图，限制X轴时间范围并美化主题
+p <- ggplot(数据, aes(x = day, y = value)) +
+  geom_line(color = "steelblue") + # 添加蓝色折线
+  geom_point() + # 添加数据点
+  xlab("") + # 不显示X轴标题
+  theme_ipsum() + # 应用hrbrthemes美化主题
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) + # 旋转X轴标签
+  scale_x_date(limit = c(as.Date("2017-01-01"), as.Date("2017-02-11"))) + # 限制X轴时间范围
+  ylim(0, 1.5) # 限制Y轴范围
+
+p
+
+```
+
+### 注释
+
+```{r}
+#| fig-cap: "比特币历史价格走势图，突出显示2017年底价格高峰"
+
+# 加载所需的R包
+library(ggplot2) # 用于数据可视化
+library(dplyr) # 用于数据操作
+library(plotly) # 用于创建交互式图表
+library(hrbrthemes) # 提供额外的主题
+
+# 从GitHub加载数据集
+data <- read.table(
+    "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", 
+    header = TRUE
+    )
+# 将date列转换为日期格式
+data$date <- as.Date(data$date)
+
+# 使用管道操作符 |> 进行数据可视化
+data |>
+  # 初始化ggplot对象，并设置x轴为日期，y轴为数值
+  ggplot(aes(x = date, y = value)) +
+  # 添加折线图层，并设置颜色
+  geom_line(color = "#69b3a2") +
+  # 设置y轴的显示范围
+  ylim(0, 22000) +
+  # 添加文本注释
+  annotate(
+    geom = "text",
+    x = as.Date("2017-01-01"),
+    y = 20089,
+    label = "Bitcoin price reached 20k $\nat the end of 2017"
+  ) +
+  # 添加一个点来突出显示特定日期
+  annotate(
+    geom = "point",
+    x = as.Date("2017-12-17"),
+    y = 20089,
+    size = 10,
+    shape = 21,
+    fill = "transparent"
+  ) +
+  # 添加一条水平参考线
+  geom_hline(yintercept = 5000, color = "orange", size = 0.5) +
+  # 应用ipsum主题样式
+  theme_ipsum()
+```
+
+### 双 Y 轴
+
+```{r}
+#| fig-cap: "温度与价格双轴图"
+
+# 加载所需R包
+library(ggplot2) # 用于数据可视化
+library(dplyr) # 用于数据处理
+library(patchwork) # 用于组合图表
+library(hrbrthemes) # 提供额外的主题
+
+# 构建示例数据
+data <- data.frame(
+  day = as.Date("2019-01-01") + 0:99, # 生成100天的日期序列
+  temperature = runif(100) + seq(1, 100)^2.5 / 10000, # 生成温度数据
+  price = runif(100) + seq(100, 1)^1.5 / 10 # 生成价格数据
+)
+
+
+# 定义一个系数，用于缩放次坐标轴
+coeff <- 10
+
+# 定义颜色常量
+temperatureColor <- "#69b3a2" # 温度线的颜色
+priceColor <- rgb(0.2, 0.6, 0.9, 1) # 价格线的颜色
+
+# 使用ggplot2创建图表
+ggplot(data, aes(x = day)) +
+  # 添加温度折线图层
+  geom_line(aes(y = temperature), size = 2, color = temperatureColor) +
+  # 添加价格折线图层，价格数据经过系数缩放以适应主Y轴
+  geom_line(aes(y = price / coeff), size = 2, color = priceColor) +
+  # 设置Y轴
+  scale_y_continuous(
+    # 设置主Y轴（左侧）的标题
+    name = "Temperature (Celsius °)",
+    # 添加次Y轴（右侧），并定义其转换关系和标题
+    sec.axis = sec_axis(~ . * coeff, name = "Price ($)")
+  ) +
+  # 应用ipsum主题
+  theme_ipsum() +
+  # 自定义主题元素
+  theme(
+    # 设置主Y轴标题的颜色和大小
+    axis.title.y = element_text(color = temperatureColor, size = 13),
+    # 设置次Y轴标题的颜色和大小
+    axis.title.y.right = element_text(color = priceColor, size = 13)
+  ) +
+  # 添加图表标题
+  ggtitle("Temperature down, price up")
+```
+
+
+更多关于双 Y 轴的示例，请参考 [双 Y 轴](@sec-double-y)。
+
+
+
+## Interactive
+
+```{r}
+#| fig-cap: "比特币历史价格变化的交互式面积图"
+
+# 加载所需 R 包
+library(ggplot2)    # 用于数据可视化
+library(dplyr)      # 用于数据处理
+library(plotly)     # 用于创建交互式图表
+library(hrbrthemes) # 提供额外的主题样式
+
+# 从 Github 加载数据集
+data <- read.table(
+  "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv",
+  header = TRUE # 将第一行作为表头
+)
+# 将 date 列的数据类型转换为日期格式
+data$date <- as.Date(data$date)
+
+# 绘制基础面积图
+p <- data |>
+  ggplot(aes(x = date, y = value)) +
+  geom_area(fill = "#69b3a2", alpha = 0.5) + # 绘制面积图,并设置填充颜色和透明度
+  geom_line(color = "#69b3a2") +             # 添加轮廓线,并设置颜色
+  ylab("bitcoin price ($)") +                # 设置 Y 轴标签
+  theme_ipsum()                              # 应用 hrbrthemes 包中的 ipsum 主题
+
+# 使用 ggplotly 函数将 ggplot 图表转换为交互式图表
+p <- ggplotly(p)
+# 显示交互式图表
+p
+```
+
+包含两个数据系列的交互式堆叠面积图, Quarto 未显示:
+
+```r
+#| fig-cap: "一个包含两个数据系列的交互式堆叠面积图"
+
+# 加载 R 包
+library(plotly) # 用于创建交互式图表
+
+# 创建示例数据
+var1 <- seq(1, 8)                       # 创建 x 轴数据 (1到8的序列)
+var2 <- c(0, 1, 4, 1, 8, 7, 5, 4)       # 创建第一个系列 (y轴) 的数据
+var3 <- c(7, 8, 4, 2, 1, 2, 0, 1)       # 创建第二个系列 (y轴) 的数据
+
+# 绘制包含两个分组的面积图
+p <- plot_ly(
+  x = ~var1,
+  y = ~var2,
+  type = "scatter",
+  mode = "markers",
+  fill = "tozeroy",                     # 填充从该轨迹到 y=0 的区域
+  name = "系列1"                         # 设置图例名称
+) |>
+  add_trace(
+    x = ~var1,
+    y = ~var3,
+    fill = "tonexty",                   # 填充从该轨迹到上一条轨迹的区域
+    name = "系列2"                      # 设置图例名称
+  )
+
+# 显示图表
+p
+```
+
+## `dygraph`
+
+### 基本
+
+```{r}
+#| fig-cap: "一个基础的 dygraphs 交互式时间序列图"
+
+# 加载 dygraphs 扩展包
+library(dygraphs)
+
+# --- 格式 1: 时间用简单的数字表示 (必须是数值型且有序)
+data <- data.frame(
+  time = c(seq(0, 20, 0.5), 40), # 创建时间序列, 从0到20, 步长0.5, 再加上一个点40
+  value = runif(42) # 生成42个0到1之间的随机数作为value
+)
+
+# 再次检查时间列是否为数值型
+str(data)
+
+# 使用 dygraph 创建交互式时间序列图
+p <- dygraph(data)
+p # 显示图表
+```
+
+```{r}
+#| fig-cap: "使用 xts 对象创建的 dygraphs 交互式时间序列图"
+
+# 加载 dygraphs 扩展包
+library(dygraphs)
+# 加载 xts 扩展包, 用于转换数据框和xts格式
+library(xts)
+
+# --- 格式 2: 时间用日期表示
+data <- data.frame(
+  time = seq(from = Sys.Date() - 40, to = Sys.Date(), by = 1), # 创建从40天前到今天的日期序列
+  value = runif(41) # 生成41个随机数
+)
+
+# 时间列必须是时间格式, 用 str() 函数检查
+str(data)
+
+# 然后可以创建 xts 格式, 从而使用 dygraph
+don <- xts(x = data$value, order.by = data$time) # 将数据框转换为xts对象
+
+# 制作图表
+p <- dygraph(don) # 创建 dygraph 图表
+p # 显示图表
+```
+
+### 多时间序列
+
+```{r}
+#| fig-cap: "一个包含多条时间序列的 dygraphs 交互式图表"
+
+# 加载扩展包
+library(dygraphs)
+library(xts) # 用于数据框和xts格式之间的转换
+
+# --- 格式 3: 每个日期对应多个变量
+data <- data.frame(
+  time = seq(from = Sys.Date() - 40, to = Sys.Date(), by = 1), # 创建日期序列
+  value1 = runif(41), # 创建第一个数值变量
+  value2 = runif(41) + 0.7 # 创建第二个数值变量
+)
+
+# 然后可以创建 xts 格式
+don <- xts(x = data[, -1], order.by = data$time) # 排除第一列(time), 将数据框转换为xts对象
+
+# 制作图表
+p <- dygraph(don) # 创建图表
+p # 显示图表
+```
+
+
+```{r}
+#| fig-cap: "使用 lubridate 处理时间格式后创建的 dygraphs 图表"
+
+# 加载扩展包
+library(dygraphs)
+library(xts)       # 用于数据框和xts格式的转换
+library(lubridate) # 用于处理日期和时间
+library(tidyverse) # 加载 tidyverse 工具包
+
+# 加载数据 (托管在 R Graph Gallery 的 GitHub 上)
+path <- "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/bike.csv"
+# path <- "DATA/bike.csv" # 如果在本地有数据, 可以使用此路径
+data <- read.table(path, header = TRUE, sep = ",")
+
+# 检查数据格式, datetime 列此时还是字符格式
+str(data)
+
+# datetime 列的格式是 "年-月-日 时:分:秒".
+# 使用 lubridate 包的 ymd_hms() 函数将其转换为标准的日期时间对象
+data$datetime <- ymd_hms(data$datetime)
+
+# 再次检查以确认转换是否成功
+str(data)
+
+# 转换成功! 现在将其转换为 xts 格式以便 dygraphs 使用
+don <- xts(x = data$count, order.by = data$datetime)
+
+# 制作图表
+p <- dygraph(don) # 创建 dygraph 对象
+p                 # 显示图表
+```
+
+### `dyOptions()`
+
+本文档中描述的大多数图表类型都是通过 `dyOptions()` 函数调用的。对于连接散点图，使用 `drawPoints = TRUE`. 
+
+```{r}
+#| fig-cap: "通过 dyOptions() 在 dygraphs 图中添加数据点"
+
+# 加载扩展包
+library(dygraphs) # 用于创建交互式时间序列图
+library(xts)      # 用于数据框和xts格式的转换
+
+# 创建数据
+data <- data.frame(
+  time = seq(from = Sys.Date() - 40, to = Sys.Date(), by = 1), # 创建日期序列
+  value = runif(41) # 创建随机数值
+)
+
+# 再次确认时间列是日期格式
+str(data$time)
+
+# 转换为 XTS 格式
+data <- xts(x = data$value, order.by = data$time)
+
+# 默认是线图, 这里通过 dyOptions() 添加数据点
+p <- dygraph(data) |>
+  dyOptions(drawPoints = TRUE, pointSize = 4) # 设置选项, 显示数据点并指定大小
+p # 显示图表
+```
+
+`fillGraph = TRUE` 绘制堆积面积图。
+
+```{r}
+#| fig-cap: "通过 dyOptions() 在 dygraphs 图中添加堆积面积图"
+
+p <- dygraph(data) |>
+  dyOptions(fillGraph = TRUE)
+p
+```
+
+阶梯图是使用 `stepPlot` 选项制作的！将它与 `fillGraph` 结合使用，以填充曲线下方的区域。
+
+```{r}
+#| fig-cap: "通过 dyOptions() 在 dygraphs 图中添加阶梯图"
+
+p <- dygraph(data) |>
+  dyOptions(stepPlot = TRUE, fillGraph = TRUE)
+p
+```
+
+`stemPlot` 选项绘制棒棒糖图: 
+
+```{r}
+#| fig-cap: "通过 dyOptions() 在 dygraphs 图中添加茎图"
+
+p <- dygraph(data) |>
+  dyOptions(stemPlot = TRUE)
+p
+```
+
+`candlestick` 选项绘制蜡烛图: 
+
+```{r}
+#| fig-cap: "通过 dyCandlestick() 在 dygraphs 图中添加蜡烛图"
+
+# 创建一个基础趋势信号，使用正弦函数加上随机噪声
+trend <- sin(seq(1,41))+runif(41)
+
+# 创建包含多个时间序列的数据框
+data <- data.frame(
+  time=seq(from=Sys.Date()-40, to=Sys.Date(), by=1 ), # 创建从40天前到今天的日期序列
+  value1=trend,                                       # 基础趋势
+  value2=trend+rnorm(41),                            # 基础趋势加正态分布随机数
+  value3=trend+rnorm(41),                            # 基础趋势加正态分布随机数
+  value4=trend+rnorm(41)                             # 基础趋势加正态分布随机数
+)
+
+# 转换为 xts 格式，排除第一列(time)，将其作为索引
+data <- xts(x = data[,-1], order.by = data$time)
+
+# 创建蜡烛图(K线图)
+p <- dygraph(data) |>
+  dyCandlestick() # 应用蜡烛图样式
+p # 显示图表
+```
+
+
+折线图带间隔:
+
+dySeries() 需要三个列作为输入：趋势和置信区间的上限和下限。
+
+```{r}
+#| fig-cap: "通过 dySeries() 在 dygraphs 图中添加带置信区间的折线图"
+
+# 创建一个基础趋势信号，使用正弦函数加上随机噪声
+trend <- sin(seq(1,41))+runif(41)
+
+# 创建包含趋势线和置信区间的数据框
+data <- data.frame(
+  time=seq(from=Sys.Date()-40, to=Sys.Date(), by=1 ), # 创建从40天前到今天的日期序列
+  trend=trend,                                        # 主趋势线
+  max=trend+abs(rnorm(41)),                          # 置信区间上限(趋势+正值随机数)
+  min=trend-abs(rnorm(41, sd=1))                     # 置信区间下限(趋势-正值随机数)
+)
+
+# 转换为 xts 格式，排除第一列(time)，将其作为索引
+data <- xts(x = data[,-1], order.by = data$time)
+
+# 绘制带置信区间的折线图
+p <- dygraph(data) |>
+  dySeries(c("min", "trend", "max")) # 指定三列数据：下限、趋势、上限
+p # 显示图表
+```
+
+
+
+```{r}
+#| fig-cap: "一个功能丰富的 dygraphs 交互式图表"
+
+# 加载扩展包
+library(dygraphs)  # 用于创建交互式时间序列图
+library(xts)       # 用于数据框和xts格式的转换
+library(tidyverse) # 加载 tidyverse 工具包
+library(lubridate) # 用于处理日期和时间
+
+# 读取数据 (托管在 R Graph Gallery 的 GitHub 上)
+path <- "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/bike.csv"
+data <- read.table(path, header = TRUE, sep = ",") |>
+  head(300) # 读取数据并仅保留前300行
+
+# datetime 列此时是因子(factor)或字符(character)类型, 需要转换为日期时间格式
+# str(data)
+data$datetime <- ymd_hms(data$datetime)
+
+# 创建 dygraphs 所需的 xts 对象
+don <- xts(x = data$count, order.by = data$datetime)
+
+# 最后, 绘制图表并添加各种交互式功能
+p <- dygraph(don) |>
+  dyOptions(
+    labelsUTC = TRUE,    # 在标签中使用UTC时间
+    fillGraph = TRUE,    # 填充图表下方面积
+    fillAlpha = 0.1,     # 设置填充区域的透明度
+    drawGrid = FALSE,    # 不绘制网格线
+    colors = "#D8AE5A" # 设置线条颜色
+  ) |>
+  dyRangeSelector() |> # 添加范围选择器
+  dyCrosshair(direction = "vertical") |> # 添加垂直十字准线
+  dyHighlight(
+    highlightCircleSize = 5, # 设置高亮时圆点的大小
+    highlightSeriesBackgroundAlpha = 0.2, # 设置高亮时序列背景的透明度
+    hideOnMouseOut = FALSE # 鼠标移出后不隐藏高亮效果
+  ) |>
+  dyRoller(rollPeriod = 1) # 添加滚动平均计算工具
+
+p # 显示图表
+```
+
+
+## Heatmap
+
+[![逐小时温度变化](./image/hourly-heatmap.png)](https://r-graph-gallery.com/283-the-hourly-heatmap.html)
+
+## Bump
+
+### 基本
+
+```{r}
+#| fig-cap: "2000、2010和2020年欧盟国家私人投资占GDP比重的排名变化"
+
+# 加载扩展包
+library(tidyverse)   # 数据处理与可视化核心包
+library(countrycode) # 国家代码转换包
+library(rdbnomics)   # 从 DB.nomics 获取数据的包
+library(ggbump)      # 用于绘制排名变化的 Bump 图
+library(MetBrewer)   # 提供艺术风格的调色板
+library(scales)      # 提供图形比例尺功能
+
+# 从 codelist 获取所有欧盟28国的 ISO3C 国家代码
+allcty <- codelist |>
+  filter(!is.na(eu28)) |>
+  pull(iso3c) |>
+  tolower()
+
+# 获取私营部门固定资本形成总额 (GFCF) 数据
+gfcf_private <- rdb(
+  provider_code = "AMECO",
+  dataset_code = "UIGP",
+  dimensions = list(geo = allcty, unit = "mrd-ecu-eur")
+)
+
+# 获取国内生产总值 (GDP) 数据
+gdp <- rdb(
+  provider_code = "AMECO",
+  dataset_code = "UVGD",
+  dimensions = list(geo = allcty, unit = "mrd-ecu-eur")
+)
+
+# 合并 GFCF 和 GDP 数据, 并计算份额
+data <- bind_rows(gfcf_private, gdp) |>
+  mutate(
+    variable = case_when(
+      str_detect(dataset_name, "private") ~ "GFCF_p",
+      TRUE ~ "GDP"
+    )
+  ) |>
+  select(geo, variable, period, value) |>
+  pivot_wider(names_from = variable, values_from = value) |>
+  mutate(
+    share_p = GFCF_p / GDP * 100,
+    year = year(period),
+    geo = toupper(geo)
+  )
+
+# 对特定年份的数据进行排名
+ranked <- data |>
+  filter(year %in% c(2000, 2010, 2020)) |>
+  mutate(
+    ranking = rank(desc(share_p), ties.method = "first"),
+    .by = year # 按年份分别进行排名
+  ) |>
+  mutate(
+    ctry = countrycode(geo, "iso3c", "country.name.de"), # 将ISO代码转为德语国家名
+    ctry = ifelse(geo == "CZE", "Tschechien", ctry)      # 手动修正捷克共和国的名称
+  )
+
+# 定义需要高亮显示的国家
+selected <- c("AUT", "DEU", "IRL", "FRA")
+
+# 使用 ggplot 和 ggbump 绘制排名变化图
+ranked |>
+  ggplot(aes(x = year, y = ranking, group = geo)) +
+  # 绘制所有国家的排名变化曲线 (灰色背景)
+  geom_bump(linewidth = 0.6, color = "gray90", smooth = 6) +
+  # 对选定国家进行高亮显示
+  geom_bump(
+    aes(color = geo),
+    linewidth = 0.8,
+    smooth = 6,
+    data = \(x) filter(x, geo %in% selected) # 使用 Lambda 表达式筛选高亮数据
+  )
+
+```
+
+### 排序
+
+```{r}
+#| fig-cap: "一个带注释和高亮的 Bump 图，展示了2000年至2020年间欧盟国家私人投资排名的变化"
+
+# 从 `ranked` 数据开始，构建一个层次丰富的 ggplot 图表
+ranked |>
+  ggplot(aes(x = year, y = ranking, group = geo)) +
+  # 1. 绘制所有国家的排名变化曲线 (灰色背景)
+  geom_bump(linewidth = 0.6, color = "gray90", smooth = 6) +
+  # 2. 对选定国家进行高亮显示
+  geom_bump(
+    aes(color = geo),
+    linewidth = 0.8,
+    smooth = 6,
+    data = \(x) filter(x, geo %in% selected) # 使用 Lambda 表达式筛选高亮数据
+  ) +
+  # 3. 添加白色底点，用于突出显示彩色点
+  geom_point(color = "white", size = 4) +
+  # 4. 为所有国家添加灰色数据点
+  geom_point(color = "gray90", size = 2) +
+  # 5. 为选定国家添加彩色数据点
+  geom_point(
+    aes(color = geo),
+    size = 2,
+    data = \(x) filter(x, geo %in% selected)
+  ) +
+  # 6. 为未被选中的国家在图表末尾添加国家名称标签
+  geom_text(
+    aes(label = ctry),
+    x = 2021,
+    hjust = 0,
+    color = "gray50",
+    family = "Roboto Condensed",
+    size = 3.5,
+    data = ranked |> slice_max(year, by = geo) |> filter(!geo %in% selected)
+  ) +
+  # 7. 为选中的国家在图表末尾添加加粗的国家名称标签
+  geom_text(
+    aes(label = ctry),
+    x = 2021,
+    hjust = 0,
+    color = "black",
+    family = "Roboto Condensed",
+    size = 3.5,
+    data = ranked |> slice_max(year, by = geo) |> filter(geo %in% selected)
+  ) +
+  # 8. 自定义颜色方案
+  scale_color_manual(values = met.brewer("Juarez")) +
+  # 9. 自定义 X 轴
+  scale_x_continuous(
+    limits = c(1999.8, 2027),
+    expand = c(0.01, 0),
+    breaks = c(2000, 2010, 2020)
+  ) +
+  # 10. 自定义 Y 轴 (反转)
+  scale_y_reverse(
+    breaks = c(25, 20, 15, 10, 5, 1),
+    expand = c(0.02, 0),
+    labels = number_format(suffix = ".")
+  )
+```
+
+
+### 定制
+
+```{r}
+#| fig-cap: "一个完整的、带有德语标题和详细主题设置的 Bump 图"
+
+# 假设 `ranked` 和 `selected` 对象已在之前的代码中创建
+
+# 创建最终的图表对象 `plot`
+plot <- ranked |>
+  ggplot(aes(x = year, y = ranking, group = geo)) +
+  # 1. 绘制所有国家的排名变化曲线 (灰色背景)
+  geom_bump(linewidth = 0.6, color = "gray90", smooth = 6) +
+  # 2. 对选定国家进行高亮显示
+  geom_bump(
+    aes(color = geo),
+    linewidth = 0.8,
+    smooth = 6,
+    data = \(x) filter(x, geo %in% selected) # 使用 Lambda 表达式筛选高亮数据
+  ) +
+  # 3. 添加数据点 (多层叠加)
+  geom_point(color = "white", size = 4) + # 白色底层
+  geom_point(color = "gray90", size = 2) + # 灰色中层
+  geom_point( # 彩色顶层 (仅限选定国家)
+    aes(color = geo),
+    size = 2,
+    data = \(x) filter(x, geo %in% selected)
+  ) +
+  # 4. 在图表末尾添加国家名称标签 (分两部分)
+  geom_text( # 未选中的国家
+    aes(label = ctry),
+    x = 2021, hjust = 0, color = "gray50",
+    family = "Roboto Condensed", size = 3.5,
+    data = ranked |> slice_max(year, by = geo) |> filter(!geo %in% selected)
+  ) +
+  geom_text( # 选中的国家 (黑色)
+    aes(label = ctry),
+    x = 2021, hjust = 0, color = "black",
+    family = "Roboto Condensed", size = 3.5,
+    data = ranked |> slice_max(year, by = geo) |> filter(geo %in% selected)
+  ) +
+  # 5. 自定义颜色、坐标轴
+  scale_color_manual(values = met.brewer("Juarez")) +
+  scale_x_continuous(
+    limits = c(1999.8, 2027), expand = c(0.01, 0), breaks = c(2000, 2010, 2020)
+  ) +
+  scale_y_reverse(
+    breaks = c(25, 20, 15, 10, 5, 1), expand = c(0.02, 0),
+    labels = number_format(suffix = ".")
+  ) +
+  # 6. 添加德语标题、副标题和图注
+  labs(
+    x = NULL,
+    y = NULL,
+    title = toupper("Investitionstätigkeit in der EU"),
+    subtitle = "Ranking nach Bruttoanlageinvestitionen in % des BIP",
+    caption = "Anm.: Investionen des privaten Sektors. Daten: AMECO Grafik: @matschnetzer"
+  ) +
+  # 7. 设置整体主题
+  theme_minimal(base_family = "Roboto Condensed", base_size = 12) +
+  # 8. 精细调整主题元素
+  theme(
+    legend.position = "none", # 隐藏图例
+    panel.grid = element_blank(), # 移除网格线
+    plot.title.position = "plot", # 标题位置
+    plot.title = element_text(size = 14, hjust = 0.5), # 居中主标题
+    plot.subtitle = element_text(size = 10, hjust = 0.5), # 居中副标题
+    plot.caption = element_text(size = 8) # 图注样式
+  )
+
+# 显示图表
+plot
+```
+
+
+## Pearl
+
+[![时间序列-棒棒糖图](./image/time-lollipop.png)](https://r-graph-gallery.com/web-lollipop-plot-with-R-the-office.html)
+
+
+[![折线图和堆叠面积图](./image/line-stack.png)](https://r-graph-gallery.com/web-lineplots-and-area-chart-the-economist.html)
+
+
+[![伦敦不同区域动物救助的演变](./image/line-area.png)](https://r-graph-gallery.com/web-time-series-and-facetting.html)
+
+
+[![近几年全球消费者信心的演变](./image/line-mult.png)](https://r-graph-gallery.com/web-line-chart-small-multiple-all-group-greyed-out.html)

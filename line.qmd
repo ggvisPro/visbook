@@ -1013,7 +1013,7 @@ axis(
 ```
 
 
-## 双 Y 轴
+## 双 Y 轴 {#sec-double-y}
 
 
 ### 双图
@@ -1276,13 +1276,14 @@ doubleYScale(
 
 [![每条线末端有精美标签](./image/line-label.png)](https://r-graph-gallery.com/web-line-chart-with-labels-at-end-of-line.html)
 
+
 [![折线图和堆叠面积图](./image/line-stack.png)](https://r-graph-gallery.com/web-lineplots-and-area-chart-the-economist.html)
 
 
 [![1976 年至今美国众议院中的政党优势](./image/line-vertical.png)](https://r-graph-gallery.com/web-vertical-line-chart-with-ggplot2.html)
 
 
-[![伦敦不同区域能动物救助的演变](./image/line-area.png)](https://r-graph-gallery.com/web-time-series-and-facetting.html)
+[![伦敦不同区域动物救助的演变](./image/line-area.png)](https://r-graph-gallery.com/web-time-series-and-facetting.html)
 
 
 [![近几年全球消费者信心的演变](./image/line-mult.png)](https://r-graph-gallery.com/web-line-chart-small-multiple-all-group-greyed-out.html)

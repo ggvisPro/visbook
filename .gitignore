@@ -1,7 +1,6 @@
 **/.DS_Store
 **/*_cache/
 /.quarto/
-/_freeze/
 /*_files/
 /data/
 /wordcloud/

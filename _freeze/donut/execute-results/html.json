@@ -1,0 +1,15 @@
+{
+  "hash": "c83b73567c54a923d7d087cd4f4a1e1b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Donut {#sec-donut}\n\n## 问题\n\n与饼图相比，环形图在视觉上更具吸引力，但是也存在饼图的问题,见 @sec-pie\n\n\n## PKG \n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n:::\n\n\n## `Base R`\n\n先用 `pie()` 绘制一个饼图，再用`Base R::symbols()` 叠加略小白色圆形来形成环形效果。\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# 定义各部分的比例\nProp <- c(3, 7, 9, 1, 2)\n\n# 绘制饼图\npie(Prop)\n\n# 在饼图中央添加一个白色圆形，形成环形图效果\nsymbols(\n    0,                # x坐标\n    0,                # y坐标\n    circles = 0.5,    # 圆的半径\n    inches = FALSE,   # 使用坐标单位而非英寸\n    add = TRUE,       # 在已有图形上添加\n    bg = \"white\",     # 圆的填充色为白色\n    fg = \"black\"      # 圆的边框色为黑色\n)\n```\n\n::: {.cell-output-display}\n![使用Base R绘制环形图（Donut Chart）示例](donut_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\n更为复杂的 [自定义函数](https://r-graph-gallery.com/130-ring-or-donut-chart.html) 方法,不推荐\n\n## `geom_bar()`\n\n核心思路：\n\n- `geom_bar()` 绘制堆叠条形图\n- `coord_polar()` 堆叠的矩形切换到环形\n- `xlim()` 从饼图切换到环形图 (中间添加一个空白圆圈)\n\n### 基础\n\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(diamonds, aes(x = 2, fill = cut)) + \n  geom_bar(color = \"white\") +           # 绘制每个cut的条形，白色边框\n  xlim(0.5, 2.5) +                      # 设置x轴范围，决定中间空白洞的大小\n  coord_polar(theta = \"y\") +            # 使用极坐标，将条形图转换为圆环（甜甜圈）\n  scale_fill_brewer(palette = 2) +      # 设置配色方案\n  theme_void()                          # 移除所有背景和坐标轴，突出图形主体\n```\n\n::: {.cell-output-display}\n![使用geom_bar()绘制环形图（Donut Chart）示例](donut_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n\n\n### 标签\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# 修改label来更改文本\n# 修改aes(label = label, x = 3) 的 X 来控制标签位置\n\n# 计算每个cut的数量和比例\ndiamonds_summary <- diamonds |>\n  count(cut) |>\n  mutate(\n    prop = n / sum(n), # 计算每个cut的比例\n    percentage = round(prop * 100, 1), # 转换为百分比并保留一位小数\n    label = paste0(cut, \": \\n\", n, \" (\", percentage, \"%)\") # 组合标签文本\n  )\n\n# 绘制带标签的环形图\nggplot(diamonds_summary, aes(x = 2, y = n, fill = cut)) +\n  geom_bar(\n    stat = \"identity\", # 使用实际的y值（n）绘制条形\n    color = \"white\", # 条形之间的分隔线为白色\n    width = 1 # 条形宽度\n  ) +\n  xlim(0.5, 3) + # 控制中间空白圆圈的大小  \n  geom_text(\n    aes(label = label, x = 3), # 设置标签内容\n    position = position_stack(vjust = 0.5), # 标签居中显示在每个扇区\n    color = \"black\", # 标签颜色\n    size = 3.5, # 标签字体大小\n    fontface = \"bold\" # 标签字体加粗\n  ) +\n  coord_polar(theta = \"y\") + # 极坐标转换为环形图\n  scale_fill_brewer(palette = 2) + # 设置配色方案\n  theme_void() + # 移除背景和坐标轴\n  theme(legend.position = \"none\") # 隐藏图例，标签已包含信息\n```\n\n::: {.cell-output-display}\n![带标签的环形图（Donut Chart），显示每个cut的数量和百分比](donut_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n\n\n\n## 厚度\n\n`xlim()` 函数可以控制环形的厚度, 通过调整 `xlim()` 的范围来实现。\n\n看不懂就直接删除`coord_polar()`，就能看到环形的厚度变化。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

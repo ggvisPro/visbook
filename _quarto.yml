@@ -73,8 +73,6 @@ format:
     code-fold: true
     code-summary: "Show/Hide Code"
     number-sections: true
-  pdf:
-    documentclass: scrreprt
 
 execute:
   warning: false

@@ -24,7 +24,7 @@ ggplot(data, aes(x = value)) +
 ```{r}
 #| fig-cap: 定制的geom_histogram
 
-ggplot(data, aes(x=value)) + 
+ggplot(data, aes(x = value)) + 
   geom_histogram(binwidth=0.1, fill="#69b3a2", color="#e9ecef", alpha=0.9) +
   theme_ipsum()
 ```

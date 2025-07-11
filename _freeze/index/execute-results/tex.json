@@ -1,0 +1,19 @@
+{
+  "hash": "d3f2b8900a9667a1c41da59e78a074a4",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# Preface {.unnumbered}\n\n**数据可视化**,对王师傅来说是很复杂的东西\n\n所以王师傅特地写了这个笔记,来记录学习过程和心得体会。\n\n看似简单,其实一点也不难.\n\n\n遗憾的是,由于王师傅打字不认真,书中的中文标点符号几乎都是错误的.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n# 彩蛋 右上角的封面是这段代码画的位图\nlibrary(ggplot2)\ndf <- read.csv('https://raw.githubusercontent.com/ggvisPro/data/refs/heads/main/img_df2.csv')\nggplot(df, aes(x = x, y = y, color = color)) +\n  geom_point() +\n  scale_colour_identity() + #控制颜色映射\n  theme_void() #删除坐标轴\n```\n:::\n\n\n王师傅强烈推荐 [r graph gallery](https://r-graph-gallery.com/index.html) 的数据可视化思路:![data2viz](./image/data2viz.png)\n\n\n这本书是由quarto生成的,可以在[quarto.org](https://quarto.org)上了解更多.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {
+      "knitr": [
+        "{\"type\":\"list\",\"attributes\":{},\"value\":[]}"
+      ]
+    },
+    "preserve": null,
+    "postProcess": false
+  }
+}
