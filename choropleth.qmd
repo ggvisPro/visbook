@@ -21,6 +21,8 @@ library(sp)          # 用于处理空间数据 (sp objects)
 
 ```{r}
 #| fig-cap: "法国南部地区地图"
+#| comment: "#>"
+#| collapse: true
 
 # 加载 sf 包, 用于处理地理空间数据
 library(sf)
@@ -29,13 +31,14 @@ library(sf)
 tmp_geojson <- tempfile(fileext = ".geojson")
 
 # 从指定的 URL 下载 geojson 文件
-download.file(
-  "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes.geojson",
-  tmp_geojson # 保存到临时文件
-)
+# download.file(
+#   "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes.geojson",
+#   tmp_geojson # 保存到临时文件
+# )
+
 
 # 读取 geojson 文件为 sf 对象
-my_sf <- read_sf(tmp_geojson)
+my_sf <- read_sf("./data/geojson/communes.geojson")
 
 # 由于数据量较大, 这里只选取法国南部部分地区的数据
 # 通过区域编码的前两位进行筛选
@@ -57,6 +60,8 @@ ggplot(my_sf) +
 
 ```{r}
 #| fig-cap: "法国各州餐厅数量分布直方图"
+#| comment: "#>"
+#| collapse: true
 
 # 加载 dplyr 包
 library(dplyr)
@@ -69,7 +74,7 @@ data <- read.table(
 )
 
 # 查看数据的前几行
-head(data) |> knitr::kable()
+head(data)
 
 # 绘制餐厅数量的分布直方图
 data |>
@@ -253,6 +258,8 @@ world_sf <- world_sf |>
 
 ```{r}
 #| fig-cap: 默认的等值区域图
+#| comment: "#>"
+#| collapse: true
 
 # 加载 leaflet 包, 用于创建交互式地图
 library(leaflet)
@@ -263,7 +270,9 @@ mypalette <- colorNumeric(
   domain = world_sf$POP2005,# 指定数据范围
   na.color = "transparent"  # 为NA值设置透明色
 )
-mypalette(c(45, 43))         # 测试调色板
+
+# 测试调色板
+mypalette(c(45, 43))         
 
 # 使用 leaflet 创建基本的等值区域图
 m <- leaflet(world_sf) |>
@@ -274,7 +283,8 @@ m <- leaflet(world_sf) |>
     stroke = FALSE                          # 不显示边界线
   )
 
-m # 显示地图
+# 显示地图
+m 
 
 ```
 
@@ -467,6 +477,8 @@ title("Number of people living in Africa in 2005")
 
 ```{r}
 #| fig-cap: 欧洲地区年均增长率地图
+#| collapse: true
+#| comment: "#>"
 
 # 加载制图相关库
 library(cartography) # 加载cartography包
@@ -523,8 +535,8 @@ layoutLayer(
 
 ## Pearl
 
-[![](./image/choropleth-1.png)](https://r-graph-gallery.com/web-choropleth-map-lego-style.html)
+[![Lego Choropleth map with R](./image/choropleth-1.png)](https://r-graph-gallery.com/web-choropleth-map-lego-style.html)
 
-[![](./image/choropleth-2.png)](https://r-graph-gallery.com/web-choropleth-barchart-map.html)
+[![Choropleth Map with Bar Chart in R](./image/choropleth-2.png)](https://r-graph-gallery.com/web-choropleth-barchart-map.html)
 
-[![](./image/choropleth-3.png)](https://r-graph-gallery.com/web-map-choropleth-quantile.html)
+[![Choropleth map with quantiles](./image/choropleth-3.png)](https://r-graph-gallery.com/web-map-choropleth-quantile.html)
