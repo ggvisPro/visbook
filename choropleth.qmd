@@ -1,3 +1,530 @@
 # Choropleth {#sec-choropleth}
 
-1
+choropleth map 是基于地理空间数据的可视化方法，它将地理空间数据映射到颜色或图案上，从而形成一个连续的颜色或图案分布图。
+
+## PKG
+
+```{r}
+library(tidyverse)   # 数据处理与可视化核心包
+library(sf)          # 用于处理地理空间数据
+library(knitr)       # 用于在报告中渲染表格
+library(RColorBrewer) # 用于创建漂亮的调色板
+library(leaflet)     # 用于创建交互式地图
+library(htmltools)   # 用于处理HTML标签
+library(cartography) # 用于地图制作
+library(sp)          # 用于处理空间数据 (sp objects)
+```
+
+## `ggplot2`
+
+首先准备数据: 负责下载GeoJSON格式的法国地图数据, 加载sf包来处理它, 然后筛选出法国南部特定区域的数据, 最后使用ggplot2绘制地图.
+
+```{r}
+#| fig-cap: "法国南部地区地图"
+
+# 加载 sf 包, 用于处理地理空间数据
+library(sf)
+
+# 创建一个临时文件用于存储 geojson 数据
+tmp_geojson <- tempfile(fileext = ".geojson")
+
+# 从指定的 URL 下载 geojson 文件
+download.file(
+  "https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes.geojson",
+  tmp_geojson # 保存到临时文件
+)
+
+# 读取 geojson 文件为 sf 对象
+my_sf <- read_sf(tmp_geojson)
+
+# 由于数据量较大, 这里只选取法国南部部分地区的数据
+# 通过区域编码的前两位进行筛选
+my_sf <- my_sf[substr(my_sf$code, 1, 2) %in% c(
+  "06", "83",
+  "13", "30", "34", "11", "66"
+), ]
+
+# 使用 ggplot2 创建地图
+ggplot(my_sf) +
+  geom_sf(
+    fill = "white",     # 填充色为白色
+    color = "black",    # 边框色为黑色
+    linewidth = 0.3     # 线宽为0.3
+    ) +
+  theme_void()         # 使用空白主题, 移除坐标轴、网格线等元素
+```
+
+
+```{r}
+#| fig-cap: "法国各州餐厅数量分布直方图"
+
+# 加载 dplyr 包
+library(dplyr)
+
+# 从 URL 读取关于法国各州的数据
+data <- read.table(
+  "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/data_on_french_states.csv",
+  header = TRUE,
+  sep = ";"
+)
+
+# 查看数据的前几行
+head(data) |> knitr::kable()
+
+# 绘制餐厅数量的分布直方图
+data |>
+  ggplot(aes(x = nb_equip)) +
+  # 创建直方图, 设置箱数为10, 填充色和边框色
+  geom_histogram(bins = 10, fill = "skyblue", color = "black") +
+  # 将 x 轴进行对数变换, 以更好地观察长尾分布
+  scale_x_log10()
+```
+
+合并地理数据与数值数据: 
+
+```{r}
+#| fig-cap: "法国各州餐厅数量分布地图"
+# 将地理空间数据(my_sf)与餐厅数量数据(data)进行合并
+my_sf_merged <- my_sf |>
+  # 使用 left_join, 通过共有的地区编码 (my_sf 的 'code' 和 data 的 'depcom') 进行连接
+  left_join(data, by = c("code" = "depcom")) |>
+  # 使用 mutate 创建或修改变量
+  # 如果餐厅数量(nb_equip)为 NA, 则将其值设为 0.01 (设为小数值以避免对数变换时出错)
+  mutate(nb_equip = ifelse(is.na(nb_equip), 0.01, nb_equip))
+
+# 绘制一幅基础的 choropleth 地图
+ggplot(my_sf_merged) +
+  # 将每个区域的填充色映射到餐厅数量(nb_equip)
+  geom_sf(aes(fill = nb_equip)) +
+  # 使用空白主题
+  theme_void()
+```
+
+
+```{r}
+#| fig-cap: "自定义优化的等值区域图"
+
+# 创建一个定制化的 choropleth 地图
+p <- ggplot(my_sf_merged) +
+  # 绘制地理边界, 填充色映射到餐厅数量, 移除边框线, 设置透明度
+  geom_sf(aes(fill = nb_equip), linewidth = 0, alpha = 0.9) +
+  # 使用空白主题
+  theme_void() +
+  # 使用 viridis 色板进行连续值填充
+  scale_fill_viridis_c(
+    trans = "log",                                  # 对颜色进行对数变换
+    breaks = c(1, 5, 10, 20, 50, 100),              # 设置图例的中断点
+    name = "Number of restaurant",                  # 设置图例标题
+    guide = guide_legend(                           # 自定义图例样式
+      keyheight = unit(3, units = "mm"),            # 图例键的高度
+      keywidth = unit(12, units = "mm"),            # 图例键的宽度
+      label.position = "bottom",                    # 标签位置
+      title.position = "top",                       # 标题位置
+      nrow = 1                                      # 图例行数
+    )
+  ) +
+  # 添加标题、副标题和图注
+  labs(
+    title = "South of France Restaurant concentration",
+    subtitle = "Number of restaurant per city district",
+    caption = "Data: INSEE | Creation: Yan Holtz | r-graph-gallery.com"
+  ) +
+  # 自定义主题元素
+  theme(
+    text = element_text(color = "#22211d"), # 全局文本颜色
+    plot.background = element_rect(fill = "#f5f5f2", color = NA), # 图表背景
+    panel.background = element_rect(fill = "#f5f5f2", color = NA), # 面板背景
+    legend.background = element_rect(fill = "#f5f5f2", color = NA), # 图例背景
+    plot.title = element_text( # 主标题样式
+      size = 20, hjust = 0.01, color = "#4e4d47",
+      margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")
+    ),
+    plot.subtitle = element_text( # 副标题样式
+      size = 15, hjust = 0.01, color = "#4e4d47",
+      margin = margin(b = -0.1, t = 0.43, l = 2, unit = "cm")
+    ),
+    plot.caption = element_text( # 图注样式
+      size = 10, color = "#4e4d47",
+      margin = margin(b = 0.3, r = -99, t = 0.3, unit = "cm")
+    ),
+    legend.position = "inside", # 图例位置
+    legend.position.inside = c(0.7, 0.09) # 图例位置
+  )
+
+# 打印图表
+p
+```
+
+## `ggiraph`
+
+美观的多表与交互式地图联动, 见: @sec-map-ggiraph
+
+
+## `Base R`
+
+绘制非洲地图轮廓: 
+
+```{r}
+#| fig-cap: "非洲地图轮廓"
+
+# 加载 sf 包, 用于处理地理空间数据
+library(sf)
+
+# 使用 sf 包的 read_sf 函数读取 shapefile 文件
+my_sf <- read_sf("./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+
+# 仅筛选出非洲地区的数据 (REGION == 2 代表非洲)
+africa <- my_sf[my_sf$REGION == 2, ]
+
+# 绘制非洲地图轮廓
+plot(
+    st_geometry(africa),  # 绘制非洲地图轮廓
+    xlim = c(-20, 60),    # 设置x轴范围
+    ylim = c(-40, 40)     # 设置y轴范围
+    )
+```
+
+可视化数值变量的分布: 
+
+```{r}
+#| fig-cap: "非洲各国人口分布直方图"
+
+# 加载数据处理和绘图所需的包
+library(dplyr)
+library(ggplot2)
+
+# 确保要研究的变量 (POP2005) 是数值类型
+africa$POP2005 <- as.numeric(africa$POP2005)
+
+# 使用 ggplot2 绘制各国人口 (POP2005) 的分布直方图
+africa |>
+  ggplot(aes(x = POP2005)) +
+  geom_histogram(bins = 20, fill = "#69b3a2", color = "white")
+```
+
+
+```{r}
+#| fig-cap: "非洲各国人口分布地图"
+
+# 加载 RColorBrewer 包, 用于创建漂亮的调色板
+library(RColorBrewer)
+
+# 首先, 使用 brewer.pal 从 "Reds" 色板中获取一组基础颜色
+my_colors <- brewer.pal(9, "Reds")
+# 然后, 使用 colorRampPalette 将这组颜色扩展为30种渐变色
+my_colors <- colorRampPalette(my_colors)(30)
+
+# 使用 cut 函数将各国人口数据 (POP2005) 分成30个区间(等级)
+class_of_country <- cut(africa$POP2005, 30)
+# 根据每个国家所属的区间,为其分配对应的颜色
+my_colors <- my_colors[as.numeric(class_of_country)]
+
+# 绘制最终的分区统计地图
+plot(
+  st_geometry(africa),                         # 仅绘制地理形状
+  xlim = c(-20, 60),                           # 设置x轴范围
+  ylim = c(-40, 40),                           # 设置y轴范围
+  col = my_colors,                             # 将计算好的颜色赋予每个区域
+  bg = "#A6CAE0"                               # 设置地图的背景色
+)
+```
+
+## `leaflet`
+
+数据准备:
+
+```{r}
+#| fig-cap: 加载并清理地理空间数据
+
+# 加载 sf 包用于处理地理空间数据
+library(sf)
+# 读取 shapefile 文件
+world_sf <- read_sf("./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+
+# 加载 dplyr 包用于数据处理
+library(dplyr)
+# 清理数据
+world_sf <- world_sf |>
+  # 使用 mutate 创建或修改列, 将2005年人口为0的替换为NA, 其余的除以一百万并四舍五入保留两位小数
+  mutate(POP2005 = ifelse(POP2005 == 0, NA, round(POP2005 / 1000000, 2)))
+```
+
+默认的等值区域图: 
+
+```{r}
+#| fig-cap: 默认的等值区域图
+
+# 加载 leaflet 包, 用于创建交互式地图
+library(leaflet)
+
+# 为地图创建一个调色板
+mypalette <- colorNumeric(
+  palette = "viridis",      # 设置调色板样式
+  domain = world_sf$POP2005,# 指定数据范围
+  na.color = "transparent"  # 为NA值设置透明色
+)
+mypalette(c(45, 43))         # 测试调色板
+
+# 使用 leaflet 创建基本的等值区域图
+m <- leaflet(world_sf) |>
+  addTiles() |>                             # 添加默认的 OpenStreetMap 底图
+  setView(lat = 10, lng = 0, zoom = 2) |>   # 设置地图中心点和缩放级别
+  addPolygons(
+    fillColor = ~ mypalette(POP2005),       # 根据2005年人口填充颜色
+    stroke = FALSE                          # 不显示边界线
+  )
+
+m # 显示地图
+
+```
+
+可视化数值变量的分布: 
+
+```{r}
+#| fig-cap: "可视化数值变量的分布"
+
+# 加载 ggplot2 包用于数据可视化
+library(ggplot2)
+
+# 绘制各国人口分布的直方图
+ggplot(world_sf, aes(x = POP2005)) +
+  # 设置直方图, 分箱数为20, 填充色和边框色
+  geom_histogram(bins = 20, fill = "#69b3a2", color = "white") + 
+  xlab("Population (M)") +           # 设置x轴标签
+  theme_bw()                         # 使用黑白主题
+```
+
+使用分位数(Quantile)划分颜色: 
+
+```{r}
+#| fig-cap: "使用分位数(Quantile)划分颜色"
+
+# 使用分位数调色板
+m <- leaflet(world_sf) |>
+  addTiles() |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    stroke = FALSE,                                     # 不显示边界线
+    fillOpacity = 0.5,                                  # 设置填充不透明度
+    smoothFactor = 0.5,                                 # 设置平滑因子
+    color = ~ colorQuantile("YlOrRd", POP2005)(POP2005) # 使用分位数函数 colorQuantile 对人口数据进行颜色映射
+  )
+
+# 显示地图
+m 
+```
+
+使用连续数值(Numeric)划分颜色: 
+
+```{r}
+#| fig-cap: 使用连续数值(Numeric)划分颜色
+
+# 使用连续数值调色板
+m <- leaflet(world_sf) |>
+  addTiles() |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    stroke = FALSE,                                     # 不显示边界线
+    fillOpacity = 0.5,                                  # 设置填充不透明度
+    smoothFactor = 0.5,                                 # 设置平滑因子
+    color = ~ colorNumeric("YlOrRd", POP2005)(POP2005)  # 使用连续数值函数 colorNumeric 对人口数据进行颜色映射
+  )
+
+# 显示地图
+m 
+```
+
+使用分箱(Bin)划分颜色: 
+
+```{r}
+#| fig-cap: "使用分箱(Bin)划分颜色"
+
+# 使用分箱调色板
+m <- leaflet(world_sf) |>
+  addTiles() |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    stroke = FALSE,                                 # 不显示边界线
+    fillOpacity = 0.5,                              # 设置填充不透明度
+    smoothFactor = 0.5,                             # 设置平滑因子
+    color = ~ colorBin("YlOrRd", POP2005)(POP2005)  # 使用分箱函数 colorBin 对人口数据进行颜色映射
+  )
+
+# 显示地图
+m 
+```
+
+自定义优化的等值区域图: 
+
+```{r}
+#| fig-cap: "自定义优化的等值区域图"
+
+# 加载 RColorBrewer 包, 提供更多调色板
+library(RColorBrewer)
+
+# 创建自定义的数值分箱
+mybins <- c(0, 10, 20, 50, 100, 500, Inf)
+# 使用 colorBin 创建调色板
+mypalette <- colorBin(
+  palette = "YlOrBr",      # 设置调色板样式
+  domain = world_sf$POP2005, # 指定数据范围
+  na.color = "transparent",# 为NA值设置透明色
+  bins = mybins            # 应用自定义分箱
+)
+
+# 准备用于工具提示(tooltip)的文本
+mytext <- paste(
+  "Country: ", world_sf$NAME, "<br/>",
+  "Area: ", world_sf$AREA, "<br/>",
+  "Population: ", round(world_sf$POP2005, 2),
+  sep = ""
+) |>
+  lapply(htmltools::HTML) # 将文本转换为 HTML 格式
+
+# 最终的地图
+m <- leaflet(world_sf) |>
+  addTiles() |>
+  setView(lat = 10, lng = 0, zoom = 2) |>
+  addPolygons(
+    fillColor = ~ mypalette(POP2005), # 根据自定义调色板填充颜色
+    stroke = TRUE,                    # 显示边界线
+    fillOpacity = 0.9,                # 设置填充不透明度
+    color = "white",                  # 设置边界线颜色
+    weight = 0.3,                     # 设置边界线宽度
+    label = mytext,                   # 添加工具提示标签
+    labelOptions = labelOptions(      # 设置标签样式
+      style = list("font-weight" = "normal", padding = "3px 8px"),
+      textsize = "13px",
+      direction = "auto"
+    )
+  ) |>
+  addLegend(
+    pal = mypalette,                  # 指定图例的调色板
+    values = ~POP2005,                # 指定图例的值
+    opacity = 0.9,                    # 设置图例不透明度
+    title = "Population (M)",         # 设置图例标题
+    position = "bottomleft"           # 设置图例位置
+  )
+
+# 显示地图
+m 
+```
+
+## `cartography`
+
+使用 cartography 包自带数据绘制欧洲人口等值区域图: 
+
+```{r}
+#| fig-cap: "使用 cartography 包自带数据绘制欧洲人口等值区域图"
+
+# 加载 cartography 包, 用于地图制作
+# install.packages("cartography")
+library(cartography)
+
+# 加载包内自带的欧洲地区数据集
+data(nuts2006)
+
+# 绘制等值区域图
+choroLayer(
+  spdf = nuts2.spdf,     # 指定地理空间对象 (SpatialPolygonsDataFrame)
+  df = nuts2.df,         # 指定数据框
+  var = "pop2008",       # 指定用于着色的变量 (2008年人口)
+  legend.pos = "right"   # 将图例放置在右侧
+)
+# 添加图表标题
+title("Population in 2008")
+```
+
+
+
+```{r}
+#| fig-cap: 使用 sf 和 cartography 绘制非洲人口地图
+
+# 加载 sf 包, 用于处理地理空间数据
+library(sf)
+
+# 读取 shapefile 文件，这次直接创建 sf 对象
+my_sf <- read_sf("./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+
+# 从世界地图中筛选出非洲地区 (REGION == 2 代表非洲)
+africa <- my_sf[my_sf$REGION == 2, ]
+# 将2005年人口数据转换为数值类型
+africa$POP2005 <- as.numeric(africa$POP2005)
+
+# 加载 cartography 包
+library(cartography)
+
+# 绘制非洲地区的等值区域图
+# 注意：当 spdf 是 sf 对象时，不需要再指定 df 参数
+choroLayer(
+  spdf = africa,           # 指定 sf 对象
+  var = "POP2005"          # 指定用于着色的变量 (2005年人口)
+)
+
+# 添加图表标题
+title("Number of people living in Africa in 2005")
+```
+
+```{r}
+#| fig-cap: 欧洲地区年均增长率地图
+
+# 加载制图相关库
+library(cartography) # 加载cartography包
+library(sp) # 加载sp包
+
+# 载入包内附带的数据
+data(nuts2006) # 载入nuts2006数据集
+
+# nuts2.spdf是欧洲地区的空间数据框（shape文件）
+# nuts2.df是包含每个地区信息的数据框，二者通过第一列"id"关联
+head(nuts2.df) # 查看nuts2.df数据框的前几行
+
+# 计算每个地区的年均增长率
+nuts2.df$cagr <- 100 * (((nuts2.df$pop2008 / nuts2.df$pop1999)^(1 / 9)) - 1) # 计算复合年增长率（%）
+
+# 构建颜色调色板
+cols <- carto.pal(pal1 = "green.pal", n1 = 2, pal2 = "red.pal", n2 = 4) # 绿色到红色渐变调色板
+
+# 绘制背景图形（海洋和世界地图）
+plot(nuts0.spdf, border = NA, col = NA, bg = "#A6CAE0") # 绘制海洋背景色
+plot(world.spdf, col = "#E3DEBF", border = NA, add = TRUE) # 添加世界地图图层
+
+# 添加年均增长率图层
+choroLayer(
+  spdf = nuts2.spdf,
+  df = nuts2.df,
+  var = "cagr",
+  breaks = c(-2.43, -1, 0, 0.5, 1, 2, 3.1),
+  col = cols,
+  border = "grey40",
+  lwd = 0.5,
+  legend.pos = "right",
+  legend.title.txt = "taux de croissance\nannuel moyen",
+  legend.values.rnd = 2,
+  add = TRUE
+) # 分级着色图层
+
+# 添加边界线
+plot(nuts0.spdf, border = "grey20", lwd = 0.75, add = TRUE) # 绘制边界线
+
+# 添加标题、作者、数据来源等图例信息
+layoutLayer(
+  title = "Growth rate in Europe",
+  author = "cartography",
+  sources = "Eurostat, 2008",
+  frame = TRUE,
+  col = NA,
+  scale = NULL,
+  coltitle = "black",
+  south = TRUE
+) # 布局图层，添加标题和图例
+
+```
+
+## Pearl
+
+[![](./image/choropleth-1.png)](https://r-graph-gallery.com/web-choropleth-map-lego-style.html)
+
+[![](./image/choropleth-2.png)](https://r-graph-gallery.com/web-choropleth-barchart-map.html)
+
+[![](./image/choropleth-3.png)](https://r-graph-gallery.com/web-map-choropleth-quantile.html)

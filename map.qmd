@@ -439,7 +439,7 @@ oz(states = TRUE, col = "#69b3a2") # 绘制带州界的澳大利亚地图，使�
 - [Open and Plot Geojson files in R](https://r-graph-gallery.com/325-background-map-from-geojson-format-in-r.html)
 
 
-## `ggiraph`
+## `ggiraph` {#sec-map-ggiraph}
 
 ```{r}
 #| fig-cap: 基于mtcars数据的交互式散点图和柱状图组合
