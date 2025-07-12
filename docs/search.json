@@ -1939,7 +1939,7 @@
     "href": "map.html",
     "title": "32  Map",
     "section": "",
-    "text": "32.1 PKG\n首先找到地图数据, 导入 R, 然后绘制地图.",
+    "text": "32.1 PKG\n首先找到地图数据, 导入 R, 然后绘制地图.\nShow/Hide Code\nlibrary(leaflet)    # 创建交互式地图\nlibrary(ggmap)      # 绘制静态地图(Google/Stadia)\nlibrary(gridExtra)  # 排列多个图表\nlibrary(maps)       # 提供基础世界/国家地图数据\nlibrary(mapdata)    # 提供额外的地图数据(如中国,日本)\nlibrary(oz)         # 绘制澳大利亚地图\nlibrary(sf)         # 处理空间数据(Shapefiles/GeoJSON)\nlibrary(ggiraph)    # 创建交互式ggplot图表\nlibrary(ggplot2)    # 数据可视化\nlibrary(dplyr)      # 数据处理\nlibrary(patchwork)  # 组合图表\nlibrary(tidyr)      # 数据整理\nlibrary(knitr)      # 在报告中渲染表格\nlibrary(rmapshaper) # 简化地理空间对象\nlibrary(rayshader)  # 2D/3D地形可视化\nlibrary(raster)     # 栅格数据处理\nlibrary(geodata)    # 地理数据获取",
     "crumbs": [
       "maps.html",
       "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
