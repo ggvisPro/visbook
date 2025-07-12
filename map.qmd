@@ -6,6 +6,25 @@
 
 ## PKG
 
+```{r}
+library(leaflet)    # 创建交互式地图
+library(ggmap)      # 绘制静态地图(Google/Stadia)
+library(gridExtra)  # 排列多个图表
+library(maps)       # 提供基础世界/国家地图数据
+library(mapdata)    # 提供额外的地图数据(如中国,日本)
+library(oz)         # 绘制澳大利亚地图
+library(sf)         # 处理空间数据(Shapefiles/GeoJSON)
+library(ggiraph)    # 创建交互式ggplot图表
+library(ggplot2)    # 数据可视化
+library(dplyr)      # 数据处理
+library(patchwork)  # 组合图表
+library(tidyr)      # 数据整理
+library(knitr)      # 在报告中渲染表格
+library(rmapshaper) # 简化地理空间对象
+library(rayshader)  # 2D/3D地形可视化
+library(raster)     # 栅格数据处理
+library(geodata)    # 地理数据获取
+```
 
 ## 动态
 
