@@ -2,8 +2,17 @@
 
 ## PKG
 
-## Hexbin
+```{r}
+library(tidyverse)    # 数据处理和可视化工具包
+library(sf)           # 空间数据处理包
+library(RColorBrewer) # 颜色调色板包
+library(cartogram)    # 创建地图扭曲效果
+library(scales)       # 格式化图表标签
+library(transformr)   # 使gganimate能够与sf对象协同工作
+library(gganimate)    # 创建动画效果
+```
 
+## Hexbin
 
 ```{r}
 #| fig-cap: "美国各州六边形网格地图"

@@ -459,15 +459,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#pkg" id="toc-pkg" class="nav-link active" data-scroll-target="#pkg"><span class="header-section-number">36.1</span> PKG</a></li>
+  <li><a href="#step" id="toc-step" class="nav-link" data-scroll-target="#step"><span class="header-section-number">36.2</span> Step</a>
+  <ul class="collapse">
+  <li><a href="#绘制空白地图" id="toc-绘制空白地图" class="nav-link" data-scroll-target="#绘制空白地图"><span class="header-section-number">36.2.1</span> 绘制空白地图</a></li>
+  <li><a href="#添加3个城市" id="toc-添加3个城市" class="nav-link" data-scroll-target="#添加3个城市"><span class="header-section-number">36.2.2</span> 添加3个城市</a></li>
+  <li><a href="#显示城市之间的连接" id="toc-显示城市之间的连接" class="nav-link" data-scroll-target="#显示城市之间的连接"><span class="header-section-number">36.2.3</span> 显示城市之间的连接</a></li>
+  <li><a href="#修正gcintermediate函数" id="toc-修正gcintermediate函数" class="nav-link" data-scroll-target="#修正gcintermediate函数"><span class="header-section-number">36.2.4</span> 修正gcIntermediate函数</a></li>
+  <li><a href="#应用到多对城市" id="toc-应用到多对城市" class="nav-link" data-scroll-target="#应用到多对城市"><span class="header-section-number">36.2.5</span> 应用到多对城市</a></li>
+  <li><a href="#使用greatcircle函数的替代方法" id="toc-使用greatcircle函数的替代方法" class="nav-link" data-scroll-target="#使用greatcircle函数的替代方法"><span class="header-section-number">36.2.6</span> 使用greatCircle函数的替代方法</a></li>
+  </ul></li>
+  <li><a href="#pearl" id="toc-pearl" class="nav-link" data-scroll-target="#pearl"><span class="header-section-number">36.3</span> Pearl</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./maps.html">maps.html</a></li><li class="breadcrumb-item"><a href="./connection.html"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Connection</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span id="sec-connection" class="quarto-section-identifier"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Connection</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-connection" class="quarto-section-identifier"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Connection</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -484,11 +500,287 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>1</p>
+<section id="pkg" class="level2" data-number="36.1">
+<h2 data-number="36.1" class="anchored" data-anchor-id="pkg"><span class="header-section-number">36.1</span> PKG</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)     <span class="co"># 数据处理</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)      <span class="co"># 地图绘制</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geosphere) <span class="co"># 地理计算</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="step" class="level2" data-number="36.2">
+<h2 data-number="36.2" class="anchored" data-anchor-id="step"><span class="header-section-number">36.2</span> Step</h2>
+<section id="绘制空白地图" class="level3" data-number="36.2.1">
+<h3 data-number="36.2.1" class="anchored" data-anchor-id="绘制空白地图"><span class="header-section-number">36.2.1</span> 绘制空白地图</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 无边距设置</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制世界地图</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>,     <span class="co"># 陆地颜色：浅灰色</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="cn">TRUE</span>,         <span class="co"># 填充陆地</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="st">"white"</span>,        <span class="co"># 背景颜色：白色</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="fl">0.05</span>,          <span class="co"># 线条宽度</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),      <span class="co"># 边距设置</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="dv">0</span>,          <span class="co"># 边框设置</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>)     <span class="co"># 纬度范围限制</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>绘制世界地图背景</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="添加3个城市" class="level3" data-number="36.2.2">
+<h3 data-number="36.2.2" class="anchored" data-anchor-id="添加3个城市"><span class="header-section-number">36.2.2</span> 添加3个城市</h3>
+<p>使用points()函数在特定位置添加圆圈相对简单。最困难的部分可能是找出您感兴趣的城市的经度和纬度。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义城市坐标（经度，纬度）</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Buenos_aires <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">58</span>,<span class="sc">-</span><span class="dv">34</span>)    <span class="co"># 布宜诺斯艾利斯</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Paris <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">49</span>)              <span class="co"># 巴黎</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Melbourne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">145</span>,<span class="sc">-</span><span class="dv">38</span>)       <span class="co"># 墨尔本</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建数据框</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Buenos_aires, Paris, Melbourne) <span class="sc">|&gt;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)  <span class="co"># 设置列名：经度和纬度</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 在地图上显示城市</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加城市点标记</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>在地图上标记城市位置</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="显示城市之间的连接" class="level3" data-number="36.2.3">
+<h3 data-number="36.2.3" class="anchored" data-anchor-id="显示城市之间的连接"><span class="header-section-number">36.2.3</span> 显示城市之间的连接</h3>
+<p>现在我们可以通过绘制城市间的最短路线来连接城市。这是使用大圆弧完成的，比使用直线提供更好的可视化效果。</p>
+<p><code>geosphere</code> 包提供了 <code>gcIntermediate()</code> 函数来计算路径。然后可以使用 <code>lines()</code> 函数绘制此路径。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市点标记</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算布宜诺斯艾利斯和巴黎之间的连接</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    Paris, Buenos_aires, </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="dv">50</span>,              <span class="co"># 路径上的点数</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">addStartEnd=</span><span class="cn">TRUE</span>,  <span class="co"># 包含起点和终点</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">breakAtDateLine=</span>F  <span class="co"># 不在日期变更线处断开</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 显示这个连接</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(inter, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 巴黎和墨尔本之间的连接</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(Melbourne, Paris, <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(inter, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>绘制城市间的连接线</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="修正gcintermediate函数" class="level3" data-number="36.2.4">
+<h3 data-number="36.2.4" class="anchored" data-anchor-id="修正gcintermediate函数"><span class="header-section-number">36.2.4</span> 修正gcIntermediate函数</h3>
+<p>在墨尔本和布宜诺斯艾利斯之间使用完全相同的方法, 结果不太好</p>
+<p>会出现一条长水平线，而我们期望连接在地球的另一侧完成（因此不可见）。</p>
+<p>原因是 <code>gcintermediate</code> 遵循最短路径，这意味着它将从澳大利亚向东行进直到日期线，断开线条并从太平洋向东返回到南美洲。</p>
+<p>因为我们不想看到水平线，我们需要分两步绘制此连接。</p>
+<p>为此，我们可以使用以下函数，当两点之间的距离超过180度时，该函数将线条分为两部分：</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接的函数</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plot_my_connection<span class="ot">=</span><span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, ...){</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算两点间的大圆弧路径</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(<span class="fu">c</span>(dep_lon, dep_lat), <span class="fu">c</span>(arr_lon, arr_lat), </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    inter<span class="ot">=</span><span class="fu">data.frame</span>(inter)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算经度差异</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    diff_of_lon<span class="ot">=</span><span class="fu">abs</span>(dep_lon) <span class="sc">+</span> <span class="fu">abs</span>(arr_lon)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果经度差异大于180度，分两段绘制以避免跨越地图边界的直线</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(diff_of_lon <span class="sc">&gt;</span> <span class="dv">180</span>){</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&gt;=</span><span class="dv">0</span>), ...)  <span class="co"># 绘制东半球部分</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&lt;</span><span class="dv">0</span>), ...)   <span class="co"># 绘制西半球部分</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span>{</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(inter, ...)                  <span class="co"># 正常绘制整条线</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>让我们应用这个函数来绘制墨尔本和布宜诺斯艾利斯之间的链接。</p>
+<p>好多啦!</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市圆圈标记</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接线</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Paris[<span class="dv">1</span>], Paris[<span class="dv">2</span>], Melbourne[<span class="dv">1</span>], Melbourne[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Buenos_aires[<span class="dv">1</span>], Buenos_aires[<span class="dv">2</span>], Melbourne[<span class="dv">1</span>], Melbourne[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Buenos_aires[<span class="dv">1</span>], Buenos_aires[<span class="dv">2</span>], Paris[<span class="dv">1</span>], Paris[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>使用改进函数绘制全球连接</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="应用到多对城市" class="level3" data-number="36.2.5">
+<h3 data-number="36.2.5" class="anchored" data-anchor-id="应用到多对城市"><span class="header-section-number">36.2.5</span> 应用到多对城市</h3>
+<p>如果我们想绘制许多连接，完全可以构建一个for循环来逐一绘制它们。</p>
+<p>此外，请注意使用text函数添加城市名称。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建扩展数据集，包含更多城市</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Buenos_aires=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">58</span>,<span class="sc">-</span><span class="dv">34</span>),        <span class="co"># 布宜诺斯艾利斯</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Paris=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">49</span>),                  <span class="co"># 巴黎</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Melbourne=</span><span class="fu">c</span>(<span class="dv">145</span>,<span class="sc">-</span><span class="dv">38</span>),           <span class="co"># 墨尔本</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Saint.Petersburg=</span><span class="fu">c</span>(<span class="fl">30.32</span>, <span class="fl">59.93</span>),  <span class="co"># 圣彼得堡</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Abidjan=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.03</span>, <span class="fl">5.33</span>),         <span class="co"># 阿比让</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Montreal=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">73.57</span>, <span class="fl">45.52</span>),      <span class="co"># 蒙特利尔</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nairobi=</span><span class="fu">c</span>(<span class="fl">36.82</span>, <span class="sc">-</span><span class="fl">1.29</span>),        <span class="co"># 内罗毕</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Salvador=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">38.5</span>, <span class="sc">-</span><span class="fl">12.97</span>)       <span class="co"># 萨尔瓦多</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()            <span class="co"># 使用新管道操作符</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data)<span class="ot">=</span><span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成所有城市对的坐标组合</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>all_pairs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">t</span>(<span class="fu">combn</span>(data<span class="sc">$</span>long, <span class="dv">2</span>)), <span class="fu">t</span>(<span class="fu">combn</span>(data<span class="sc">$</span>lat, <span class="dv">2</span>))) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(all_pairs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"long1"</span>,<span class="st">"long2"</span>,<span class="st">"lat1"</span>,<span class="st">"lat2"</span>)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加所有连接线：</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 遍历所有城市对，绘制它们之间的连接</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(all_pairs)){</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_my_connection</span>(all_pairs<span class="sc">$</span>long1[i], all_pairs<span class="sc">$</span>lat1[i], </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>                      all_pairs<span class="sc">$</span>long2[i], all_pairs<span class="sc">$</span>lat2[i], </span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">1</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加城市点和名称</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(data), <span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>多城市间的连接网络</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="使用greatcircle函数的替代方法" class="level3" data-number="36.2.6">
+<h3 data-number="36.2.6" class="anchored" data-anchor-id="使用greatcircle函数的替代方法"><span class="header-section-number">36.2.6</span> 使用greatCircle函数的替代方法</h3>
+<p>这是Simply Statistics博客建议的绘制Twitter连接地图的方法。</p>
+<p>思路是计算整个大圆弧，并只保留停留在地图前面的部分，永远不会到背面。</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show/Hide Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jeff Leek提出的保留大圆弧正确部分的函数：</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>getGreatCircle <span class="ot">&lt;-</span> <span class="cf">function</span>(userLL,relationLL){</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算完整的大圆弧路径（200个点）</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  tmpCircle <span class="ot">=</span> <span class="fu">greatCircle</span>(userLL,relationLL, <span class="at">n=</span><span class="dv">200</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到起点在大圆弧中的位置</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  start <span class="ot">=</span> <span class="fu">which.min</span>(<span class="fu">abs</span>(tmpCircle[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">data.frame</span>(userLL)[<span class="dv">1</span>,<span class="dv">1</span>]))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到终点在大圆弧中的位置</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  end <span class="ot">=</span> <span class="fu">which.min</span>(<span class="fu">abs</span>(tmpCircle[,<span class="dv">1</span>] <span class="sc">-</span> relationLL[<span class="dv">1</span>]))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 提取起点到终点之间的路径部分</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  greatC <span class="ot">=</span> tmpCircle[start<span class="sc">:</span>end,]</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(greatC)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制3个连接：</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Paris, Melbourne)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Buenos_aires, Melbourne)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Paris, Buenos_aires)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市名称和点标记</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(data), <span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="connection_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>使用greatCircle函数的替代连接方法</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pearl" class="level2" data-number="36.3">
+<h2 data-number="36.3" class="anchored" data-anchor-id="pearl"><span class="header-section-number">36.3</span> Pearl</h2>
+<p><a href="https://www.data-to-viz.com/story/MapConnection.html"><img src="./image/surfer-travel.png" class="img-fluid"></a></p>
 
 
 <!-- -->
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -953,7 +1245,242 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Connection {#sec-connection}</span></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Connection {#sec-connection}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## PKG </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)     <span class="co"># 数据处理</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)      <span class="co"># 地图绘制</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geosphere) <span class="co"># 地理计算</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">## Step</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">### 绘制空白地图</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "绘制世界地图背景"</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 无边距设置</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制世界地图</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>,     <span class="co"># 陆地颜色：浅灰色</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill=</span><span class="cn">TRUE</span>,         <span class="co"># 填充陆地</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">bg=</span><span class="st">"white"</span>,        <span class="co"># 背景颜色：白色</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">lwd=</span><span class="fl">0.05</span>,          <span class="co"># 线条宽度</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),      <span class="co"># 边距设置</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">border=</span><span class="dv">0</span>,          <span class="co"># 边框设置</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>)     <span class="co"># 纬度范围限制</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="fu">### 添加3个城市</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>使用points()函数在特定位置添加圆圈相对简单。最困难的部分可能是找出您感兴趣的城市的经度和纬度。</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "在地图上标记城市位置"</span></span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义城市坐标（经度，纬度）</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>Buenos_aires <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">58</span>,<span class="sc">-</span><span class="dv">34</span>)    <span class="co"># 布宜诺斯艾利斯</span></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>Paris <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">49</span>)              <span class="co"># 巴黎</span></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>Melbourne <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">145</span>,<span class="sc">-</span><span class="dv">38</span>)       <span class="co"># 墨尔本</span></span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建数据框</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Buenos_aires, Paris, Melbourne) <span class="sc">|&gt;</span> </span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)  <span class="co"># 设置列名：经度和纬度</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 在地图上显示城市</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) </span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加城市点标记</span></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="fu">### 显示城市之间的连接</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>现在我们可以通过绘制城市间的最短路线来连接城市。这是使用大圆弧完成的，比使用直线提供更好的可视化效果。</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="in">`geosphere`</span> 包提供了 <span class="in">`gcIntermediate()`</span> 函数来计算路径。然后可以使用 <span class="in">`lines()`</span> 函数绘制此路径。</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "绘制城市间的连接线"</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) </span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市点标记</span></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算布宜诺斯艾利斯和巴黎之间的连接</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>    Paris, Buenos_aires, </span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">n=</span><span class="dv">50</span>,              <span class="co"># 路径上的点数</span></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">addStartEnd=</span><span class="cn">TRUE</span>,  <span class="co"># 包含起点和终点</span></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">breakAtDateLine=</span>F  <span class="co"># 不在日期变更线处断开</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="co"># 显示这个连接</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(inter, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="co"># 巴黎和墨尔本之间的连接</span></span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(Melbourne, Paris, <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(inter, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="fu">### 修正gcIntermediate函数</span></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>在墨尔本和布宜诺斯艾利斯之间使用完全相同的方法, 结果不太好</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>会出现一条长水平线，而我们期望连接在地球的另一侧完成（因此不可见）。</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>原因是 <span class="in">`gcintermediate`</span> 遵循最短路径，这意味着它将从澳大利亚向东行进直到日期线，断开线条并从太平洋向东返回到南美洲。</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>因为我们不想看到水平线，我们需要分两步绘制此连接。</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>为此，我们可以使用以下函数，当两点之间的距离超过180度时，该函数将线条分为两部分：</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "自定义连接绘制函数"</span></span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接的函数</span></span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>plot_my_connection<span class="ot">=</span><span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, ...){</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算两点间的大圆弧路径</span></span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>    inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(<span class="fu">c</span>(dep_lon, dep_lat), <span class="fu">c</span>(arr_lon, arr_lat), </span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>                           <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>    inter<span class="ot">=</span><span class="fu">data.frame</span>(inter)</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算经度差异</span></span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>    diff_of_lon<span class="ot">=</span><span class="fu">abs</span>(dep_lon) <span class="sc">+</span> <span class="fu">abs</span>(arr_lon)</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 如果经度差异大于180度，分两段绘制以避免跨越地图边界的直线</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(diff_of_lon <span class="sc">&gt;</span> <span class="dv">180</span>){</span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&gt;=</span><span class="dv">0</span>), ...)  <span class="co"># 绘制东半球部分</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&lt;</span><span class="dv">0</span>), ...)   <span class="co"># 绘制西半球部分</span></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>    }<span class="cf">else</span>{</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(inter, ...)                  <span class="co"># 正常绘制整条线</span></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a>让我们应用这个函数来绘制墨尔本和布宜诺斯艾利斯之间的链接。</span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a>好多啦!</span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用改进函数绘制全球连接"</span></span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市圆圈标记</span></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制连接线</span></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Paris[<span class="dv">1</span>], Paris[<span class="dv">2</span>], Melbourne[<span class="dv">1</span>], Melbourne[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Buenos_aires[<span class="dv">1</span>], Buenos_aires[<span class="dv">2</span>], Melbourne[<span class="dv">1</span>], Melbourne[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_my_connection</span>(Buenos_aires[<span class="dv">1</span>], Buenos_aires[<span class="dv">2</span>], Paris[<span class="dv">1</span>], Paris[<span class="dv">2</span>], <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### 应用到多对城市</span></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a>如果我们想绘制许多连接，完全可以构建一个for循环来逐一绘制它们。</span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a>此外，请注意使用text函数添加城市名称。</span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "多城市间的连接网络"</span></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建扩展数据集，包含更多城市</span></span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a>    <span class="at">Buenos_aires=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">58</span>,<span class="sc">-</span><span class="dv">34</span>),        <span class="co"># 布宜诺斯艾利斯</span></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a>    <span class="at">Paris=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">49</span>),                  <span class="co"># 巴黎</span></span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a>    <span class="at">Melbourne=</span><span class="fu">c</span>(<span class="dv">145</span>,<span class="sc">-</span><span class="dv">38</span>),           <span class="co"># 墨尔本</span></span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a>    <span class="at">Saint.Petersburg=</span><span class="fu">c</span>(<span class="fl">30.32</span>, <span class="fl">59.93</span>),  <span class="co"># 圣彼得堡</span></span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a>    <span class="at">Abidjan=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.03</span>, <span class="fl">5.33</span>),         <span class="co"># 阿比让</span></span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a>    <span class="at">Montreal=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">73.57</span>, <span class="fl">45.52</span>),      <span class="co"># 蒙特利尔</span></span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">Nairobi=</span><span class="fu">c</span>(<span class="fl">36.82</span>, <span class="sc">-</span><span class="fl">1.29</span>),        <span class="co"># 内罗毕</span></span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>    <span class="at">Salvador=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">38.5</span>, <span class="sc">-</span><span class="fl">12.97</span>)       <span class="co"># 萨尔瓦多</span></span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()            <span class="co"># 使用新管道操作符</span></span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data)<span class="ot">=</span><span class="fu">c</span>(<span class="st">"long"</span>,<span class="st">"lat"</span>)</span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成所有城市对的坐标组合</span></span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a>all_pairs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">t</span>(<span class="fu">combn</span>(data<span class="sc">$</span>long, <span class="dv">2</span>)), <span class="fu">t</span>(<span class="fu">combn</span>(data<span class="sc">$</span>lat, <span class="dv">2</span>))) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(all_pairs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"long1"</span>,<span class="st">"long2"</span>,<span class="st">"lat1"</span>,<span class="st">"lat2"</span>)</span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加所有连接线：</span></span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a><span class="co"># 遍历所有城市对，绘制它们之间的连接</span></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(all_pairs)){</span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot_my_connection</span>(all_pairs<span class="sc">$</span>long1[i], all_pairs<span class="sc">$</span>lat1[i], </span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>                      all_pairs<span class="sc">$</span>long2[i], all_pairs<span class="sc">$</span>lat2[i], </span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">1</span>)</span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加城市点和名称</span></span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(data), <span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### 使用greatCircle函数的替代方法</span></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a>这是Simply Statistics博客建议的绘制Twitter连接地图的方法。</span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a>思路是计算整个大圆弧，并只保留停留在地图前面的部分，永远不会到背面。</span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "使用greatCircle函数的替代连接方法"</span></span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="co"># Jeff Leek提出的保留大圆弧正确部分的函数：</span></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>getGreatCircle <span class="ot">&lt;-</span> <span class="cf">function</span>(userLL,relationLL){</span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算完整的大圆弧路径（200个点）</span></span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a>  tmpCircle <span class="ot">=</span> <span class="fu">greatCircle</span>(userLL,relationLL, <span class="at">n=</span><span class="dv">200</span>)</span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到起点在大圆弧中的位置</span></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>  start <span class="ot">=</span> <span class="fu">which.min</span>(<span class="fu">abs</span>(tmpCircle[,<span class="dv">1</span>] <span class="sc">-</span> <span class="fu">data.frame</span>(userLL)[<span class="dv">1</span>,<span class="dv">1</span>]))</span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 找到终点在大圆弧中的位置</span></span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a>  end <span class="ot">=</span> <span class="fu">which.min</span>(<span class="fu">abs</span>(tmpCircle[,<span class="dv">1</span>] <span class="sc">-</span> relationLL[<span class="dv">1</span>]))</span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 提取起点到终点之间的路径部分</span></span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a>  greatC <span class="ot">=</span> tmpCircle[start<span class="sc">:</span>end,]</span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(greatC)</span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a><span class="co"># 背景地图</span></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="st">'world'</span>,<span class="at">col=</span><span class="st">"#f2f2f2"</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">"white"</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制3个连接：</span></span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Paris, Melbourne)</span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Buenos_aires, Melbourne)</span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a>great <span class="ot">&lt;-</span> <span class="fu">getGreatCircle</span>(Paris, Buenos_aires)</span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(great, <span class="at">col=</span><span class="st">"skyblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a><span class="co"># 城市名称和点标记</span></span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">3</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(data), <span class="at">x=</span>data<span class="sc">$</span>long, <span class="at">y=</span>data<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">"slateblue"</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a><span class="fu">## Pearl</span></span>
+<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="al">![](./image/surfer-travel.png)</span><span class="co">](https://www.data-to-viz.com/story/MapConnection.html)</span></span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
