@@ -2093,7 +2093,7 @@
     "href": "choropleth.html#pearl",
     "title": "33  Choropleth",
     "section": "33.7 Pearl",
-    "text": "33.7 Pearl\n\n\n\nLego Choropleth map with R\n\n\n\n\n\nChoropleth Map with Bar Chart in R\n\n\n\n\n\nChoropleth map with quantiles.",
+    "text": "33.7 Pearl\n\n\n\nLego Choropleth map with R\n\n\n\n\n\nChoropleth Map with Bar Chart in R\n\n\n\n\n\nChoropleth map with quantiles",
     "crumbs": [
       "maps.html",
       "<span class='chapter-number'>33</span>  <span class='chapter-title'>Choropleth</span>"
@@ -2111,11 +2111,110 @@
     ]
   },
   {
+    "objectID": "hexbin-map.html#地图",
+    "href": "hexbin-map.html#地图",
+    "title": "34  Hexbin map",
+    "section": "34.2 地图",
+    "text": "34.2 地图\n\n\nShow/Hide Code\n# 加载必要的库\nlibrary(tidyverse)     # 加载tidyverse包，包含dplyr等数据处理工具\nlibrary(sf)            # 加载sf包，用于处理空间数据\nlibrary(RColorBrewer)  # 加载RColorBrewer包，用于颜色调色板\n\n# 从以下链接下载六边形边界的GeoJSON格式文件：\n# https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map\n\n# 读取GeoJSON格式的六边形边界文件\nmy_sf &lt;- read_sf(\"./data/us_states_hexgrid.geojson\") \n\n# 数据格式调整，去除地名中的\" (United States)\"字符串\nmy_sf &lt;- my_sf |&gt;  # 使用新管道操作符\n  mutate(google_name = gsub(\" \\\\(United States\\\\)\", \"\", google_name))  # 替换地名字符串\n\n# 绘制空间数据的几何图形\nplot(st_geometry(my_sf))  # 绘制六边形边界图\n\n\n\n\n\n美国州六边形边界地图\n\n\n\n\n\n\nShow/Hide Code\nggplot(my_sf) +               \n  geom_sf(fill = \"skyblue\", color = \"white\") + # 绘制六边形填充天蓝色，边界为白色\n  geom_sf_text(aes(label = iso3166_2)) +       # 添加州代码文本标签\n  theme_void()                                              \n\n\n\n\n\n美国州六边形地图with州代码标签\n\n\n\n\n\n\nShow/Hide Code\n# 读取美国各州结婚率数据\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/State_mariage_rate.csv\",\n  header = T, sep = \",\", na.strings = \"---\"\n)\n\n# 绘制2015年结婚率分布直方图\ndata |&gt;\n  ggplot(aes(x = y_2015)) +\n  geom_histogram(bins = 20, fill = \"#69b3a2\", color = \"white\") +  # 创建直方图，设置颜色\n  scale_x_continuous(breaks = seq(1, 30))                         # 设置X轴刻度范围\n\n\n\n\n\n2015年美国各州结婚率分布直方图\n\n\n\n\n\n\nShow/Hide Code\n# 合并地理空间数据和数值数据\nmy_sf_wed &lt;- my_sf |&gt;\n  left_join(data, by = c(\"google_name\" = \"state\"))\n\n# 创建第一个分级统计地图\nggplot(my_sf_wed) +\n  geom_sf(aes(fill = y_2015)) +              # 绘制地理图形，按2015年结婚率填充颜色\n  scale_fill_gradient(trans = \"log\") +       # 使用对数变换的颜色渐变\n  theme_void()                               # 使用空白主题，去除坐标轴等元素\n\n\n\n\n\n2015年美国各州结婚率分布热力图\n\n\n\n\n\n\nShow/Hide Code\n# 准备数据分箱\nmy_sf_wed$bin &lt;- cut(my_sf_wed$y_2015,\n  breaks = c(seq(5, 10), Inf),                                   # 设置分箱断点\n  labels = c(\"5-6\", \"6-7\", \"7-8\", \"8-9\", \"9-10\", \"10+\"),        # 设置分箱标签\n  include.lowest = TRUE                                          # 包含最小值\n)\n\n# 准备来自viridis调色板的颜色比例\nlibrary(viridis)\nmy_palette &lt;- rev(magma(8))[c(-1, -8)]                          # 创建自定义调色板\n\n# 绘制地图\nggplot(my_sf_wed) +\n  geom_sf(aes(fill = bin), linewidth = 0, alpha = 0.9) +        # 绘制各州地理边界，按分箱填充\n  geom_sf_text(aes(label = iso3166_2), color = \"white\", size = 3, alpha = 0.6) +  # 添加州代码标签\n  theme_void() +                                                 # 使用空白主题\n  scale_fill_manual(\n    values = my_palette,                                         # 使用自定义调色板\n    name = \"Wedding per 1000 people in 2015\",                   # 图例标题\n    guide = guide_legend(\n      keyheight = unit(3, units = \"mm\"),                         # 图例高度\n      keywidth = unit(12, units = \"mm\"),                         # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"A map of marriage rates, state by state\") +          # 添加标题\n  theme(\n    legend.position = c(0.5, 0.9),                              # 图例位置\n    text = element_text(color = \"#22211d\"),                      # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f2\", color = NA),    # 绘图背景\n    panel.background = element_rect(fill = \"#f5f5f2\", color = NA),   # 面板背景\n    legend.background = element_rect(fill = \"#f5f5f2\", color = NA),  # 图例背景\n    plot.title = element_text(\n      size = 22, hjust = 0.5, color = \"#4e4d47\",                # 标题样式\n      margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\")   # 标题边距\n    )\n  )\n\n\n\n\n\n2015年美国各州结婚率分布精美地图",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
+    ]
+  },
+  {
+    "objectID": "hexbin-map.html#坐标列表",
+    "href": "hexbin-map.html#坐标列表",
+    "title": "34  Hexbin map",
+    "section": "34.3 坐标列表",
+    "text": "34.3 坐标列表\n\n\nShow/Hide Code\n# 加载所需库\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(hrbrthemes)\nlibrary(mapdata)\n\n# 从GitHub加载数据集\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv\", \n                   sep = \",\", header = T)\n\n# 获取世界地图多边形数据\nworld &lt;- map_data(\"world\")\n\n# 绘制地图\nggplot(data, aes(x = homelon, y = homelat)) +\n  geom_polygon(data = world, aes(x = long, y = lat, group = group), \n               fill = \"grey\", alpha = 0.3) +                     # 绘制世界地图底图\n  geom_bin2d(bins = 100) +                                       # 添加二维密度热力图\n  ggplot2::annotate(\"text\", x = 175, y = 80, \n                    label = \"Where people tweet about #Surf\", \n                    colour = \"black\", size = 4, alpha = 1, hjust = 1) +  # 添加标题文本\n  ggplot2::annotate(\"segment\", x = 100, xend = 175, y = 73, yend = 73, \n                    colour = \"black\", size = 0.2, alpha = 1) +   # 添加装饰线段\n  theme_void() +                                                 # 使用空白主题\n  ylim(-70, 80) +                                               # 设置Y轴范围\n  scale_fill_viridis(\n    trans = \"log\",                                               # 对数变换\n    breaks = c(1, 7, 54, 403, 3000),                           # 设置断点\n    name = \"Tweet # recorded in 8 months\",                      # 图例标题\n    guide = guide_legend(\n      keyheight = unit(2.5, units = \"mm\"),                     # 图例高度\n      keywidth = unit(10, units = \"mm\"),                       # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"\") +                                                 # 空标题\n  theme(\n    legend.position = c(0.8, 0.09),                            # 图例位置\n    legend.title = element_text(color = \"black\", size = 8),     # 图例标题样式\n    text = element_text(color = \"#22211d\"),                     # 文本颜色\n    plot.title = element_text(size = 13, hjust = 0.1, color = \"#4e4d47\", \n                             margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\"))  # 标题样式\n  )\n\n\n\n\n\n全球冲浪推文地理分布热力图\n\n\n\n\n\n\nShow/Hide Code\n# 加载所需库\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(hrbrthemes)\nlibrary(mapdata)\n\n# 从GitHub加载数据集\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv\", \n                   sep = \",\", header = T)\n\n# 绘制欧洲地区六边形热力图\ndata |&gt;\n  filter(homecontinent == \"Europe\") |&gt;                          # 筛选欧洲地区数据\n  ggplot(aes(x = homelon, y = homelat)) +\n  geom_hex(bins = 59) +                                         # 创建六边形热力图\n  ggplot2::annotate(\"text\", x = -27, y = 72, \n                    label = \"Where people tweet about #Surf\", \n                    colour = \"black\", size = 5, alpha = 1, hjust = 0) +  # 添加标题文本\n  ggplot2::annotate(\"segment\", x = -27, xend = 10, y = 70, yend = 70, \n                    colour = \"black\", size = 0.2, alpha = 1) +   # 添加装饰线段\n  theme_void() +                                                 # 使用空白主题\n  xlim(-30, 70) +                                               # 设置X轴范围\n  ylim(24, 72) +                                                # 设置Y轴范围\n  scale_fill_viridis(\n    option = \"B\",                                               # 使用viridis调色板B选项\n    trans = \"log\",                                              # 对数变换\n    breaks = c(1, 7, 54, 403, 3000),                           # 设置断点\n    name = \"Tweet # recorded in 8 months\",                      # 图例标题\n    guide = guide_legend(\n      keyheight = unit(2.5, units = \"mm\"),                     # 图例高度\n      keywidth = unit(10, units = \"mm\"),                       # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"\") +                                                 # 空标题\n  theme(\n    legend.position = c(0.8, 0.09),                            # 图例位置\n    legend.title = element_text(color = \"black\", size = 8),     # 图例标题样式\n    text = element_text(color = \"#22211d\"),                     # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f2\", color = NA),    # 绘图背景\n    panel.background = element_rect(fill = \"#f5f5f2\", color = NA),   # 面板背景\n    legend.background = element_rect(fill = \"#f5f5f2\", color = NA),  # 图例背景\n    plot.title = element_text(size = 13, hjust = 0.1, color = \"#4e4d47\", \n                             margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\"))  # 标题样式\n  )\n\n\n\n\n\n欧洲地区冲浪推文地理分布六边形热力图",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
+    ]
+  },
+  {
+    "objectID": "hexbin-map.html#pearl",
+    "href": "hexbin-map.html#pearl",
+    "title": "34  Hexbin map",
+    "section": "34.4 Pearl",
+    "text": "34.4 Pearl\n\n\n\nLego Choropleth map with R\n\n\n\n\n\nTriple map into a single chart",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
+    ]
+  },
+  {
     "objectID": "cartogram.html",
     "href": "cartogram.html",
     "title": "35  Cartogram",
     "section": "",
-    "text": "1",
+    "text": "35.1 PKG",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#hexbin",
+    "href": "cartogram.html#hexbin",
+    "title": "35  Cartogram",
+    "section": "35.2 Hexbin",
+    "text": "35.2 Hexbin\n\n\nShow/Hide Code\n# 加载必要的R包\nlibrary(tidyverse)  # 数据处理和可视化工具包\nlibrary(sf)         # 空间数据处理包\nlibrary(RColorBrewer)  # 颜色调色板包\n\n# 加载geojson文件（注意：我将文件存储在名为DATA的文件夹中）\nmy_sf &lt;- read_sf(\"./data/us_states_hexgrid.geojson\")\n\n# 对数据进行少量格式化处理\n# 使用新的管道操作符 |&gt; 替换google_name字段中的\"(United States)\"字符串\nmy_sf &lt;- my_sf |&gt;\n  mutate(google_name = gsub(\" \\\\(United States\\\\)\", \"\", google_name))\n\n# 显示六边形网格的几何形状\n# 这将绘制美国各州的六边形网格边界\nplot(st_geometry(my_sf))\n\n\n\n\n\n美国各州六边形网格地图\n\n\n\n\n基于人口数据的美国各州地图扭曲（Cartogram）:\n\n\nShow/Hide Code\n# 加载制图包\nlibrary(cartogram)  # 用于创建地图扭曲效果的包\n\n# 加载各州人口数据（数据源：https://www.census.gov/data/tables/2017/demo/popest/nation-total.html）\npop &lt;- read.table(\n    \"https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/pop_US.csv\", \n    sep = \",\", \n    header = T\n    )\npop$pop &lt;- pop$pop / 1000000  # 将人口数转换为百万单位\n\n# 合并地理数据和人口数据\n# 使用新的管道操作符 |&gt; 将空间数据与人口数据按州名进行左连接\nmy_sf &lt;- my_sf |&gt; left_join(pop, by = c(\"google_name\" = \"state\"))\n\n# 基于人口信息计算地图扭曲效果\n# 首先需要更改投影，我们使用墨卡托投影（即谷歌地图使用的投影，EPSG 3857）\nmy_sf_merc &lt;- st_transform(my_sf, 3857)\ncartogram &lt;- cartogram_cont(my_sf_merc, \"pop\")  # 根据人口数据创建连续地图扭曲\n\n# 转换回原始投影坐标系\ncartogram &lt;- st_transform(cartogram, st_crs(my_sf))\n\n# 初步查看扭曲后的地图效果\n# 人口较多的州会显得更大，人口较少的州会显得更小\nplot(st_geometry(cartogram))\n\n\n\n\n\n基于人口数据的美国各州地图扭曲（Cartogram）\n\n\n\n\n\n\nShow/Hide Code\n# 使用ggplot2创建精美的地图扭曲可视化\nggplot(cartogram) +\n  # 添加空间几何图形，根据人口数量填充颜色\n  geom_sf(aes(fill = pop), linewidth = 0.05, alpha = 0.9, color = \"black\") +\n  # 设置渐变色填充方案\n  scale_fill_gradientn(\n    colours = brewer.pal(7, \"BuPu\"),  # 使用蓝紫色调色板\n    name = \"population (in M)\",       # 图例标题\n    labels = scales::label_comma(),   # 数字格式化（添加千位分隔符）\n    guide = guide_legend(\n      keyheight = unit(3, units = \"mm\"),    # 图例键高度\n      keywidth = unit(12, units = \"mm\"),    # 图例键宽度\n      title.position = \"top\",              # 图例标题位置\n      label.position = \"bottom\"            # 图例标签位置\n    )\n  ) +\n  # 添加州的缩写代码文本标签\n  geom_sf_text(aes(label = iso3166_2), color = \"white\", size = 3, alpha = 0.6) +\n  # 使用空白主题（去除坐标轴和网格线）\n  theme_void() +\n  # 添加图表标题\n  ggtitle(\"Another look on the US population\") +\n  # 自定义主题设置\n  theme(\n    legend.position = c(0.5, 0.9),     # 图例位置（水平居中，靠近顶部）\n    legend.direction = \"horizontal\",    # 图例水平排列\n    text = element_text(color = \"#22211d\"),  # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f9\", color = NA),    # 图表背景色\n    panel.background = element_rect(fill = \"#f5f5f9\", color = NA),   # 面板背景色\n    legend.background = element_rect(fill = \"#f5f5f9\", color = NA),  # 图例背景色\n    # 标题样式设置\n    plot.title = element_text(\n        size = 22, hjust = 0.5, color = \"#4e4d47\", \n        margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\")\n        ),\n  )\n\n\n\n\n\n美国人口分布的地图扭曲可视化（带颜色填充和标签）",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#cartogram",
+    "href": "cartogram.html#cartogram",
+    "title": "35  Cartogram",
+    "section": "35.3 cartogram",
+    "text": "35.3 cartogram\n基础 cartogram: 非洲地区地理边界图\n\n\nShow/Hide Code\n# 加载空间数据处理库\nlibrary(sf)\n\n# 读取世界边界简化数据\nwrld_simpl &lt;- read_sf(\"./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp\")\n\n# 筛选非洲地区数据 (REGION == 2)\nafr &lt;- wrld_simpl[wrld_simpl$REGION == 2, ]\n\n# 使用plot函数可视化非洲地区边界\nplot(st_geometry(afr))\n\n\n\n\n\n非洲地区地理边界图\n\n\n\n\n根据人口数据，构建变形地图\n\n\nShow/Hide Code\n# 加载变形地图库\nlibrary(cartogram)\n\n# 使用2005年人口数据构建变形地图\n\n# 首先需要将投影转换为墨卡托投影 (谷歌地图投影): EPSG: 3857\nafr &lt;- st_transform(afr, 3857)\n\n# 创建基于人口的连续变形地图\nafr_cartogram &lt;- cartogram_cont(afr, \"POP2005\", itermax = 5)\n\n# 将投影转换回原始投影\nafr_cartogram &lt;- st_transform(afr_cartogram, st_crs(afr))\n\n# 这是一个新的地理空间对象，我们可以可视化它！\nplot(st_geometry(afr_cartogram))\n\n\n\n\n\n基于2005年人口数据的非洲变形地图\n\n\n\n\n使用 ggplot2 来添加一些颜色、标题、图例、背景等。现在我们有了非洲的漂亮制图分级统计地图！\n\n\nShow/Hide Code\nlibrary(tidyverse)\n\nggplot(afr_cartogram) +\n  geom_sf(aes(fill = POP2005), linewidth = 0, alpha = 0.9) +\n  theme_void()\n\n\n\n\n\n基于2005年人口数据的非洲变形地图, 美化版\n\n\n\n\n2005年非洲人口分布精美变形地图:\n\n\nShow/Hide Code\n# 如前所述，通过一些自定义设置可以制作更精美的地图\np_afr &lt;- ggplot(afr_cartogram) +\n  geom_sf(aes(fill = POP2005 / 1000000), linewidth = 0, alpha = 0.9) +  # 绘制变形地图，按人口数填充\n  theme_void() +                                                          # 使用空白主题\n  scale_fill_viridis_c(\n    name = \"Population (M)\",                                              # 图例标题\n    breaks = c(1, 50, 100, 140),                                         # 设置断点\n    guide = guide_legend(\n      keyheight = unit(3, units = \"mm\"),                                  # 图例高度\n      keywidth = unit(12, units = \"mm\"),                                  # 图例宽度\n      label.position = \"bottom\",                                          # 标签位置\n      title.position = \"top\", nrow = 1                                    # 标题位置和行数\n    )\n  ) +\n  labs(title = \"Africa 2005 Population\") +                               # 添加标题\n  theme(\n    text = element_text(color = \"#22211d\"),                               # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f4\", color = NA),        # 绘图背景\n    panel.background = element_rect(fill = \"#f5f5f4\", color = NA),       # 面板背景\n    legend.background = element_rect(fill = \"#f5f5f4\", color = NA),      # 图例背景\n    plot.title = element_text(\n      size = 22, hjust = 0.5,                                            # 标题大小和对齐\n      color = \"#4e4d47\",                                                  # 标题颜色\n      margin = margin(\n        b = -0.1, t = 0.4, l = 2,                                        # 标题边距\n        unit = \"cm\"\n      )\n    ),\n    legend.position = c(0.2, 0.26)                                       # 图例位置\n  )\n\np_afr\n\n\n\n\n\n2005年非洲人口分布精美变形地图",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#动画",
+    "href": "cartogram.html#动画",
+    "title": "35  Cartogram",
+    "section": "35.4 动画",
+    "text": "35.4 动画\n加载必要的 R 包:\n\n\nShow/Hide Code\n# 加载必要的R包\nlibrary(dplyr)      # 数据处理和清洗\nlibrary(cartogram)  # 创建地图扭曲效果\nlibrary(ggplot2)    # 数据可视化\nlibrary(transformr) # 使gganimate能够与sf对象协同工作\nlibrary(gganimate)  # 创建动画效果\nlibrary(sf)         # 读取和处理空间数据文件\n\n\n准备数据:",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#计算多个中间地图",
+    "href": "cartogram.html#计算多个中间地图",
+    "title": "35  Cartogram",
+    "section": "35.5 计算多个中间地图",
+    "text": "35.5 计算多个中间地图\n前面已经构建了基于人口数据的非洲地图扭曲:\n目标是在两个地图之间制作平滑动画，我们需要使用插值创建大量中间地图。\n这可以通过在 cartogram_cont() 函数上使用 itermax 参数来实现。我们可以计算几个中间地图扭曲并将每个都视为一个帧。\n最后，我们得到了一个大数据框，其中包含足够绘制 30 个地图的信息。下面展示了其中三个地图。\n\n\nShow/Hide Code\n# 创建状态的循环\nafr$id &lt;- seq(1, nrow(afr))  # 为每个国家分配唯一ID\nafr$.frame &lt;- 0              # 初始帧设为0\n\n# 将循环结果存储在此对象上\ndt1 &lt;- afr            # 存储初始状态\nafr_cartogram &lt;- afr  # 复制用于循环处理\n\n# 循环创建15个渐进的地图扭曲帧\nfor (i in 1:15) {\n  # 每次迭代进行一步地图扭曲\n  afr_cartogram &lt;- cartogram_cont(afr_cartogram, \"POP2005\", itermax = 1)\n  afr_cartogram$.frame &lt;- i  # 为当前帧分配编号\n  \n  # 将当前帧添加到数据集中\n  dt1 &lt;- rbind(dt1, afr_cartogram)\n}\n\n# 现在按相反顺序排列以回到初始状态（创建循环动画效果）\ndt2 &lt;- dt1 |&gt;\n  arrange(desc(.frame), id) |&gt;           # 按帧号降序排列\n  mutate(.frame = -1 * .frame + 31)      # 重新编号帧以创建反向序列\n\n# 合并正向和反向帧，并按帧号和ID排序\ndt &lt;- bind_rows(dt1, dt2) |&gt; arrange(.frame, id)\n\n\n\nShow/Hide Code\n# 检查几个帧\n# 帧0：初始状态（原始地图）\nggplot() +\n  geom_sf(data = dt |&gt; filter(.frame == 0), aes(fill = POP2005), linewidth = 0)\n\n\n# 帧5：中间扭曲状态\nggplot() +\n  geom_sf(\n    data = dt |&gt; filter(.frame == 5), aes(fill = POP2005),\n    linewidth = 0\n  )\n\n# 帧15：最大扭曲状态\nggplot() +\n  geom_sf(\n    data = dt |&gt; filter(.frame == 15), aes(fill = POP2005),\n    linewidth = 0\n  )\n\n\n\n\n\n\n\n初始状态\n\n\n\n\n\n\n\n中间扭曲状态\n\n\n\n\n\n\n\n最大扭曲状态\n\n\n\n\n\n\n检查动画的几个关键帧",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#使用-gganimate-制作动画",
+    "href": "cartogram.html#使用-gganimate-制作动画",
+    "title": "35  Cartogram",
+    "section": "35.6 使用 gganimate 制作动画",
+    "text": "35.6 使用 gganimate 制作动画\n最后一步包括构建 30 个地图并将它们编译成 .gif 文件。这是使用 gganimate 库完成的。该库使用另一个函数 transition_states() 和 ease_aes()。为每个帧制作新图，这使我们能够随后构建 gif。\n\n\nShow/Hide Code\n# 由于gganimate的一个错误，移除CRS（坐标参考系统）\ndt &lt;- st_set_crs(dt, NA)\n\n# 创建动画图表对象\np &lt;- ggplot(dt) +\n  # 添加空间几何图形，设置分组以确保动画正确跟踪每个国家\n  geom_sf(aes(fill = POP2005 / 1000000, group = id), linewidth = 0, alpha = 0.9) +\n  theme_void() +\n  # 设置颜色填充方案\n  scale_fill_viridis_c(\n    name = \"Population (M)\",\n    breaks = c(1, 50, 100, 140),\n    guide = guide_legend(\n      keyheight = unit(3, units = \"mm\"),\n      keywidth = unit(12, units = \"mm\"),\n      label.position = \"bottom\",\n      title.position = \"top\", nrow = 1\n    )\n  ) +\n  # 添加标题\n  labs(title = \"Africa\", subtitle = \"Population per country in 2005\") +\n  # 设置主题样式\n  theme(\n    text = element_text(color = \"#22211d\"),\n    plot.background = element_rect(fill = \"#f5f5f4\", color = NA),\n    panel.background = element_rect(fill = \"#f5f5f4\", color = NA),\n    legend.background = element_rect(fill = \"#f5f5f4\", color = NA),\n    plot.title = element_text(\n      size = 22, hjust = 0.5, color = \"#4e4d47\",\n      margin = margin(\n        b = -0.1, t = 0.4, l = 2,\n        unit = \"cm\"\n      )\n    ),\n    plot.subtitle = element_text(\n      size = 13, hjust = 0.5, color = \"#4e4d47\",\n      margin = margin(\n        b = -0.1, t = 0.4, l = 2,\n        unit = \"cm\"\n      )\n    ),\n    legend.position = c(0.2, 0.26)\n  ) +\n  # 来自gganimate的函数\n  transition_states(.frame) +      # 基于.frame列创建状态转换\n  ease_aes(\"cubic-in-out\")        # 设置缓动效果，使动画更平滑\n\n# 制作动画（持续5秒）\nanimate(p, duration = 5)\n\n\n\n\n\n创建最终的动画GIF文件",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html#pearl",
+    "href": "cartogram.html#pearl",
+    "title": "35  Cartogram",
+    "section": "35.7 Pearl",
+    "text": "35.7 Pearl\n\n\n\ndorling-cartogram",
     "crumbs": [
       "maps.html",
       "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
@@ -2151,39 +2250,6 @@
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
       "<span class='chapter-number'>38</span>  <span class='chapter-title'>Summary</span>"
-    ]
-  },
-  {
-    "objectID": "hexbin-map.html#地图",
-    "href": "hexbin-map.html#地图",
-    "title": "34  Hexbin map",
-    "section": "34.2 地图",
-    "text": "34.2 地图\n\n\nShow/Hide Code\n# 加载必要的库\nlibrary(tidyverse)     # 加载tidyverse包，包含dplyr等数据处理工具\nlibrary(sf)            # 加载sf包，用于处理空间数据\nlibrary(RColorBrewer)  # 加载RColorBrewer包，用于颜色调色板\n\n# 从以下链接下载六边形边界的GeoJSON格式文件：\n# https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map\n\n# 读取GeoJSON格式的六边形边界文件\nmy_sf &lt;- read_sf(\"./data/us_states_hexgrid.geojson\") \n\n# 数据格式调整，去除地名中的\" (United States)\"字符串\nmy_sf &lt;- my_sf |&gt;  # 使用新管道操作符\n  mutate(google_name = gsub(\" \\\\(United States\\\\)\", \"\", google_name))  # 替换地名字符串\n\n# 绘制空间数据的几何图形\nplot(st_geometry(my_sf))  # 绘制六边形边界图\n\n\n\n\n\n美国州六边形边界地图\n\n\n\n\n\n\nShow/Hide Code\nggplot(my_sf) +               \n  geom_sf(fill = \"skyblue\", color = \"white\") + # 绘制六边形填充天蓝色，边界为白色\n  geom_sf_text(aes(label = iso3166_2)) +       # 添加州代码文本标签\n  theme_void()                                              \n\n\n\n\n\n美国州六边形地图with州代码标签\n\n\n\n\n\n\nShow/Hide Code\n# 读取美国各州结婚率数据\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/State_mariage_rate.csv\",\n  header = T, sep = \",\", na.strings = \"---\"\n)\n\n# 绘制2015年结婚率分布直方图\ndata |&gt;\n  ggplot(aes(x = y_2015)) +\n  geom_histogram(bins = 20, fill = \"#69b3a2\", color = \"white\") +  # 创建直方图，设置颜色\n  scale_x_continuous(breaks = seq(1, 30))                         # 设置X轴刻度范围\n\n\n\n\n\n2015年美国各州结婚率分布直方图\n\n\n\n\n\n\nShow/Hide Code\n# 合并地理空间数据和数值数据\nmy_sf_wed &lt;- my_sf |&gt;\n  left_join(data, by = c(\"google_name\" = \"state\"))\n\n# 创建第一个分级统计地图\nggplot(my_sf_wed) +\n  geom_sf(aes(fill = y_2015)) +              # 绘制地理图形，按2015年结婚率填充颜色\n  scale_fill_gradient(trans = \"log\") +       # 使用对数变换的颜色渐变\n  theme_void()                               # 使用空白主题，去除坐标轴等元素\n\n\n\n\n\n2015年美国各州结婚率分布热力图\n\n\n\n\n\n\nShow/Hide Code\n# 准备数据分箱\nmy_sf_wed$bin &lt;- cut(my_sf_wed$y_2015,\n  breaks = c(seq(5, 10), Inf),                                   # 设置分箱断点\n  labels = c(\"5-6\", \"6-7\", \"7-8\", \"8-9\", \"9-10\", \"10+\"),        # 设置分箱标签\n  include.lowest = TRUE                                          # 包含最小值\n)\n\n# 准备来自viridis调色板的颜色比例\nlibrary(viridis)\nmy_palette &lt;- rev(magma(8))[c(-1, -8)]                          # 创建自定义调色板\n\n# 绘制地图\nggplot(my_sf_wed) +\n  geom_sf(aes(fill = bin), linewidth = 0, alpha = 0.9) +        # 绘制各州地理边界，按分箱填充\n  geom_sf_text(aes(label = iso3166_2), color = \"white\", size = 3, alpha = 0.6) +  # 添加州代码标签\n  theme_void() +                                                 # 使用空白主题\n  scale_fill_manual(\n    values = my_palette,                                         # 使用自定义调色板\n    name = \"Wedding per 1000 people in 2015\",                   # 图例标题\n    guide = guide_legend(\n      keyheight = unit(3, units = \"mm\"),                         # 图例高度\n      keywidth = unit(12, units = \"mm\"),                         # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"A map of marriage rates, state by state\") +          # 添加标题\n  theme(\n    legend.position = c(0.5, 0.9),                              # 图例位置\n    text = element_text(color = \"#22211d\"),                      # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f2\", color = NA),    # 绘图背景\n    panel.background = element_rect(fill = \"#f5f5f2\", color = NA),   # 面板背景\n    legend.background = element_rect(fill = \"#f5f5f2\", color = NA),  # 图例背景\n    plot.title = element_text(\n      size = 22, hjust = 0.5, color = \"#4e4d47\",                # 标题样式\n      margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\")   # 标题边距\n    )\n  )\n\n\n\n\n\n2015年美国各州结婚率分布精美地图",
-    "crumbs": [
-      "maps.html",
-      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
-    ]
-  },
-  {
-    "objectID": "hexbin-map.html#坐标列表",
-    "href": "hexbin-map.html#坐标列表",
-    "title": "34  Hexbin map",
-    "section": "34.3 坐标列表",
-    "text": "34.3 坐标列表\n\n\nShow/Hide Code\n# 加载所需库\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(hrbrthemes)\nlibrary(mapdata)\n\n# 从GitHub加载数据集\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv\", \n                   sep = \",\", header = T)\n\n# 获取世界地图多边形数据\nworld &lt;- map_data(\"world\")\n\n# 绘制地图\nggplot(data, aes(x = homelon, y = homelat)) +\n  geom_polygon(data = world, aes(x = long, y = lat, group = group), \n               fill = \"grey\", alpha = 0.3) +                     # 绘制世界地图底图\n  geom_bin2d(bins = 100) +                                       # 添加二维密度热力图\n  ggplot2::annotate(\"text\", x = 175, y = 80, \n                    label = \"Where people tweet about #Surf\", \n                    colour = \"black\", size = 4, alpha = 1, hjust = 1) +  # 添加标题文本\n  ggplot2::annotate(\"segment\", x = 100, xend = 175, y = 73, yend = 73, \n                    colour = \"black\", size = 0.2, alpha = 1) +   # 添加装饰线段\n  theme_void() +                                                 # 使用空白主题\n  ylim(-70, 80) +                                               # 设置Y轴范围\n  scale_fill_viridis(\n    trans = \"log\",                                               # 对数变换\n    breaks = c(1, 7, 54, 403, 3000),                           # 设置断点\n    name = \"Tweet # recorded in 8 months\",                      # 图例标题\n    guide = guide_legend(\n      keyheight = unit(2.5, units = \"mm\"),                     # 图例高度\n      keywidth = unit(10, units = \"mm\"),                       # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"\") +                                                 # 空标题\n  theme(\n    legend.position = c(0.8, 0.09),                            # 图例位置\n    legend.title = element_text(color = \"black\", size = 8),     # 图例标题样式\n    text = element_text(color = \"#22211d\"),                     # 文本颜色\n    plot.title = element_text(size = 13, hjust = 0.1, color = \"#4e4d47\", \n                             margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\"))  # 标题样式\n  )\n\n\n\n\n\n全球冲浪推文地理分布热力图\n\n\n\n\n\n\nShow/Hide Code\n# 加载所需库\nlibrary(tidyverse)\nlibrary(viridis)\nlibrary(hrbrthemes)\nlibrary(mapdata)\n\n# 从GitHub加载数据集\ndata &lt;- read.table(\"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv\", \n                   sep = \",\", header = T)\n\n# 绘制欧洲地区六边形热力图\ndata |&gt;\n  filter(homecontinent == \"Europe\") |&gt;                          # 筛选欧洲地区数据\n  ggplot(aes(x = homelon, y = homelat)) +\n  geom_hex(bins = 59) +                                         # 创建六边形热力图\n  ggplot2::annotate(\"text\", x = -27, y = 72, \n                    label = \"Where people tweet about #Surf\", \n                    colour = \"black\", size = 5, alpha = 1, hjust = 0) +  # 添加标题文本\n  ggplot2::annotate(\"segment\", x = -27, xend = 10, y = 70, yend = 70, \n                    colour = \"black\", size = 0.2, alpha = 1) +   # 添加装饰线段\n  theme_void() +                                                 # 使用空白主题\n  xlim(-30, 70) +                                               # 设置X轴范围\n  ylim(24, 72) +                                                # 设置Y轴范围\n  scale_fill_viridis(\n    option = \"B\",                                               # 使用viridis调色板B选项\n    trans = \"log\",                                              # 对数变换\n    breaks = c(1, 7, 54, 403, 3000),                           # 设置断点\n    name = \"Tweet # recorded in 8 months\",                      # 图例标题\n    guide = guide_legend(\n      keyheight = unit(2.5, units = \"mm\"),                     # 图例高度\n      keywidth = unit(10, units = \"mm\"),                       # 图例宽度\n      label.position = \"bottom\", title.position = \"top\", nrow = 1  # 图例布局\n    )\n  ) +\n  ggtitle(\"\") +                                                 # 空标题\n  theme(\n    legend.position = c(0.8, 0.09),                            # 图例位置\n    legend.title = element_text(color = \"black\", size = 8),     # 图例标题样式\n    text = element_text(color = \"#22211d\"),                     # 文本颜色\n    plot.background = element_rect(fill = \"#f5f5f2\", color = NA),    # 绘图背景\n    panel.background = element_rect(fill = \"#f5f5f2\", color = NA),   # 面板背景\n    legend.background = element_rect(fill = \"#f5f5f2\", color = NA),  # 图例背景\n    plot.title = element_text(size = 13, hjust = 0.1, color = \"#4e4d47\", \n                             margin = margin(b = -0.1, t = 0.4, l = 2, unit = \"cm\"))  # 标题样式\n  )\n\n\n\n\n\n欧洲地区冲浪推文地理分布六边形热力图",
-    "crumbs": [
-      "maps.html",
-      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
-    ]
-  },
-  {
-    "objectID": "hexbin-map.html#pearl",
-    "href": "hexbin-map.html#pearl",
-    "title": "34  Hexbin map",
-    "section": "34.4 Pearl",
-    "text": "34.4 Pearl\n\n\n\nLego Choropleth map with R\n\n\n\n\n\nTriple map into a single chart",
-    "crumbs": [
-      "maps.html",
-      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
     ]
   }
 ]

@@ -1,3 +1,2 @@
 # Connection {#sec-connection}
 
-1

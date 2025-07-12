@@ -1,3 +1,351 @@
 # Cartogram {#sec-cartogram}
 
-1
+## PKG
+
+## Hexbin
+
+
+```{r}
+#| fig-cap: "美国各州六边形网格地图"
+
+# 加载必要的R包
+library(tidyverse)  # 数据处理和可视化工具包
+library(sf)         # 空间数据处理包
+library(RColorBrewer)  # 颜色调色板包
+
+# 加载geojson文件（注意：我将文件存储在名为DATA的文件夹中）
+my_sf <- read_sf("./data/us_states_hexgrid.geojson")
+
+# 对数据进行少量格式化处理
+# 使用新的管道操作符 |> 替换google_name字段中的"(United States)"字符串
+my_sf <- my_sf |>
+  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+
+# 显示六边形网格的几何形状
+# 这将绘制美国各州的六边形网格边界
+plot(st_geometry(my_sf))
+```
+
+基于人口数据的美国各州地图扭曲（Cartogram）:
+
+```{r}
+#| fig-cap: "基于人口数据的美国各州地图扭曲（Cartogram）"
+
+# 加载制图包
+library(cartogram)  # 用于创建地图扭曲效果的包
+
+# 加载各州人口数据（数据源：https://www.census.gov/data/tables/2017/demo/popest/nation-total.html）
+pop <- read.table(
+    "https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/pop_US.csv", 
+    sep = ",", 
+    header = T
+    )
+pop$pop <- pop$pop / 1000000  # 将人口数转换为百万单位
+
+# 合并地理数据和人口数据
+# 使用新的管道操作符 |> 将空间数据与人口数据按州名进行左连接
+my_sf <- my_sf |> left_join(pop, by = c("google_name" = "state"))
+
+# 基于人口信息计算地图扭曲效果
+# 首先需要更改投影，我们使用墨卡托投影（即谷歌地图使用的投影，EPSG 3857）
+my_sf_merc <- st_transform(my_sf, 3857)
+cartogram <- cartogram_cont(my_sf_merc, "pop")  # 根据人口数据创建连续地图扭曲
+
+# 转换回原始投影坐标系
+cartogram <- st_transform(cartogram, st_crs(my_sf))
+
+# 初步查看扭曲后的地图效果
+# 人口较多的州会显得更大，人口较少的州会显得更小
+plot(st_geometry(cartogram))
+```
+
+
+```{r}
+#| fig-cap: "美国人口分布的地图扭曲可视化（带颜色填充和标签）"
+
+# 使用ggplot2创建精美的地图扭曲可视化
+ggplot(cartogram) +
+  # 添加空间几何图形，根据人口数量填充颜色
+  geom_sf(aes(fill = pop), linewidth = 0.05, alpha = 0.9, color = "black") +
+  # 设置渐变色填充方案
+  scale_fill_gradientn(
+    colours = brewer.pal(7, "BuPu"),  # 使用蓝紫色调色板
+    name = "population (in M)",       # 图例标题
+    labels = scales::label_comma(),   # 数字格式化（添加千位分隔符）
+    guide = guide_legend(
+      keyheight = unit(3, units = "mm"),    # 图例键高度
+      keywidth = unit(12, units = "mm"),    # 图例键宽度
+      title.position = "top",              # 图例标题位置
+      label.position = "bottom"            # 图例标签位置
+    )
+  ) +
+  # 添加州的缩写代码文本标签
+  geom_sf_text(aes(label = iso3166_2), color = "white", size = 3, alpha = 0.6) +
+  # 使用空白主题（去除坐标轴和网格线）
+  theme_void() +
+  # 添加图表标题
+  ggtitle("Another look on the US population") +
+  # 自定义主题设置
+  theme(
+    legend.position = c(0.5, 0.9),     # 图例位置（水平居中，靠近顶部）
+    legend.direction = "horizontal",    # 图例水平排列
+    text = element_text(color = "#22211d"),  # 文本颜色
+    plot.background = element_rect(fill = "#f5f5f9", color = NA),    # 图表背景色
+    panel.background = element_rect(fill = "#f5f5f9", color = NA),   # 面板背景色
+    legend.background = element_rect(fill = "#f5f5f9", color = NA),  # 图例背景色
+    # 标题样式设置
+    plot.title = element_text(
+        size = 22, hjust = 0.5, color = "#4e4d47", 
+        margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")
+        ),
+  )
+```
+
+
+## `cartogram`
+
+基础 cartogram: 非洲地区地理边界图
+
+```{r}
+#| fig-cap: "非洲地区地理边界图"
+
+# 加载空间数据处理库
+library(sf)
+
+# 读取世界边界简化数据
+wrld_simpl <- read_sf("./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp")
+
+# 筛选非洲地区数据 (REGION == 2)
+afr <- wrld_simpl[wrld_simpl$REGION == 2, ]
+
+# 使用plot函数可视化非洲地区边界
+plot(st_geometry(afr))
+```
+
+
+根据人口数据，构建变形地图
+
+```{r}
+#| fig-cap: "基于2005年人口数据的非洲变形地图"
+
+# 加载变形地图库
+library(cartogram)
+
+# 使用2005年人口数据构建变形地图
+
+# 首先需要将投影转换为墨卡托投影 (谷歌地图投影): EPSG: 3857
+afr <- st_transform(afr, 3857)
+
+# 创建基于人口的连续变形地图
+afr_cartogram <- cartogram_cont(afr, "POP2005", itermax = 5)
+
+# 将投影转换回原始投影
+afr_cartogram <- st_transform(afr_cartogram, st_crs(afr))
+
+# 这是一个新的地理空间对象，我们可以可视化它！
+plot(st_geometry(afr_cartogram))
+```
+
+
+使用 ggplot2 来添加一些颜色、标题、图例、背景等。现在我们有了非洲的漂亮制图分级统计地图！
+
+```{r}
+#| fig-cap: "基于2005年人口数据的非洲变形地图, 美化版"
+
+library(tidyverse)
+
+ggplot(afr_cartogram) +
+  geom_sf(aes(fill = POP2005), linewidth = 0, alpha = 0.9) +
+  theme_void()
+```
+
+
+2005年非洲人口分布精美变形地图: 
+
+
+```{r}
+#| fig-cap: "2005年非洲人口分布精美变形地图"
+
+# 如前所述，通过一些自定义设置可以制作更精美的地图
+p_afr <- ggplot(afr_cartogram) +
+  geom_sf(aes(fill = POP2005 / 1000000), linewidth = 0, alpha = 0.9) +  # 绘制变形地图，按人口数填充
+  theme_void() +                                                          # 使用空白主题
+  scale_fill_viridis_c(
+    name = "Population (M)",                                              # 图例标题
+    breaks = c(1, 50, 100, 140),                                         # 设置断点
+    guide = guide_legend(
+      keyheight = unit(3, units = "mm"),                                  # 图例高度
+      keywidth = unit(12, units = "mm"),                                  # 图例宽度
+      label.position = "bottom",                                          # 标签位置
+      title.position = "top", nrow = 1                                    # 标题位置和行数
+    )
+  ) +
+  labs(title = "Africa 2005 Population") +                               # 添加标题
+  theme(
+    text = element_text(color = "#22211d"),                               # 文本颜色
+    plot.background = element_rect(fill = "#f5f5f4", color = NA),        # 绘图背景
+    panel.background = element_rect(fill = "#f5f5f4", color = NA),       # 面板背景
+    legend.background = element_rect(fill = "#f5f5f4", color = NA),      # 图例背景
+    plot.title = element_text(
+      size = 22, hjust = 0.5,                                            # 标题大小和对齐
+      color = "#4e4d47",                                                  # 标题颜色
+      margin = margin(
+        b = -0.1, t = 0.4, l = 2,                                        # 标题边距
+        unit = "cm"
+      )
+    ),
+    legend.position = c(0.2, 0.26)                                       # 图例位置
+  )
+
+p_afr
+```
+
+
+## 动画
+
+加载必要的 R 包: 
+
+```{r}
+# 加载必要的R包
+library(dplyr)      # 数据处理和清洗
+library(cartogram)  # 创建地图扭曲效果
+library(ggplot2)    # 数据可视化
+library(transformr) # 使gganimate能够与sf对象协同工作
+library(gganimate)  # 创建动画效果
+library(sf)         # 读取和处理空间数据文件
+```
+
+准备数据: 
+
+
+
+
+## 计算多个中间地图
+
+前面已经构建了基于人口数据的非洲地图扭曲: 
+
+目标是在两个地图之间制作平滑动画，我们需要使用插值创建大量中间地图。
+
+这可以通过在 cartogram_cont() 函数上使用 itermax 参数来实现。我们可以计算几个中间地图扭曲并将每个都视为一个帧。
+
+最后，我们得到了一个大数据框，其中包含足够绘制 30 个地图的信息。下面展示了其中三个地图。
+
+```{r}
+#| fig-cap: "创建动画帧的中间地图状态"
+
+# 创建状态的循环
+afr$id <- seq(1, nrow(afr))  # 为每个国家分配唯一ID
+afr$.frame <- 0              # 初始帧设为0
+
+# 将循环结果存储在此对象上
+dt1 <- afr            # 存储初始状态
+afr_cartogram <- afr  # 复制用于循环处理
+
+# 循环创建15个渐进的地图扭曲帧
+for (i in 1:15) {
+  # 每次迭代进行一步地图扭曲
+  afr_cartogram <- cartogram_cont(afr_cartogram, "POP2005", itermax = 1)
+  afr_cartogram$.frame <- i  # 为当前帧分配编号
+  
+  # 将当前帧添加到数据集中
+  dt1 <- rbind(dt1, afr_cartogram)
+}
+
+# 现在按相反顺序排列以回到初始状态（创建循环动画效果）
+dt2 <- dt1 |>
+  arrange(desc(.frame), id) |>           # 按帧号降序排列
+  mutate(.frame = -1 * .frame + 31)      # 重新编号帧以创建反向序列
+
+# 合并正向和反向帧，并按帧号和ID排序
+dt <- bind_rows(dt1, dt2) |> arrange(.frame, id)
+```
+
+
+```{r}
+#| fig-cap: "检查动画的几个关键帧"
+#| layout-ncol: 3
+#| fig-subcap: ["初始状态", "中间扭曲状态", "最大扭曲状态"]
+
+# 检查几个帧
+# 帧0：初始状态（原始地图）
+ggplot() +
+  geom_sf(data = dt |> filter(.frame == 0), aes(fill = POP2005), linewidth = 0)
+
+
+# 帧5：中间扭曲状态
+ggplot() +
+  geom_sf(
+    data = dt |> filter(.frame == 5), aes(fill = POP2005),
+    linewidth = 0
+  )
+
+# 帧15：最大扭曲状态
+ggplot() +
+  geom_sf(
+    data = dt |> filter(.frame == 15), aes(fill = POP2005),
+    linewidth = 0
+  )
+```
+
+## 使用 gganimate 制作动画
+
+最后一步包括构建 30 个地图并将它们编译成 .gif 文件。这是使用 gganimate 库完成的。该库使用另一个函数 transition_states() 和 ease_aes()。为每个帧制作新图，这使我们能够随后构建 gif。
+
+```{r}
+#| fig-cap: "创建最终的动画GIF文件"
+
+# 由于gganimate的一个错误，移除CRS（坐标参考系统）
+dt <- st_set_crs(dt, NA)
+
+# 创建动画图表对象
+p <- ggplot(dt) +
+  # 添加空间几何图形，设置分组以确保动画正确跟踪每个国家
+  geom_sf(aes(fill = POP2005 / 1000000, group = id), linewidth = 0, alpha = 0.9) +
+  theme_void() +
+  # 设置颜色填充方案
+  scale_fill_viridis_c(
+    name = "Population (M)",
+    breaks = c(1, 50, 100, 140),
+    guide = guide_legend(
+      keyheight = unit(3, units = "mm"),
+      keywidth = unit(12, units = "mm"),
+      label.position = "bottom",
+      title.position = "top", nrow = 1
+    )
+  ) +
+  # 添加标题
+  labs(title = "Africa", subtitle = "Population per country in 2005") +
+  # 设置主题样式
+  theme(
+    text = element_text(color = "#22211d"),
+    plot.background = element_rect(fill = "#f5f5f4", color = NA),
+    panel.background = element_rect(fill = "#f5f5f4", color = NA),
+    legend.background = element_rect(fill = "#f5f5f4", color = NA),
+    plot.title = element_text(
+      size = 22, hjust = 0.5, color = "#4e4d47",
+      margin = margin(
+        b = -0.1, t = 0.4, l = 2,
+        unit = "cm"
+      )
+    ),
+    plot.subtitle = element_text(
+      size = 13, hjust = 0.5, color = "#4e4d47",
+      margin = margin(
+        b = -0.1, t = 0.4, l = 2,
+        unit = "cm"
+      )
+    ),
+    legend.position = c(0.2, 0.26)
+  ) +
+  # 来自gganimate的函数
+  transition_states(.frame) +      # 基于.frame列创建状态转换
+  ease_aes("cubic-in-out")        # 设置缓动效果，使动画更平滑
+
+# 制作动画（持续5秒）
+animate(p, duration = 5)
+```
+
+
+## Pearl
+
+[![dorling-cartogram](./image/dorling-cartogram.png)](https://r-graph-gallery.com/web-dorling-cartogram-with-R.html)
