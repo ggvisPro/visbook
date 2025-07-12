@@ -1,6 +1,6 @@
 # Part of a Whole
 
-此部分介绍了几种常用的表示部分与整体关系的图表类型。
+本卷介绍了几种常用的表示部分与整体关系的图表类型。
 
 ![Part of a Whole](./image/part-of-a-whole.png)
 

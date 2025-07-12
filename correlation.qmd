@@ -1,6 +1,6 @@
 # Correlation
 
-此部分探数据(变量)之间的关系
+本卷探索数据(变量)之间的关系
 
 ![变量间的关系](./image/correlation.png)
 

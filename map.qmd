@@ -1,0 +1,834 @@
+# Map {#sec-map}
+
+首先找到地图数据, 导入 R, 然后绘制地图.
+
+![](./image/map.png)
+
+## PKG
+
+
+## 动态
+
+`leaflet` 是 R 语言中一个非常强大的地图包, 可以绘制静态和动态地图.
+
+### 基本
+
+
+```{r}
+#| fig-cap: "基础OpenStreetMap交互地图"
+
+# 加载leaflet库
+library(leaflet)
+
+m <- leaflet() |> # 初始化leaflet地图对象
+  addTiles()      # 添加默认地图瓦片
+
+m
+```
+
+### 区域
+
+要指定要显示的地图区域，只需在 `setView()` 调用中指定纬度、经度以及缩放级别：
+
+    - 经度 `lng`
+    - 纬度 `lat`
+    - 缩放级别 `zoom`
+
+
+```{r}
+#| fig-cap: "设置特定视图的交互地图"
+
+# 加载leaflet库
+library(leaflet)
+
+# 创建地图并设置视图
+m <- leaflet() |>                                    # 初始化leaflet地图对象
+  addTiles() |>                                      # 添加默认OpenStreetMap地图瓦片
+  setView(lng = 166.45, lat = -22.25, zoom = 8)      # 设置地图中心点和缩放级别
+
+# 显示地图
+m
+```
+
+### 添加圆形
+
+```{r}
+#| fig-cap: "带有圆形标记的随机点位地图"
+
+# 加载leaflet库
+library(leaflet)
+
+# 创建20个随机标记点的数据
+data = data.frame(
+  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值
+  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值
+  val = round(rnorm(20), 2),                          # 生成20个随机数值
+  name = paste("point", letters[1:20], sep = "_")     # 创建点位名称
+)
+
+# 创建地图并在每个位置显示圆形标记
+m = leaflet(data = data) |>                          # 使用数据初始化leaflet地图
+  addTiles() |>                                      # 添加默认地图瓦片
+  addCircleMarkers(~long, ~lat, popup = ~as.character(name))  # 添加圆形标记和弹出信息
+
+# 显示地图
+m
+
+```
+
+还可以自定义圆形:
+
+```{r}
+#| fig-cap: "自定义圆形标记的随机点位地图"
+
+# 创建20个随机标记点的数据
+data = data.frame(
+  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值
+  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值
+  val = round(rnorm(20), 2),                          # 生成20个随机数值
+  name = paste("point", letters[1:20], sep = "_")     # 创建点位名称
+)
+
+# 创建带有自定义圆形标记的地图
+# 圆圈大小以像素为单位定义，缩放时大小不会改变
+m = leaflet(data = data) |>                          # 使用数据初始化leaflet地图
+  addTiles() |>                                      # 添加默认地图瓦片
+  addCircleMarkers(
+    ~long, ~lat,                                     # 设置经纬度坐标
+    radius = ~val * 14,                              # 圆圈半径根据val值调整
+    color = ~ifelse(data$val > 0, "red", "orange"),  # 根据val值设置颜色
+    stroke = TRUE,                                   # 显示边框
+    fillOpacity = 0.2,                               # 设置填充透明度
+    popup = ~as.character(name)                      # 添加弹出信息
+  )
+
+# 显示地图
+m
+```
+
+```{r}
+#| fig-cap: "可自定义大小的圆形标记，随缩放而变化"
+
+# 加载leaflet库
+library(leaflet)
+
+# 创建20个随机标记点的数据
+data = data.frame(
+  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值
+  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值
+  val = round(rnorm(20), 2),                          # 生成20个随机数值
+  name = paste("point", letters[1:20], sep = "_")     # 创建点位名称
+)
+
+# 创建带有自定义圆形的地图
+# 圆形半径以米为单位定义，缩放时大小会相应变化
+m = leaflet(data = data) |>                          # 使用数据初始化leaflet地图
+  addTiles() |>                                      # 添加默认地图瓦片
+  addCircles(
+    ~long, ~lat,                                     # 设置经纬度坐标
+    radius = ~val * 1000000,                         # 圆形半径以米为单位，根据val值调整
+    color = ~ifelse(data$val > 0, "red", "orange"),  # 根据val值设置颜色
+    stroke = TRUE,                                   # 显示边框
+    fillOpacity = 0.2,                               # 设置填充透明度
+    popup = ~as.character(name)                      # 添加弹出信息
+  ) |>
+  setView(lng = 166.45, lat = 21, zoom = 2)          # 设置地图视图中心点和缩放级别
+
+# 显示地图
+m
+
+```
+
+### 添加矩形
+
+```{r}
+#| fig-cap: "在地图上添加矩形区域"
+
+# 加载leaflet库
+library(leaflet)
+
+# 创建20个随机标记点的数据
+data = data.frame(
+  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值
+  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值
+  val = round(rnorm(20), 2),                          # 生成20个随机数值
+  name = paste("point", letters[1:20], sep = "_")     # 创建点位名称
+)
+
+# 创建带有矩形区域的地图
+m = leaflet() |>                                     # 初始化leaflet地图对象
+  addTiles() |>                                      # 添加默认地图瓦片
+  addRectangles(
+    lng1 = -118.456554, lat1 = 34.078039,            # 矩形第一个对角坐标
+    lng2 = -118.436383, lat2 = 34.062717,            # 矩形第二个对角坐标
+    fillColor = "transparent"                         # 设置填充颜色为透明
+  )
+
+# 显示地图
+m   
+```
+
+### 地图类型
+
+- Nasa(夜光图): NASAGIBS.ViirsEarthAtNight2012
+- Google map(卫星图): Esri.WorldImagery
+- Gray(灰色): Esri.WorldGrayCanvas
+- Terrain(地形图): Esri.WorldTerrain
+- Topo Map(等高线图): Esri.WorldTopoMap
+
+```{r}
+#| fig-cap: "使用不同底图的交互式地图展示"
+#| layout-ncol: 1
+#| fig-subcap: 
+#|   - "NASA 夜间灯光图"
+#|   - "世界影像图"
+#|   - "灰色底图"
+#|   - "地形图"
+#|   - "等高线图"
+
+library(leaflet)
+
+# 背景地图 1：NASA 夜间灯光图
+m <- leaflet() |>
+  addTiles() |>                                           # 添加默认瓦片图层
+  setView(lng = 2.34, lat = 48.85, zoom = 3)         # 设置地图中心和缩放级别
+m |>
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012")    # 添加 NASA 2012 年夜间灯光底图
+
+# 背景地图 2：世界影像图
+m |>
+  addProviderTiles("Esri.WorldImagery")                  # 添加 Esri 世界影像底图
+
+# 背景地图 3：灰色底图
+m |>
+  addProviderTiles("Esri.WorldGrayCanvas")               # 添加 Esri 灰色底图
+
+# 背景地图 4：地形图
+m |>
+  addProviderTiles("Esri.WorldTerrain")                  # 添加 Esri 地形底图
+
+# 背景地图 5：等高线图
+m |>
+  addProviderTiles("Esri.WorldTopoMap")                  # 添加 Esri 等高线底图
+
+```
+
+
+
+## 静态
+
+`ggmap` 包含生成静态地图的功能。本文将介绍其基本使用方法，即构建背景地图。其他函数可用于在地图上添加数据，例如气泡图或分级统计图。
+
+### Google
+
+Google 现在需要 API 密钥; 见 `ggmap::register_google()`
+
+```{r}
+#| eval: false
+#| fig-cap: "使用 Google Maps 地形图展示法国蒙彼利埃地区"
+
+library(ggmap)
+
+# 对于谷歌地图，需要指定查看窗口的中心位置
+# 地图类型参数可选项：terrain / satellite / roadmap / hybrid
+
+# 获取地图信息
+map <- get_googlemap("Montpellier, France", zoom = 8, maptype = "terrain")
+
+# 绘制地图
+ggmap(map) +
+  theme_void() +                                              # 使用空白主题
+  ggtitle("terrain") +                                        # 添加标题
+  theme(
+    plot.title = element_text(colour = "orange"),             # 设置标题颜色为橙色
+    panel.border = element_rect(colour = "grey", fill = NA, size = 2)  # 设置边框为灰色
+  )
+
+```
+
+### Stadia
+
+需要注册 API 密钥; 见 `ggmap::register_stadiamaps()`
+
+```{r}
+#| eval: false
+#| fig-cap: "使用 Stamen 水彩风格地图展示澳大利亚地区"
+
+# 加载库
+library(ggmap)
+library(gridExtra)
+
+# 对于 Stamen 地图，需要指定查看窗口的边界
+# 这是一个使用水彩背景的示例（澳大利亚周边地区）
+map <- get_stadiamap(
+  bbox = c(left = 110, bottom = -40, right = 160, top = -10),  # 设置地图边界
+  zoom = 4,                                                      # 缩放级别
+  maptype = "stamen_watercolor"                                         # 水彩风格
+)
+
+ggmap(map) +
+  theme_void() +                                                 # 使用空白主题
+  theme(
+    plot.title = element_text(colour = "orange"),                # 设置标题颜色为橙色
+    panel.border = element_rect(colour = "grey", fill = NA, size = 2)  # 设置边框为灰色
+  )
+
+```
+
+```{r}
+#| eval: false
+#| fig-cap: "Stamen 地图提供的所有地图样式对比展示"
+
+# 加载库
+library(ggmap)
+library(gridExtra)
+
+# 让我们查看 Stamen 地图提供的所有可能性
+maptype <- c(
+  "terrain-labels", "terrain-lines", "toner", "toner-2011",
+  "toner-background", "toner-hybrid", "toner-lines",
+  "toner-lite", "watercolor"
+)
+
+mylist <- vector("list", length(maptype))                       # 创建列表存储地图
+
+# 循环遍历所有地图类型
+num <- 0
+for (i in maptype) {
+  num <- num + 1
+  map <- get_stamenmap(
+    bbox = c(left = 150, bottom = -30, right = 160, top = -25),  # 设置地图边界（澳大利亚东部）
+    zoom = 8,                                                      # 缩放级别
+    maptype = i                                                    # 当前地图类型
+  )
+  p <- ggmap(map) +
+    theme_void() +                                                 # 使用空白主题
+    ggtitle(i) +                                                   # 以地图类型作为标题
+    theme(
+      plot.title = element_text(colour = "orange"),                # 设置标题颜色为橙色
+      panel.border = element_rect(colour = "grey", fill = NA, size = 2)  # 设置边框为灰色
+    )
+  mylist[[num]] <- p                                               # 将地图存入列表
+}
+
+# 使用 gridExtra 将所有地图排列在同一张图像中
+n <- length(mylist)
+nCol <- floor(sqrt(n))                                             # 计算列数
+do.call("grid.arrange", c(mylist, ncol = nCol))                   # 排列所有地图
+
+```
+
+
+
+## 地图库
+
+一些库提供了最常见的空间对象, 这避免了在网络上寻找信息的麻烦
+
+  - `Map` 库：加拿大、法国、意大利、美国及其地区、世界城市、新西兰。
+  - `Mapdata` 库（中国、日本、新西兰、高分辨率的全球地图）。
+  - `oz` 库（澳大利亚）。
+
+### `maps`
+
+包括:
+    - World: world, world.cities, lakes
+    - US: states, county, state, usa
+    - France: france
+    - Italy: italy
+    - New zealand: nz
+
+
+```{r}
+#| fig-cap: "使用 maps 包绘制的世界地图"
+
+library(maps)
+
+# 查看所有可用空间对象
+# help(package='maps')
+
+# 绘制世界地图
+map(
+  'world',                    # 地图类型：世界地图
+  col = "grey",              # 填充颜色：灰色
+  fill = TRUE,               # 是否填充：是
+  bg = "white",              # 背景颜色：白色
+  lwd = 0.05,                # 边界线宽度：0.05
+  mar = rep(0, 4),           # 图形边距：上下左右均为 0
+  border = 0,                # 边框宽度：0（无边框）
+  ylim = c(-80, 80)          # Y 轴范围：纬度 -80 到 80 度
+)
+
+```
+
+### `mapdata`
+
+
+    - china - 中国地图
+    - japan - 日本地图
+    - 其他世界地图版本，如太平洋中心版 (world2Hires)
+    - 使用 help(package='mapdata') 查看完整列表
+
+
+
+```{r}
+#| fig-cap: "使用 mapdata 包绘制日本地图"
+
+
+# 加载库
+library(mapdata)
+
+# 查看所有可用的地理空间对象：
+# help(package='mapdata')
+
+# 绘制日本地图：
+map(
+  'japan',              # 地图类型：中国
+  col = "black",        # 边界颜色：黑色
+  lwd = 1,              # 线条宽度：1
+  mar = rep(0, 4)       # 图形边距：上下左右均为 0
+)
+
+```
+
+### `oz`
+
+使用 `oz()` 函数绘制国家概况，或使用 `nsw()` 、 `qld()` 等绘制州。
+
+输入 `help(package='oz')` 获取文档说明。
+
+```{r}
+#| fig-cap: 澳大利亚地图
+
+# 加载oz包用于绘制澳大利亚地图
+library(oz)
+
+# 查看所有可用的地理空间对象:
+# help(package='oz')
+
+# 绘制澳大利亚地图
+par(mar = rep(0, 4))              # 设置图形边距为0
+oz(states = TRUE, col = "#69b3a2") # 绘制带州界的澳大利亚地图，使用绿色填充
+```
+
+
+## 地图文件
+
+还可以从网上找到地图数据, `shape` 文件或 `geojson` 文件, 然后使用 `sf` 包读取.
+
+- [Open and Plot Shapefiles in R](https://r-graph-gallery.com/168-load-a-shape-file-into-r.html)
+
+- [Open and Plot Geojson files in R](https://r-graph-gallery.com/325-background-map-from-geojson-format-in-r.html)
+
+
+## `ggiraph`
+
+```{r}
+#| fig-cap: 基于mtcars数据的交互式散点图和柱状图组合
+
+# 加载必需的包
+library(ggiraph)      # 交互式图表
+library(ggplot2)      # 数据可视化
+library(dplyr)        # 数据处理
+library(patchwork)    # 图表拼接
+library(tidyr)        # 数据整理
+library(sf)           # 空间数据处理
+
+# 设置随机种子以确保结果可重现
+set.seed(123)
+
+# 加载mtcars数据集并添加车型名称列
+data(mtcars)
+mtcars$car <- rownames(mtcars)
+
+# 创建交互式散点图：重量 vs 油耗
+p1 <- ggplot(mtcars, aes(wt, mpg, tooltip = car, data_id = car)) +
+  geom_point_interactive(size = 4)
+
+# 创建交互式柱状图：按油耗排序的车型
+p2 <- ggplot(mtcars, aes(x = reorder(car, mpg), y = mpg, tooltip = car, data_id = car)) +
+  geom_col_interactive() +
+  coord_flip()
+
+# 使用patchwork包组合两个图表
+combined_plot <- p1 + p2 + plot_layout(ncol = 2)
+
+# 创建交互式图表对象
+interactive_plot <- girafe(ggobj = combined_plot)
+
+# 显示交互式图表
+interactive_plot
+```
+
+
+```{r}
+#| fig-cap: 世界各国幸福指数多维度交互式可视化
+
+# 读取完整的世界地图数据
+world_sf <- read_sf("https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world.geojson")
+world_sf <- world_sf |>
+  filter(!name %in% c("Antarctica", "Greenland"))  # 过滤掉南极洲和格陵兰
+
+# 创建幸福指数示例数据集
+happiness_data <- data.frame(
+  Country = c(
+    "France", "Germany", "United Kingdom",
+    "Japan", "China", "Vietnam",
+    "United States of America", "Canada", "Mexico"
+  ),
+  Continent = c(
+    "Europe", "Europe", "Europe",
+    "Asia", "Asia", "Asia",
+    "North America", "North America", "North America"
+  ),
+  Happiness_Score = rnorm(mean = 30, sd = 20, n = 9),          # 幸福指数
+  GDP_per_capita = rnorm(mean = 30, sd = 20, n = 9),           # 人均GDP
+  Social_support = rnorm(mean = 30, sd = 20, n = 9),           # 社会支持
+  Healthy_life_expectancy = rnorm(mean = 30, sd = 20, n = 9)   # 健康预期寿命
+)
+
+# 将幸福指数数据与世界地图数据连接
+world_sf <- world_sf |>
+  left_join(happiness_data, by = c("name" = "Country"))    # 将幸福指数数据与世界地图数据连接
+
+# 创建第一个图表：散点图（GDP vs 幸福指数）
+p1 <- ggplot(world_sf, aes(
+  GDP_per_capita,   # 人均GDP
+  Happiness_Score,  # 幸福指数
+  tooltip = name,   # 国家名称
+  data_id = name,   # 国家名称
+  color = name      # 国家名称
+)) +
+  geom_point_interactive(data = filter(world_sf, !is.na(Happiness_Score)), size = 4) +  # 绘制散点图
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 创建第二个图表：柱状图（幸福指数排序）
+p2 <- ggplot(world_sf, aes(
+  x = reorder(name, Happiness_Score),  # 按幸福指数排序
+  y = Happiness_Score,                 # 幸福指数
+  tooltip = name,                      # 国家名称
+  data_id = name,                      # 国家名称
+  fill = name                          # 国家名称
+)) +
+  geom_col_interactive(data = filter(world_sf, !is.na(Happiness_Score))) +
+  coord_flip() +                       # 翻转坐标轴
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 创建第三个图表：世界地图填色图
+p3 <- ggplot() +
+  geom_sf(data = world_sf, fill = "lightgrey", color = "lightgrey") +  # 背景地图
+  geom_sf_interactive(
+    data = filter(world_sf, !is.na(Happiness_Score)), # 过滤掉没有幸福指数数据的国家
+    aes(fill = name, tooltip = name, data_id = name)  # 国家名称
+  ) +
+  coord_sf(crs = st_crs(3857)) +       # 使用Web Mercator投影
+  theme_void() +                       # 移除所有轴线和背景
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 组合所有图表：上方两个图表并排，下方地图
+combined_plot <- (p1 + p2) / p3 + plot_layout(heights = c(1, 2))
+
+# 创建交互式图表
+interactive_plot <- girafe(ggobj = combined_plot)
+interactive_plot <- girafe_options(
+  interactive_plot,
+  opts_hover(css = "fill:red;stroke:black;")  # 设置悬停效果样式
+)
+
+# 显示交互式图表
+interactive_plot
+```
+
+刚才只高亮了一个项目, 现在可以高亮一个组中的多个项目
+
+```{r}
+#| fig-cap: 按大洲分类的世界各国幸福指数交互式可视化
+
+# 创建第一个图表：散点图（GDP vs 幸福指数，按大洲着色）
+p1 <- ggplot(world_sf, aes(
+  GDP_per_capita,
+  Happiness_Score,
+  tooltip = name,
+  data_id = Continent,
+  color = Continent
+)) +
+  geom_point_interactive(data = filter(world_sf, !is.na(Happiness_Score)), size = 4) +
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 创建第二个图表：柱状图（幸福指数排序，按大洲着色）
+p2 <- ggplot(world_sf, aes(
+  x = reorder(name, Happiness_Score),
+  y = Happiness_Score,
+  tooltip = name,
+  data_id = Continent,
+  fill = Continent
+)) +
+  geom_col_interactive(data = filter(world_sf, !is.na(Happiness_Score))) +
+  coord_flip() +                       # 翻转坐标轴
+  theme_minimal() +
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 创建第三个图表：世界地图填色图（按大洲着色）
+p3 <- ggplot() +
+  geom_sf(data = world_sf, fill = "lightgrey", color = "lightgrey") +  # 背景地图
+  geom_sf_interactive(
+    data = filter(world_sf, !is.na(Happiness_Score)),
+    aes(fill = Continent, tooltip = name, data_id = Continent)
+  ) +
+  coord_sf(crs = st_crs(3857)) +       # 使用Web Mercator投影
+  theme_void() +                       # 移除所有轴线和背景
+  theme(
+    axis.title.x = element_blank(),     # 隐藏x轴标题
+    axis.title.y = element_blank(),     # 隐藏y轴标题
+    legend.position = "none"            # 隐藏图例
+  )
+
+# 组合所有图表：上方两个图表并排，下方地图
+combined_plot <- (p1 + p2) / p3 + plot_layout(heights = c(1, 2))
+
+# 创建交互式图表
+interactive_plot <- girafe(ggobj = combined_plot)
+interactive_plot <- girafe_options(
+  interactive_plot,
+  opts_hover(css = "fill:red;stroke:black;")  # 设置悬停效果样式
+)
+
+# 显示交互式图表
+interactive_plot
+```
+
+使用 CSS 美化样式: (Quarto 未正确渲染)
+
+```{r}
+#| fig-cap: 自定义交互式图表样式设置
+
+# 定义工具提示样式
+tooltip_css <- "
+  border-radius: 12px;
+  color: #333;
+  background-color: white;
+  padding: 10px;
+  font-size: 14px;
+"
+
+# 定义悬停效果样式
+hover_css <- "
+  filter: brightness(75%);
+  transition: all 0.3s ease;
+"
+
+# 应用交互式样式设置
+interactive_plot <- interactive_plot |>
+  girafe_options(
+    opts_hover(css = hover_css),         # 设置悬停效果：降低亮度，平滑过渡
+    opts_tooltip(css = tooltip_css)      # 设置工具提示：圆角白色背景，深色文字
+  )
+
+# 显示最终的交互式图表
+interactive_plot
+```
+
+更多啊, 还要更多的 CSS (Quarto 未正确渲染)
+
+```{r}
+#| fig-cap: 高级自定义交互式图表样式设置
+
+# 定义高级工具提示样式
+tooltip_css <- "
+  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);     # 渐变背景
+  border: none;                                                  # 无边框
+  border-radius: 12px;                                           # 圆角
+  box-shadow: 3px 3px 10px #d1d1d1, -3px -3px 10px #ffffff;  # 阴影
+  color: #333;                                                   # 文字颜色
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  # 字体
+  font-size: 14px;                                               # 字体大小
+  padding: 12px;                                                 # 内边距
+  transition: all 0.5s ease-out;                                 # 过渡效果
+"
+
+# 定义高级悬停效果样式
+hover_css <- "
+  filter: brightness(75%);                                        # 亮度变化
+  cursor: pointer;                                                # 手型光标
+  filter: brightness(1.2) drop-shadow(0 0 5px rgba(78, 84, 200, 0.5));  # 光晕
+  transition: all 0.5s ease-out;                                 # 过渡效果
+"
+
+# 应用高级交互式样式设置
+interactive_plot <- interactive_plot |>
+  girafe_options(
+    opts_hover(css = hover_css),         # 设置悬停效果：亮度变化+光晕+手型光标
+    opts_tooltip(css = tooltip_css)      # 设置工具提示：渐变背景+3D阴影+现代字体
+  )
+
+# 显示最终的高级交互式图表
+interactive_plot
+```
+
+非悬停组模糊, 突出目标组，减弱其他组的视觉干扰: (Quarto 未正确渲染)
+
+```{r}
+#| fig-cap: 悬停反向效果交互式图表样式设置
+
+# 定义工具提示样式
+tooltip_css <- "
+  border-radius: 12px;
+  color: #333;
+  background-color: white;
+  padding: 10px;
+  font-size: 14px;
+  transition: all 0.5s ease-out;
+"
+
+# 定义悬停目标元素样式
+hover_css <- "
+  filter: brightness(75%);
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+  filter: brightness(1.15);
+"
+
+# 应用交互式样式设置，包含反向悬停效果
+interactive_plot <- interactive_plot |>
+  girafe_options(
+    opts_hover(css = hover_css),                                        # 设置悬停目标：亮度增强+手型光标
+    opts_tooltip(css = tooltip_css),                                    # 设置工具提示：圆角白色背景
+    opts_hover_inv(css = "opacity:0.3; transition: all 0.2s ease-out;") # 设置非悬停元素：透明度30%，突出目标组
+  )
+
+# 显示具有反向悬停效果的交互式图表
+interactive_plot
+```
+
+
+## 操作地图
+
+加载从网上中找到的数据: 
+```{r}
+library(sf)
+my_sf <- read_sf(
+  file.path("./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp") # 注意这是4个文件
+)
+head(my_sf) |> knitr::kable()
+```
+
+```{r}
+#| fig-cap: 绘制非洲地图
+
+africa <- my_sf[my_sf$REGION == 2, ]     # 非洲
+par(mar = c(0, 0, 0, 0))                 # 设置图形边距为0
+plot(st_geometry(africa),
+  xlim = c(-20, 60), ylim = c(-40, 35),  # 设置x轴和y轴范围
+  col = "steelblue", lwd = 0.5           # 设置颜色和线宽
+)
+```
+
+简化地理空间对象, 弯弯曲曲的边界线用几何图形近似:
+
+```{r}
+#| fig-cap: 简化地理空间对象
+
+library("rmapshaper") # 简化地理空间对象
+africaSimple <- ms_simplify(africa, keep = 0.01, keep_shapes = TRUE)
+par(mar = c(0, 0, 0, 0))                 # 设置图形边距为0
+plot(st_geometry(africaSimple),
+  xlim = c(-20, 60), ylim = c(-40, 35),  # 设置x轴和y轴范围
+  col = "#59b2a3", lwd = 0.5             # 设置颜色和线宽
+)
+```
+
+加上文字标签: 即计算每个区域的质心以添加标签。这可以使用 `st_centroid()` 包的 `sf` 函数来完成。
+
+```{r}
+#| fig-cap: 非洲大国地图标注
+
+# 筛选出面积大于75000平方公里的非洲大国
+africaBig <- africa[which(africa$AREA > 75000), ]
+
+# 计算大国的几何中心点（使用最大多边形）
+centroids <- st_centroid(africaBig, of_largest_polygon = TRUE)
+
+# 提取坐标并添加为新列
+centers <- cbind(centroids, st_coordinates(centroids))
+
+# 在地图上显示结果
+par(mar = c(0, 0, 0, 0))                                                # 设置图边距为0
+plot(st_geometry(africa), xlim = c(-20, 60), ylim = c(-40, 35), lwd = 0.5) # 绘制非洲地图轮廓
+text(centers$X, centers$Y, centers$FIPS, cex = .9, col = "#69b3a2")    # 在中心点添加国家代码标签
+```
+
+## 2D / 3D
+
+`rayshader` 包是一个创建带阴影效果的 2D 和 3D 地图的强大工具。它特别适用于创建带有浮雕效果的精美地图
+
+
+```{r}
+#| fig-cap: 大峡谷地区3D地形可视化
+#| layout-ncol: 1
+#| fig-subcap:
+#|   - "基础3D地形渲染（沙漠纹理）"
+#|   - "创建自定义颜色纹理"
+#|   - "高级渲染：添加阴影效果"
+
+# 加载必需的包
+library(rayshader)  # 3D地形可视化
+library(raster)     # 栅格数据处理
+library(geodata)    # 地理数据获取
+
+# 定义大峡谷区域的地理范围
+extent_gc <- extent(-113.0, -112.0, 36.0, 37.0)
+
+# 获取SRTM高程数据（3弧秒分辨率）
+srtm_gc <- elevation_3s("SRTM", lon = -112.5, lat = 36.5)
+
+# 裁剪高程数据到指定区域
+srtm_gc_cropped <- crop(srtm_gc, extent_gc)
+
+# 将栅格数据转换为矩阵格式
+elevation_matrix <- raster_to_matrix(srtm_gc_cropped)
+
+# ----p1-----
+# 基础3D地形渲染（沙漠纹理）
+elevation_matrix |>
+  sphere_shade(texture = "desert", sunangle = 45) |>
+  plot_map()
+
+# ----p2-----
+# 创建自定义颜色纹理
+custom_texture <- create_texture("#fff673", "#55967a", "#8fb28a", "#55967a", "#cfe0a9")
+
+# 使用自定义纹理渲染
+elevation_matrix |>
+  sphere_shade(texture = custom_texture, sunangle = 45) |>
+  plot_map()
+
+# ----p3-----
+# 高级渲染：添加阴影效果
+elevation_matrix |>
+  sphere_shade(texture = "desert", sunangle = 45, zscale = 50) |>
+  add_shadow(ray_shade(elevation_matrix), 0.5) |>     # 添加光线追踪阴影
+  add_shadow(ambient_shade(elevation_matrix), 0) |>   # 添加环境光阴影
+  plot_map()
+```

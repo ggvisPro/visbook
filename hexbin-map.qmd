@@ -1,0 +1,3 @@
+# Hexbin map {#sec-hexbin-map}
+
+1

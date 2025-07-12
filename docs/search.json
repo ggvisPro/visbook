@@ -64,7 +64,7 @@
     "href": "distribution.html",
     "title": "Distribution",
     "section": "",
-    "text": "此部分探数据分布的可视化.\n\n\n\n数据分布\n\n\n\n1  Beeswarm 群峰图, 是一种强大的点图\n2  Histogram 直方图, 用于显示数据的基础手段\n3  Boxplot 箱线图, 用于显示数据的四分位数和异常值\n4  Density 核密度图, 密度曲线,可以比较多组\n5  Ridgeline 山脊图, 美观, 用于显示多个分布的叠加情况\n6  Violin 小提琴图, 箱线图和密度曲线的变体",
+    "text": "本卷探索数据分布的可视化.\n\n\n\n数据分布\n\n\n\n1  Beeswarm 群峰图, 是一种强大的点图\n2  Histogram 直方图, 用于显示数据的基础手段\n3  Boxplot 箱线图, 用于显示数据的四分位数和异常值\n4  Density 核密度图, 密度曲线,可以比较多组\n5  Ridgeline 山脊图, 美观, 用于显示多个分布的叠加情况\n6  Violin 小提琴图, 箱线图和密度曲线的变体",
     "crumbs": [
       "Distribution"
     ]
@@ -393,7 +393,7 @@
     "href": "correlation.html",
     "title": "Correlation",
     "section": "",
-    "text": "此部分探数据(变量)之间的关系\n\n\n\n变量间的关系\n\n\n\n7  Scatter 散点图，用数据点显示两个变量之间的关系\n8  Heatmap 热力图, 用颜色块显示变量之间的关系\n9  Correlogram 相关性图, 显示变量之间的统计学相关性\n10  Bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系\n11  Conn-Scatter 连接散点图, 用线连接数据点显示变量之间的关系\n12  Density 2D 二维密度图, 用颜色块显示两个变量的密度分布",
+    "text": "本卷探索数据(变量)之间的关系\n\n\n\n变量间的关系\n\n\n\n7  Scatter 散点图，用数据点显示两个变量之间的关系\n8  Heatmap 热力图, 用颜色块显示变量之间的关系\n9  Correlogram 相关性图, 显示变量之间的统计学相关性\n10  Bubble 气泡图, 用气泡的大小和颜色表示三个变量之间的关系\n11  Conn-Scatter 连接散点图, 用线连接数据点显示变量之间的关系\n12  Density 2D 二维密度图, 用颜色块显示两个变量的密度分布",
     "crumbs": [
       "Correlation"
     ]
@@ -854,7 +854,7 @@
     "href": "ranking.html",
     "title": "Ranking",
     "section": "",
-    "text": "此部分探索数据排名（有序数据）的不同方法。\n\n\n\nRanking\n\n\n\n13  Bar : 条形图, 简单又好用的可视化方法\n14  Spider : 雷达图, 适合展示多维数据\n15  Wordcloud : 词云图，花里胡哨\n16  Parallel : 平行坐标图，雷达图的改进，适合展示多维数据\n17  Lollipop : 棒棒糖图，条形图的改进\n18  Cir-bar : 圆形条形图，条形图的改进，适合展示超多组数据\n8  Heatmap : 热力图",
+    "text": "本卷探索数据排名（有序数据）的不同方法。\n\n\n\nRanking\n\n\n\n13  Bar : 条形图, 简单又好用的可视化方法\n14  Spider : 雷达图, 适合展示多维数据\n15  Wordcloud : 词云图，花里胡哨\n16  Parallel : 平行坐标图，雷达图的改进，适合展示多维数据\n17  Lollipop : 棒棒糖图，条形图的改进\n18  Cir-bar : 圆形条形图，条形图的改进，适合展示超多组数据\n8  Heatmap : 热力图",
     "crumbs": [
       "Ranking"
     ]
@@ -1282,7 +1282,7 @@
     "href": "part-of-a-whole.html",
     "title": "Part of a Whole",
     "section": "",
-    "text": "此部分介绍了几种常用的表示部分与整体关系的图表类型。\n\n\n\nPart of a Whole\n\n\n\n20  Group bar 简单实用的分组条形图\n21  Treemap 直观的矩形树图\n22  Pie 经典的饼图, 没什么用, 不推荐使用\n23  Donut 甜甜圈图, 饼图的变种, 同样不推荐使用\n24  Dendrogram 树状图, 用于展示层级关系\n25  Circular 圆堆图, 用于展示层级关系\n26  Waffle 华夫图, 用于展示比例关系",
+    "text": "本卷介绍了几种常用的表示部分与整体关系的图表类型。\n\n\n\nPart of a Whole\n\n\n\n20  Group bar 简单实用的分组条形图\n21  Treemap 直观的矩形树图\n22  Pie 经典的饼图, 没什么用, 不推荐使用\n23  Donut 甜甜圈图, 饼图的变种, 同样不推荐使用\n24  Dendrogram 树状图, 用于展示层级关系\n25  Circular 圆堆图, 用于展示层级关系\n26  Waffle 华夫图, 用于展示比例关系",
     "crumbs": [
       "Part of a Whole"
     ]
@@ -1600,7 +1600,7 @@
     "href": "evolution.html",
     "title": "Evolution",
     "section": "",
-    "text": "此部分展示数据随时间的变化趋势\n\n\n\nEvolution\n\n\n\n27  Line : 线图\n28  Area : 区域图\n29  Stacked Area : 堆叠区域图\n30  Stream : 流图\n31  Time : 时间序列图",
+    "text": "本卷介绍 R 语言绘制数据随时间的变化趋势的多种方法。\n\n\n\nEvolution\n\n\n\n27  Line : 线图\n28  Area : 区域图\n29  Stacked Area : 堆叠区域图\n30  Stream : 流图\n31  Time : 时间序列图",
     "crumbs": [
       "Evolution"
     ]
@@ -1925,13 +1925,166 @@
     ]
   },
   {
+    "objectID": "maps.html",
+    "href": "maps.html",
+    "title": "",
+    "section": "",
+    "text": "Code\n\n\n\n\n本卷介绍 R 语言绘制地图的多种方法。",
+    "crumbs": [
+      "maps.html"
+    ]
+  },
+  {
+    "objectID": "map.html",
+    "href": "map.html",
+    "title": "32  Map",
+    "section": "",
+    "text": "32.1 PKG\n首先找到地图数据, 导入 R, 然后绘制地图.",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#动态",
+    "href": "map.html#动态",
+    "title": "32  Map",
+    "section": "32.2 动态",
+    "text": "32.2 动态\nleaflet 是 R 语言中一个非常强大的地图包, 可以绘制静态和动态地图.\n\n32.2.1 基本\n\n\nShow/Hide Code\n# 加载leaflet库\nlibrary(leaflet)\n\nm &lt;- leaflet() |&gt; # 初始化leaflet地图对象\n  addTiles()      # 添加默认地图瓦片\n\nm\n\n\n\n\n基础OpenStreetMap交互地图\n\n\n\n\n32.2.2 区域\n要指定要显示的地图区域，只需在 setView() 调用中指定纬度、经度以及缩放级别：\n- 经度 `lng`\n- 纬度 `lat`\n- 缩放级别 `zoom`\n\n\nShow/Hide Code\n# 加载leaflet库\nlibrary(leaflet)\n\n# 创建地图并设置视图\nm &lt;- leaflet() |&gt;                                    # 初始化leaflet地图对象\n  addTiles() |&gt;                                      # 添加默认OpenStreetMap地图瓦片\n  setView(lng = 166.45, lat = -22.25, zoom = 8)      # 设置地图中心点和缩放级别\n\n# 显示地图\nm\n\n\n\n\n设置特定视图的交互地图\n\n\n\n\n32.2.3 添加圆形\n\n\nShow/Hide Code\n# 加载leaflet库\nlibrary(leaflet)\n\n# 创建20个随机标记点的数据\ndata = data.frame(\n  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值\n  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值\n  val = round(rnorm(20), 2),                          # 生成20个随机数值\n  name = paste(\"point\", letters[1:20], sep = \"_\")     # 创建点位名称\n)\n\n# 创建地图并在每个位置显示圆形标记\nm = leaflet(data = data) |&gt;                          # 使用数据初始化leaflet地图\n  addTiles() |&gt;                                      # 添加默认地图瓦片\n  addCircleMarkers(~long, ~lat, popup = ~as.character(name))  # 添加圆形标记和弹出信息\n\n# 显示地图\nm\n\n\n\n\n带有圆形标记的随机点位地图\n\n\n还可以自定义圆形:\n\n\nShow/Hide Code\n# 创建20个随机标记点的数据\ndata = data.frame(\n  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值\n  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值\n  val = round(rnorm(20), 2),                          # 生成20个随机数值\n  name = paste(\"point\", letters[1:20], sep = \"_\")     # 创建点位名称\n)\n\n# 创建带有自定义圆形标记的地图\n# 圆圈大小以像素为单位定义，缩放时大小不会改变\nm = leaflet(data = data) |&gt;                          # 使用数据初始化leaflet地图\n  addTiles() |&gt;                                      # 添加默认地图瓦片\n  addCircleMarkers(\n    ~long, ~lat,                                     # 设置经纬度坐标\n    radius = ~val * 14,                              # 圆圈半径根据val值调整\n    color = ~ifelse(data$val &gt; 0, \"red\", \"orange\"),  # 根据val值设置颜色\n    stroke = TRUE,                                   # 显示边框\n    fillOpacity = 0.2,                               # 设置填充透明度\n    popup = ~as.character(name)                      # 添加弹出信息\n  )\n\n# 显示地图\nm\n\n\n\n\n自定义圆形标记的随机点位地图\n\n\n\n\nShow/Hide Code\n# 加载leaflet库\nlibrary(leaflet)\n\n# 创建20个随机标记点的数据\ndata = data.frame(\n  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值\n  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值\n  val = round(rnorm(20), 2),                          # 生成20个随机数值\n  name = paste(\"point\", letters[1:20], sep = \"_\")     # 创建点位名称\n)\n\n# 创建带有自定义圆形的地图\n# 圆形半径以米为单位定义，缩放时大小会相应变化\nm = leaflet(data = data) |&gt;                          # 使用数据初始化leaflet地图\n  addTiles() |&gt;                                      # 添加默认地图瓦片\n  addCircles(\n    ~long, ~lat,                                     # 设置经纬度坐标\n    radius = ~val * 1000000,                         # 圆形半径以米为单位，根据val值调整\n    color = ~ifelse(data$val &gt; 0, \"red\", \"orange\"),  # 根据val值设置颜色\n    stroke = TRUE,                                   # 显示边框\n    fillOpacity = 0.2,                               # 设置填充透明度\n    popup = ~as.character(name)                      # 添加弹出信息\n  ) |&gt;\n  setView(lng = 166.45, lat = 21, zoom = 2)          # 设置地图视图中心点和缩放级别\n\n# 显示地图\nm\n\n\n\n\n可自定义大小的圆形标记，随缩放而变化\n\n\n\n\n32.2.4 添加矩形\n\n\nShow/Hide Code\n# 加载leaflet库\nlibrary(leaflet)\n\n# 创建20个随机标记点的数据\ndata = data.frame(\n  long = sample(seq(-150, 150), 20),                  # 生成20个随机经度值\n  lat = sample(seq(-50, 50), 20),                     # 生成20个随机纬度值\n  val = round(rnorm(20), 2),                          # 生成20个随机数值\n  name = paste(\"point\", letters[1:20], sep = \"_\")     # 创建点位名称\n)\n\n# 创建带有矩形区域的地图\nm = leaflet() |&gt;                                     # 初始化leaflet地图对象\n  addTiles() |&gt;                                      # 添加默认地图瓦片\n  addRectangles(\n    lng1 = -118.456554, lat1 = 34.078039,            # 矩形第一个对角坐标\n    lng2 = -118.436383, lat2 = 34.062717,            # 矩形第二个对角坐标\n    fillColor = \"transparent\"                         # 设置填充颜色为透明\n  )\n\n# 显示地图\nm   \n\n\n\n\n在地图上添加矩形区域\n\n\n\n\n32.2.5 地图类型\n\nNasa(夜光图): NASAGIBS.ViirsEarthAtNight2012\nGoogle map(卫星图): Esri.WorldImagery\nGray(灰色): Esri.WorldGrayCanvas\nTerrain(地形图): Esri.WorldTerrain\nTopo Map(等高线图): Esri.WorldTopoMap\n\n\nShow/Hide Code\nlibrary(leaflet)\n\n# 背景地图 1：NASA 夜间灯光图\nm &lt;- leaflet() |&gt;\n  addTiles() |&gt;                                           # 添加默认瓦片图层\n  setView(lng = 2.34, lat = 48.85, zoom = 3)         # 设置地图中心和缩放级别\nm |&gt;\n  addProviderTiles(\"NASAGIBS.ViirsEarthAtNight2012\")    # 添加 NASA 2012 年夜间灯光底图\n# 背景地图 2：世界影像图\nm |&gt;\n  addProviderTiles(\"Esri.WorldImagery\")                  # 添加 Esri 世界影像底图\n# 背景地图 3：灰色底图\nm |&gt;\n  addProviderTiles(\"Esri.WorldGrayCanvas\")               # 添加 Esri 灰色底图\n# 背景地图 4：地形图\nm |&gt;\n  addProviderTiles(\"Esri.WorldTerrain\")                  # 添加 Esri 地形底图\n# 背景地图 5：等高线图\nm |&gt;\n  addProviderTiles(\"Esri.WorldTopoMap\")                  # 添加 Esri 等高线底图\n\n\n\n\n\n\n\n\n\n\nNASA 夜间灯光图\n\n\n\n\n\n\n\n\n\n\n世界影像图\n\n\n\n\n\n\n\n\n\n\n灰色底图\n\n\n\n\n\n\n\n\n\n\n地形图\n\n\n\n\n\n\n\n\n\n\n等高线图\n\n\n\n\n使用不同底图的交互式地图展示",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#静态",
+    "href": "map.html#静态",
+    "title": "32  Map",
+    "section": "32.3 静态",
+    "text": "32.3 静态\nggmap 包含生成静态地图的功能。本文将介绍其基本使用方法，即构建背景地图。其他函数可用于在地图上添加数据，例如气泡图或分级统计图。\n\n32.3.1 Google\nGoogle 现在需要 API 密钥; 见 ggmap::register_google()\n\n\nShow/Hide Code\nlibrary(ggmap)\n\n# 对于谷歌地图，需要指定查看窗口的中心位置\n# 地图类型参数可选项：terrain / satellite / roadmap / hybrid\n\n# 获取地图信息\nmap &lt;- get_googlemap(\"Montpellier, France\", zoom = 8, maptype = \"terrain\")\n\n# 绘制地图\nggmap(map) +\n  theme_void() +                                              # 使用空白主题\n  ggtitle(\"terrain\") +                                        # 添加标题\n  theme(\n    plot.title = element_text(colour = \"orange\"),             # 设置标题颜色为橙色\n    panel.border = element_rect(colour = \"grey\", fill = NA, size = 2)  # 设置边框为灰色\n  )\n\n\n\n\n32.3.2 Stadia\n需要注册 API 密钥; 见 ggmap::register_stadiamaps()\n\n\nShow/Hide Code\n# 加载库\nlibrary(ggmap)\nlibrary(gridExtra)\n\n# 对于 Stamen 地图，需要指定查看窗口的边界\n# 这是一个使用水彩背景的示例（澳大利亚周边地区）\nmap &lt;- get_stadiamap(\n  bbox = c(left = 110, bottom = -40, right = 160, top = -10),  # 设置地图边界\n  zoom = 4,                                                      # 缩放级别\n  maptype = \"stamen_watercolor\"                                         # 水彩风格\n)\n\nggmap(map) +\n  theme_void() +                                                 # 使用空白主题\n  theme(\n    plot.title = element_text(colour = \"orange\"),                # 设置标题颜色为橙色\n    panel.border = element_rect(colour = \"grey\", fill = NA, size = 2)  # 设置边框为灰色\n  )\n\n\n\n\nShow/Hide Code\n# 加载库\nlibrary(ggmap)\nlibrary(gridExtra)\n\n# 让我们查看 Stamen 地图提供的所有可能性\nmaptype &lt;- c(\n  \"terrain-labels\", \"terrain-lines\", \"toner\", \"toner-2011\",\n  \"toner-background\", \"toner-hybrid\", \"toner-lines\",\n  \"toner-lite\", \"watercolor\"\n)\n\nmylist &lt;- vector(\"list\", length(maptype))                       # 创建列表存储地图\n\n# 循环遍历所有地图类型\nnum &lt;- 0\nfor (i in maptype) {\n  num &lt;- num + 1\n  map &lt;- get_stamenmap(\n    bbox = c(left = 150, bottom = -30, right = 160, top = -25),  # 设置地图边界（澳大利亚东部）\n    zoom = 8,                                                      # 缩放级别\n    maptype = i                                                    # 当前地图类型\n  )\n  p &lt;- ggmap(map) +\n    theme_void() +                                                 # 使用空白主题\n    ggtitle(i) +                                                   # 以地图类型作为标题\n    theme(\n      plot.title = element_text(colour = \"orange\"),                # 设置标题颜色为橙色\n      panel.border = element_rect(colour = \"grey\", fill = NA, size = 2)  # 设置边框为灰色\n    )\n  mylist[[num]] &lt;- p                                               # 将地图存入列表\n}\n\n# 使用 gridExtra 将所有地图排列在同一张图像中\nn &lt;- length(mylist)\nnCol &lt;- floor(sqrt(n))                                             # 计算列数\ndo.call(\"grid.arrange\", c(mylist, ncol = nCol))                   # 排列所有地图",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#地图库",
+    "href": "map.html#地图库",
+    "title": "32  Map",
+    "section": "32.4 地图库",
+    "text": "32.4 地图库\n一些库提供了最常见的空间对象, 这避免了在网络上寻找信息的麻烦\n\nMap 库：加拿大、法国、意大利、美国及其地区、世界城市、新西兰。\nMapdata 库（中国、日本、新西兰、高分辨率的全球地图）。\noz 库（澳大利亚）。\n\n\n32.4.1 maps\n包括: - World: world, world.cities, lakes - US: states, county, state, usa - France: france - Italy: italy - New zealand: nz\n\n\nShow/Hide Code\nlibrary(maps)\n\n# 查看所有可用空间对象\n# help(package='maps')\n\n# 绘制世界地图\nmap(\n  'world',                    # 地图类型：世界地图\n  col = \"grey\",              # 填充颜色：灰色\n  fill = TRUE,               # 是否填充：是\n  bg = \"white\",              # 背景颜色：白色\n  lwd = 0.05,                # 边界线宽度：0.05\n  mar = rep(0, 4),           # 图形边距：上下左右均为 0\n  border = 0,                # 边框宽度：0（无边框）\n  ylim = c(-80, 80)          # Y 轴范围：纬度 -80 到 80 度\n)\n\n\n\n\n\n使用 maps 包绘制的世界地图\n\n\n\n\n\n\n32.4.2 mapdata\n- china - 中国地图\n- japan - 日本地图\n- 其他世界地图版本，如太平洋中心版 (world2Hires)\n- 使用 help(package='mapdata') 查看完整列表\n\n\nShow/Hide Code\n# 加载库\nlibrary(mapdata)\n\n# 查看所有可用的地理空间对象：\n# help(package='mapdata')\n\n# 绘制日本地图：\nmap(\n  'japan',              # 地图类型：中国\n  col = \"black\",        # 边界颜色：黑色\n  lwd = 1,              # 线条宽度：1\n  mar = rep(0, 4)       # 图形边距：上下左右均为 0\n)\n\n\n\n\n\n使用 mapdata 包绘制日本地图\n\n\n\n\n\n\n32.4.3 oz\n使用 oz() 函数绘制国家概况，或使用 nsw() 、 qld() 等绘制州。\n输入 help(package='oz') 获取文档说明。\n\n\nShow/Hide Code\n# 加载oz包用于绘制澳大利亚地图\nlibrary(oz)\n\n# 查看所有可用的地理空间对象:\n# help(package='oz')\n\n# 绘制澳大利亚地图\npar(mar = rep(0, 4))              # 设置图形边距为0\noz(states = TRUE, col = \"#69b3a2\") # 绘制带州界的澳大利亚地图，使用绿色填充\n\n\n\n\n\n澳大利亚地图",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#地图文件",
+    "href": "map.html#地图文件",
+    "title": "32  Map",
+    "section": "32.5 地图文件",
+    "text": "32.5 地图文件\n还可以从网上找到地图数据, shape 文件或 geojson 文件, 然后使用 sf 包读取.\n\nOpen and Plot Shapefiles in R\nOpen and Plot Geojson files in R",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#ggiraph",
+    "href": "map.html#ggiraph",
+    "title": "32  Map",
+    "section": "32.6 ggiraph",
+    "text": "32.6 ggiraph\n\n\nShow/Hide Code\n# 加载必需的包\nlibrary(ggiraph)      # 交互式图表\nlibrary(ggplot2)      # 数据可视化\nlibrary(dplyr)        # 数据处理\nlibrary(patchwork)    # 图表拼接\nlibrary(tidyr)        # 数据整理\nlibrary(sf)           # 空间数据处理\n\n# 设置随机种子以确保结果可重现\nset.seed(123)\n\n# 加载mtcars数据集并添加车型名称列\ndata(mtcars)\nmtcars$car &lt;- rownames(mtcars)\n\n# 创建交互式散点图：重量 vs 油耗\np1 &lt;- ggplot(mtcars, aes(wt, mpg, tooltip = car, data_id = car)) +\n  geom_point_interactive(size = 4)\n\n# 创建交互式柱状图：按油耗排序的车型\np2 &lt;- ggplot(mtcars, aes(x = reorder(car, mpg), y = mpg, tooltip = car, data_id = car)) +\n  geom_col_interactive() +\n  coord_flip()\n\n# 使用patchwork包组合两个图表\ncombined_plot &lt;- p1 + p2 + plot_layout(ncol = 2)\n\n# 创建交互式图表对象\ninteractive_plot &lt;- girafe(ggobj = combined_plot)\n\n# 显示交互式图表\ninteractive_plot\n\n\n\n\n基于mtcars数据的交互式散点图和柱状图组合\n\n\n\n\nShow/Hide Code\n# 读取完整的世界地图数据\nworld_sf &lt;- read_sf(\"https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/world.geojson\")\nworld_sf &lt;- world_sf |&gt;\n  filter(!name %in% c(\"Antarctica\", \"Greenland\"))  # 过滤掉南极洲和格陵兰\n\n# 创建幸福指数示例数据集\nhappiness_data &lt;- data.frame(\n  Country = c(\n    \"France\", \"Germany\", \"United Kingdom\",\n    \"Japan\", \"China\", \"Vietnam\",\n    \"United States of America\", \"Canada\", \"Mexico\"\n  ),\n  Continent = c(\n    \"Europe\", \"Europe\", \"Europe\",\n    \"Asia\", \"Asia\", \"Asia\",\n    \"North America\", \"North America\", \"North America\"\n  ),\n  Happiness_Score = rnorm(mean = 30, sd = 20, n = 9),          # 幸福指数\n  GDP_per_capita = rnorm(mean = 30, sd = 20, n = 9),           # 人均GDP\n  Social_support = rnorm(mean = 30, sd = 20, n = 9),           # 社会支持\n  Healthy_life_expectancy = rnorm(mean = 30, sd = 20, n = 9)   # 健康预期寿命\n)\n\n# 将幸福指数数据与世界地图数据连接\nworld_sf &lt;- world_sf |&gt;\n  left_join(happiness_data, by = c(\"name\" = \"Country\"))    # 将幸福指数数据与世界地图数据连接\n\n# 创建第一个图表：散点图（GDP vs 幸福指数）\np1 &lt;- ggplot(world_sf, aes(\n  GDP_per_capita,   # 人均GDP\n  Happiness_Score,  # 幸福指数\n  tooltip = name,   # 国家名称\n  data_id = name,   # 国家名称\n  color = name      # 国家名称\n)) +\n  geom_point_interactive(data = filter(world_sf, !is.na(Happiness_Score)), size = 4) +  # 绘制散点图\n  theme_minimal() +\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 创建第二个图表：柱状图（幸福指数排序）\np2 &lt;- ggplot(world_sf, aes(\n  x = reorder(name, Happiness_Score),  # 按幸福指数排序\n  y = Happiness_Score,                 # 幸福指数\n  tooltip = name,                      # 国家名称\n  data_id = name,                      # 国家名称\n  fill = name                          # 国家名称\n)) +\n  geom_col_interactive(data = filter(world_sf, !is.na(Happiness_Score))) +\n  coord_flip() +                       # 翻转坐标轴\n  theme_minimal() +\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 创建第三个图表：世界地图填色图\np3 &lt;- ggplot() +\n  geom_sf(data = world_sf, fill = \"lightgrey\", color = \"lightgrey\") +  # 背景地图\n  geom_sf_interactive(\n    data = filter(world_sf, !is.na(Happiness_Score)), # 过滤掉没有幸福指数数据的国家\n    aes(fill = name, tooltip = name, data_id = name)  # 国家名称\n  ) +\n  coord_sf(crs = st_crs(3857)) +       # 使用Web Mercator投影\n  theme_void() +                       # 移除所有轴线和背景\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 组合所有图表：上方两个图表并排，下方地图\ncombined_plot &lt;- (p1 + p2) / p3 + plot_layout(heights = c(1, 2))\n\n# 创建交互式图表\ninteractive_plot &lt;- girafe(ggobj = combined_plot)\ninteractive_plot &lt;- girafe_options(\n  interactive_plot,\n  opts_hover(css = \"fill:red;stroke:black;\")  # 设置悬停效果样式\n)\n\n# 显示交互式图表\ninteractive_plot\n\n\n\n\n世界各国幸福指数多维度交互式可视化\n\n\n刚才只高亮了一个项目, 现在可以高亮一个组中的多个项目\n\n\nShow/Hide Code\n# 创建第一个图表：散点图（GDP vs 幸福指数，按大洲着色）\np1 &lt;- ggplot(world_sf, aes(\n  GDP_per_capita,\n  Happiness_Score,\n  tooltip = name,\n  data_id = Continent,\n  color = Continent\n)) +\n  geom_point_interactive(data = filter(world_sf, !is.na(Happiness_Score)), size = 4) +\n  theme_minimal() +\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 创建第二个图表：柱状图（幸福指数排序，按大洲着色）\np2 &lt;- ggplot(world_sf, aes(\n  x = reorder(name, Happiness_Score),\n  y = Happiness_Score,\n  tooltip = name,\n  data_id = Continent,\n  fill = Continent\n)) +\n  geom_col_interactive(data = filter(world_sf, !is.na(Happiness_Score))) +\n  coord_flip() +                       # 翻转坐标轴\n  theme_minimal() +\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 创建第三个图表：世界地图填色图（按大洲着色）\np3 &lt;- ggplot() +\n  geom_sf(data = world_sf, fill = \"lightgrey\", color = \"lightgrey\") +  # 背景地图\n  geom_sf_interactive(\n    data = filter(world_sf, !is.na(Happiness_Score)),\n    aes(fill = Continent, tooltip = name, data_id = Continent)\n  ) +\n  coord_sf(crs = st_crs(3857)) +       # 使用Web Mercator投影\n  theme_void() +                       # 移除所有轴线和背景\n  theme(\n    axis.title.x = element_blank(),     # 隐藏x轴标题\n    axis.title.y = element_blank(),     # 隐藏y轴标题\n    legend.position = \"none\"            # 隐藏图例\n  )\n\n# 组合所有图表：上方两个图表并排，下方地图\ncombined_plot &lt;- (p1 + p2) / p3 + plot_layout(heights = c(1, 2))\n\n# 创建交互式图表\ninteractive_plot &lt;- girafe(ggobj = combined_plot)\ninteractive_plot &lt;- girafe_options(\n  interactive_plot,\n  opts_hover(css = \"fill:red;stroke:black;\")  # 设置悬停效果样式\n)\n\n# 显示交互式图表\ninteractive_plot\n\n\n\n\n按大洲分类的世界各国幸福指数交互式可视化\n\n\n使用 CSS 美化样式: (Quarto 未正确渲染)\n\n\nShow/Hide Code\n# 定义工具提示样式\ntooltip_css &lt;- \"\n  border-radius: 12px;\n  color: #333;\n  background-color: white;\n  padding: 10px;\n  font-size: 14px;\n\"\n\n# 定义悬停效果样式\nhover_css &lt;- \"\n  filter: brightness(75%);\n  transition: all 0.3s ease;\n\"\n\n# 应用交互式样式设置\ninteractive_plot &lt;- interactive_plot |&gt;\n  girafe_options(\n    opts_hover(css = hover_css),         # 设置悬停效果：降低亮度，平滑过渡\n    opts_tooltip(css = tooltip_css)      # 设置工具提示：圆角白色背景，深色文字\n  )\n\n# 显示最终的交互式图表\ninteractive_plot\n\n\n\n\n自定义交互式图表样式设置\n\n\n更多啊, 还要更多的 CSS (Quarto 未正确渲染)\n\n\nShow/Hide Code\n# 定义高级工具提示样式\ntooltip_css &lt;- \"\n  background: linear-gradient(145deg, #f0f0f0, #e6e6e6);     # 渐变背景\n  border: none;                                                  # 无边框\n  border-radius: 12px;                                           # 圆角\n  box-shadow: 3px 3px 10px #d1d1d1, -3px -3px 10px #ffffff;  # 阴影\n  color: #333;                                                   # 文字颜色\n  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  # 字体\n  font-size: 14px;                                               # 字体大小\n  padding: 12px;                                                 # 内边距\n  transition: all 0.5s ease-out;                                 # 过渡效果\n\"\n\n# 定义高级悬停效果样式\nhover_css &lt;- \"\n  filter: brightness(75%);                                        # 亮度变化\n  cursor: pointer;                                                # 手型光标\n  filter: brightness(1.2) drop-shadow(0 0 5px rgba(78, 84, 200, 0.5));  # 光晕\n  transition: all 0.5s ease-out;                                 # 过渡效果\n\"\n\n# 应用高级交互式样式设置\ninteractive_plot &lt;- interactive_plot |&gt;\n  girafe_options(\n    opts_hover(css = hover_css),         # 设置悬停效果：亮度变化+光晕+手型光标\n    opts_tooltip(css = tooltip_css)      # 设置工具提示：渐变背景+3D阴影+现代字体\n  )\n\n# 显示最终的高级交互式图表\ninteractive_plot\n\n\n\n\n高级自定义交互式图表样式设置\n\n\n非悬停组模糊, 突出目标组，减弱其他组的视觉干扰: (Quarto 未正确渲染)\n\n\nShow/Hide Code\n# 定义工具提示样式\ntooltip_css &lt;- \"\n  border-radius: 12px;\n  color: #333;\n  background-color: white;\n  padding: 10px;\n  font-size: 14px;\n  transition: all 0.5s ease-out;\n\"\n\n# 定义悬停目标元素样式\nhover_css &lt;- \"\n  filter: brightness(75%);\n  cursor: pointer;\n  transition: all 0.5s ease-out;\n  filter: brightness(1.15);\n\"\n\n# 应用交互式样式设置，包含反向悬停效果\ninteractive_plot &lt;- interactive_plot |&gt;\n  girafe_options(\n    opts_hover(css = hover_css),                                        # 设置悬停目标：亮度增强+手型光标\n    opts_tooltip(css = tooltip_css),                                    # 设置工具提示：圆角白色背景\n    opts_hover_inv(css = \"opacity:0.3; transition: all 0.2s ease-out;\") # 设置非悬停元素：透明度30%，突出目标组\n  )\n\n# 显示具有反向悬停效果的交互式图表\ninteractive_plot\n\n\n\n\n悬停反向效果交互式图表样式设置",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#操作地图",
+    "href": "map.html#操作地图",
+    "title": "32  Map",
+    "section": "32.7 操作地图",
+    "text": "32.7 操作地图\n加载从网上中找到的数据:\n\n\nShow/Hide Code\nlibrary(sf)\nmy_sf &lt;- read_sf(\n  file.path(\"./data/map/TM_WORLD_BORDERS_SIMPL-0.3.shp\") # 注意这是4个文件\n)\nhead(my_sf) |&gt; knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFIPS\nISO2\nISO3\nUN\nNAME\nAREA\nPOP2005\nREGION\nSUBREGION\nLON\nLAT\ngeometry\n\n\n\n\nAC\nAG\nATG\n28\nAntigua and Barbuda\n44\n83039\n19\n29\n-61.783\n17.078\nMULTIPOLYGON (((-61.68667 1…\n\n\nAG\nDZ\nDZA\n12\nAlgeria\n238174\n32854159\n2\n15\n2.632\n28.163\nMULTIPOLYGON (((2.96361 36….\n\n\nAJ\nAZ\nAZE\n31\nAzerbaijan\n8260\n8352021\n142\n145\n47.395\n40.430\nMULTIPOLYGON (((45.08332 39…\n\n\nAL\nAL\nALB\n8\nAlbania\n2740\n3153731\n150\n39\n20.068\n41.143\nMULTIPOLYGON (((19.43621 41…\n\n\nAM\nAM\nARM\n51\nArmenia\n2820\n3017661\n142\n145\n44.563\n40.534\nMULTIPOLYGON (((45.15387 41…\n\n\nAO\nAO\nAGO\n24\nAngola\n124670\n16095214\n2\n17\n17.544\n-12.296\nMULTIPOLYGON (((11.75083 -1…\n\n\n\n\n\n\n\nShow/Hide Code\nafrica &lt;- my_sf[my_sf$REGION == 2, ]     # 非洲\npar(mar = c(0, 0, 0, 0))                 # 设置图形边距为0\nplot(st_geometry(africa),\n  xlim = c(-20, 60), ylim = c(-40, 35),  # 设置x轴和y轴范围\n  col = \"steelblue\", lwd = 0.5           # 设置颜色和线宽\n)\n\n\n\n\n\n绘制非洲地图\n\n\n\n\n简化地理空间对象, 弯弯曲曲的边界线用几何图形近似:\n\n\nShow/Hide Code\nlibrary(\"rmapshaper\") # 简化地理空间对象\nafricaSimple &lt;- ms_simplify(africa, keep = 0.01, keep_shapes = TRUE)\npar(mar = c(0, 0, 0, 0))                 # 设置图形边距为0\nplot(st_geometry(africaSimple),\n  xlim = c(-20, 60), ylim = c(-40, 35),  # 设置x轴和y轴范围\n  col = \"#59b2a3\", lwd = 0.5             # 设置颜色和线宽\n)\n\n\n\n\n\n简化地理空间对象\n\n\n\n\n加上文字标签: 即计算每个区域的质心以添加标签。这可以使用 st_centroid() 包的 sf 函数来完成。\n\n\nShow/Hide Code\n# 筛选出面积大于75000平方公里的非洲大国\nafricaBig &lt;- africa[which(africa$AREA &gt; 75000), ]\n\n# 计算大国的几何中心点（使用最大多边形）\ncentroids &lt;- st_centroid(africaBig, of_largest_polygon = TRUE)\n\n# 提取坐标并添加为新列\ncenters &lt;- cbind(centroids, st_coordinates(centroids))\n\n# 在地图上显示结果\npar(mar = c(0, 0, 0, 0))                                                # 设置图边距为0\nplot(st_geometry(africa), xlim = c(-20, 60), ylim = c(-40, 35), lwd = 0.5) # 绘制非洲地图轮廓\ntext(centers$X, centers$Y, centers$FIPS, cex = .9, col = \"#69b3a2\")    # 在中心点添加国家代码标签\n\n\n\n\n\n非洲大国地图标注",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "map.html#d-3d",
+    "href": "map.html#d-3d",
+    "title": "32  Map",
+    "section": "32.8 2D / 3D",
+    "text": "32.8 2D / 3D\nrayshader 包是一个创建带阴影效果的 2D 和 3D 地图的强大工具。它特别适用于创建带有浮雕效果的精美地图\n\nShow/Hide Code\n# 加载必需的包\nlibrary(rayshader)  # 3D地形可视化\nlibrary(raster)     # 栅格数据处理\nlibrary(geodata)    # 地理数据获取\n\n# 定义大峡谷区域的地理范围\nextent_gc &lt;- extent(-113.0, -112.0, 36.0, 37.0)\n\n# 获取SRTM高程数据（3弧秒分辨率）\nsrtm_gc &lt;- elevation_3s(\"SRTM\", lon = -112.5, lat = 36.5)\n\n# 裁剪高程数据到指定区域\nsrtm_gc_cropped &lt;- crop(srtm_gc, extent_gc)\n\n# 将栅格数据转换为矩阵格式\nelevation_matrix &lt;- raster_to_matrix(srtm_gc_cropped)\n\n# ----p1-----\n# 基础3D地形渲染（沙漠纹理）\nelevation_matrix |&gt;\n  sphere_shade(texture = \"desert\", sunangle = 45) |&gt;\n  plot_map()\n\n# ----p2-----\n# 创建自定义颜色纹理\ncustom_texture &lt;- create_texture(\"#fff673\", \"#55967a\", \"#8fb28a\", \"#55967a\", \"#cfe0a9\")\n\n# 使用自定义纹理渲染\nelevation_matrix |&gt;\n  sphere_shade(texture = custom_texture, sunangle = 45) |&gt;\n  plot_map()\n\n# ----p3-----\n# 高级渲染：添加阴影效果\nelevation_matrix |&gt;\n  sphere_shade(texture = \"desert\", sunangle = 45, zscale = 50) |&gt;\n  add_shadow(ray_shade(elevation_matrix), 0.5) |&gt;     # 添加光线追踪阴影\n  add_shadow(ambient_shade(elevation_matrix), 0) |&gt;   # 添加环境光阴影\n  plot_map()\n\n\n\n\n\n\n\n基础3D地形渲染（沙漠纹理）\n\n\n\n\n\n\n\n\n\n创建自定义颜色纹理\n\n\n\n\n\n\n\n\n\n高级渲染：添加阴影效果\n\n\n\n\n\n\n大峡谷地区3D地形可视化",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Map</span>"
+    ]
+  },
+  {
+    "objectID": "choropleth.html",
+    "href": "choropleth.html",
+    "title": "33  Choropleth",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>33</span>  <span class='chapter-title'>Choropleth</span>"
+    ]
+  },
+  {
+    "objectID": "hexbin-map.html",
+    "href": "hexbin-map.html",
+    "title": "34  Hexbin map",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>34</span>  <span class='chapter-title'>Hexbin map</span>"
+    ]
+  },
+  {
+    "objectID": "cartogram.html",
+    "href": "cartogram.html",
+    "title": "35  Cartogram",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>35</span>  <span class='chapter-title'>Cartogram</span>"
+    ]
+  },
+  {
+    "objectID": "connection.html",
+    "href": "connection.html",
+    "title": "36  Connection",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>36</span>  <span class='chapter-title'>Connection</span>"
+    ]
+  },
+  {
+    "objectID": "bubble-map.html",
+    "href": "bubble-map.html",
+    "title": "37  Bubble map",
+    "section": "",
+    "text": "1",
+    "crumbs": [
+      "maps.html",
+      "<span class='chapter-number'>37</span>  <span class='chapter-title'>Bubble map</span>"
+    ]
+  },
+  {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "32  Summary",
+    "title": "38  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>32</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>38</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]

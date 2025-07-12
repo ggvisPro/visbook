@@ -1,6 +1,6 @@
 # Ranking
 
-此部分探索数据排名（有序数据）的不同方法。
+本卷探索数据排名（有序数据）的不同方法。
 
 ![Ranking](./image/ranking.png)
 

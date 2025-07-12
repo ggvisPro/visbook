@@ -1,0 +1,3 @@
+# Choropleth {#sec-choropleth}
+
+1

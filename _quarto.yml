@@ -59,6 +59,15 @@ book:
         - stream.qmd
         - time.qmd
 
+    - part: maps.qmd
+      chapters:
+        - map.qmd
+        - choropleth.qmd
+        - hexbin-map.qmd
+        - cartogram.qmd
+        - connection.qmd
+        - bubble-map.qmd
+
     - summary.qmd
     - references.qmd
 

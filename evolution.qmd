@@ -1,6 +1,6 @@
 # Evolution
 
-此部分展示数据随时间的变化趋势
+本卷介绍 R 语言绘制数据随时间的变化趋势的多种方法。
 
 ![Evolution](./image/evolution.png)
 

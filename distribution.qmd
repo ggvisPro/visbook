@@ -1,6 +1,6 @@
 # Distribution
 
-此部分探数据分布的可视化.
+本卷探索数据分布的可视化.
 
 ![数据分布](./image/distribution.png)
 
