@@ -2400,7 +2400,51 @@
     "href": "sankey.html",
     "title": "40  Sankey",
     "section": "",
-    "text": "1",
+    "text": "40.1 PKG",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
+    ]
+  },
+  {
+    "objectID": "sankey.html#sankey",
+    "href": "sankey.html#sankey",
+    "title": "40  Sankey",
+    "section": "40.2 Sankey",
+    "text": "40.2 Sankey\n\n\nShow/Hide Code\n# 加载必要的库\nlibrary(tidyverse)    # 数据处理核心包\nlibrary(viridis)      # 颜色方案\nlibrary(patchwork)    # 图形拼接\nlibrary(hrbrthemes)   # 图形主题\nlibrary(circlize)     # 圆形图形\nlibrary(networkD3)    # 网络图和桑基图\n\n# 从GitHub加载数据集\ndata &lt;- read.table(\n  \"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv\",\n  header = TRUE\n)\n\n# 转换为长格式数据\ndata_long &lt;- data |&gt;\n  rownames_to_column() |&gt;                           # 行名转为列\n  gather(key = \"key\", value = \"value\", -rowname) |&gt; # 宽转长\n  filter(value &gt; 0)                                 # 过滤正值\n\n# 重命名列\ncolnames(data_long) &lt;- c(\"source\", \"target\", \"value\")\ndata_long$target &lt;- paste(data_long$target, \" \", sep = \"\") # 目标节点加空格区分\n\n# 创建节点数据框：列出流程中涉及的所有实体\nnodes &lt;- data.frame(\n  name = c(as.character(data_long$source), as.character(data_long$target)) |&gt;\n    unique()\n)\n\n# networkD3需要使用ID而非名称，重新格式化连接数据\ndata_long$IDsource &lt;- match(data_long$source, nodes$name) - 1 # 源节点ID\ndata_long$IDtarget &lt;- match(data_long$target, nodes$name) - 1 # 目标节点ID\n\n# 准备颜色比例尺\nColourScal &lt;- 'd3.scaleOrdinal() .range([\"#FDE725FF\",\"#B4DE2CFF\",\"#6DCD59FF\",\"#35B779FF\",\"#1F9E89FF\",\"#26828EFF\",\"#31688EFF\",\"#3E4A89FF\",\"#482878FF\",\"#440154FF\"])'\n\n# 创建桑基图\nsankeyNetwork(\n  Links = data_long,      # 连接数据\n  Nodes = nodes,          # 节点数据\n  Source = \"IDsource\",    # 源节点列名\n  Target = \"IDtarget\",    # 目标节点列名\n  Value = \"value\",        # 流量值列名\n  NodeID = \"name\",        # 节点名称列名\n  sinksRight = FALSE,     # 终点不强制右对齐\n  colourScale = ColourScal, # 颜色方案\n  nodeWidth = 40,         # 节点宽度\n  fontSize = 13,          # 字体大小\n  nodePadding = 20        # 节点间距\n)\n\n\n\n\n基于迁移数据的桑基图：展示不同国家间人口流动情况\n\n\n\n\nShow/Hide Code\n# 加载网络图包\nlibrary(networkD3)\n\n# 加载能源投影数据\nURL &lt;- \"https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json\"\nEnergy &lt;- jsonlite::fromJSON(URL) # 解析JSON数据\n\n# 现在我们有两个数据框：\n# - links数据框：包含3列(from, to, value)\n# - nodes数据框：给出每个节点的名称\n\n# 绘制桑基图\nsankeyNetwork(\n  Links = Energy$links,  # 连接数据\n  Nodes = Energy$nodes,  # 节点数据\n  Source = \"source\",     # 源节点列名\n  Target = \"target\",     # 目标节点列名\n  Value = \"value\",       # 流量值列名\n  NodeID = \"name\",       # 节点名称列名\n  units = \"TWh\",         # 单位标签\n  fontSize = 12,         # 字体大小\n  nodeWidth = 30         # 节点宽度\n)\n\n\n\n\n能源流向桑基图：展示能源从来源到终端的完整流向",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
+    ]
+  },
+  {
+    "objectID": "sankey.html#step",
+    "href": "sankey.html#step",
+    "title": "40  Sankey",
+    "section": "40.3 step",
+    "text": "40.3 step\n\n40.3.1 基本\n从连接数据框 (Connection Data Frame) 创建桑基图:\n\n\nShow/Hide Code\n# 加载所需的 R 包\nlibrary(networkD3) # 用于创建 D3 网络图\nlibrary(dplyr)     # 用于数据处理\n\n# 创建一个连接数据框 (links data frame)\n# 这是一个表示流量信息的列表, 每一行代表一个从 source 到 target 的流量, 大小为 value\nlinks &lt;- data.frame(\n  source = c(\"group_A\", \"group_A\", \"group_B\", \"group_C\", \"group_C\", \"group_E\"),\n  target = c(\"group_C\", \"group_D\", \"group_E\", \"group_F\", \"group_G\", \"group_H\"),\n  value = c(2, 3, 2, 3, 1, 3)\n)\n\n# 从连接数据中, 我们需要创建一个节点数据框 (nodes data frame)\n# 它列出了所有参与流动的实体 (节点)\nnodes &lt;- data.frame(\n  name = c(\n    as.character(links$source),\n    as.character(links$target)\n  ) |&gt;\n    unique() # 获取所有唯一的节点名称\n)\n\n# networkD3 需要使用从 0 开始的数字 ID 来表示连接, 而不是用节点名称\n# 因此, 我们需要将 links 数据框中的名称转换为对应的 ID\nlinks$IDsource &lt;- match(links$source, nodes$name) - 1\nlinks$IDtarget &lt;- match(links$target, nodes$name) - 1\n\n# 使用 sankeyNetwork 函数创建桑基图\np &lt;- sankeyNetwork(\n  Links = links,          # 连接数据框\n  Nodes = nodes,          # 节点数据框\n  Source = \"IDsource\",    # 连接源的 ID列\n  Target = \"IDtarget\",    # 连接目标的 ID列\n  Value = \"value\",        # 流量值的列\n  NodeID = \"name\",        # 节点名称的列\n  sinksRight = FALSE      # 如果为 TRUE, 没有出向连接的节点会靠右对齐\n)\n\n# 显示图表\np\n\n\n\n\n从连接数据框生成的基础桑基图\n\n\n\n\nShow/Hide Code\n# 加载必要的库\nlibrary(networkD3)\nlibrary(dplyr)\n\n# 创建连接数据框\nlinks &lt;- data.frame(\n  source = c(\"group_A\", \"group_A\", \"group_B\", \"group_C\", \"group_C\", \"group_E\"),\n  target = c(\"group_C\", \"group_D\", \"group_E\", \"group_F\", \"group_G\", \"group_H\"),\n  value = c(2, 3, 2, 3, 1, 3)\n)\n\n# 从连接流中创建节点数据框：列出流中涉及的所有实体\nnodes &lt;- data.frame(\n  name = c(as.character(links$source), as.character(links$target)) |&gt;\n    unique()\n)\n\n# 使用networkD3时，连接必须使用id而不是链接数据框中的真实名称，因此需要重新格式化\nlinks$IDsource &lt;- match(links$source, nodes$name) - 1\nlinks$IDtarget &lt;- match(links$target, nodes$name) - 1\n\n# 准备颜色比例：为每个节点指定特定颜色\nmy_color &lt;- 'd3.scaleOrdinal() .domain([\"group_A\", \"group_B\",\"group_C\", \"group_D\", \"group_E\", \"group_F\", \"group_G\", \"group_H\"]) .range([\"blue\", \"blue\" , \"blue\", \"red\", \"red\", \"yellow\", \"purple\", \"purple\"])'\n\n# 创建网络图，使用colourScale参数调用颜色比例\np &lt;- sankeyNetwork(\n  Links = links, Nodes = nodes, Source = \"IDsource\", Target = \"IDtarget\",\n  Value = \"value\", NodeID = \"name\", colourScale = my_color\n)\np\n\n\n\n\n桑基图网络可视化\n\n\n\n\nShow/Hide Code\n# 向节点数据框添加'group'列\nnodes$group &lt;- as.factor(c(\"a\", \"a\", \"a\", \"a\", \"a\", \"b\", \"b\", \"b\"))\n\n# 为每个组指定颜色\nmy_color &lt;- 'd3.scaleOrdinal() .domain([\"a\", \"b\"]) .range([\"#69b3a2\", \"steelblue\"])'\n\n# 创建网络图\np &lt;- sankeyNetwork(\n  Links = links, Nodes = nodes, Source = \"IDsource\", Target = \"IDtarget\",\n  Value = \"value\", NodeID = \"name\",\n  colourScale = my_color, NodeGroup = \"group\"\n)\np\n\n\n\n\n分组桑基图网络可视化\n\n\n\n\nShow/Hide Code\n# 向每个连接添加'group'列\nlinks$group &lt;- as.factor(c(\"type_a\", \"type_a\", \"type_a\", \"type_b\", \"type_b\", \"type_b\"))\n\n# 向每个节点添加'group'列，这里将所有节点放在同一组中使其显示为灰色\nnodes$group &lt;- as.factor(c(\"my_unique_group\"))\n\n# 为每个组指定颜色\nmy_color &lt;- 'd3.scaleOrdinal() .domain([\"type_a\", \"type_b\", \"my_unique_group\"]) .range([\"#69b3a2\", \"steelblue\", \"grey\"])'\n\n# 创建网络图\np &lt;- sankeyNetwork(\n  Links = links, Nodes = nodes, Source = \"IDsource\", Target = \"IDtarget\",\n  Value = \"value\", NodeID = \"name\",\n  colourScale = my_color, LinkGroup = \"group\", NodeGroup = \"group\"\n)\n\np\n\n\n\n\n连接和节点分组的桑基图网络可视化",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
+    ]
+  },
+  {
+    "objectID": "sankey.html#interactivity",
+    "href": "sankey.html#interactivity",
+    "title": "40  Sankey",
+    "section": "40.4 Interactivity",
+    "text": "40.4 Interactivity\n\n\nShow/Hide Code\nlibrary(networkD3)\n\n# 读取数据\nURL &lt;- \"https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json\"\nEnergy &lt;- jsonlite::fromJSON(URL)\n\n# 查看数据\nhead( Energy$links )\n#&gt;   source target   value\n#&gt; 1      0      1 124.729\n#&gt; 2      1      2   0.597\n#&gt; 3      1      3  26.862\n#&gt; 4      1      4 280.322\n#&gt; 5      1      5  81.144\n#&gt; 6      6      2  35.000\nhead( Energy$nodes )\n#&gt;                   name\n#&gt; 1 Agricultural 'waste'\n#&gt; 2       Bio-conversion\n#&gt; 3               Liquid\n#&gt; 4               Losses\n#&gt; 5                Solid\n#&gt; 6                  Gas\n# 绘制桑基图\np &lt;- sankeyNetwork(\n    Links = Energy$links, # 连接数据\n    Nodes = Energy$nodes, # 节点数据\n    Source = \"source\",    # 源节点列名\n    Target = \"target\",    # 目标节点列名\n    Value = \"value\",      # 流量值列名\n    NodeID = \"name\",      # 节点名称列名\n    units = \"TWh\",        # 单位标签\n    fontSize = 12,        # 字体大小\n    nodeWidth = 30        # 节点宽度\n)\np\n\n\n\n\n能源流向桑基图：展示能源从来源到终端的完整流向",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
+    ]
+  },
+  {
+    "objectID": "sankey.html#bump-chart",
+    "href": "sankey.html#bump-chart",
+    "title": "40  Sankey",
+    "section": "40.5 Bump chart",
+    "text": "40.5 Bump chart\n\n\n\nSankey Bump Chart\n\n\n\n\n\nEuropean Refugee Flows",
     "crumbs": [
       "Flow",
       "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
