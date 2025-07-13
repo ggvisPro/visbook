@@ -1,3 +1,506 @@
 # Bubble map {#sec-bubble-map}
 
-1
+
+
+## PKG
+
+```{r}
+library(leaflet)     # 创建交互式地图
+library(htmltools)   # 处理HTML内容 (如工具提示)
+library(ggplot2)     # 用于数据可视化
+library(dplyr)       # 用于数据处理
+library(giscoR)      # 获取地理空间数据
+library(maps)        # 包含世界城市数据
+library(ggrepel)     # 防止文本标签重叠
+library(plotly)      # 创建可交互的图表
+library(cartography) # 用于专题地图制作
+library(sp)          # 用于处理空间数据
+```
+
+## Interactive
+
+```{r}
+#| fig-cap: "交互式地图：随机生成的20个圆形标记点"
+
+# 加载所需库
+library(leaflet)
+
+# 创建包含20个标记点的数据框（随机生成坐标点）
+data <- data.frame(
+  long = sample(seq(-150, 150), 20),     # 经度：-150到150之间的随机整数
+  lat = sample(seq(-50, 50), 20),        # 纬度：-50到50之间的随机整数
+  val = round(rnorm(20), 2),             # 数值：标准正态分布的随机数，保留2位小数
+  name = paste("point", letters[1:20], sep = "_")  # 名称：point_a, point_b, ...
+)
+
+# 创建交互式地图并在每个位置显示圆形标记
+m <- leaflet(data = data) |>
+  addTiles() |>                                    # 添加默认的地图瓦片
+  addCircleMarkers(~long, ~lat, popup = ~as.character(name))  # 添加圆形标记，点击显示名称
+
+# 显示地图
+m
+```
+
+自定义圆形标记: 
+
+```{r}
+#| fig-cap: "自定义圆形标记：根据数据值调整大小和颜色"
+
+# 创建包含20个标记点的数据框（随机生成坐标点）
+data <- data.frame(
+  long = sample(seq(-150, 150), 20),     # 经度：-150到150之间的随机整数
+  lat = sample(seq(-50, 50), 20),        # 纬度：-50到50之间的随机整数
+  val = round(rnorm(20), 2),             # 数值：标准正态分布的随机数，保留2位小数
+  name = paste("point", letters[1:20], sep = "_")  # 名称：point_a, point_b, ...
+)
+
+# 创建带有自定义圆形标记的交互式地图
+# 圆形大小以像素为单位定义，缩放时大小不会改变
+m <- leaflet(data = data) |>
+  addTiles() |>                          # 添加默认的地图瓦片
+  addCircleMarkers(
+    ~long, ~lat,                         # 经纬度坐标
+    radius = ~val * 14,                  # 半径：根据val值动态调整（乘以14倍）
+    color = ~ifelse(data$val > 0, "red", "orange"),  # 颜色：正值为红色，负值为橙色
+    stroke = TRUE,                       # 显示边框
+    fillOpacity = 0.2,                   # 填充透明度设为0.2
+    popup = ~as.character(name)          # 点击时显示标记点名称
+  )
+
+# 显示地图
+m
+```
+
+随缩放变化的自定义圆形：半径以米为单位，缩放时大小会改变: 
+
+```{r}
+#| fig-cap: "随缩放变化的自定义圆形：半径以米为单位，缩放时大小会改变"
+
+# 加载所需库
+library(leaflet)
+
+# 创建包含20个标记点的数据框（随机生成坐标点）
+data <- data.frame(
+  long = sample(seq(-150, 150), 20),     # 经度：-150到150之间的随机整数
+  lat = sample(seq(-50, 50), 20),        # 纬度：-50到50之间的随机整数
+  val = round(rnorm(20), 2),             # 数值：标准正态分布的随机数，保留2位小数
+  name = paste("point", letters[1:20], sep = "_")  # 名称：point_a, point_b, ...
+)
+
+# 创建带有自定义圆形的交互式地图
+# 圆形大小以米为单位定义，缩放时大小会随之改变
+m <- leaflet(data = data) |>
+  addTiles() |>                          # 添加默认的地图瓦片
+  addCircles(
+    ~long, ~lat,                         # 经纬度坐标
+    radius = ~val * 1000000,             # 半径：根据val值动态调整（以米为单位，乘以100万）
+    color = ~ifelse(data$val > 0, "red", "orange"),  # 颜色：正值为红色，负值为橙色
+    stroke = TRUE,                       # 显示边框
+    fillOpacity = 0.2,                   # 填充透明度设为0.2
+    popup = ~as.character(name)          # 点击时显示标记点名称
+  ) |>
+  setView(lng = 166.45, lat = 21, zoom = 2)  # 设置地图初始视图：经度166.45，纬度21，缩放级别2
+
+# 显示地图
+m
+```
+
+```{r}
+#| fig-cap: "Leaflet地图中添加矩形：通过对角坐标定义矩形区域"
+
+# 加载所需库
+library(leaflet)
+
+# 创建包含20个标记点的数据框（随机生成坐标点）
+data <- data.frame(
+  long = sample(seq(-150, 150), 20),     # 经度：-150到150之间的随机整数
+  lat = sample(seq(-50, 50), 20),        # 纬度：-50到50之间的随机整数
+  val = round(rnorm(20), 2),             # 数值：标准正态分布的随机数，保留2位小数
+  name = paste("point", letters[1:20], sep = "_")  # 名称：point_a, point_b, ...
+)
+
+# 创建带有矩形区域的交互式地图
+m <- leaflet() |>
+  addTiles() |>                          # 添加默认的地图瓦片
+  addRectangles(
+    lng1 = -118.456554, lat1 = 34.078039,  # 矩形第一个角的坐标（左上角）
+    lng2 = -118.436383, lat2 = 34.062717,  # 矩形对角坐标（右下角）
+    fillColor = "transparent"               # 填充颜色设为透明
+  )
+
+# 显示地图
+m
+```
+
+使用Leaflet控制小部件管理图层和背景: 
+
+```{r}
+#| fig-cap: "交互式气泡地图：使用Leaflet控制小部件管理图层和背景"
+
+# 加载所需库
+library(leaflet)
+
+# 创建包含多个位置的数据集
+data_red <- data.frame(
+  LONG = 42 + rnorm(10),                    # 红色标记点经度：42附近的随机正态分布
+  LAT = 23 + rnorm(10),                     # 红色标记点纬度：23附近的随机正态分布
+  PLACE = paste("Red_place_", seq(1, 10))   # 红色标记点名称：Red_place_1到Red_place_10
+)
+
+data_blue <- data.frame(
+  LONG = 42 + rnorm(10),                    # 蓝色标记点经度：42附近的随机正态分布
+  LAT = 23 + rnorm(10),                     # 蓝色标记点纬度：23附近的随机正态分布
+  PLACE = paste("Blue_place_", seq(1, 10))  # 蓝色标记点名称：Blue_place_1到Blue_place_10
+)
+
+# 初始化leaflet地图
+m <- leaflet() |>
+  setView(lng = 42, lat = 23, zoom = 6) |>  # 设置地图初始视图：中心点(42,23)，缩放级别6
+
+  # 添加两个不同的底图瓦片
+  addProviderTiles("Esri.WorldImagery", group = "background 1") |>        # 添加卫星影像底图
+  addTiles(options = providerTileOptions(noWrap = TRUE), group = "background 2") |>  # 添加默认地图底图
+
+  # 添加两个标记点组
+  addCircleMarkers(
+    data = data_red, lng = ~LONG, lat = ~LAT,  # 红色标记点数据和坐标
+    radius = 8,                                # 圆形半径为8像素
+    color = "black",                           # 边框颜色为黑色
+    fillColor = "red",                         # 填充颜色为红色
+    stroke = TRUE,                             # 显示边框
+    fillOpacity = 0.8,                         # 填充透明度为0.8
+    group = "Red"                              # 分组名称为"Red"
+  ) |>
+  addCircleMarkers(
+    data = data_blue, lng = ~LONG, lat = ~LAT, # 蓝色标记点数据和坐标
+    radius = 8,                                # 圆形半径为8像素
+    color = "black",                           # 边框颜色为黑色
+    fillColor = "blue",                        # 填充颜色为蓝色
+    stroke = TRUE,                             # 显示边框
+    fillOpacity = 0.8,                         # 填充透明度为0.8
+    group = "Blue"                             # 分组名称为"Blue"
+  ) |>
+
+  # 添加图层控制小部件
+  addLayersControl(
+    overlayGroups = c("Red", "Blue"),          # 覆盖图层组：红色和蓝色标记点
+    baseGroups = c("background 1", "background 2"),  # 底图组：两种不同的背景地图
+    options = layersControlOptions(collapsed = FALSE)  # 控制选项：展开显示控制面板
+  )
+
+# 显示地图
+m
+```
+
+太平洋地震数据的震级可视化:
+
+```{r}
+#| fig-cap: "交互式气泡地图：太平洋地震数据的震级可视化"
+
+# 加载所需库
+library(leaflet)
+
+# 加载示例数据（斐济地震数据）并仅保留前100行
+data(quakes)
+quakes <- head(quakes, 100)
+
+# 创建带有自定义分箱的颜色调色板
+mybins <- seq(4, 6.5, by = 0.5)                    # 创建分箱区间：4到6.5，步长0.5
+mypalette <- colorBin(
+  palette = "YlOrBr",                               # 使用黄-橙-棕色调色板
+  domain = quakes$mag,                              # 颜色映射域为地震震级
+  na.color = "transparent",                         # 缺失值显示为透明
+  bins = mybins                                     # 使用自定义分箱
+)
+
+# 准备工具提示文本
+mytext <- paste(
+  "Depth: ", quakes$depth, "<br/>",                # 深度信息
+  "Stations: ", quakes$stations, "<br/>",          # 监测站数量
+  "Magnitude: ", quakes$mag, sep = ""              # 震级信息
+) |>
+  lapply(htmltools::HTML)                          # 转换为HTML格式
+
+# 创建最终的交互式地图
+m <- leaflet(quakes) |>
+  addTiles() |>                                    # 添加默认底图
+  setView(lat = -27, lng = 170, zoom = 4) |>       # 设置地图初始视图：南纬27度，东经170度，缩放级别4
+  addProviderTiles("Esri.WorldImagery") |>         # 添加卫星影像底图
+  addCircleMarkers(
+    ~long, ~lat,                                   # 地震位置坐标
+    fillColor = ~mypalette(mag),                   # 填充颜色：根据震级映射到调色板
+    fillOpacity = 0.7,                             # 填充透明度为0.7
+    color = "white",                               # 边框颜色为白色
+    radius = 8,                                    # 圆形半径为8像素
+    stroke = FALSE,                                # 不显示边框描边
+    label = mytext,                                # 鼠标悬停时显示的标签
+    labelOptions = labelOptions(
+      style = list("font-weight" = "normal", padding = "3px 8px"),  # 标签样式：正常字重，内边距3px 8px
+      textsize = "13px",                           # 文字大小为13像素
+      direction = "auto"                           # 自动调整标签方向
+    )
+  ) |>
+  addLegend(
+    pal = mypalette,                               # 使用相同的调色板
+    values = ~mag,                                 # 图例数值为震级
+    opacity = 0.9,                                 # 图例透明度为0.9
+    title = "Magnitude",                           # 图例标题为"Magnitude"
+    position = "bottomright"                       # 图例位置：右下角
+  )
+
+# 显示地图
+m
+```
+
+
+## Static
+
+数据准备:
+
+```{r}
+#| fig-cap: "加载所需的R包与英国地图数据"
+
+library(ggplot2) # 加载 ggplot2 包, 用于数据可视化
+library(dplyr)   # 加载 dplyr 包, 用于数据处理
+
+# 获取世界多边形数据并提取英国
+library(giscoR) # 加载 giscoR 包, 用于获取地理空间数据
+UK <- gisco_get_countries(
+  country = "UK",      # 指定国家代码为英国
+  resolution = "1"     # 设置地图分辨率
+)
+
+# 获取一个包含经度、纬度和气泡大小信息的数据框 (一个气泡代表一个城市)
+library(maps) # 加载 maps 包, 其中包含世界城市数据
+data <- world.cities |>
+  filter(country.etc == "UK") # 筛选出国家为 "UK" 的城市
+```
+
+创建一个基础的地图, 用 `geom_sf` 绘制英国背景, 再用 `geom_point` 在地图上标出城市的位置: 
+
+```{r}
+#| fig-cap: "在英国地图上绘制城市散点图"
+
+ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +   # 绘制英国地图, 填充灰色, 透明度0.3
+  geom_point(data = data, aes(x = long, y = lat)) + # 在地图上添加代表城市的点
+  theme_void() +                                   # 使用完全空白的主题
+  ylim(50, 59)                                     # 设置Y轴的范围
+```
+
+
+基础散点图之上, 我们使用 `ggrepel` 包为人口最多的10个城市添加标签, 并用红点突出显示它们, `ggrepel` 可以防止标签重叠: 
+
+```{r}
+#| fig-cap: "在地图上突出显示人口最多的10个城市并标注名称"
+
+library(ggrepel) # 加载 ggrepel 包, 用于防止文本标签重叠
+
+ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +               # 绘制英国地图背景
+  geom_point(data = data, aes(x = long, y = lat, alpha = pop)) + # 添加所有城市点, 透明度与人口相关
+  geom_text_repel(                               # 添加不重叠的文本标签
+    data = data |> arrange(pop) |> tail(10),      # 数据为人口最多的10个城市
+    aes(x = long, y = lat, label = name),        # 映射经纬度和城市名称
+    size = 5                                     # 设置文本大小
+  ) +
+  geom_point(                                    # 再次添加点以突出显示
+    data = data |> arrange(pop) |> tail(10),      # 数据同样为人口最多的10个城市
+    aes(x = long, y = lat),
+    color = "red",                               # 设置颜色为红色
+    size = 3                                     # 设置点的大小
+  ) +
+  theme_void() +                                 # 使用空白主题
+  ylim(50, 59) +                                 # 设置Y轴范围
+  theme(legend.position = "none")                # 隐藏图例
+```
+
+
+现在, 我们将城市的人口数量 (pop) 同时映射到气泡的大小 (size) 和颜色 (color) 上, 创建一个真正的气泡图: 
+
+
+
+```{r}
+#| fig-cap: "根据人口数量调整气泡的大小和颜色"
+
+ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +    # 绘制英国地图背景
+  geom_point(data = data, aes(x = long, y = lat, size = pop, color = pop)) + # 映射人口到点的大小和颜色
+  scale_size_continuous(range = c(1, 12)) +    # 设置尺寸范围从1到12
+  scale_color_viridis_c(trans = "log") +       # 使用viridis色板, 并对颜色进行对数变换
+  theme_void() +                 # 使用空白主题
+  ylim(50, 59)                   # 设置Y轴范围
+```
+
+为了让大城市（人口多）的气泡显示在顶层不被遮盖, 我们需要先对数据进行排序。这里我们按人口升序 (arrange(pop)) 排列, 这样 ggplot 会先绘制小城市, 再绘制大城市, 大城市就会显示在最上层:
+
+
+```{r}
+#| fig-cap: "按人口升序排列数据, 确保大城市气泡在顶层"
+
+data |>
+  arrange(pop) |>                                                            # 按人口升序排序
+  mutate(name = factor(name, unique(name))) |>                               # 将name转为因子类型, 保持排序
+  ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +    # 绘制英国地图背景
+  geom_point(aes(x = long, y = lat, size = pop, color = pop), alpha = 0.9) + # 绘制气泡, 设置透明度
+  scale_size_continuous(range = c(1, 12)) +           # 设置尺寸范围
+  scale_color_viridis_c(trans = "log") +              # 对颜色进行对数变换
+  theme_void() +                                      # 使用空白主题
+  ylim(50, 59) +                                      # 设置Y轴范围
+  theme(legend.position = "none")                     # 隐藏图例
+```
+
+
+作为对比, 如果按人口降序 (arrange(desc(pop))) 排列, 大城市会先被绘制, 从而可能被后绘制的小城市遮挡。这通常不是我们想要的效果:
+
+```{r}
+#| fig-cap: "按人口降序排列数据(反例)"
+
+data |>
+  arrange(desc(pop)) |>      # 按人口降序排序
+  mutate(name = factor(name, unique(name))) |>   # 将name转为因子类型
+  ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +   # 绘制英国地图背景
+  geom_point(aes(x = long, y = lat, size = pop, color = pop), alpha = 0.9) + # 绘制气泡
+  scale_size_continuous(range = c(1, 12)) +   # 设置尺寸范围
+  scale_color_viridis_c(trans = "log") +      # 对颜色进行对数变换
+  theme_void() +                              # 使用空白主题
+  ylim(50, 59) +                              # 设置Y轴范围
+  theme(legend.position = "none")             # 隐藏图例
+```
+
+
+进行深度定制, 包括统一图例、调整颜色、背景和字体等, 以获得更精美的出版级图表:
+
+```{r}
+#| fig-cap: "精细化自定义的气泡地图"
+
+# 为色阶创建断点
+mybreaks <- c(0.02, 0.04, 0.08, 1, 7)
+
+# 重新排序数据以将最大城市显示在顶部, 并转换人口单位
+data_custom <- data |>
+  arrange(pop) |>
+  mutate(name = factor(name, unique(name))) |>
+  mutate(pop = pop / 1000000) # 将人口单位转换为百万
+
+# 构建地图
+data_custom |>
+  ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +                  # 绘制英国地图背景
+  geom_point(aes(x = long, y = lat, size = pop, color = pop, alpha = pop),
+    shape = 20, stroke = FALSE                                      # 绘制点, 并映射大小、颜色和透明度
+  ) +
+  scale_size_continuous(                            # 自定义尺寸图例
+    name = "Population (in M)", trans = "log",      # 标题, 对数变换
+    range = c(1, 12), breaks = mybreaks             # 范围和断点
+  ) +
+  scale_alpha_continuous(                           # 自定义透明度图例
+    name = "Population (in M)", trans = "log",      # 标题, 对数变换
+    range = c(0.1, 0.9), breaks = mybreaks          # 范围和断点
+  ) +
+  scale_color_viridis_c(                            # 自定义颜色图例
+    option = "magma", trans = "log",                # 使用"magma"色板, 对数变换
+    breaks = mybreaks, name = "Population (in M)"   # 断点和标题
+  ) +
+  theme_void() +                                    # 使用空白主题
+  guides(colour = guide_legend()) +                 # 强制颜色显示为图例
+  ggtitle("The 1000 biggest cities in the UK") +    # 添加图表标题
+  theme(
+    legend.position = c(1, 0.6),                    # 设置图例位置
+    text = element_text(color = "#22211d"),                         # 设置全局文本颜色
+    plot.margin = margin(r = 2, l = 2, unit = "cm"),                # 设置图表边距
+    plot.background = element_rect(fill = "#f5f5f2", color = NA),   # 设置图表背景
+    panel.background = element_rect(fill = "#f5f5f2", color = NA),  # 设置面板背景
+    plot.title = element_text(size = 14, hjust = 0.5, color = "#4e4d47"), # 自定义标题样式
+    legend.title = element_text(size = 8),                          # 自定义图例标题大小
+    legend.text = element_text(size = 8)                            # 自定义图例文本大小
+  )
+```
+
+最后, 我们可以使用 `plotly` 包将 `ggplot` 对象转换为交互式图表。这样用户就可以缩放地图, 并将鼠标悬停在气泡上查看详细信息:
+
+```{r}
+#| fig-cap: "使用plotly创建可交互的气泡地图"
+
+# 加载 plotly 包
+library(plotly)
+
+# 重新排序数据 + 添加一个包含工具提示文本的新列
+data_interactive <- data |>
+  arrange(pop) |>
+  mutate(name = factor(name, unique(name))) |>
+  mutate(mytext = paste( # 创建悬停时显示的文本
+    "City: ", name, "\n",
+    "Population: ", pop,
+    sep = ""
+  ))
+
+# 制作静态地图 (ggplot对象)
+p <- data_interactive |>
+  ggplot() +
+  geom_sf(data = UK, fill = "grey", alpha = 0.3) +
+  geom_point(aes(
+    x = long, y = lat, size = pop, color = pop, text = mytext,
+    alpha = pop
+  )) +
+  scale_size_continuous(range = c(1, 9)) +
+  scale_color_viridis_c(option = "inferno", trans = "log") +
+  scale_alpha_continuous(trans = "log") +
+  theme_void() +
+  theme(legend.position = "none")
+
+# 将ggplot对象转换为plotly对象, 并指定使用我们创建的text作为工具提示
+p_interactive <- ggplotly(p, tooltip = "text")
+
+# 显示交互式图表
+p_interactive
+```
+
+
+```{r}
+#| fig-cap: "欧洲国家人口比例符号图"
+
+library(cartography) # 加载 cartography 包, 用于专题地图制作
+library(sp)          # 加载 sp 包, 用于处理空间数据
+
+# 上传包附带的数据
+data(nuts2006)
+# 这会加载 nuts0.spdf, nuts1.spdf, nuts2.spdf, nuts3.spdf 和 nuts2.df 等对象
+
+
+# 绘制欧洲地图
+plot(nuts0.spdf, border = NA, col = NA, bg = "#A6CAE0")       # 绘制一个带背景色的绘图区域
+plot(world.spdf, col = "#E3DEBF", border = NA, add = TRUE)    # 在背景上添加世界地图
+plot(nuts0.spdf, col = "#D1914D", border = "grey80", add = TRUE) # 再次添加欧洲地图, 并设置颜色和边框
+
+# 添加与总人口成比例的圆圈
+propSymbolsLayer(
+  spdf = nuts0.spdf,                             # 空间数据对象
+  df = nuts0.df,                                 # 包含变量的数据框
+  var = "pop2008",                               # 用于可视化的变量 (2008年人口)
+  symbols = "circle",                            # 符号类型为圆形
+  col = "#920000",                               # 符号颜色
+  legend.pos = "right",                          # 图例位置在右侧
+  legend.title.txt = "Total\npopulation (2008)", # 图例标题
+  legend.style = "c"                             # 图例样式为"classic"
+)
+
+# 添加标题、图例等
+layoutLayer(
+  title = "Countries Population in Europe", # 地图主标题
+  author = "cartography",                   # 作者信息
+  sources = ""                              # 数据来源信息 (原代码不完整, 此处留空)
+)
+```
+
+
+## Pearl
+
+[![Customized Dorling cartogram with R](./image/dorling-cartogram.png)](https://r-graph-gallery.com/web-dorling-cartogram-with-R.html)
+
+[![Jacques Bertin’s valued points map with R](./image/valued-points-map.png)](https://r-graph-gallery.com/web-valued-dots-map-bertin.html)
+
+[![Density plot map](./image/density-plot-map.png)](https://r-graph-gallery.com/web-density-plot-map.html)
