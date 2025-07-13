@@ -68,6 +68,14 @@ book:
         - connection.qmd
         - bubble-map.qmd
 
+    - part: flow.qmd
+      chapters:
+        - chord-diagram.qmd
+        - network.qmd
+        - sankey.qmd
+        - arc-diagram.qmd
+        - edge-bundling.qmd
+
     - summary.qmd
     - references.qmd
 
