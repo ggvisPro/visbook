@@ -2,6 +2,17 @@
 
 ## PKG
 
+```{r}
+library(tidyverse)  # 数据处理核心包
+library(viridis)    # 颜色方案
+library(patchwork)  # 图形拼接
+library(hrbrthemes) # 图形主题
+library(circlize)   # 圆形图形
+library(networkD3)  # 创建网络图和桑基图
+library(jsonlite)   # 解析JSON数据
+library(dplyr)      # 用于数据处理
+```
+
 ## Sankey
 
 ```{r}

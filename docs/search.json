@@ -2400,7 +2400,7 @@
     "href": "sankey.html",
     "title": "40  Sankey",
     "section": "",
-    "text": "40.1 PKG",
+    "text": "40.1 PKG\nShow/Hide Code\nlibrary(tidyverse)  # 数据处理核心包\nlibrary(viridis)    # 颜色方案\nlibrary(patchwork)  # 图形拼接\nlibrary(hrbrthemes) # 图形主题\nlibrary(circlize)   # 圆形图形\nlibrary(networkD3)  # 创建网络图和桑基图\nlibrary(jsonlite)   # 解析JSON数据\nlibrary(dplyr)      # 用于数据处理",
     "crumbs": [
       "Flow",
       "<span class='chapter-number'>40</span>  <span class='chapter-title'>Sankey</span>"
@@ -2455,7 +2455,51 @@
     "href": "arc-diagram.html",
     "title": "41  Arc Diagram",
     "section": "",
-    "text": "1",
+    "text": "41.1 PKG\nShow/Hide Code\nlibrary(tidyverse)  # 数据处理核心包\nlibrary(viridis)    # 颜色方案\nlibrary(patchwork)  # 图形拼接\nlibrary(hrbrthemes) # 图形主题\nlibrary(igraph)     # 图论和网络分析\nlibrary(ggraph)     # 基于ggplot2的图形语法\nlibrary(colormap)   # 颜色映射",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Arc Diagram</span>"
+    ]
+  },
+  {
+    "objectID": "arc-diagram.html#definition",
+    "href": "arc-diagram.html#definition",
+    "title": "41  Arc Diagram",
+    "section": "41.2 Definition",
+    "text": "41.2 Definition\n这里有一个简单的例子。6 个节点之间的 5 个连接分别用二维网络图（左）和弧形图（右）表示\n\n\nShow/Hide Code\n# 加载必要的库\nlibrary(tidyverse)    # 数据处理核心包\nlibrary(viridis)      # 颜色方案\nlibrary(patchwork)    # 图形拼接\nlibrary(hrbrthemes)   # 图形主题\nlibrary(igraph)       # 图论和网络分析\nlibrary(ggraph)       # 基于ggplot2的图形语法\nlibrary(colormap)     # 颜色映射\n\n# 创建一个简单的边列表\nlinks &lt;- data.frame(\n  source = c(\"A\", \"A\", \"A\", \"A\", \"B\"),  # 源节点\n  target = c(\"B\", \"C\", \"D\", \"F\", \"E\")   # 目标节点\n)\n\n# 转换为igraph对象\nmygraph &lt;- graph_from_data_frame(links)\n\n# 创建传统的2D网络图\np1 &lt;- ggraph(mygraph) +\n  geom_edge_link(                           # 绘制边连接\n    edge_colour = \"black\", \n    edge_alpha = 0.3, \n    edge_width = 0.2\n  ) +\n  geom_node_point(                          # 绘制节点\n    color = \"#69b3a2\", \n    size = 5\n  ) +\n  geom_node_text(                           # 添加节点标签\n    aes(label = name), \n    repel = TRUE, \n    size = 8, \n    color = \"#69b3a2\"\n  ) +\n  theme_void() +                            # 使用空白主题\n  theme(\n    legend.position = \"none\",               # 隐藏图例\n    plot.margin = unit(rep(2, 4), \"cm\")     # 设置边距\n  )\n\n# 创建弧形图\np2 &lt;- ggraph(mygraph, layout = \"linear\") +  # 使用线性布局\n  geom_edge_arc(                            # 绘制弧形边\n    edge_colour = \"black\", \n    edge_alpha = 0.3, \n    edge_width = 0.2\n  ) +\n  geom_node_point(                          # 绘制节点\n    color = \"#69b3a2\", \n    size = 5\n  ) +\n  geom_node_text(                           # 添加节点标签\n    aes(label = name), \n    repel = FALSE, \n    size = 8, \n    color = \"#69b3a2\", \n    nudge_y = -0.1                          # 标签向下偏移\n  ) +\n  theme_void() +                            # 使用空白主题\n  theme(\n    legend.position = \"none\",               # 隐藏图例\n    plot.margin = unit(rep(2, 4), \"cm\")     # 设置边距\n  )\n\n# 使用patchwork拼接两个图\np1 + p2\n\n\n\n\n\n网络图与弧形图对比：展示6个节点间5个连接的两种可视化方式",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Arc Diagram</span>"
+    ]
+  },
+  {
+    "objectID": "arc-diagram.html#what-for",
+    "href": "arc-diagram.html#what-for",
+    "title": "41  Arc Diagram",
+    "section": "41.3 What for",
+    "text": "41.3 What for\n弧图在传达整体节点结构方面不如二维网络图。但它有两个主要优势：\n- 如果节点顺序优化，它可以很好地突出显示集群和桥梁\n- 它允许显示每个节点的标签，这在二维结构中通常是不可行的。\n\n\nShow/Hide Code\n# 加载数据\ndataUU &lt;- read.table(\n  \"https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv\", \n  header = TRUE\n)\n\n# 将邻接矩阵转换为长格式\nconnect &lt;- dataUU |&gt;\n  gather(key = \"to\", value = \"value\", -1) |&gt;        # 宽转长格式\n  mutate(to = gsub(\"\\\\.\", \" \", to)) |&gt;              # 替换点号为空格\n  na.omit()                                         # 移除缺失值\n\n# 计算每个人的连接数\nc(as.character(connect$from), as.character(connect$to)) |&gt;\n  as_tibble() |&gt;                                    # 转换为tibble格式\n  group_by(value) |&gt;                                # 按人名分组\n  summarize(n = n()) -&gt; coauth                      # 计算连接数\ncolnames(coauth) &lt;- c(\"name\", \"n\")                  # 重命名列\n\n# 使用igraph创建图对象\nmygraph &lt;- graph_from_data_frame(\n  connect, \n  vertices = coauth, \n  directed = FALSE                                  # 无向图\n)\n\n# 寻找社区结构\ncom &lt;- walktrap.community(mygraph)                  # 使用随机游走算法检测社区\n\n# 重新排序数据集并创建图\ncoauth &lt;- coauth |&gt;\n  mutate(grp = com$membership) |&gt;                   # 添加社区分组信息\n  arrange(grp) |&gt;                                   # 按分组排序\n  mutate(name = factor(name, name))                 # 将名称转为因子\n\n# 只保留前15个社区\ncoauth &lt;- coauth |&gt;\n  filter(grp &lt; 16)\n\n# 在边数据中只保留这些人员\nconnect &lt;- connect |&gt;\n  filter(from %in% coauth$name) |&gt;                 # 过滤源节点\n  filter(to %in% coauth$name)                      # 过滤目标节点\n\n# 重新创建图对象\nmygraph &lt;- graph_from_data_frame(\n  connect, \n  vertices = coauth, \n  directed = FALSE\n)\n\n# 在viridis色阶中准备颜色向量\nmycolor &lt;- colormap(\n  colormap = colormaps$viridis, \n  nshades = max(coauth$grp)                         # 根据社区数设置颜色数\n)\nmycolor &lt;- sample(mycolor, length(mycolor))         # 随机打乱颜色\n\n# 创建弧形图\nggraph(mygraph, layout = \"linear\") +               # 线性布局\n  geom_edge_arc(                                   # 绘制弧形边\n    edge_colour = \"black\", \n    edge_alpha = 0.2, \n    edge_width = 0.3, \n    fold = TRUE                                    # 折叠重叠边\n  ) +\n  geom_node_point(                                 # 绘制节点\n    aes(size = n, color = as.factor(grp), fill = grp), \n    alpha = 0.5                                    # 透明度\n  ) +\n  scale_size_continuous(range = c(0.5, 8)) +       # 节点大小范围\n  scale_color_manual(values = mycolor) +           # 手动颜色映射\n  geom_node_text(                                  # 添加节点标签\n    aes(label = name), \n    angle = 65,                                    # 文字倾斜角度\n    hjust = 1,                                     # 水平对齐方式\n    nudge_y = -1.1,                               # 垂直偏移\n    size = 2.3                                     # 文字大小\n  ) +\n  theme_void() +                                   # 空白主题\n  theme(\n    legend.position = \"none\",                      # 隐藏图例\n    plot.margin = unit(c(0, 0, 0.4, 0), \"null\"),  # 图形边距\n    panel.spacing = unit(c(0, 0, 3.4, 0), \"null\") # 面板间距\n  ) +\n  expand_limits(                                   # 扩展坐标轴范围\n    x = c(-1.2, 1.2), \n    y = c(-5.6, 1.2)\n  )\n\n\n\n\n\n研究者合著网络弧形图：基于社区检测的优化节点排序展示",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Arc Diagram</span>"
+    ]
+  },
+  {
+    "objectID": "arc-diagram.html#variation",
+    "href": "arc-diagram.html#variation",
+    "title": "41  Arc Diagram",
+    "section": "41.4 Variation",
+    "text": "41.4 Variation\n\n\n\n《悲惨世界》中人物的共现网络",
+    "crumbs": [
+      "Flow",
+      "<span class='chapter-number'>41</span>  <span class='chapter-title'>Arc Diagram</span>"
+    ]
+  },
+  {
+    "objectID": "arc-diagram.html#note",
+    "href": "arc-diagram.html#note",
+    "title": "41  Arc Diagram",
+    "section": "41.5 Note",
+    "text": "41.5 Note\n顺序很重要,顺序不对就是个灾难:\n\n\nShow/Hide Code\n# 随机重新排序数据集\ncoauth &lt;- coauth |&gt;\n  slice(sample(c(1:nrow(coauth)), nrow(coauth)))  # 随机抽样重排\n\n# 使用igraph创建图对象\nmygraph &lt;- graph_from_data_frame(\n  connect, \n  vertices = coauth, \n  directed = FALSE                                 # 无向图\n)\n\n# 在viridis色阶中准备n个颜色的向量\nmycolor &lt;- colormap(\n  colormap = colormaps$viridis, \n  nshades = max(coauth$grp)                       # 根据分组数设置颜色数\n)\nmycolor &lt;- sample(mycolor, length(mycolor))       # 随机打乱颜色顺序\n\n# 创建弧形图\nggraph(mygraph, layout = \"linear\") +              # 线性布局\n  geom_edge_arc(                                  # 绘制弧形边\n    edge_colour = \"black\", \n    edge_alpha = 0.2, \n    edge_width = 0.3, \n    fold = TRUE                                   # 折叠边\n  ) +\n  geom_node_point(                                # 绘制节点\n    aes(size = n, color = as.factor(grp), fill = grp), \n    alpha = 0.5\n  ) +\n  scale_size_continuous(range = c(0.5, 8)) +      # 节点大小范围\n  scale_color_manual(values = mycolor) +          # 手动设置颜色\n  geom_node_text(                                 # 添加节点标签\n    aes(label = name), \n    angle = 65,                                   # 文字角度\n    hjust = 1,                                    # 水平对齐\n    nudge_y = -1.1,                              # 垂直偏移\n    size = 2.3                                    # 文字大小\n  ) +\n  theme_void() +                                  # 空白主题\n  theme(\n    legend.position = \"none\",                     # 隐藏图例\n    plot.margin = unit(c(0, 0, 0.4, 0), \"null\"), # 图形边距\n    panel.spacing = unit(c(0, 0, 3.4, 0), \"null\") # 面板间距\n  ) +\n  expand_limits(                                  # 扩展坐标轴范围\n    x = c(-1.2, 1.2), \n    y = c(-5.6, 1.2)\n  )\n\n\n\n\n\n节点随机排序的弧形图：展示节点顺序对可读性的重要影响",
     "crumbs": [
       "Flow",
       "<span class='chapter-number'>41</span>  <span class='chapter-title'>Arc Diagram</span>"
