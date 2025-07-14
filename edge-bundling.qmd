@@ -1,3 +1,119 @@
-# Edge Bundling {#sec-edge-bundling}
+# Edge bundling {#edge-bundling}
 
-1
+::: {callout-note}
+Quarto 渲染有bug，可以阅读:  
+[https://r-graph-gallery.com/hierarchical-edge-bundling.html](https://r-graph-gallery.com/hierarchical-edge-bundling.html)
+:::
+
+## PKG
+
+```{r}
+library(ggraph) # 绘制网络图
+library(igraph) # 处理网络图
+```
+
+## Introduction 
+
+两种数据格式：
+
+::: {layout-ncol=2}
+
+![层次网络结构](./image/hierarchical_network_data.png){width=80%}
+
+![连接的邻接矩阵](./image/connection_data.png){width=95%}
+
+:::
+
+```{r}
+#| fig-cap: "层次网络结构"
+#| layout-ncol: 1
+# 创建一个数据框，给出个体层次结构。
+# 原点在最上面，然后是组，然后是子组
+d1 <- data.frame(
+  from = "origin",
+  to = paste("group", seq(1, 10), sep = "")
+)
+d2 <- data.frame(
+  from = rep(d1$to, each = 10),
+  to = paste("subgroup", seq(1, 100), sep = "_")
+)
+
+# 合并数据框
+hierarchy <- rbind(d1, d2)
+
+# 创建一个顶点数据框。每个对象一行，给出节点的特征。
+vertices <- data.frame(
+  name = unique(c(as.character(hierarchy$from), as.character(hierarchy$to)))
+)
+
+# 创建一个图对象
+mygraph <- graph_from_data_frame(hierarchy, vertices = vertices)
+
+# 绘制网络图
+plot(mygraph, vertex.label = "", edge.arrow.size = 0, vertex.size = 2)
+
+# 用ggraph绘制网络图
+ggraph(mygraph, layout = "dendrogram", circular = FALSE) +
+  geom_edge_link() + # 线连接
+  theme_void()
+
+# 用ggraph绘制网络图
+ggraph(mygraph, layout = "dendrogram", circular = TRUE) +
+  geom_edge_diagonal() + # 对角线连接
+  theme_void()
+
+```
+
+```{r}
+#| layout-ncol: 2
+
+# left: 连接用直线表示
+ggraph(mygraph, layout = "dendrogram", circular = TRUE) +
+  geom_edge_diagonal(alpha = 0.1) +
+  geom_conn_bundle(
+    data = get_con(from = c(18, 20, 30), to = c(19, 50, 70)),
+    alpha = 1,
+    width = 1,
+    colour = "skyblue",
+    tension = 0
+  ) +
+  theme_void()
+
+# right: 使用bundle方法（tension = 1）
+ggraph(mygraph, layout = "dendrogram", circular = TRUE) +
+  geom_edge_diagonal(alpha = 0.1) +
+  geom_conn_bundle(
+    data = get_con(from = c(18, 20, 30), to = c(19, 50, 70)),
+    alpha = 1,
+    width = 1,
+    colour = "skyblue",
+    tension = 1
+  ) +
+  theme_void()
+
+```
+
+## Color
+
+::: {layout-ncol=2}
+
+![edge-color-1](./image/edge-color-1.png)
+
+![edge-color-2](./image/edge-color-2.png)
+
+![edge-color-3](./image/edge-color-3.png)
+
+![edge-color-4](./image/edge-color-4.png)
+
+:::
+
+
+![edge-color-5](./image/edge-color-5.png){width=70%}
+![edge-color-6](./image/edge-color-6.png){width=70%}
+![edge-color-7](./image/edge-color-7.png){width=70%}
+
+
+
+## Label
+
+![](./image/edge-label.png)
