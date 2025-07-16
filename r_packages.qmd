@@ -1,0 +1,5 @@
+# R packages {#sec-r-packages}
+
+::: {.callout-note}
+[数据可视化领域的优秀 R 包](https://r-graph-gallery.com/r-packages.html)
+:::

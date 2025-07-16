@@ -79,18 +79,17 @@ book:
     - part: general-knowledge.qmd
       chapters:
         - theme.qmd
+        - color.qmd
         - cheatsheet.qmd
         - animation.qmd
         - interactivity.qmd
         - 3d.qmd
         - caveat.qmd
         - data-art.qmd
-        - color.qmd
+        - r_packages.qmd
 
     - summary.qmd
-    - references.qmd
 
-bibliography: references.bib
 
 format:
   html:

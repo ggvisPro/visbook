@@ -1,3 +1,5 @@
 # Interactivity {#sec-interactivity}
 
-1
+::: {.callout-note}
+[Interactive charts](https://r-graph-gallery.com/interactive-charts.html)
+:::

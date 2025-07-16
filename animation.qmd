@@ -1,3 +1,5 @@
 # Animation {#sec-animation}
 
-1
+::: {.callout-note}
+[Animation](https://r-graph-gallery.com/animation.html)
+:::

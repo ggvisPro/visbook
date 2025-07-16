@@ -1,3 +1,5 @@
 # Caveat {#sec-caveat}
 
-1
+::: {.callout-note}
+[Caveats](https://www.data-to-viz.com/caveats.html)
+:::

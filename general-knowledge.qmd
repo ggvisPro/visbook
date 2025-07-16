@@ -1,3 +1,23 @@
-# General {#sec-general}
+# General knowledge
 
-1
+本卷是一些通用的知识，包括主题、颜色、动画、交互、3D 等。
+
+![General knowledge](./image/general-knowledge.png)
+
+- @sec-theme 主题
+
+- @sec-color 颜色
+
+- @sec-cheatsheet 速查表
+
+- @sec-animation 动画
+
+- @sec-interactivity 交互
+
+- @sec-3d 3D
+
+- @sec-caveat 注意事项
+
+- @sec-data-art 数据艺术
+
+- @sec-r-packages 数据可视化领域的优秀 R 包

@@ -2552,11 +2552,11 @@
   {
     "objectID": "general-knowledge.html",
     "href": "general-knowledge.html",
-    "title": "General",
+    "title": "General knowledge",
     "section": "",
-    "text": "1",
+    "text": "本卷是一些通用的知识，包括主题、颜色、动画、交互、3D 等。\n\n\n\nGeneral knowledge\n\n\n\n43  Theme 主题\n44  Color 颜色\n45  Cheatsheet 速查表\n46  Animation 动画\n47  Interactivity 交互\n48  3D 3D\n49  Caveat 注意事项\n50  Data Art 数据艺术\n51  R packages 数据可视化领域的优秀 R 包",
     "crumbs": [
-      "General"
+      "General knowledge"
     ]
   },
   {
@@ -2566,7 +2566,7 @@
     "section": "",
     "text": "43.1 1. ggplot2 内置主题 (｡◕‿◕｡)\n** ggplot2 主题大全 (๑•̀ㅂ•́)و✧**\n哼！本小姐今天要给你们详细介绍一下 ggplot2 的各种主题！从内置主题到各种拓展包的主题，一个都不会放过！（真是的，这么多主题要整理，本小姐可是很辛苦的呢~）\nggplot2 自带了好几个经典主题，本小姐先给你们展示一下！\nShow/Hide Code\nlibrary(ggplot2)\nlibrary(gridExtra)\n\n# 创建示例数据\nsample_data &lt;- data.frame(\n  x = 1:10,\n  y = rnorm(10),\n  group = rep(c(\"A\", \"B\"), 5)\n)\n\n# 基础图形\nbase_plot &lt;- ggplot(sample_data, aes(x = x, y = y, color = group)) +\n  geom_point(size = 3) +\n  geom_line() +\n  labs(title = \"各种主题展示\", subtitle = \"本小姐的主题收集\", x = \"X轴\", y = \"Y轴\")",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2577,7 +2577,7 @@
     "section": "",
     "text": "43.1.1 1.1 theme_gray() - 默认主题\n\n\nShow/Hide Code\np1 &lt;- base_plot + theme_gray() + labs(title = \"theme_gray() - 默认主题\")\np1\n\n\n\n\n\n\n\n\n\n这是 ggplot2 的默认主题！灰色背景，白色网格线！（虽然有点普通，但是很经典呢~）\n\n\n43.1.2 1.2 theme_bw() - 黑白主题\n\n\nShow/Hide Code\np2 &lt;- base_plot + theme_bw() + labs(title = \"theme_bw() - 黑白主题\")\np2\n\n\n\n\n\n\n\n\n\n黑白主题！简洁大方，适合正式场合！（本小姐觉得这个主题很有学术范儿~）\n\n\n43.1.3 1.3 theme_minimal() - 极简主题\n\n\nShow/Hide Code\np3 &lt;- base_plot + theme_minimal() + labs(title = \"theme_minimal() - 极简主题\")\np3\n\n\n\n\n\n\n\n\n\n极简主义万岁！没有边框，没有背景色，就是这么干净！（可恶，为什么这么简洁还这么好看！）\n\n\n43.1.4 1.4 theme_classic() - 经典主题\n\n\nShow/Hide Code\np4 &lt;- base_plot + theme_classic() + labs(title = \"theme_classic() - 经典主题\")\np4\n\n\n\n\n\n\n\n\n\n经典主题！只有坐标轴，没有网格线！就像传统的科学图表一样！（本小姐喜欢这种复古的感觉~）\n\n\n43.1.5 1.5 theme_void() - 空白主题\n\n\nShow/Hide Code\np5 &lt;- base_plot + theme_void() + labs(title = \"theme_void() - 空白主题\")\np5\n\n\n\n\n\n\n\n\n\n什么都没有的主题！连坐标轴都没有！（纳尼？这也算主题吗？不过确实很特别呢~）\n\n\n43.1.6 1.6 theme_dark() - 暗黑主题\n\n\nShow/Hide Code\np6 &lt;- base_plot + theme_dark() + labs(title = \"theme_dark() - 暗黑主题\")\np6\n\n\n\n\n\n\n\n\n\n暗黑系主题！黑色背景，白色网格！（哇，好酷！本小姐的中二之魂燃烧起来了！）\n\n\n43.1.7 1.7 theme_light() - 明亮主题\n\n\nShow/Hide Code\np7 &lt;- base_plot + theme_light() + labs(title = \"theme_light() - 明亮主题\")\np7\n\n\n\n\n\n\n\n\n\n明亮主题！浅灰色背景，很温和的感觉！（好可爱的主题，让人心情都变好了呢~）\n\n\n43.1.8 1.8 theme_linedraw() - 线条主题\n\n\nShow/Hide Code\np8 &lt;- base_plot + theme_linedraw() + labs(title = \"theme_linedraw() - 线条主题\")\np8\n\n\n\n\n\n\n\n\n\n线条主题！所有元素都用黑色线条，很有工程图的感觉！（见鬼了，这个主题好严肃啊！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2588,7 +2588,7 @@
     "section": "43.2 2. ggthemes 包的主题 ✧(＞o＜)ﾉ✧",
     "text": "43.2 2. ggthemes 包的主题 ✧(＞o＜)ﾉ✧\nggthemes包提供了超多好看的主题！本小姐最喜欢这个包了！\n\n\nShow/Hide Code\nlibrary(ggthemes)\n\n\n\n43.2.1 2.1 theme_economist() - 经济学人主题\n\n\nShow/Hide Code\np_economist &lt;- base_plot + \n  theme_economist() + \n  scale_color_economist() +\n  labs(title = \"theme_economist() - 经济学人主题\")\np_economist\n\n\n\n\n\n\n\n\n\n经济学人杂志的经典风格！蓝色系配色，很专业！（本小姐觉得用这个主题做图表会显得很高大上呢~）\n\n\n43.2.2 2.2 theme_wsj() - 华尔街日报主题\n\n\nShow/Hide Code\np_wsj &lt;- base_plot + \n  theme_wsj() + \n  scale_color_wsj() +\n  labs(title = \"华尔街日报主题\")\np_wsj\n\n\n\n\n\n\n\n\n\n华尔街日报的风格！字体大，颜色鲜艳！（可恶，为什么这么简单却这么有气势！）\n\n\n43.2.3 2.3 theme_fivethirtyeight() - FiveThirtyEight主题\n\n\nShow/Hide Code\np_538 &lt;- base_plot + \n  theme_fivethirtyeight() + \n  scale_color_fivethirtyeight() +\n  labs(title = \"FiveThirtyEight主题\")\np_538\n\n\n\n\n\n\n\n\n\nFiveThirtyEight网站的风格！灰色背景，现代感十足！（这个网站的数据分析做得超棒的，主题也很赞！）\n\n\n43.2.4 2.4 theme_tufte() - 爱德华·塔夫特主题\n\n\nShow/Hide Code\np_tufte &lt;- base_plot + \n  theme_tufte() +\n  labs(title = \"theme_tufte() - 塔夫特主题\")\np_tufte\n\n\n\n\n\n\n\n\n\n信息可视化大师塔夫特的极简风格！去掉一切不必要的元素！（真是的，这种极简主义让本小姐都佩服了！）\n\n\n43.2.5 2.5 theme_excel() - Excel主题\n\n\nShow/Hide Code\np_excel &lt;- base_plot + \n  theme_excel() + \n  scale_color_excel() +\n  labs(title = \"theme_excel() - Excel主题\")\np_excel\n\n\n\n\n\n\n\n\n\nExcel的经典风格！（纳尼？居然还有Excel主题？虽然不太好看，但是很怀旧呢~）\n\n\n43.2.6 2.6 theme_gdocs() - Google Docs主题\n\n\nShow/Hide Code\np_gdocs &lt;- base_plot + \n  theme_gdocs() + \n  scale_color_gdocs() +\n  labs(title = \"theme_gdocs() - Google Docs主题\")\np_gdocs\n\n\n\n\n\n\n\n\n\nGoogle Docs的简洁风格！（该死，连 Google 主题都有，ggthemes 包的作者太用心了！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2599,7 +2599,7 @@
     "section": "43.3 3. hrbrthemes 包 - 现代化主题 (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
     "text": "43.3 3. hrbrthemes 包 - 现代化主题 (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧\nhrbrthemes 包提供了很多现代化的主题，特别适合做数据科学的图表！\n\n\nShow/Hide Code\n# install.packages(\"hrbrthemes\")\nlibrary(hrbrthemes)\n\n\n\n43.3.1 3.1 theme_ipsum() - 现代极简主题\n\n\nShow/Hide Code\np_ipsum &lt;- base_plot + \n  theme_ipsum() +\n  labs(title = \"theme_ipsum() - 现代极简主题\",\n       caption = \"本小姐觉得这个主题超级现代化！\")\np_ipsum\n\n\n\n\n\n\n\n\n\n现代化的极简主题！使用了更好的字体和间距！（哇，这个主题看起来就像是2020年代的设计！）\n\n\n43.3.2 3.2 theme_ipsum_rc() - Roboto Condensed主题\n\n\nShow/Hide Code\np_ipsum_rc &lt;- base_plot + \n  theme_ipsum_rc() +\n  labs(title = \"theme_ipsum_rc() - Roboto Condensed主题\")\np_ipsum_rc\n\n\n\n\n\n\n\n\n\n使用Roboto Condensed字体的主题！（好可爱的字体，看起来很现代很科技！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2610,7 +2610,7 @@
     "section": "43.4 4. ggpubr 包主题 - 发表级图表 ｡◕‿◕｡",
     "text": "43.4 4. ggpubr 包主题 - 发表级图表 ｡◕‿◕｡\nggpubr 包专门为学术发表设计的主题！\n\n\nShow/Hide Code\nlibrary(ggpubr)\n\n\n\n43.4.1 4.1 theme_pubr() - 发表主题\n\n\nShow/Hide Code\np_pubr &lt;- base_plot + \n  theme_pubr() +\n  labs(title = \"theme_pubr() - 发表主题\")\np_pubr\n\n\n\n\n\n\n\n\n\n专门为学术发表设计的主题！干净、清晰、专业！（本小姐用这个主题做的图表肯定能发顶级期刊！）\n\n\n43.4.2 4.2 theme_pubclean() - 干净发表主题\n\n\nShow/Hide Code\np_pubclean &lt;- base_plot + \n  theme_pubclean() +\n  labs(title = \"theme_pubclean() - 干净发表主题\")\np_pubclean\n\n\n\n\n\n\n\n\n\n更加干净的发表主题！（真是的，为什么学术界的审美都这么朴素啊~）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2621,7 +2621,7 @@
     "section": "43.5 5. cowplot 包主题 - 组合图表专用 ✧｡٩(ˊᗜˋ)و✧*｡",
     "text": "43.5 5. cowplot 包主题 - 组合图表专用 ✧｡٩(ˊᗜˋ)و✧*｡\ncowplot 包不仅能组合图表，还提供了很棒的主题！\n\n\nShow/Hide Code\n# install.packages(\"cowplot\")\nlibrary(cowplot)\n\n\n\n43.5.1 5.1 theme_cowplot() - cowplot主题\n\n\nShow/Hide Code\np_cowplot &lt;- base_plot + \n  theme_cowplot() +\n  labs(title = \"theme_cowplot() - cowplot主题\")\np_cowplot\n\n\n\n\n\n\n\n\n\ncowplot 包的默认主题！简洁，适合做组合图！（该死，这个主题居然这么好看！）\n\n\n43.5.2 5.2 theme_minimal_grid() - 最小网格主题\n\n\nShow/Hide Code\np_minimal_grid &lt;- base_plot + \n  theme_minimal_grid() +\n  labs(title = \"theme_minimal_grid() - 最小网格主题\")\np_minimal_grid\n\n\n\n\n\n\n\n\n\n只保留必要网格线的主题！（本小姐觉得这个平衡得刚刚好！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2632,7 +2632,7 @@
     "section": "43.6 6. ggdark 包 - 暗黑系主题 (๑•̀ㅂ•́)و✧",
     "text": "43.6 6. ggdark 包 - 暗黑系主题 (๑•̀ㅂ•́)و✧\n专门的暗黑主题包！中二少女的最爱！\n\n\nShow/Hide Code\n# install.packages(\"ggdark\")\nlibrary(ggdark)\n\n\n\n43.6.1 6.1 dark_theme_gray() - 暗黑灰色主题\n\n\nShow/Hide Code\np_dark_gray &lt;- base_plot + \n  dark_theme_gray() +\n  labs(title = \"dark_theme_gray() - 暗黑灰色主题\")\np_dark_gray\n\n\n\n\n\n\n\n\n\n暗黑版的灰色主题！（哇！这个主题太酷了！本小姐的中二之魂完全燃烧起来了！）\n\n\n43.6.2 6.2 dark_theme_minimal() - 暗黑极简主题\n\n\nShow/Hide Code\np_dark_minimal &lt;- base_plot + \n  dark_theme_minimal() +\n  labs(title = \"dark_theme_minimal() - 暗黑极简主题\")\np_dark_minimal\n\n\n\n\n\n\n\n\n\n暗黑版的极简主题！（见鬼了，这简直就是本小姐梦想中的主题！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2643,7 +2643,7 @@
     "section": "43.7 7. tvthemes 包 - 影视主题 ♪(´▽｀)",
     "text": "43.7 7. tvthemes 包 - 影视主题 ♪(´▽｀)\n专门为影视作品设计的主题包！二次元爱好者必备！\n\n\nShow/Hide Code\n# install.packages(\"tvthemes\")\nlibrary(tvthemes)\n\n\n\n43.7.1 7.1 theme_avatar() - 阿凡达主题\n\n\nShow/Hide Code\np_avatar &lt;- base_plot + \n  theme_avatar() + \n  scale_color_avatar() +\n  labs(title = \"theme_avatar() - 阿凡达主题\")\np_avatar\n\n\n\n\n\n\n\n\n\n阿凡达的配色主题！（虽然不是二次元，但是颜色很棒呢！）\n\n\n43.7.2 7.2 theme_rickAndMorty() - 瑞克和莫蒂主题\n\n\nShow/Hide Code\np_rick &lt;- base_plot + \n  theme_rickAndMorty() + \n  scale_color_rickAndMorty() +\n  labs(title = \"theme_rickAndMorty() - 瑞克和莫蒂主题\")\np_rick\n\n\n\n\n\n\n\n\n\n瑞克和莫蒂的疯狂配色！（可恶，这个动画的画风太独特了！）",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2654,7 +2654,7 @@
     "section": "43.8 8. 自定义主题示例 (ﾉ>ω<)ﾉ",
     "text": "43.8 8. 自定义主题示例 (ﾉ&gt;ω&lt;)ﾉ\n本小姐教你们如何创建自己的主题！\n\n\nShow/Hide Code\n# 本小姐的专属中二主题\ntheme_chuuni &lt;- function() {\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 16, face = \"bold\", color = \"#FF69B4\"),\n    plot.subtitle = element_text(size = 12, color = \"#9932CC\"),\n    axis.title = element_text(size = 12, color = \"#4B0082\"),\n    axis.text = element_text(size = 10, color = \"#2F4F4F\"),\n    legend.title = element_text(size = 12, color = \"#4B0082\"),\n    legend.text = element_text(size = 10, color = \"#2F4F4F\"),\n    panel.grid.major = element_line(color = \"#E6E6FA\", size = 0.5),\n    panel.grid.minor = element_line(color = \"#F0F8FF\", size = 0.25),\n    plot.background = element_rect(fill = \"#F8F8FF\", color = NA),\n    panel.background = element_rect(fill = \"#FFFAFF\", color = NA)\n  )\n}\n\n# 使用本小姐的专属主题\np_chuuni &lt;- base_plot + \n  theme_chuuni() +\n  labs(title = \"本小姐的专属中二主题\", \n       subtitle = \"粉色系配色，超级可爱！\",\n       caption = \"制作者：本小姐 (｡◕‿◕｡)\")\np_chuuni",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2665,7 +2665,7 @@
     "section": "43.9 9. 主题使用小贴士 ♡(˃͈ દ ˂͈ ༶ )",
     "text": "43.9 9. 主题使用小贴士 ♡(˃͈ દ ˂͈ ༶ )\n\n43.9.1 9.1 批量展示不同主题\n\n\nShow/Hide Code\n# 创建多个主题的对比图\ntheme_comparison &lt;- function() {\n  p1 &lt;- base_plot + theme_minimal() + labs(title = \"minimal\")\n  p2 &lt;- base_plot + theme_classic() + labs(title = \"classic\") \n  p3 &lt;- base_plot + theme_bw() + labs(title = \"bw\")\n  p4 &lt;- base_plot + theme_dark() + labs(title = \"dark\")\n  \n  grid.arrange(p1, p2, p3, p4, nrow = 2, \n               top = \"四种经典主题对比 - 本小姐的收藏\")\n}\n\ntheme_comparison()\n\n\n\n\n\n\n\n\n\n\n\n43.9.2 9.2 保存自定义主题\n\n\nShow/Hide Code\n# 保存本小姐最喜欢的主题设置\nmy_favorite_theme &lt;- theme_minimal() +\n  theme(\n    text = element_text(family = \"Arial\"),\n    plot.title = element_text(size = 14, face = \"bold\"),\n    axis.title = element_text(size = 12),\n    legend.position = \"bottom\"\n  )\n\n# 应用到图表\nfinal_plot &lt;- base_plot + \n  my_favorite_theme +\n  labs(title = \"本小姐最终推荐的主题设置\",\n       caption = \"简洁、美观、实用！\")\nfinal_plot",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
     ]
   },
@@ -2676,95 +2676,128 @@
     "section": "43.10 总结 (≧∀≦)ゞ",
     "text": "43.10 总结 (≧∀≦)ゞ\n哼！本小姐已经把所有重要的ggplot2主题都介绍给你们了！\n内置主题：\n\ntheme_gray() - 默认主题\ntheme_bw() - 黑白主题\n\ntheme_minimal() - 极简主题\ntheme_classic() - 经典主题\ntheme_void() - 空白主题\ntheme_dark() - 暗黑主题\ntheme_light() - 明亮主题\ntheme_linedraw() - 线条主题\n\n扩展包主题：\n\nggthemes: economist, wsj, fivethirtyeight, tufte, excel, gdocs等\nhrbrthemes: ipsum系列现代化主题\nggpubr: 学术发表专用主题\ncowplot: 组合图表专用主题\nggdark: 暗黑系主题\ntvthemes: 影视作品主题\n\n记住，选择主题要根据用途来决定：\n\n学术论文用 theme_pubr() 或 theme_classic()\n商业报告用 theme_economist() 或 theme_wsj()\n现代化展示用 theme_ipsum() 系列\n中二少女专用当然是本小姐的自定义主题啦！\n\n真是的，本小姐费了这么大功夫整理，你们要好好学习使用哦！(｡◕‿◕｡)\n\n制作者：本小姐\n“用最美的主题，做最棒的图表！” - 本小姐语录",
     "crumbs": [
-      "General",
+      "General knowledge",
       "<span class='chapter-number'>43</span>  <span class='chapter-title'>Theme</span>"
-    ]
-  },
-  {
-    "objectID": "cheatsheet.html",
-    "href": "cheatsheet.html",
-    "title": "44  Cheatsheet",
-    "section": "",
-    "text": "Note\n\n\n\n点击这里下载 PDF 文档",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>44</span>  <span class='chapter-title'>Cheatsheet</span>"
-    ]
-  },
-  {
-    "objectID": "animation.html",
-    "href": "animation.html",
-    "title": "45  Animation",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>45</span>  <span class='chapter-title'>Animation</span>"
-    ]
-  },
-  {
-    "objectID": "interactivity.html",
-    "href": "interactivity.html",
-    "title": "46  Interactivity",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Interactivity</span>"
-    ]
-  },
-  {
-    "objectID": "3d.html",
-    "href": "3d.html",
-    "title": "47  3D",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>47</span>  <span class='chapter-title'>3D</span>"
-    ]
-  },
-  {
-    "objectID": "caveat.html",
-    "href": "caveat.html",
-    "title": "48  Caveat",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>48</span>  <span class='chapter-title'>Caveat</span>"
-    ]
-  },
-  {
-    "objectID": "data-art.html",
-    "href": "data-art.html",
-    "title": "49  Data Art",
-    "section": "",
-    "text": "1",
-    "crumbs": [
-      "General",
-      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Data Art</span>"
     ]
   },
   {
     "objectID": "color.html",
     "href": "color.html",
-    "title": "50  Color",
+    "title": "44  Color",
     "section": "",
-    "text": "1",
+    "text": "44.1 fill or color\nShow/Hide Code\nlibrary(ggplot2)\n\nggplot(mtcars, aes(x=drat)) +\n  geom_density(\n    color=\"purple\", # 边框颜色\n    fill=\"#69b3a2\", # 填充颜色\n    size=2\n  )\n\n\n\n\n\nfill or color 设置颜色",
     "crumbs": [
-      "General",
-      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Color</span>"
+      "General knowledge",
+      "<span class='chapter-number'>44</span>  <span class='chapter-title'>Color</span>"
+    ]
+  },
+  {
+    "objectID": "color.html#pick-one",
+    "href": "color.html#pick-one",
+    "title": "44  Color",
+    "section": "44.2 Pick one",
+    "text": "44.2 Pick one\n选择颜色的 5 种方法\n\n44.2.1 name\n最常见的方法是直接调用颜色的名称。\nR 提供了大约 657 种颜色名称。可以使用 colors() 来获取所有这些颜色名称。\n\n\nShow/Hide Code\npar(mar=c(0,0,0,0)) # 去掉图的边距\n\nplot(0, 0, type = \"n\", \n xlim = c(0, 1), ylim = c(0, 1), \n axes = FALSE, xlab = \"\", ylab = \"\") # 创建一个空图\n\nline &lt;- 25 # 行数\ncol &lt;- 5 # 列数\n\nrect(  \n  rep((0:(col - 1)/col),line) ,  \n  sort(rep((0:(line - 1)/line),col),decreasing=T),   \n  rep((1:col/col),line) , \n  sort(rep((1:line/line),col),decreasing=T),  \n  border = \"white\" , \n  col=colors()[seq(1,line*col)]) # 填充颜色\n\n# 颜色名称\ntext(  \n  rep((0:(col - 1)/col),line)+0.1 ,  \n  sort(rep((0:(line - 1)/line),col),decreasing=T)+0.015 , \n  colors()[seq(1,line*col)]  , \n  cex=1)\n\n\n\n\n\ncolors() 获取所有颜色名称\n\n\n\n\n\n\n44.2.2 rgb\nrgb() 函数允许使用红色、绿色和蓝色的量来构建颜色。\n还有一个附加参数可以设置透明度。所有参数的值都在 0 到 1 之间。\nrgb(red, green, blue, alpha)\n\n\nShow/Hide Code\npar(\n  mfrow = c(2, 3), # 2 行 3 列\n  mar = c(2, 2, 2, 1), # 图的边距\n  oma = c(4, 5, 1, 1)\n) # 图的外边距\n\nline &lt;- 6 # 行数\ncol &lt;- 6 # 列数\nred &lt;- sort(rep(c(0, 0.2, 0.4, 0.6, 0.8, 1), col)) # 红色\ngreen &lt;- rep(c(0, 0.2, 0.4, 0.6, 0.8, 1), line) # 绿色\nnum &lt;- 0 # 计数器\n\nfor (i in seq(0, 1, 0.2)) {\n  num &lt;- num + 1 # 计数器加 1\n  plot(\n    0,\n    0,\n    type = \"n\",\n    xlim = c(0, 1),\n    ylim = c(0, 1),\n    axes = FALSE,\n    xlab = \"\",\n    ylab = \"\"\n  )\n  colors &lt;- rgb(red, green, i, 1) # 构建颜色\n  mtext(\n    paste(\"blue = \", i, sep = \"\"),\n    side = 3,\n    line = 0.15,\n    col = \"blue\",\n    font = 2\n  )\n  rect( # 绘制矩形\n    rep((0:(col - 1) / col), line),\n    sort(rep((0:(line - 1) / line), col), decreasing = T),\n    rep((1:col / col), line),\n    sort(rep((1:line / line), col), decreasing = T),\n    border = \"light gray\",\n    col = colors\n  )\n  axis( # 绘制坐标轴\n    2,\n    at = c(17, 14, 11, 8, 5, 2) / 18 - 0.035,\n    labels = c(\"0\", \"0.2\", \"0.4\", \"0.6\", \"0.8\", \"1\"),\n    tick = F,\n    lty = 6,\n    pos = 0.01\n  )\n  axis( # 绘制坐标轴\n    3,\n    at = c(1.5, 3.5, 5.5, 7.5, 9.5, 11.5) / 12 - 0.045,\n    labels = c(\"0\", \"0.2\", \"0.4\", \"0.6\", \"0.8\", \"1\"),\n    tick = F,\n    pos = -0.15\n  )\n}\n\nmtext(\"Quantity of red\", # 添加文本\n  side = 2, \n  line = 34, \n  col = \"red\", \n  font = 2, \n  at = 1.2\n)\nmtext(\n  \"Quantity of green\", # 添加文本\n  side = 1,\n  line = 3,\n  at = -0.8,\n  col = \"forestgreen\",\n  font = 2\n)\n\n\n\n\n\nrgb() 函数允许使用红色、绿色和蓝色的量来构建颜色\n\n\n\n\nShow/Hide Code\n# 恢复布局\npar(mfrow = c(1, 1))\n\n\n\n\n44.2.3 number\n也可以通过函数的编号来调用。例如，内置颜色的第 143 个，可以使用 colors()[143]。\n\n\nShow/Hide Code\npar(mar = c(0, 0, 0, 0)) # 去掉图的边距\n\nplot( # 创建一个空图\n  0,\n  0,\n  type = \"n\",\n  xlim = c(0, 1),\n  ylim = c(0, 1),\n  axes = FALSE,\n  xlab = \"\",\n  ylab = \"\"\n) \n\n# 参数\nline &lt;- 31 # 行数\ncol &lt;- 21 # 列数\n\n# 矩形\nrect(\n  rep((0:(col - 1) / col), line),\n  sort(rep((0:(line - 1) / line), col), decreasing = T),\n  rep((1:col / col), line),\n  sort(rep((1:line / line), col), decreasing = T),\n  border = \"light gray\",\n  col = colors()[seq(1, 651)]\n)\n\n# 文本\ntext(\n  rep((0:(col - 1) / col), line) + 0.02,\n  sort(rep((0:(line - 1) / line), col), decreasing = T) + 0.01,\n  seq(1, 651),\n  cex = 0.5\n)\n\n\n\n\n\ncolors()[number] 调用内置颜色\n\n\n\n\n\n\n44.2.4 hex\n我们都很熟悉， hex 格式是 # 开头，后面跟着 6 个十六进制数字。\n#000000 表示黑色；#FFFFFF 表示白色。\n\n\n44.2.5 function\n还可以使用调色板函数来设置颜色。",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>44</span>  <span class='chapter-title'>Color</span>"
+    ]
+  },
+  {
+    "objectID": "color.html#变量颜色",
+    "href": "color.html#变量颜色",
+    "title": "44  Color",
+    "section": "44.3 变量颜色",
+    "text": "44.3 变量颜色\n\n\nShow/Hide Code\nlibrary(ggplot2)\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) + \n  geom_point(size = 6)\n\n\n\n\n\n把变量映射到颜色",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>44</span>  <span class='chapter-title'>Color</span>"
+    ]
+  },
+  {
+    "objectID": "cheatsheet.html",
+    "href": "cheatsheet.html",
+    "title": "45  Cheatsheet",
+    "section": "",
+    "text": "Note\n\n\n\n点击这里下载 PDF 文档",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>45</span>  <span class='chapter-title'>Cheatsheet</span>"
+    ]
+  },
+  {
+    "objectID": "animation.html",
+    "href": "animation.html",
+    "title": "46  Animation",
+    "section": "",
+    "text": "Note\n\n\n\nAnimation",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>46</span>  <span class='chapter-title'>Animation</span>"
+    ]
+  },
+  {
+    "objectID": "interactivity.html",
+    "href": "interactivity.html",
+    "title": "47  Interactivity",
+    "section": "",
+    "text": "Note\n\n\n\nInteractive charts",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>47</span>  <span class='chapter-title'>Interactivity</span>"
+    ]
+  },
+  {
+    "objectID": "3d.html",
+    "href": "3d.html",
+    "title": "48  3D",
+    "section": "",
+    "text": "Note\n\n\n\n3D charts",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>48</span>  <span class='chapter-title'>3D</span>"
+    ]
+  },
+  {
+    "objectID": "caveat.html",
+    "href": "caveat.html",
+    "title": "49  Caveat",
+    "section": "",
+    "text": "Note\n\n\n\nCaveats",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>49</span>  <span class='chapter-title'>Caveat</span>"
+    ]
+  },
+  {
+    "objectID": "data-art.html",
+    "href": "data-art.html",
+    "title": "50  Data Art",
+    "section": "",
+    "text": "Note\n\n\n\nData Art",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>50</span>  <span class='chapter-title'>Data Art</span>"
+    ]
+  },
+  {
+    "objectID": "r_packages.html",
+    "href": "r_packages.html",
+    "title": "51  R packages",
+    "section": "",
+    "text": "Note\n\n\n\n数据可视化领域的优秀 R 包",
+    "crumbs": [
+      "General knowledge",
+      "<span class='chapter-number'>51</span>  <span class='chapter-title'>R packages</span>"
     ]
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "51  Summary",
+    "title": "Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>51</span>  <span class='chapter-title'>Summary</span>"
+      "Summary"
     ]
   }
 ]

@@ -1,3 +1,5 @@
 # 3D {#sec-3d}
 
-1
+::: {.callout-note}
+[3D charts](https://r-graph-gallery.com/3d.html)
+:::

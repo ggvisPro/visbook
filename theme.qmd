@@ -11,7 +11,7 @@ library(showtext)
 showtext_auto()
 ```
 
-# Theme
+# Theme {#sec-theme}
 
 ** `ggplot2` 主题大全 (๑•̀ㅂ•́)و✧**
 
