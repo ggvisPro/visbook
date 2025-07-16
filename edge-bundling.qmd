@@ -1,4 +1,4 @@
-# Edge bundling {#edge-bundling}
+# Edge bundling {#sec-edge-bundling}
 
 ::: {callout-note}
 Quarto 渲染有bug，可以阅读:  

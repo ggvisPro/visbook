@@ -1,0 +1,3 @@
+# Color {#sec-color}
+
+1

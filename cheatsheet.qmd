@@ -1,0 +1,5 @@
+# Cheatsheet {#sec-cheatsheet}
+
+::: {.callout-note}
+[点击这里下载 PDF 文档](https://github.com/ggvisPro/visbook/blob/main/files/cheatsheet.pdf)
+:::

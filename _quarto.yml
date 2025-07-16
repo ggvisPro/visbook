@@ -76,6 +76,17 @@ book:
         - arc-diagram.qmd
         - edge-bundling.qmd
 
+    - part: general-knowledge.qmd
+      chapters:
+        - theme.qmd
+        - cheatsheet.qmd
+        - animation.qmd
+        - interactivity.qmd
+        - 3d.qmd
+        - caveat.qmd
+        - data-art.qmd
+        - color.qmd
+
     - summary.qmd
     - references.qmd
 
